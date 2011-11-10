@@ -1,3 +1,4 @@
+
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -6,78 +7,82 @@
 \title{Projekt der Softwareentwicklung 2011/2012}
 \author{Max Wagner, Patrick Gemander, Sebastian Ullrich, Michael Vollmer \\ Robert Hangu, Daniel Lebert}
 \maketitle
-Inputvideos werden unkomprimiert sein, ein Byte array
+Inputvideos werden unkomprimiert sein, eine YUV-Datei.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 General:
-\begin{itemize}
-  \item (multithreaded)
-  \item (Für Linux: GTK-Bindings)
-\end{itemize}
+    \begin{itemize}
+        \item (multithreaded)
+        \item (Für Linux: GTK-Bindings)
+    \end{itemize}
 Input/Output:
-\begin{itemize}
-  \item Video/EncodedVideo-Input (EncodedVideo ist Subklasse von Video, die ihre Logs mitführt)
-  \item (Perlin)-Noise (+/- Intensity)
-  \item Standbild und feste Farbe als Input
-  \item Datei als .yuv-Datei abspeichern
-\end{itemize}
-Manipulation:
-\begin{itemize}
-  \item Farbkanäle trennen ($Video \rightarrow Video^3$)
-  \item Videos mergen ($Video^n \rightarrow Video$)
-\begin{itemize}
-    \item Additiv zusammenrechnen (zB. RGB mergen)
-    \item Gewichtet mitteln
-\end{itemize}
-  \item Blur (Gaussian, Linear, etc.?)
-  \item Contrast, Saturation, Brightness
-  \item Invert
-  \item Quantisierer (Reduktion der Farbpalette)
-  \item Video um $n$ Frames verschieben.
-\end{itemize}
-Analyse:
-\begin{itemize}
-  \item Öffnen bei Klick eigenes Fenster
-  \item Diagrammansicht über Zeit (1 - n Inputs Video/EncodedVideo)
-\begin{itemize}
-    \item Ein Input über Drop-down als Referenzvideo festlegen
-    \item Helligkeitsverlauf
-    \item Diff von Frame n $\rightarrow$ (n+1)
-    \item Graphen:
-\begin{itemize}
-      \item farbig abgegrenzt, ein Farbton pro Graphtyp
-      \item Funktionen über die Zeit
-      \item alte Frames verschwinden links aus dem Bild statt Stauchung
-      \item Zurückscrollbar
-      \item y-Skalierungen separat, dynamisch
-      \item da höchstens 4 verschiedene Skalen zwei Skalendarstellungen links, zwei rechts vom Graph
-      \item x-Skalierung fest
-\end{itemize}
-    \item Zu analysierendes Video über weiteres Drop-down auswählbar, in Instanz dann Graphtyp auswählbar
-    \item Graphen ($Video \rightarrow \mathbb{R}$)
-\begin{itemize}
-      \item I/P/B-Frames
-\end{itemize}
-    \item Graphen ($Video \rightarrow Referenzvideo \rightarrow \mathbb{R}$)
-\begin{itemize}
-      \item Differenz Log-Entscheidungen
-      \item Differenz Pixelfarben
-      \item Anzahl Artefakte anhand der Referenz
-\end{itemize}
-\end{itemize}
-  \item Histogramm
-  \item Diff
-  \item Pseudonoise ratio
-  \item Video-Outputs
-\begin{itemize}
-    \item Simples Video-Output mit eigenem Output-Knoten ($\rightarrow Debugging$)
-    \item Artefakte overlayen
-\end{itemize}
-\end{itemize}
-GUI (Skizzen via Balsamiq):
-\begin{itemize}
-  \item Größtenteils graphbasiert. (Nodes, etc.)
-  \item Analyse und Manipulation in einer GraphView, in der man auch Analyseknoten nach Filter schalten kann
-  \item Einfache Kantendarstellung als Bezierkurven, Drag\&Drop von Eingang auf Ausgang
+    \begin{itemize}
 
-\end{itemize}
+        \item Video/EncodedVideo-Input (EncodedVideo ist Subklasse von Video, die ihre Logs mitführt)
+        \item (Perlin)-Noise (+/- Intensity)
+        \item Standbild und feste Farbe als Input
+        \item Datei als .yuv-Datei abspeichern
+    \end{itemize}
+Manipulation:
+    \begin{itemize}
+        \item Farbkanäle trennen ($Video \rightarrow Video^3$)
+        \item Videos mergen ($Video^n \rightarrow Video$)
+            \begin{itemize}
+                \item Additiv zusammenrechnen (zB. RGB mergen)
+                \item Gewichtet mitteln
+            \end{itemize}
+        \item Blur (Gaussian, Linear, etc.?)
+        \item Contrast, Saturation, Brightness
+        \item Invert
+        \item Quantisierer (Reduktion der Farbpalette)
+        \item Video um $n$ Frames verschieben.
+    \end{itemize}
+Analyse:
+    \begin{itemize}
+        \item Öffnen bei Klick eigenes Fenster
+        \item Diagrammansicht über Zeit (1 - n Inputs Video/EncodedVideo)
+            \begin{itemize}
+                \item Ein Input über Drop-down als Referenzvideo festlegen
+                \item Helligkeitsverlauf
+                \item Diff von Frame n $\rightarrow$ (n+1)
+                \item Graphen:
+                    \begin{itemize}
+                        \item farbig abgegrenzt, ein Farbton pro Graphtyp
+                        \item Funktionen über die Zeit
+                        \item alte Frames verschwinden links aus dem Bild statt Stauchung
+                        \item Zurückscrollbar
+                        \item y-Skalierungen separat, dynamisch
+                        \item da höchstens 4 verschiedene Skalen zwei Skalendarstellungen links, zwei rechts vom Graph
+                        \item x-Skalierung fest
+                    \end{itemize}
+                \item Zu analysierendes Video über weiteres Drop-down auswählbar, in Instanz dann Graphtyp auswählbar
+                \item Graphen ($Video \rightarrow \mathbb{R}$)
+                    \begin{itemize}
+                        \item I/P/B-Frames
+                    \end{itemize}
+                \item Graphen ($Video \rightarrow Referenzvideo \rightarrow \mathbb{R}$)
+                    \begin{itemize}
+                        \item Differenz Log-Entscheidungen
+                        \item Differenz Pixelfarben
+                        \item Anzahl Artefakte anhand der Referenz
+                    \end{itemize}
+            \end{itemize}
+        \item Histogramm
+        \item Diff
+        \item Pseudonoise ratio
+        \item Video-Outputs
+            \begin{itemize}
+                \item Simples Video-Output mit eigenem Output-Knoten ($\rightarrow Debugging$)
+                \item Artefakte overlayen
+            \end{itemize}
+    \end{itemize}
+GUI (Skizzen via Balsamiq):
+    \begin{itemize}
+        \item Größtenteils graphbasiert. (Nodes, etc.)
+        \item Analyse und Manipulation in einer GraphView, in der man auch Analyseknoten nach Filter schalten kann
+        \item Einfache Kantendarstellung als Bezierkurven, Drag\&Drop von Eingang auf Ausgang
+    \end{itemize}
+
+
 \end{document}
