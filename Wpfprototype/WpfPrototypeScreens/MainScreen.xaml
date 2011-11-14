@@ -1,0 +1,72 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:pc="http://schemas.microsoft.com/prototyping/2010/controls" x:Name="Bildschirm_1_Name"
+	xmlns:cor="clr-namespace:System;assembly=mscorlib"
+	mc:Ignorable="d"
+	x:Class="WpfPrototype1Screens.Bildschirm_1"
+	Width="600" Height="380">
+ <UserControl.Resources>
+		<ControlTemplate x:Key="NodeTemplate" TargetType="HeaderedContentControl">
+			<Grid>
+				<pc:SketchRectangleUC Style="{DynamicResource Rectangle-Sketch}"/>
+				<pc:SketchRectangleUC Style="{DynamicResource Rectangle-Sketch}" Width="12" Height="12" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="2"/>
+				<StackPanel>
+					<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" TextAlignment="Center" Text="{TemplateBinding Header}"/>
+					<ContentPresenter/>
+				</StackPanel>
+			</Grid>
+		</ControlTemplate>
+	</UserControl.Resources>
+	<DockPanel x:Name="LayoutRoot" Background="White">
+		<Grid DockPanel.Dock="Top">
+			<pc:SketchRectangleUC Style="{DynamicResource Rectangle-Sketch}"/>
+			<StackPanel Orientation="Horizontal" Margin="10">
+				<Button Style="{DynamicResource Button-Sketch}">Some</Button>
+				<Button Style="{DynamicResource Button-Sketch}">Buttons</Button>
+			</StackPanel>
+		</Grid>
+		<ListBox Style="{DynamicResource ListBox-Sketch}" DockPanel.Dock="Bottom" ItemsPanel="{DynamicResource ItemsPanelTemplate}">
+			<ListBox.Resources>
+				<ItemsPanelTemplate x:Key="ItemsPanelTemplate">
+					<VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+				</ItemsPanelTemplate>
+			</ListBox.Resources>
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid Margin="10">
+						<pc:SketchRectangleUC Style="{DynamicResource Rectangle-Sketch}"/>
+						<TextBlock Margin="10" Style="{DynamicResource TextBlock-Sketch}" Text="{Binding Mode=OneWay}"/>
+					</Grid>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+			<cor:String>Split RGB</cor:String>
+			<cor:String>View Statistics</cor:String>
+		</ListBox>
+		<Canvas>
+			<HeaderedContentControl Header="Blur" Width="60" Canvas.Left="230" Canvas.Top="48" Template="{StaticResource NodeTemplate}">
+				<StackPanel>
+					<Slider Margin="0,10,0,0" Style="{DynamicResource Slider-Sketch}" TickPlacement="BottomRight" Value="3" />
+					<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" Text="Radius" FontStyle="Italic" />
+				</StackPanel>
+				</HeaderedContentControl>
+			<HeaderedContentControl Header="Input" Template="{StaticResource NodeTemplate}" Width="100" Canvas.Left="33" Canvas.Top="131">
+				<DockPanel>
+					<Button DockPanel.Dock="Right" Style="{DynamicResource Button-Sketch}">...</Button>
+					<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" Text="C:\Users\" />
+				</DockPanel>
+			</HeaderedContentControl>
+			<HeaderedContentControl Header="Output" Template="{StaticResource NodeTemplate}" Width="100" Canvas.Left="383" Canvas.Top="101">
+				<StackPanel>
+					<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" TextAlignment="Center" FontStyle="Italic">Here be Graph</TextBlock>
+					<Button Margin="5,5,5,5" Style="{DynamicResource Button-Sketch}">
+						<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}">Display</TextBlock>
+					</Button>
+				</StackPanel>
+			</HeaderedContentControl>
+			<Path Height="85" Canvas.Left="131" Stretch="Fill" Stroke="Black" Canvas.Top="74.04" Width="100" Data="m 0,1 C 0.5,1 0.5,0 1,0"/>
+			<Path Height="58" Canvas.Left="288" Stretch="Fill" Stroke="Black" Canvas.Top="74" Width="97" Data="m 0,0 C 0.5,0 0.5,1 1,1"/>
+		</Canvas>
+	</DockPanel>
+</UserControl>

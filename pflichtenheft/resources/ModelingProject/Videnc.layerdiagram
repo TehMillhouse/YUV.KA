@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="c4bbd5a1-ac2b-4439-b5d7-200748b578d7" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
+  <layers>
+    <layer Id="034a12e5-2070-410d-a3c6-232fa6a2a88a" name="Pipeline">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="e9c67af9-2682-4d70-adc2-ad479e640a33" direction="Forward">
+          <layerMoniker Id="eeb4353f-65c4-4b0b-80fe-69fc53eabb30" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <childLayers>
+        <layer Id="064f4044-4afb-4593-8e06-45ef0208fb8d" name="Nodes">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="cc5b5aa6-6707-434f-8ea5-b665412b1712" direction="Forward">
+              <layerMoniker Id="2ae90a4f-14ac-40d6-bd47-065b70a742e3" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+        </layer>
+        <layer Id="5c75ffe8-f94b-4c4e-bcfc-01d69daa7a48" name="Pipeline Driver">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="8ebcbc79-ae7e-4b8d-8a6d-e85903784575" direction="Bidirectional">
+              <layerMoniker Id="064f4044-4afb-4593-8e06-45ef0208fb8d" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+        </layer>
+      </childLayers>
+    </layer>
+    <layer Id="2ae90a4f-14ac-40d6-bd47-065b70a742e3" name="[External] Encoder" />
+    <layer Id="41d3c08b-78d8-4995-9f6d-5b754f1eb3b6" name="ViewModel">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="dc9c1794-09f4-420d-a77e-92a11d322215" direction="Forward">
+          <layerMoniker Id="034a12e5-2070-410d-a3c6-232fa6a2a88a" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+    </layer>
+    <layer Id="eeb4353f-65c4-4b0b-80fe-69fc53eabb30" name="Video Model" />
+    <layer Id="ecfde367-b916-49a1-92b0-b87644741923" name="View">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="802086a5-8ab8-446a-a0d2-deca9b46b518" direction="Forward">
+          <layerMoniker Id="41d3c08b-78d8-4995-9f6d-5b754f1eb3b6" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+    </layer>
+  </layers>
+</layerModel>

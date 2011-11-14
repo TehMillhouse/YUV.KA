@@ -1,0 +1,16 @@
+[Bb]in/
+obj/
+*.designer.*
+
+# VS
+*.user
+*.suo
+_ReSharper.*
+*.sln.cache
+*.Publish.xml
+*.vs10x
+
+# pdflatex output doesn't belong into git
+*.pdf
+*.aux
+*.log
