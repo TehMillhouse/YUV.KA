@@ -1,0 +1,11 @@
+[Bb]in/
+obj/
+*.designer.*
+
+# VS
+*.user
+*.suo
+_ReSharper.*
+*.sln.cache
+*.Publish.xml
+*.vs10x
