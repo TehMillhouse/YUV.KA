@@ -1,0 +1,38 @@
+\section{Zielbestimmung}
+
+Die Firma soll durch das Produkt in die Lage versetzt werden, Encoder zu testen, indem encodierte Videos manipuliert und anhand eines Referenzvideos verglichen werden.
+
+\subsection{Musskriterien}
+
+\begin{itemize}
+	\item Eingabe von (encodierten) Videos, einer festen Farbe, einem Bild oder Noise
+	\item Manipulation der Videos
+	\begin{itemize}
+		\item Erstellen einer Pipeline mit verschiedenen Manipulationsoptionen
+		\item Zusammenstellung über knotenbasierte GraphView
+	\end{itemize}
+	\item Analyse der Videos
+	\begin{itemize}
+		\item Anzeigen verschiedener Diagramme
+		\item Videoausgabe mit optionalen Overlayoptionen
+	\end{itemize}
+	\item Speichern der Videos und Pipeline
+\end{itemize}
+
+\subsection{Wunschkriterien}
+
+\begin{itemize}
+	\item Undo/Redo-funktion
+	\item Interface mit Tabs
+	\item Automatische Resolution-Erkennung
+	\item Asynchrone, nichtblockende UI
+	\item Multithreading
+\end{itemize}
+
+\subsection{Abgrenzungskriterien}
+
+\begin{itemize}
+	\item keine Soundausgabe
+	\item nur YUV-Videos als Eingabe
+	\item keine Speicherung der Graphen und Analysedaten
+\end{itemize}
