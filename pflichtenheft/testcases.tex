@@ -1,60 +1,25 @@
 \section{Testfälle}
 
-Folgende Funktionssequenzen sind zu überprüfen:
+\textbf{Folgende Funktionssequenzen sind zu überprüfen:}
 \begin{itemize}
-	\item /T01/
-		\begin{itemize}
-			\item Eingabeknoten erstellen, verschieben, verändern, löschen
-		\end{itemize}
-	\item /T02/
-		\begin{itemize}
-			\item Manipulationsknoten erstellen, verschieben, verändern, löschen
-		\end{itemize}
-	\item /T03/
-		\begin{itemize}
-			\item Endknoten erstellen, verschieben, öffnen, schließen, löschen
-		\end{itemize}
-	\item /T04/
-		\begin{itemize}
-			\item Erstellen, Verschieben und Löschen von Kanten zwischen Knoten
-		\end{itemize}
-	\item /T05/
-		\begin{itemize}
-			\item Graphen erstellen, speichern, laden
-		\end{itemize}
-	\item /T06/
-		\begin{itemize}
-			\item Wiedergabe starten, stoppen, Abspielgeschwindigkeit ändern, fortsetzen, zurücksetzen
-		\end{itemize}
-	\item /T07/
-		\begin{itemize}
-			\item YUV-Datei einlesen, manipulieren, wiedergeben, speichern
-		\end{itemize}
-	\item /T08/
-		\begin{itemize}
-			\item Diagrammknoten öffnen, Referenzvideo festlegen, Graph hinzufügen, Graphtyp ändern, Graph entfernen, Diagramm schließen, Knoten deaktivieren, Knoten 
-			reaktivieren
-		\end{itemize}
+	\item\textbf{/T10/} Eingabeknoten erstellen, verschieben, verändern, löschen
+	\item\textbf{/T20/} Manipulationsknoten erstellen, verschieben, verändern, löschen
+	\item\textbf{/T30/} Endknoten erstellen, verschieben, öffnen, schließen, löschen
+	\item\textbf{/T40/} Erstellen, Verschieben und Löschen von Kanten zwischen Knoten
+	\item\textbf{/T50/} Pipeline erstellen, speichern, laden
+	\item\textbf{/T60/} Wiedergabe starten, stoppen, Abspielgeschwindigkeit ändern, fortsetzen, zurücksetzen
+	\item\textbf{/T70/} YUV-Datei einlesen, manipulieren, wiedergeben, speichern
+	\item\textbf{/T80/} Diagrammknoten öffnen, Referenzvideo festlegen, Graph hinzufügen, Graphtyp ändern, Graph entfernen, Diagramm schließen, Knoten deaktivieren, Knoten 
+				reaktivieren
 \end{itemize}
 
-\newpage
-Folgende Datenkonsistenzen sind einzuhalten:
+~\\
+
+\textbf{Folgende Datenkonsistenzen sind einzuhalten:}
 \begin{itemize}
-	\item /T20/
-		\begin{itemize}
-			\item Wiedergabe ist nur möglich, wenn mindests ein Endknoten geöffnet ist
-		\end{itemize}
-	\item /T21/
-		\begin{itemize}
-			\item Wiedergabe ist nur möglich, wenn alle mit dem Graphen verbundenen Eingabeknoten eine Quelle besitzen
-		\end{itemize}
-	\item /T22/
-		\begin{itemize}
-			\item Das Speichern einer YUV-Datei nach einem Knoten ist nur möglich, wenn dieser Knoten ein gültiges Video als Eingabe besitzt oder ein Eingabeknoten mit 
-			gültiger Quelle ist
-		\end{itemize}
-	\item /T23/
-		\begin{itemize}
-			\item Der Graph kann nicht verändert werden, während die Wiedergabe läuft oder pausiert ist. Ausnahme hierbei sind die Optionen der Manipulationsknoten
-		\end{itemize}
-	\end{itemize}
+	\item\textbf{/T100/} Wiedergabe ist nur möglich, wenn mindests ein Endknoten geöffnet ist.
+	\item\textbf{/T110/} Wiedergabe ist nur möglich, wenn alle mit der Pipeline verbundenen Eingabeknoten eine Quelle besitzen.
+	\item\textbf{/T120/} Das Speichern einer YUV-Datei nach einem Knoten ist nur möglich, wenn dieser Knoten ein gültiges Video als Eingabe besitzt oder ein Eingabeknoten mit 
+				gültiger Quelle ist.
+	\item\textbf{/T130/} Die Pipeline kann nicht verändert werden, während die Wiedergabe läuft oder pausiert ist. Ausnahme hierbei sind die Optionen der Manipulationsknoten.
+\end{itemize}
