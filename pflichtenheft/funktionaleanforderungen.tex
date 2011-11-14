@@ -1,0 +1,47 @@
+\section{Funktionale Anforderungen}
+
+\subparagraph{Input/Output zur Videobearbeitung} 
+\begin{itemize} 
+	\item \textbf{/F10/} Einlesen eines Videos im yuv-Format.
+	\item \textbf{/F20/} Erzeugung von (Perlin-)Noise.
+	\item \textbf{/F30/} Einlesen einer Bilddatei als Standbild-Video.
+	\item \textbf{/F40/} Speichern eines Videos als yuv-Datei.
+	\item \textbf{/F50/} Speichern und Laden der erstellten Bearbeitungs-/Analysestrukturen
+\end{itemize}
+
+\subparagraph{Videobearbeitung}
+\begin{itemize}
+	\item \textbf{/F100/} Trennung nach den RGB-Farbkanälen.
+	\item \textbf{/F110/} Additives Übereinanderlegen mehrerer Videos.
+	\item \textbf{/F120/} Gewichtet gemitteltes Übereinanderlegen mehrerer Videos.
+	\item \textbf{/F130/} Lineares und Gauß'sches Weichzeichnen von Videos.
+	\item \textbf{/F140/} Farbinvertierung eines Videos.
+	\item \textbf{/F150/} Quantisieren der Farbpalette eines Videos.
+	\item \textbf{/F160/} Änderung von Kontrast, Farbsättigung und Helligkeit eines Videos.
+	\item \textbf{/F170/} Verschiebung eines Videos um $n$ Frames nach Hinten.	
+\end{itemize}
+
+\subparagraph{Videoanalyse}
+\begin{itemize}
+	\item Analyse eines einzelnen Videos  
+		\begin{itemize}
+			\item \textbf{/F200/} Anzeigen der I/P/B-Frames eines Videos.
+			\item \textbf{/F210/} Anzeigen des Helligkeitsverlaufs eines Videos pro Frame.
+			\item \textbf{/F220/} Differenz zwischen Frame $n$ und Frame $n + 1$ in einem Video.	
+			\item \textbf{/F230/} Anzeigen des Histogramms eines Video.
+			\item \textbf{/F240/} Anzeigen der Pseodo-Nois-Ratio pro Frame.
+		   \end{itemize} 
+	\item Vergleich eines oder mehrerer Videos mit einem Referenzvideo
+		\begin{itemize}
+			\item \textbf{/F300/} Differenz der Pixelfarben.
+			\item \textbf{/F310/} Differenz der Log-Entscheidungen.
+			\item \textbf{/F320/} Anzahl der Artefakte
+			\item \textbf{/F330/} Videoansicht mit Highlighting der Artefakte.
+		\end{itemize}	
+	\item Sonstiges
+		\begin{itemize}
+			\item \textbf{/F400/} Anzeigen eines Videos. 
+			\item \textbf{/F410/} /F10/ bis /F330/ sollen im Rahmen der Rechnerleistung beliebig kombinierbar sein.
+		\end{itemize}
+\end{itemize}
+
