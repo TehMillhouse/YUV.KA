@@ -24,7 +24,7 @@
 	<SolidColorBrush x:Key="FocusedBorder-Sketch" Color="#FF000000"/>
 	<SolidColorBrush x:Key="DisabledBorder-Sketch" Color="#FF9F9F9F"/>
 	<SolidColorBrush x:Key="SelectedBackground-Sketch" Color="#FFAFAFAF"/>
-	<FontFamily x:Key="FontFamily-Sketch">/WpfPrototype1.Screens;component/Fonts/#Buxton Sketch</FontFamily>
+	<FontFamily x:Key="FontFamily-Sketch">/WpfPrototype.Screens;component/Fonts/#Buxton Sketch</FontFamily>
 	<sys:Double x:Key="SizeDouble-Sketch">19</sys:Double>
 	<FontWeight x:Key="FontWeight-Sketch">Normal</FontWeight>
 

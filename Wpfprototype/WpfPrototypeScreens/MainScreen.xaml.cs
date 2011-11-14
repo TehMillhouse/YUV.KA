@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfPrototype1Screens
+namespace WpfPrototypeScreens
 {
 	/// <summary>
-	/// Interaktionslogik für Bildschirm_1.xaml
+	/// Interaktionslogik für MainScreen.xaml
 	/// </summary>
-	public partial class Bildschirm_1 : UserControl
+	public partial class MainScreen : UserControl
 	{
-		public Bildschirm_1()
+		public MainScreen()
 		{
 			this.InitializeComponent();
 		}
