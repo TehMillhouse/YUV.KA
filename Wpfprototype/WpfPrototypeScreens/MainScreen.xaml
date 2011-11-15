@@ -7,24 +7,30 @@
 	mc:Ignorable="d"
 	x:Class="WpfPrototypeScreens.MainScreen"
 	Width="600" Height="380">
- <UserControl.Resources>
-		<ControlTemplate x:Key="NodeTemplate" TargetType="HeaderedContentControl">
-			<Grid>
-				<pc:SketchRectangleUC Style="{DynamicResource Rectangle-Sketch}"/>
-				<pc:SketchRectangleUC Style="{DynamicResource Rectangle-Sketch}" Width="12" Height="12" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="2"/>
-				<StackPanel>
-					<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" TextAlignment="Center" Text="{TemplateBinding Header}"/>
-					<ContentPresenter/>
-				</StackPanel>
-			</Grid>
-		</ControlTemplate>
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Icons.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<ControlTemplate x:Key="NodeTemplate" TargetType="HeaderedContentControl">
+				<Grid>
+					<pc:SketchRectangleUC Style="{DynamicResource Rectangle-Sketch}"/>
+					<pc:SketchRectangleUC Style="{DynamicResource Rectangle-Sketch}" Width="12" Height="12" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="2"/>
+					<StackPanel>
+						<ContentPresenter Margin="5" Content="{TemplateBinding Header}"/>
+						<ContentPresenter/>
+					</StackPanel>
+				</Grid>
+			</ControlTemplate>
+		</ResourceDictionary>
 	</UserControl.Resources>
 	<DockPanel x:Name="LayoutRoot" Background="White">
 		<Grid DockPanel.Dock="Top">
 			<pc:SketchRectangleUC Style="{DynamicResource Rectangle-Sketch}"/>
-			<StackPanel Orientation="Horizontal" Margin="10">
-				<Button Style="{DynamicResource Button-Sketch}">Some</Button>
-				<Button Style="{DynamicResource Button-Sketch}">Buttons</Button>
+			<StackPanel Orientation="Horizontal" Margin="5" Height="40" HorizontalAlignment="Center">
+				<Button Margin="5" Style="{DynamicResource Button-Sketch}" Content="{StaticResource RewindIcon}"/>
+				<Button Margin="5" Style="{DynamicResource Button-Sketch}" Content="{StaticResource PlayIcon}"/>
+				<Button Margin="5" Style="{DynamicResource Button-Sketch}" Content="{StaticResource StopIcon}"/>
 			</StackPanel>
 		</Grid>
 		<ListBox Style="{DynamicResource ListBox-Sketch}" DockPanel.Dock="Bottom" ItemsPanel="{DynamicResource ItemsPanelTemplate}">
@@ -37,27 +43,31 @@
 				<DataTemplate>
 					<Grid Margin="10">
 						<pc:SketchRectangleUC Style="{DynamicResource Rectangle-Sketch}"/>
-						<TextBlock Margin="10" Style="{DynamicResource TextBlock-Sketch}" Text="{Binding Mode=OneWay}"/>
+						<ContentPresenter Margin="10" Content="{Binding}"/>
 					</Grid>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
-			<cor:String>Split RGB</cor:String>
-			<cor:String>View Statistics</cor:String>
+			<ContentPresenter Content="{StaticResource AnalyzeIcon}"/>
+			<ContentPresenter Content="{StaticResource GraphIcon}"/>
+			<ContentPresenter Content="{StaticResource MergeAdditiveIcon}"/>
+			<ContentPresenter Content="{StaticResource MergeDiffIcon}"/>
+			<ContentPresenter Content="{StaticResource MergeAverageIcon}"/>
+			<ContentPresenter Content="{StaticResource RgbSplitIcon}"/>
 		</ListBox>
 		<Canvas>
-			<HeaderedContentControl Header="Blur" Width="60" Canvas.Left="230" Canvas.Top="48" Template="{StaticResource NodeTemplate}">
+			<HeaderedContentControl Header="{StaticResource BlurIcon}" Width="60" Canvas.Left="230" Canvas.Top="48" Template="{StaticResource NodeTemplate}">
 				<StackPanel>
 					<Slider Margin="0,10,0,0" Style="{DynamicResource Slider-Sketch}" TickPlacement="BottomRight" Value="3" />
 					<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" Text="Radius" FontStyle="Italic" />
 				</StackPanel>
-				</HeaderedContentControl>
-			<HeaderedContentControl Header="Input" Template="{StaticResource NodeTemplate}" Width="100" Canvas.Left="33" Canvas.Top="131">
+			</HeaderedContentControl>
+			<HeaderedContentControl Header="{StaticResource FileIcon}" Template="{StaticResource NodeTemplate}" Width="100" Canvas.Left="33" Canvas.Top="131">
 				<DockPanel>
 					<Button DockPanel.Dock="Right" Style="{DynamicResource Button-Sketch}">...</Button>
 					<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" Text="C:\Users\" />
 				</DockPanel>
 			</HeaderedContentControl>
-			<HeaderedContentControl Header="Output" Template="{StaticResource NodeTemplate}" Width="100" Canvas.Left="383" Canvas.Top="101">
+			<HeaderedContentControl Header="{StaticResource EyeIcon}" Template="{StaticResource NodeTemplate}" Width="100" Canvas.Left="383" Canvas.Top="101">
 				<StackPanel>
 					<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" TextAlignment="Center" FontStyle="Italic">Here be Graph</TextBlock>
 					<Button Margin="5,5,5,5" Style="{DynamicResource Button-Sketch}">
