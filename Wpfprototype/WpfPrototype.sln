@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfPrototype", "WpfPrototype.csproj", "{71a10a7e-2066-43d4-b3eb-88f1a0e90669}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfPrototype", "WpfPrototype.csproj", "{71A10A7E-2066-43D4-B3EB-88F1A0E90669}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfPrototypeScreens", "WpfPrototypeScreens\WpfPrototypeScreens.csproj", "{5d279871-f1d4-4c6f-8538-4a2a4c857f30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfPrototypeScreens", "WpfPrototypeScreens\WpfPrototypeScreens.csproj", "{5D279871-F1D4-4C6F-8538-4A2A4C857F30}"
+EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "ModelingProject", "..\pflichtenheft\resources\ModelingProject\ModelingProject.modelproj", "{37A435F6-88C9-4622-829F-9733BEACFCCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,5 +21,12 @@ Global
 		{5D279871-F1D4-4C6F-8538-4A2A4C857F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D279871-F1D4-4C6F-8538-4A2A4C857F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D279871-F1D4-4C6F-8538-4A2A4C857F30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37A435F6-88C9-4622-829F-9733BEACFCCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37A435F6-88C9-4622-829F-9733BEACFCCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37A435F6-88C9-4622-829F-9733BEACFCCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37A435F6-88C9-4622-829F-9733BEACFCCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

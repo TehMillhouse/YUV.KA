@@ -1,6 +1,7 @@
 [Bb]in/
 obj/
 *.designer.*
+*.swp
 
 # VS
 *.user

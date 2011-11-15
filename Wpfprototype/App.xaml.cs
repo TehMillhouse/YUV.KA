@@ -9,9 +9,9 @@ using System.Windows;
 // bei der Projekterstellung festgelegt. Wenn aber der Name der Steuerelementassembly manuell geändert wird, dann muss der Name hier
 // auch manuell aktualisiert werden.
 //
-[assembly: Microsoft.Expression.Prototyping.Services.SketchFlowLibraries("WpfPrototype1.Screens")]
+[assembly: Microsoft.Expression.Prototyping.Services.SketchFlowLibraries("WpfPrototype.Screens")]
 
-namespace WpfPrototype1
+namespace WpfPrototype
 {
 	/// <summary>
 	/// Interaktionslogik für "App.xaml"
