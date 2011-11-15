@@ -1,0 +1,649 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Viewbox Width="32" Height="32" x:Key="BlurIcon">
+		<Grid>
+			<!-- blur/<Path> -->
+
+			<!-- blur/<Path> -->
+			<Path Data="F1 M 595.280,595.280 L 0.000,595.280 L 0.000,0.000 L 595.280,0.000 L 595.280,595.280 Z">
+				<Path.Fill>
+					<RadialGradientBrush MappingMode="Absolute" GradientOrigin="298.640,-297.640" Center="298.640,-297.640" RadiusX="297.640" RadiusY="297.640">
+						<RadialGradientBrush.GradientStops>
+							<GradientStop Offset="0.00" Color="#ff000000"/>
+							<GradientStop Offset="1.00" Color="#ffffffff"/>
+						</RadialGradientBrush.GradientStops>
+						<RadialGradientBrush.Transform>
+							<MatrixTransform Matrix="1.000,0.000,-0.000,-1.000,-1.000,0.000" />
+						</RadialGradientBrush.Transform>
+					</RadialGradientBrush>
+				</Path.Fill>
+			</Path>
+			<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Fill="#ff000000" Data="F1 M 314.141,315.141 L 279.140,315.141 L 279.140,280.141 L 314.141,280.141 L 314.141,315.141 Z"/>
+		</Grid>
+	</Viewbox>
+	<Viewbox Width="32" Height="32" x:Key="EyeIcon">
+		<Grid>
+			<!-- merge base/<Path> -->
+			<Path StrokeThickness="40.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 282.631,305.000 C 282.631,296.389 275.582,289.409 266.885,289.409 C 258.191,289.409 251.145,296.389 251.145,305.000 C 251.145,313.609 258.191,320.591 266.885,320.591 C 275.582,320.591 282.631,313.609 282.631,305.000 Z"/>
+
+			<!-- eye/<Path> -->
+			<Path StrokeThickness="29.3" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 1.219,305.000 C 1.219,305.000 138.195,204.500 273.052,204.500 C 403.798,204.500 532.552,305.000 532.552,305.000"/>
+
+			<!-- eye/<Path> -->
+			<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 350.052,305.000 C 350.052,259.068 312.817,221.833 266.885,221.833 C 220.954,221.833 183.719,259.068 183.719,305.000 C 183.719,350.932 220.954,388.167 266.885,388.167 C 312.817,388.167 350.052,350.932 350.052,305.000 Z"/>
+
+			<!-- eye/<Path> -->
+			<Path StrokeThickness="18.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 43.052,348.750 C 43.052,348.750 154.490,429.560 266.053,430.504 C 266.553,430.509 267.053,430.511 267.553,430.511 C 268.219,430.511 268.886,430.507 269.552,430.500 C 379.283,429.305 488.052,348.750 488.052,348.750"/>
+
+			<!-- eye/<Path> -->
+			<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 266.885,204.500 L 266.885,85.000"/>
+
+			<!-- eye/<Path> -->
+			<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 80.320,256.184 L 20.359,152.816"/>
+
+			<!-- eye/<Path> -->
+			<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 449.138,254.750 L 508.765,151.190"/>
+
+			<!-- eye/<Path> -->
+			<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 364.333,216.260 L 400.744,102.442"/>
+
+			<!-- eye/<Path> -->
+			<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 164.957,216.481 L 129.964,102.220"/>
+
+			<!-- eye/<Path> -->
+			<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 537.463,0.000"/>
+		</Grid>
+	</Viewbox>
+	<Viewbox Width="32" Height="32" x:Key="FileIcon">
+		<Canvas Width="535.456" Height="323.587">
+
+			<Canvas>
+
+				<Canvas>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 66.086,316.587 L 6.921,32.225"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 66.086,316.587 L 128.039,82.677"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 128.039,82.677 L 528.440,82.677"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 466.488,316.587 L 528.440,82.678"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 66.086,316.587 L 466.488,316.587"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 407.322,32.225"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 466.488,316.587"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 418.052,82.677 L 407.322,32.225"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 358.914,7.000 L 257.092,7.000"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 358.914,7.000 L 375.745,32.225"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 257.092,7.000 L 249.156,32.225"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 6.921,32.225 L 249.156,32.225"/>
+
+					<!-- file/<Group>/<Path> -->
+					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 375.745,32.225 L 407.322,32.225"/>
+
+				</Canvas>
+
+			</Canvas>
+		</Canvas>
+	</Viewbox>
+
+	<Viewbox Width="32" Height="32" x:Key="AnalyzeIcon">
+		<Canvas Width="564.687" Height="529.017">
+
+			<Canvas>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="40.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 301.101,305.000 C 301.101,296.389 294.051,289.409 285.354,289.409 C 276.660,289.409 269.614,296.389 269.614,305.000 C 269.614,313.609 276.660,320.591 285.354,320.591 C 294.051,320.591 301.101,313.609 301.101,305.000 Z"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="16.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Fill="#ff929292" Data="F1 M 189.556,246.667 L 96.772,246.667 L 96.772,153.884 L 189.556,153.884 L 189.556,246.667 Z"/>
+
+			</Canvas>
+
+			<Canvas>
+
+				<Canvas>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 0.646,61.102 L 560.229,61.102"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 4.382,153.884 L 563.965,153.884"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 3.387,246.667 L 562.971,246.667"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 4.382,339.451 L 563.965,339.451"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 4.382,432.231 L 563.965,432.231"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 3.387,525.017 L 562.971,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 4.000,61.102 L 4.000,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 96.772,61.102 L 96.772,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 189.556,61.102 L 189.556,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 282.338,61.102 L 282.338,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 375.121,61.102 L 375.121,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 467.903,61.102 L 467.903,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 560.687,61.102 L 560.687,525.017"/>
+
+				</Canvas>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="29.3" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 19.688,305.000 C 19.688,305.000 156.665,204.500 291.521,204.500 C 422.268,204.500 551.021,305.000 551.021,305.000"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 368.521,305.000 C 368.521,259.068 331.286,221.833 285.354,221.833 C 239.423,221.833 202.188,259.068 202.188,305.000 C 202.188,350.932 239.423,388.167 285.354,388.167 C 331.286,388.167 368.521,350.932 368.521,305.000 Z"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="18.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 61.521,348.750 C 61.521,348.750 172.959,429.560 284.522,430.504 C 285.022,430.509 285.522,430.511 286.022,430.511 C 286.688,430.511 287.355,430.507 288.021,430.500 C 397.752,429.305 506.521,348.750 506.521,348.750"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 285.354,204.500 L 285.354,85.000"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 98.789,256.184 L 38.828,152.816"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 467.607,254.750 L 527.234,151.190"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 382.803,216.260 L 419.213,102.442"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 183.426,216.481 L 148.434,102.220"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 555.933,0.000"/>
+
+			</Canvas>
+		</Canvas>
+	</Viewbox>
+	<Viewbox Width="32" Height="32" x:Key="GraphIcon">
+		<Canvas Width="564.976" Height="471.915">
+
+			<Canvas>
+
+				<!-- graph/<Path> -->
+				<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 0.339,296.047 C 4.632,296.413 8.632,297.413 12.632,296.413 C 25.632,293.413 38.632,286.413 48.632,277.413 C 50.548,275.579 52.458,273.592 54.370,271.504 C 56.282,269.417 58.196,267.225 60.031,264.786 C 62.631,262.413 63.631,259.413 65.631,256.413 C 81.631,228.413 74.631,187.413 103.631,170.413 C 110.631,166.413 118.631,179.413 127.631,178.413 C 136.631,178.413 139.631,166.413 143.618,158.143 C 144.958,155.451 146.293,153.182 147.754,151.629 C 149.215,150.079 150.797,149.252 152.631,149.495 C 160.631,150.413 165.631,157.413 169.631,163.413 C 171.006,166.038 172.397,168.631 173.799,171.202 C 175.202,173.772 176.616,176.319 178.038,178.850 C 202.508,212.924 213.463,252.405 217.272,292.924 C 217.618,296.612 217.905,300.307 218.137,304.020 C 218.487,306.959 218.702,310.184 218.836,313.602 C 222.631,336.413 219.631,368.413 239.631,384.413 C 240.631,384.413 244.631,383.413 245.631,382.413 C 253.631,369.413 252.631,354.413 256.815,340.934 C 257.665,338.040 258.524,335.145 259.366,332.241 C 262.735,320.620 265.838,308.829 267.045,296.243 C 267.840,292.475 268.737,288.778 269.768,285.163 C 273.891,270.705 280.188,257.518 290.965,247.071 C 293.836,247.807 296.211,249.083 298.221,250.741 C 308.274,259.030 309.208,276.860 317.323,285.258 C 319.270,287.274 321.631,288.745 324.631,289.403 C 326.631,289.413 328.631,289.413 330.631,289.413 C 336.381,286.663 340.694,281.725 344.319,276.006 C 346.131,273.147 347.768,270.088 349.293,266.994 C 351.631,242.413 373.631,235.413 389.631,219.413 C 399.631,208.413 403.631,194.413 402.758,180.491 C 402.977,177.721 403.141,174.894 403.325,172.040 C 403.881,163.475 404.631,154.663 407.631,146.413 C 415.631,126.413 416.631,105.412 422.194,84.219 C 422.850,81.425 423.618,78.707 424.583,76.097 C 427.463,68.268 432.131,61.412 439.631,56.412 C 443.131,69.537 444.909,83.045 446.704,96.508 C 447.061,99.200 447.418,101.891 447.788,104.577 C 449.631,117.413 451.631,130.413 455.807,142.933 C 456.452,145.166 457.139,147.403 457.907,149.641 C 458.674,151.880 459.522,154.120 460.485,156.356 C 461.225,158.584 461.956,160.750 462.704,162.762 C 464.948,168.801 467.350,173.475 470.631,174.413 C 501.631,183.413 515.631,208.413 539.260,226.116 C 540.575,227.746 541.713,229.579 542.756,231.538 C 545.881,237.413 548.131,244.413 551.631,250.413 C 553.631,253.413 556.631,255.413 559.563,257.036"/>
+
+			</Canvas>
+
+			<Canvas>
+
+				<Canvas>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 0.936,4.000 L 560.519,4.000"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 4.671,96.782 L 564.254,96.782"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 3.676,189.564 L 563.260,189.564"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 4.671,282.349 L 564.254,282.349"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 4.671,375.129 L 564.254,375.129"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 3.676,467.915 L 563.260,467.915"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 4.290,4.000 L 4.290,467.915"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 97.062,4.000 L 97.062,467.915"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 189.845,4.000 L 189.845,467.915"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 282.627,4.000 L 282.627,467.915"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 375.411,4.000 L 375.411,467.915"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 468.193,4.000 L 468.193,467.915"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 560.976,4.000 L 560.976,467.915"/>
+
+				</Canvas>
+
+			</Canvas>
+		</Canvas>
+	</Viewbox>
+	<Viewbox Width="32" Height="32" x:Key="MergeAdditiveIcon">
+		<Canvas Width="464.513" Height="432.442">
+
+			<Canvas>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 C 290.257,257.775 256.517,291.515 214.897,291.515 C 173.277,291.515 139.537,257.775 139.537,216.155 C 139.537,174.535 173.277,140.795 214.897,140.795 C 256.517,140.795 290.257,174.535 290.257,216.155 Z"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 139.537,216.155 L 8.257,216.155"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,140.795 C 214.897,7.515 173.257,7.515 8.257,7.515"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 213.897,291.515 C 213.897,424.795 195.257,424.795 7.256,424.795"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 L 457.257,216.155"/>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- +/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 170.537,216.155 L 259.257,216.155"/>
+
+				<!-- +/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,263.795 L 214.897,168.515"/>
+
+			</Canvas>
+		</Canvas>
+	</Viewbox>
+	<Viewbox Width="32" Height="32" x:Key="MergeAverageIcon">
+		<Canvas Width="464.513" Height="432.442">
+
+			<Canvas>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 C 290.257,257.775 256.517,291.515 214.897,291.515 C 173.277,291.515 139.537,257.775 139.537,216.155 C 139.537,174.535 173.277,140.795 214.897,140.795 C 256.517,140.795 290.257,174.535 290.257,216.155 Z"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 139.537,216.155 L 8.257,216.155"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,140.795 C 214.897,7.515 173.257,7.515 8.257,7.515"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 213.897,291.515 C 213.897,424.795 195.257,424.795 7.256,424.795"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 L 457.257,216.155"/>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- +/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 170.537,216.155 C 170.537,216.155 192.717,178.515 214.897,216.155"/>
+
+				<!-- +/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,216.155 C 214.897,216.155 237.924,256.682 259.257,216.155"/>
+
+			</Canvas>
+		</Canvas>
+	</Viewbox>
+	<Viewbox Width="32" Height="32" x:Key="MergeDiffIcon">
+		<Canvas Width="464.513" Height="432.442">
+
+			<Canvas>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 C 290.257,257.775 256.517,291.515 214.897,291.515 C 173.277,291.515 139.537,257.775 139.537,216.155 C 139.537,174.535 173.277,140.795 214.897,140.795 C 256.517,140.795 290.257,174.535 290.257,216.155 Z"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,140.795 C 214.897,7.515 173.257,7.515 8.257,7.515"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 213.897,291.515 C 213.897,424.795 195.257,424.795 7.256,424.795"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 L 457.257,216.155"/>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- +/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 170.537,216.155 L 259.257,216.155"/>
+
+			</Canvas>
+		</Canvas>
+	</Viewbox>
+	<Viewbox Width="32" Height="32" x:Key="PlayIcon">
+		<Canvas Width="595.280" Height="595.280">
+
+			<Canvas>
+
+				<!-- graph/<Path> -->
+				<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 17.028,353.149 C 21.321,353.515 25.321,354.515 29.321,353.515 C 42.321,350.515 55.321,343.515 65.321,334.515 C 67.237,332.681 69.147,330.694 71.059,328.606 C 72.971,326.519 74.885,324.327 76.720,321.888 C 79.320,319.515 80.320,316.515 82.320,313.515 C 98.320,285.515 91.320,244.515 120.320,227.515 C 127.320,223.515 135.320,236.515 144.320,235.515 C 153.320,235.515 156.320,223.515 160.307,215.245 C 161.646,212.553 162.982,210.284 164.443,208.731 C 165.904,207.181 167.486,206.354 169.320,206.597 C 177.320,207.515 182.320,214.515 186.320,220.515 C 187.695,223.140 189.086,225.733 190.488,228.304 C 191.891,230.874 193.305,233.421 194.727,235.952 C 219.197,270.026 230.152,309.507 233.961,350.026 C 234.307,353.714 234.594,357.409 234.826,361.122 C 235.176,364.062 235.391,367.286 235.525,370.704 C 239.320,393.515 236.320,425.515 256.320,441.515 C 257.320,441.515 261.320,440.515 262.320,439.515 C 270.320,426.515 269.320,411.515 273.504,398.036 C 274.354,395.142 275.213,392.247 276.055,389.343 C 279.424,377.722 282.527,365.931 283.734,353.345 C 284.529,349.577 285.426,345.880 286.457,342.265 C 290.580,327.807 296.877,314.620 307.654,304.173 C 310.525,304.909 312.900,306.186 314.910,307.843 C 324.963,316.132 325.896,333.962 334.012,342.360 C 335.959,344.376 338.320,345.847 341.320,346.505 C 343.320,346.515 345.320,346.515 347.320,346.515 C 353.070,343.765 357.383,338.827 361.008,333.108 C 362.820,330.249 364.457,327.190 365.982,324.096 C 368.320,299.515 390.320,292.515 406.320,276.515 C 416.320,265.515 420.320,251.515 419.447,237.593 C 419.666,234.823 419.830,231.996 420.014,229.142 C 420.570,220.577 421.320,211.765 424.320,203.515 C 432.320,183.515 433.320,162.514 438.883,141.321 C 439.539,138.527 440.307,135.809 441.271,133.199 C 444.152,125.370 448.820,118.514 456.320,113.514 C 459.820,126.639 461.598,140.147 463.393,153.610 C 463.750,156.302 464.107,158.993 464.477,161.679 C 466.320,174.515 468.320,187.515 472.496,200.035 C 473.141,202.268 473.828,204.505 474.596,206.743 C 475.363,208.982 476.211,211.222 477.174,213.458 C 477.914,215.687 478.645,217.852 479.393,219.864 C 481.637,225.903 484.039,230.577 487.320,231.515 C 518.320,240.515 532.320,265.515 555.949,283.218 C 557.264,284.848 558.402,286.681 559.445,288.640 C 562.570,294.515 564.820,301.515 568.320,307.515 C 570.320,310.515 573.320,312.515 576.252,314.138"/>
+
+			</Canvas>
+
+			<Canvas>
+
+				<Canvas>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 17.625,61.102 L 577.208,61.102"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 21.360,153.884 L 580.943,153.884"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 20.365,246.667 L 579.949,246.667"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 21.360,339.451 L 580.943,339.451"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 21.360,432.231 L 580.943,432.231"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 20.365,525.017 L 579.949,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 20.979,61.102 L 20.979,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 113.751,61.102 L 113.751,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 206.534,61.102 L 206.534,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 299.316,61.102 L 299.316,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 392.100,61.102 L 392.100,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 484.882,61.102 L 484.882,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 577.665,61.102 L 577.665,525.017"/>
+
+				</Canvas>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="3.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 87.918,277.231 C 87.918,402.091 189.141,503.312 313.996,503.312 C 438.859,503.312 540.078,402.091 540.078,277.231 C 540.078,152.370 438.859,51.151 313.996,51.151 C 189.141,51.151 87.918,152.370 87.918,277.231 Z"/>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- split writing/<Path> -->
+				<Path StrokeThickness="44.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 225.027,127.185 L 490.895,290.097"/>
+
+				<!-- split writing/<Path> -->
+				<Path StrokeThickness="44.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 490.895,290.097 L 224.650,435.970"/>
+
+				<!-- split writing/<Path> -->
+				<Path StrokeThickness="44.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 224.650,435.970 L 225.027,127.185"/>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- blur/<Path> -->
+				<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Fill="#ff000000" Data="F1 M 314.141,315.141 L 279.140,315.141 L 279.140,280.141 L 314.141,280.141 L 314.141,315.141 Z"/>
+
+				<!-- blur/<Path> -->
+				<Path Data="F1 M 595.280,595.280 L 0.000,595.280 L 0.000,0.000 L 595.280,0.000 L 595.280,595.280 Z">
+					<Path.Fill>
+						<RadialGradientBrush MappingMode="Absolute" GradientOrigin="298.640,-297.640" Center="298.640,-297.640" RadiusX="297.640" RadiusY="297.640">
+							<RadialGradientBrush.GradientStops>
+								<GradientStop Offset="0.00" Color="#ff000000"/>
+								<GradientStop Offset="1.00" Color="#ffffffff"/>
+							</RadialGradientBrush.GradientStops>
+							<RadialGradientBrush.Transform>
+								<MatrixTransform Matrix="1.000,0.000,-0.000,-1.000,-1.000,0.000" />
+							</RadialGradientBrush.Transform>
+						</RadialGradientBrush>
+					</Path.Fill>
+				</Path>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="29.3" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 36.667,305.000 C 36.667,305.000 173.643,204.500 308.500,204.500 C 439.246,204.500 568.000,305.000 568.000,305.000"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 385.500,305.000 C 385.500,259.068 348.265,221.833 302.333,221.833 C 256.401,221.833 219.167,259.068 219.167,305.000 C 219.167,350.932 256.401,388.167 302.333,388.167 C 348.265,388.167 385.500,350.932 385.500,305.000 Z"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="18.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 78.500,348.750 C 78.500,348.750 189.938,429.560 301.501,430.504 C 302.001,430.509 302.501,430.511 303.001,430.511 C 303.667,430.511 304.334,430.507 305.000,430.500 C 414.730,429.305 523.500,348.750 523.500,348.750"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 302.333,204.500 L 302.333,85.000"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 115.768,256.184 L 55.807,152.816"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 484.586,254.750 L 544.213,151.190"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 399.781,216.260 L 436.191,102.442"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 200.404,216.481 L 165.412,102.220"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 572.911,0.000"/>
+
+			</Canvas>
+		</Canvas>
+	</Viewbox>
+	<Viewbox Width="32" Height="32" x:Key="RgbSplitIcon">
+		<Canvas Width="464.512" Height="509.854">
+
+			<Canvas>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 174.256,216.232 C 174.256,257.852 207.997,291.592 249.616,291.592 C 291.237,291.592 324.976,257.852 324.976,216.232 C 324.976,174.612 291.237,140.872 249.616,140.872 C 207.997,140.872 174.256,174.612 174.256,216.232 Z"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 324.976,216.232 L 456.256,216.232"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 249.616,140.872 C 249.616,7.592 291.256,7.592 456.256,7.592"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 250.616,291.592 C 250.616,424.872 269.256,424.872 457.256,424.872"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 174.256,216.232 L 7.256,216.232"/>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- +/<Path> -->
+				<Path StrokeThickness="10.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 249.933,168.988 L 294.366,247.106"/>
+
+				<!-- +/<Path> -->
+				<Path StrokeThickness="10.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 294.366,247.106 L 206.866,246.874"/>
+
+				<!-- +/<Path> -->
+				<Path StrokeThickness="10.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 206.866,246.874 L 249.933,168.988"/>
+
+				<!-- +/R -->
+				<TextBlock Foreground="#ff000000" Canvas.Left="404.284" Canvas.Top="14.566" FontSize="71.97" FontFamily="Arial Rounded MT Bold">R</TextBlock>
+
+				<!-- +/G -->
+				<TextBlock Foreground="#ff000000" Canvas.Left="404.284" Canvas.Top="220.566" FontSize="71.97" FontFamily="Arial Rounded MT Bold">G</TextBlock>
+
+				<!-- +/B -->
+				<TextBlock Foreground="#ff000000" Canvas.Left="404.284" Canvas.Top="426.566" FontSize="71.97" FontFamily="Arial Rounded MT Bold">B</TextBlock>
+
+			</Canvas>
+		</Canvas>
+	</Viewbox>
+	<Viewbox Width="32" Height="32" x:Key="StopIcon">
+		<Canvas Width="595.280" Height="595.280">
+
+			<Canvas>
+
+				<!-- graph/<Path> -->
+				<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 17.028,353.149 C 21.321,353.515 25.321,354.515 29.321,353.515 C 42.321,350.515 55.321,343.515 65.321,334.515 C 67.237,332.681 69.147,330.694 71.059,328.606 C 72.971,326.519 74.885,324.327 76.720,321.888 C 79.320,319.515 80.320,316.515 82.320,313.515 C 98.320,285.515 91.320,244.515 120.320,227.515 C 127.320,223.515 135.320,236.515 144.320,235.515 C 153.320,235.515 156.320,223.515 160.307,215.245 C 161.646,212.553 162.982,210.284 164.443,208.731 C 165.904,207.181 167.486,206.354 169.320,206.597 C 177.320,207.515 182.320,214.515 186.320,220.515 C 187.695,223.140 189.086,225.733 190.488,228.304 C 191.891,230.874 193.305,233.421 194.727,235.952 C 219.197,270.026 230.152,309.507 233.961,350.026 C 234.307,353.714 234.594,357.409 234.826,361.122 C 235.176,364.062 235.391,367.286 235.525,370.704 C 239.320,393.515 236.320,425.515 256.320,441.515 C 257.320,441.515 261.320,440.515 262.320,439.515 C 270.320,426.515 269.320,411.515 273.504,398.036 C 274.354,395.142 275.213,392.247 276.055,389.343 C 279.424,377.722 282.527,365.931 283.734,353.345 C 284.529,349.577 285.426,345.880 286.457,342.265 C 290.580,327.807 296.877,314.620 307.654,304.173 C 310.525,304.909 312.900,306.186 314.910,307.843 C 324.963,316.132 325.896,333.962 334.012,342.360 C 335.959,344.376 338.320,345.847 341.320,346.505 C 343.320,346.515 345.320,346.515 347.320,346.515 C 353.070,343.765 357.383,338.827 361.008,333.108 C 362.820,330.249 364.457,327.190 365.982,324.096 C 368.320,299.515 390.320,292.515 406.320,276.515 C 416.320,265.515 420.320,251.515 419.447,237.593 C 419.666,234.823 419.830,231.996 420.014,229.142 C 420.570,220.577 421.320,211.765 424.320,203.515 C 432.320,183.515 433.320,162.514 438.883,141.321 C 439.539,138.527 440.307,135.809 441.271,133.199 C 444.152,125.370 448.820,118.514 456.320,113.514 C 459.820,126.639 461.598,140.147 463.393,153.610 C 463.750,156.302 464.107,158.993 464.477,161.679 C 466.320,174.515 468.320,187.515 472.496,200.035 C 473.141,202.268 473.828,204.505 474.596,206.743 C 475.363,208.982 476.211,211.222 477.174,213.458 C 477.914,215.687 478.645,217.852 479.393,219.864 C 481.637,225.903 484.039,230.577 487.320,231.515 C 518.320,240.515 532.320,265.515 555.949,283.218 C 557.264,284.848 558.402,286.681 559.445,288.640 C 562.570,294.515 564.820,301.515 568.320,307.515 C 570.320,310.515 573.320,312.515 576.252,314.138"/>
+
+			</Canvas>
+
+			<Canvas>
+
+				<Canvas>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 17.625,61.102 L 577.208,61.102"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 21.360,153.884 L 580.943,153.884"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 20.365,246.667 L 579.949,246.667"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 21.360,339.451 L 580.943,339.451"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 21.360,432.231 L 580.943,432.231"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 20.365,525.017 L 579.949,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 20.979,61.102 L 20.979,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 113.751,61.102 L 113.751,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 206.534,61.102 L 206.534,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 299.316,61.102 L 299.316,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 392.100,61.102 L 392.100,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 484.882,61.102 L 484.882,525.017"/>
+
+					<!-- grid/<Group>/<Path> -->
+					<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 577.665,61.102 L 577.665,525.017"/>
+
+				</Canvas>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="3.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 49.281,297.639 C 49.281,434.251 160.029,545.000 296.638,545.000 C 433.254,545.000 543.999,434.251 543.999,297.639 C 543.999,161.026 433.254,50.280 296.638,50.280 C 146.570,50.280 49.281,179.023 49.281,297.639 Z"/>
+
+				<!-- merge base/<Path> -->
+				<Path StrokeThickness="40.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 400.280,194.000 L 193.000,194.000 L 193.000,401.280 L 400.280,401.280 L 400.280,194.000 Z"/>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- blur/<Path> -->
+				<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Fill="#ff000000" Data="F1 M 314.141,315.141 L 279.140,315.141 L 279.140,280.141 L 314.141,280.141 L 314.141,315.141 Z"/>
+
+				<!-- blur/<Path> -->
+				<Path Data="F1 M 595.280,595.280 L 0.000,595.280 L 0.000,0.000 L 595.280,0.000 L 595.280,595.280 Z">
+					<Path.Fill>
+						<RadialGradientBrush MappingMode="Absolute" GradientOrigin="298.640,-297.640" Center="298.640,-297.640" RadiusX="297.640" RadiusY="297.640">
+							<RadialGradientBrush.GradientStops>
+								<GradientStop Offset="0.00" Color="#ff000000"/>
+								<GradientStop Offset="1.00" Color="#ffffffff"/>
+							</RadialGradientBrush.GradientStops>
+							<RadialGradientBrush.Transform>
+								<MatrixTransform Matrix="1.000,0.000,-0.000,-1.000,-1.000,0.000" />
+							</RadialGradientBrush.Transform>
+						</RadialGradientBrush>
+					</Path.Fill>
+				</Path>
+
+			</Canvas>
+
+			<Canvas>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="29.3" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 36.667,305.000 C 36.667,305.000 173.643,204.500 308.500,204.500 C 439.246,204.500 568.000,305.000 568.000,305.000"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 385.500,305.000 C 385.500,259.068 348.265,221.833 302.333,221.833 C 256.401,221.833 219.167,259.068 219.167,305.000 C 219.167,350.932 256.401,388.167 302.333,388.167 C 348.265,388.167 385.500,350.932 385.500,305.000 Z"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="18.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 78.500,348.750 C 78.500,348.750 189.938,429.560 301.501,430.504 C 302.001,430.509 302.501,430.511 303.001,430.511 C 303.667,430.511 304.334,430.507 305.000,430.500 C 414.730,429.305 523.500,348.750 523.500,348.750"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 302.333,204.500 L 302.333,85.000"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 115.768,256.184 L 55.807,152.816"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 484.586,254.750 L 544.213,151.190"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 399.781,216.260 L 436.191,102.442"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 200.404,216.481 L 165.412,102.220"/>
+
+				<!-- eye/<Path> -->
+				<Path StrokeThickness="8.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 572.911,0.000"/>
+
+			</Canvas>
+		</Canvas>
+	</Viewbox>
+</ResourceDictionary>
