@@ -1,85 +1,91 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ExpressionBlendVersion>4.0.20621.0</ExpressionBlendVersion>
-		<SchemaVersion>2.0</SchemaVersion>
-		<ProjectGuid>{71a10a7e-2066-43d4-b3eb-88f1a0e90669}</ProjectGuid>
-		<OutputType>WinExe</OutputType>
-		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>WpfPrototype</RootNamespace>
-		<AssemblyName>WpfPrototype</AssemblyName>
-		<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-		<TargetFrameworkProfile>Client</TargetFrameworkProfile>
-		<FileAlignment>512</FileAlignment>
-		<ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug\</OutputPath>
-		<DefineConstants>DEBUG;TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<DebugType>pdbonly</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<ItemGroup>
-		<Reference Include="System" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Xml" />
-		<Reference Include="Microsoft.CSharp" />
-		<Reference Include="System.Core" />
-		<Reference Include="System.Xml.Linq" />
-		<Reference Include="System.Data.DataSetExtensions" />
-		<Reference Include="System.Xaml">
-			<RequiredTargetFramework>4.0</RequiredTargetFramework>
-		</Reference>
-		<Reference Include="WindowsBase" />
-		<Reference Include="PresentationCore" />
-		<Reference Include="PresentationFramework" />
-	</ItemGroup>
-	<PropertyGroup>
-		<ExpressionBlendPrototypingEnabled>false</ExpressionBlendPrototypingEnabled>
-		<ExpressionBlendPrototypeHarness>true</ExpressionBlendPrototypeHarness>
-	</PropertyGroup>
-	<ItemGroup>
-		<Reference Include="System.Windows.Interactivity" />
-		<Reference Include="Microsoft.Expression.Interactions" />
-		<Reference Include="Microsoft.Expression.Prototyping.Interactivity" />
-		<Reference Include="Microsoft.Expression.Prototyping.Runtime" />
-		<Reference Include="Microsoft.Expression.Prototyping.SketchControls" />
-	</ItemGroup>
-	<ItemGroup>
-		<ApplicationDefinition Include="App.xaml">
-			<Generator>MSBuild:Compile</Generator>
-			<SubType>Designer</SubType>
-		</ApplicationDefinition>
-		<Compile Include="App.xaml.cs">
-			<DependentUpon>App.xaml</DependentUpon>
-			<SubType>Code</SubType>
-		</Compile>
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Include="Properties\Version.cs" />
-		<Compile Include="Properties\AssemblyInfo.cs"/>
-		<AppDesigner Include="Properties\" />
-		<ProjectReference Include="WpfPrototypeScreens\WpfPrototypeScreens.csproj">
-			<Name>WpfPrototypeScreens</Name>
-			<Project>{5d279871-f1d4-4c6f-8538-4a2a4c857f30}</Project>
-		</ProjectReference>
-	</ItemGroup>
-	<Import Project="$(MSBuildToolsPath32)\Microsoft.CSharp.targets" />
-	<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ExpressionBlendVersion>4.0.20621.0</ExpressionBlendVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{71A10A7E-2066-43D4-B3EB-88F1A0E90669}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WpfPrototype</RootNamespace>
+    <AssemblyName>WpfPrototype</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <PropertyGroup>
+    <ExpressionBlendPrototypingEnabled>false</ExpressionBlendPrototypingEnabled>
+    <ExpressionBlendPrototypeHarness>true</ExpressionBlendPrototypeHarness>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Interactivity" />
+    <Reference Include="Microsoft.Expression.Interactions" />
+    <Reference Include="Microsoft.Expression.Prototyping.Interactivity" />
+    <Reference Include="Microsoft.Expression.Prototyping.Runtime" />
+    <Reference Include="Microsoft.Expression.Prototyping.SketchControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\Version.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <AppDesigner Include="Properties\" />
+    <ProjectReference Include="WpfPrototypeScreens\WpfPrototypeScreens.csproj">
+      <Name>WpfPrototypeScreens</Name>
+      <Project>{5d279871-f1d4-4c6f-8538-4a2a4c857f30}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath32)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 	     Other similar extension points exist, see Microsoft.Common.targets.
 	<Target Name="BeforeBuild">
 	</Target>

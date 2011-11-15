@@ -62,7 +62,7 @@
     <Reference Include="Microsoft.Expression.Prototyping.SketchControls" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Icons.xaml">
+    <Page Include="DiagramScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -77,6 +77,9 @@
     <Resource Include="Fonts\BuxtonSketch.ttf" />
     <Resource Include="Fonts\SketchFlow Print.ttf" />
     <Resource Include="Fonts\SegoeMarker.ttf" />
+    <Compile Include="DiagramScreen.xaml.cs">
+      <DependentUpon>DiagramScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainScreen.xaml.cs">
       <DependentUpon>MainScreen.xaml</DependentUpon>
     </Compile>

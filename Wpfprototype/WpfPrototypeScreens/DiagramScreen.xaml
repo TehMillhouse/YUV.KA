@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="WpfPrototypeScreens.DiagramScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+Background="White"
+             d:DesignHeight="347" d:DesignWidth="563">
+	<UserControl.Resources>
+	</UserControl.Resources>
+	<DockPanel>
+		<ContentControl Template="{StaticResource ContentControl-Sketch}" DockPanel.Dock="Top">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+				<TextBlock Margin="5" FontSize="18" VerticalAlignment="Center" Style="{StaticResource TextBlock-Sketch}">Referenz:</TextBlock>
+				<ComboBox Margin="5" Style="{StaticResource ComboBox-Sketch}" Width="100" SelectedIndex="0">
+					<ComboBoxItem>Video1</ComboBoxItem>
+					<ComboBoxItem>Video2</ComboBoxItem>
+				</ComboBox>
+			</StackPanel>
+		</ContentControl>
+		<ContentControl DockPanel.Dock="Right" Template="{StaticResource ContentControl-Sketch}">
+			<StackPanel Margin="10">
+				<ContentControl Template="{StaticResource ContentControl-Sketch}">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Margin="5" FontSize="18" VerticalAlignment="Center" Style="{StaticResource TextBlock-Sketch}">Video1</TextBlock>
+						<ComboBox  Margin="5" Style="{StaticResource ComboBox-Sketch}" Width="100" SelectedIndex="0">
+							<ComboBoxItem>Pixeldifferenz</ComboBoxItem>
+						</ComboBox>
+						<Button Margin="5" Style="{StaticResource Button-Sketch}">X</Button>
+					</StackPanel>
+				</ContentControl>
+			</StackPanel>
+		</ContentControl>
+		<Viewbox Child="{StaticResource GraphIcon}"/>
+	</DockPanel>
+</UserControl>

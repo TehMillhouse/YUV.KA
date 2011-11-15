@@ -10,7 +10,7 @@
 					<RadialGradientBrush MappingMode="Absolute" GradientOrigin="298.640,-297.640" Center="298.640,-297.640" RadiusX="297.640" RadiusY="297.640">
 						<RadialGradientBrush.GradientStops>
 							<GradientStop Offset="0.00" Color="#ff000000"/>
-							<GradientStop Offset="1.00" Color="#ffffffff"/>
+							<GradientStop Offset="1.00" Color="#00ffffff"/>
 						</RadialGradientBrush.GradientStops>
 						<RadialGradientBrush.Transform>
 							<MatrixTransform Matrix="1.000,0.000,-0.000,-1.000,-1.000,0.000" />
@@ -62,43 +62,43 @@
 				<Canvas>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 66.086,316.587 L 6.921,32.225"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 66.086,316.587 L 6.921,32.225"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 66.086,316.587 L 128.039,82.677"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 66.086,316.587 L 128.039,82.677"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 128.039,82.677 L 528.440,82.677"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 128.039,82.677 L 528.440,82.677"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 466.488,316.587 L 528.440,82.678"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 466.488,316.587 L 528.440,82.678"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 66.086,316.587 L 466.488,316.587"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 66.086,316.587 L 466.488,316.587"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 407.322,32.225"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 407.322,32.225"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 466.488,316.587"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 466.488,316.587"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 418.052,82.677 L 407.322,32.225"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 418.052,82.677 L 407.322,32.225"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 358.914,7.000 L 257.092,7.000"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 358.914,7.000 L 257.092,7.000"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 358.914,7.000 L 375.745,32.225"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 358.914,7.000 L 375.745,32.225"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 257.092,7.000 L 249.156,32.225"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 257.092,7.000 L 249.156,32.225"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 6.921,32.225 L 249.156,32.225"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 6.921,32.225 L 249.156,32.225"/>
 
 					<!-- file/<Group>/<Path> -->
-					<Path StrokeThickness="2.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 375.745,32.225 L 407.322,32.225"/>
+					<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 375.745,32.225 L 407.322,32.225"/>
 
 				</Canvas>
 
@@ -262,29 +262,29 @@
 			<Canvas>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 C 290.257,257.775 256.517,291.515 214.897,291.515 C 173.277,291.515 139.537,257.775 139.537,216.155 C 139.537,174.535 173.277,140.795 214.897,140.795 C 256.517,140.795 290.257,174.535 290.257,216.155 Z"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 C 290.257,257.775 256.517,291.515 214.897,291.515 C 173.277,291.515 139.537,257.775 139.537,216.155 C 139.537,174.535 173.277,140.795 214.897,140.795 C 256.517,140.795 290.257,174.535 290.257,216.155 Z"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 139.537,216.155 L 8.257,216.155"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 139.537,216.155 L 8.257,216.155"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,140.795 C 214.897,7.515 173.257,7.515 8.257,7.515"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,140.795 C 214.897,7.515 173.257,7.515 8.257,7.515"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 213.897,291.515 C 213.897,424.795 195.257,424.795 7.256,424.795"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 213.897,291.515 C 213.897,424.795 195.257,424.795 7.256,424.795"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 L 457.257,216.155"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 L 457.257,216.155"/>
 
 			</Canvas>
 
 			<Canvas>
 
 				<!-- +/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 170.537,216.155 L 259.257,216.155"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 170.537,216.155 L 259.257,216.155"/>
 
 				<!-- +/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,263.795 L 214.897,168.515"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,263.795 L 214.897,168.515"/>
 
 			</Canvas>
 		</Canvas>
@@ -295,29 +295,29 @@
 			<Canvas>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 C 290.257,257.775 256.517,291.515 214.897,291.515 C 173.277,291.515 139.537,257.775 139.537,216.155 C 139.537,174.535 173.277,140.795 214.897,140.795 C 256.517,140.795 290.257,174.535 290.257,216.155 Z"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 C 290.257,257.775 256.517,291.515 214.897,291.515 C 173.277,291.515 139.537,257.775 139.537,216.155 C 139.537,174.535 173.277,140.795 214.897,140.795 C 256.517,140.795 290.257,174.535 290.257,216.155 Z"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 139.537,216.155 L 8.257,216.155"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 139.537,216.155 L 8.257,216.155"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,140.795 C 214.897,7.515 173.257,7.515 8.257,7.515"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,140.795 C 214.897,7.515 173.257,7.515 8.257,7.515"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 213.897,291.515 C 213.897,424.795 195.257,424.795 7.256,424.795"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 213.897,291.515 C 213.897,424.795 195.257,424.795 7.256,424.795"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 L 457.257,216.155"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 L 457.257,216.155"/>
 
 			</Canvas>
 
 			<Canvas>
 
 				<!-- +/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 170.537,216.155 C 170.537,216.155 192.717,178.515 214.897,216.155"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 170.537,216.155 C 170.537,216.155 192.717,178.515 214.897,216.155"/>
 
 				<!-- +/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,216.155 C 214.897,216.155 237.924,256.682 259.257,216.155"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,216.155 C 214.897,216.155 237.924,256.682 259.257,216.155"/>
 
 			</Canvas>
 		</Canvas>
@@ -328,23 +328,23 @@
 			<Canvas>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 C 290.257,257.775 256.517,291.515 214.897,291.515 C 173.277,291.515 139.537,257.775 139.537,216.155 C 139.537,174.535 173.277,140.795 214.897,140.795 C 256.517,140.795 290.257,174.535 290.257,216.155 Z"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 C 290.257,257.775 256.517,291.515 214.897,291.515 C 173.277,291.515 139.537,257.775 139.537,216.155 C 139.537,174.535 173.277,140.795 214.897,140.795 C 256.517,140.795 290.257,174.535 290.257,216.155 Z"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,140.795 C 214.897,7.515 173.257,7.515 8.257,7.515"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 214.897,140.795 C 214.897,7.515 173.257,7.515 8.257,7.515"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 213.897,291.515 C 213.897,424.795 195.257,424.795 7.256,424.795"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 213.897,291.515 C 213.897,424.795 195.257,424.795 7.256,424.795"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 L 457.257,216.155"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 290.257,216.155 L 457.257,216.155"/>
 
 			</Canvas>
 
 			<Canvas>
 
 				<!-- +/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 170.537,216.155 L 259.257,216.155"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 170.537,216.155 L 259.257,216.155"/>
 
 			</Canvas>
 		</Canvas>
@@ -355,19 +355,19 @@
 			<Canvas>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 174.256,216.232 C 174.256,257.852 207.997,291.592 249.616,291.592 C 291.237,291.592 324.976,257.852 324.976,216.232 C 324.976,174.612 291.237,140.872 249.616,140.872 C 207.997,140.872 174.256,174.612 174.256,216.232 Z"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 174.256,216.232 C 174.256,257.852 207.997,291.592 249.616,291.592 C 291.237,291.592 324.976,257.852 324.976,216.232 C 324.976,174.612 291.237,140.872 249.616,140.872 C 207.997,140.872 174.256,174.612 174.256,216.232 Z"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 324.976,216.232 L 456.256,216.232"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 324.976,216.232 L 456.256,216.232"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 249.616,140.872 C 249.616,7.592 291.256,7.592 456.256,7.592"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 249.616,140.872 C 249.616,7.592 291.256,7.592 456.256,7.592"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 250.616,291.592 C 250.616,424.872 269.256,424.872 457.256,424.872"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 250.616,291.592 C 250.616,424.872 269.256,424.872 457.256,424.872"/>
 
 				<!-- merge base/<Path> -->
-				<Path StrokeThickness="1.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 174.256,216.232 L 7.256,216.232"/>
+				<Path StrokeThickness="20.0" Stroke="#ff000000" StrokeMiterLimit="1.0" Data="F1 M 174.256,216.232 L 7.256,216.232"/>
 
 			</Canvas>
 
