@@ -1,7 +1,10 @@
 \section{Produktdaten}
 
 \begin{itemize}
-	\item \textbf{/PD10/} YUV-Videodateien und ggf. dazugehörige Logdateien als Input
-	\item \textbf{/PD20/} Standbilder als Input
-	\item \textbf{/PD30/} Gespeicherte Pipelines
-\end{itemize}
+	\item \textbf{/PD10/} Videodateien \\
+        Es können Dateien im IYUV-Format\footnote{\url{http://www.fourcc.org/yuv.php\#IYUV}} eingelesen und ausgegeben werden; zusätzlich kann der Encoder eine Logdatei bereitstellen, in der pro Macroblock des zugehörigen Videos die Inter/Intra-Frame-Entscheidung und der Move Vector dokumentiert sind.
+	\item \textbf{/PD20/} Standbilder \\
+        Als Input können auch gewöhnliche Bilder im PNG-Format eingelesen werden, um ein Standbild-Video zu erzeugen.
+	\item \textbf{/PD30/} Gespeicherte Pipelines \\
+        \sloppy Erstellte Pipelines können ins Dateisystem gespeichert und von dort aus wieder geladen werden. Die Daten werden im XML-Schema des \texttt{System.Runtime.Serialization.NetDataContractSerializer}s\footnote{\url{http://msdn.microsoft.com/en-us/library/system.runtime.serialization.netdatacontractserializer.aspx}} gespeichert.
+\end{itemize} \fussy

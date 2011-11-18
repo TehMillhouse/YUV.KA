@@ -1,7 +1,7 @@
 \section{Glossar}
 
 \begin{itemize}
-    \item Videoencoder - Programm welches rohe Videodaten als Eingabe annimmt, und in ein einem bestimmten Video-Codec entsprechendes Format bringt.
+    \item Videoencoder - Programm, welches rohe Videodaten als Eingabe annimmt und in ein einem bestimmten Video-Codec entsprechendes Format bringt.
     \item Noise - Ein randomisierten Signal. Allgemein als ``Bildrauschen'' zu verstehen.
     \item Pipeline - Eine Einheit bestehend aus Arbeitsabläufen, die zum Fließbandbetrieb hintereinander geschaltet werden können.
     \item Graph - Allgemeine Datenstruktur, bestehend aus ``Knoten'', welche durch Kanten verbunden sind.
@@ -12,10 +12,15 @@
     \item Resolution - Auflösung
     \item Multithreading - Programmiertechnik in der die zu verrichtende Arbeit auf mehrere Prozessfäden verteilt wird. Dies ermöglicht Parallelismus und die optimale Auslachtung von Multikern-Systemen
     \item Asynchrone, nichtblockende UI - Asynchron gestaltete Oberfläche, die bei Ladeoperationenweiterhin auf Interaktion reagiert.
-    \item YUV - Eine Familie von Farbpaletten welche die Sehart des menschlichen Auges in Betracht nehmen.
+    \item YUV - Eine Familie von Farbpaletten, welche die Sehart des menschlichen Auges in Betracht nehmen.
     \item Farbkanal - Ein Farbbild besteht in der Regel aus 3 Farbkanälen: Rot, grün und blau. Diese Kanäle entsprechen dem jeweiligen Teil des Bildes, der nur aus dieser Farbe besteht.
     \item Differenzvideo - Videostream welcher aus den Daten besteht die bei der Pixelweisen Subtraktion der Farbwerte zweier Videos besteht.
-    \item I/P/B-Frame - TODO: verschiedene Arten von Videoframe. H.264-spezifisch
+    \item Frame - Einzelbild eines Videos, bei H.264 unterteilt in \emph{Macroblöcke}
+    \item H.264 - Weit verbreiteter Video-Codec und Ziel-Codec der zu testenden Encoder
+    \item Inter-Frame - Videoframe, dessen Daten aus einem oder mehreren benachbarten Frames berechnet werden.
+    \item Intra-Frame - Videoframe, dessen Daten unabhängig von denen anderer Frames gepspeichert sind. Vergleiche \emph{Inter-Frame}.
+    \item Move Vector - Vektor, um den jeder Referenzframe eines \emph{Inter-Frames} zusätzlich verschoben kann. Ermöglicht eine effiziente Kodierung von verschiebenden Bewegungen.
+    \item Macroblock - Bei H.264 16x16 Pixel große Blöcke, in die jeder Frame aufgeteilt wird. Im Gegensatz zu älteren Codecs kann bei H.264 für jeden Macroblock eine unterschiedliche \emph{Inter/Intra-Frame}-Entscheidung getroffen werden. 
     \item Histogramm - Diagrammart ähnlich einem Balkendiagramm, welche aber auch den Flächeninhalt eines Balken korrekt skaliert darstellt.
     \item Pseudo-Noise-Radio - TODO %seriously guys - what is this?
     \item (Video-)Artefakte - Darstellungsfehler, welche sich dadurch zeigen, dass das encodete Video sichtlich stark von dem Referenzvideo abweicht.
