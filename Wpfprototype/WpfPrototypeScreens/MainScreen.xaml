@@ -23,11 +23,133 @@
 	</UserControl.Resources>
 	<DockPanel x:Name="LayoutRoot" Background="White">
 		<ContentControl Template="{StaticResource ContentControl-Sketch}" DockPanel.Dock="Top">
-			<StackPanel Orientation="Horizontal" Margin="5" Height="40" HorizontalAlignment="Center">
-				<Button Margin="5" Style="{DynamicResource Button-Sketch}" Content="{StaticResource RewindIcon}"/>
-				<Button Margin="5" Style="{DynamicResource Button-Sketch}" Content="{StaticResource PlayIcon}"/>
-				<Button Margin="5" Style="{DynamicResource Button-Sketch}" Content="{StaticResource StopIcon}"/>
-			</StackPanel>
+			<DockPanel>
+				<StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="5" Height="40" HorizontalAlignment="Center">
+					<Button Margin="5" Style="{DynamicResource Button-Sketch}" Content="{StaticResource SlowDownIcon}"/>
+					<Button Margin="5" Style="{DynamicResource Button-Sketch}" Content="{StaticResource PlayIcon}"/>
+					<Button Margin="5" Style="{DynamicResource Button-Sketch}" Content="{StaticResource StopIcon}"/>
+					<Button Margin="5" Style="{DynamicResource Button-Sketch}" Content="{StaticResource SlowDownIcon}" RenderTransformOrigin="0.5,0.5">
+						<Button.RenderTransform>
+							<RotateTransform Angle="180"/>
+						</Button.RenderTransform>
+					</Button>
+				</StackPanel>
+				<Slider Width="200" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{DynamicResource VideoSliderStyle}" Value="1">
+					<Slider.Resources>
+						<!--Sketch Thumb - Das Thumb-Element ist der ziehbare Teil eines Slider-Elements.-->
+						<Style x:Key="VideoThumbStyle" d:IsControlPart="True" TargetType="{x:Type Thumb}">
+							<Setter Property="SnapsToDevicePixels" Value="true"/>
+							<Setter Property="Height" Value="16"/>
+							<!-- <Setter Property="Width" Value="160"/> -->
+							<Setter Property="Foreground" Value="{StaticResource BaseBorder-Sketch}"/>
+							<Setter Property="BorderBrush" Value="{StaticResource BaseBorder-Sketch}"/>
+							<Setter Property="Background" Value="{StaticResource BaseBackground-Sketch}"/>
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="{x:Type Thumb}">
+										<Grid>
+											<pc:SketchRectangleUC x:Name="SketchRectangleUC" BorderBrush="{TemplateBinding BorderBrush}" ExtensionLength="0" ExtensionVariance="0" SegmentLength="3" SegmentOffset="0.12" StrokeWidth="2" Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}"/>
+											<TextBlock Text="00:19" Margin="3,0" Style="{StaticResource TextBlock-Sketch}"/>
+										</Grid>
+										<ControlTemplate.Triggers>
+											<Trigger Property="IsFocused" Value="True">
+												<Setter Property="BorderBrush" TargetName="SketchRectangleUC" Value="{DynamicResource FocusedBorder-Sketch}"/>
+											</Trigger>
+											<Trigger Property="IsMouseOver" Value="True">
+												<Setter Property="Background" TargetName="SketchRectangleUC" Value="{DynamicResource MouseOverBackground-Sketch}"/>
+											</Trigger>
+											<Trigger Property="IsDragging" Value="True">
+												<Setter Property="MinHeight" TargetName="SketchRectangleUC" Value="20"/>
+												<Setter Property="Background" TargetName="SketchRectangleUC" Value="{DynamicResource BaseBorder-Sketch}"/>
+											</Trigger>
+											<Trigger Property="IsEnabled" Value="false">
+												<Setter Property="Background" TargetName="SketchRectangleUC" Value="{DynamicResource BaseBackground-Sketch}"/>
+												<Setter Property="BorderBrush" TargetName="SketchRectangleUC" Value="{DynamicResource DisabledBorder-Sketch}"/>
+												<Setter Property="SegmentVariance" TargetName="SketchRectangleUC" Value="0.1"/>
+												<Setter Property="SegmentOffset" TargetName="SketchRectangleUC" Value="0.15"/>
+											</Trigger>
+										</ControlTemplate.Triggers>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+
+						<!--Sketch Slider
+	Ähnlich wie das ScrollBar-Element wird von dieser Vorlage das Track-Element für das Layout des ziehbaren Thumb-Elements verwendet, das RepeatButton-Elemente für den Bildlauf nach oben und unten aufweist.
+	Für diese RepeatButton-Elemente werden die Vorlagen "Thumb-Sketch" und "SliderRepeatButton-Sketch" verwendet. -->
+						<Style x:Key="VideoSliderStyle" TargetType="{x:Type Slider}">
+							<Setter Property="Foreground" Value="{DynamicResource BaseForeground-Sketch}"/>
+							<Setter Property="BorderBrush" Value="{StaticResource BaseBorder-Sketch}"/>
+							<Setter Property="Background" Value="{StaticResource BaseBackground-Sketch}"/>
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="{x:Type Slider}">
+										<Grid x:Name="GridRoot">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="Auto"/>
+												<RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+												<RowDefinition Height="Auto"/>
+											</Grid.RowDefinitions>
+
+											<Grid Margin="0,0,0,0" VerticalAlignment="Bottom" Height="19" Grid.Row="1">
+												<pc:SketchRectangleUC x:Name="SketchRectangleUC" Margin="4,6,4,6" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" StrokeWidth="2" Foreground="{TemplateBinding Foreground}" FocusVisualStyle="{DynamicResource FocusControl-Sketch}" SegmentLength="8" SegmentOffset="0.1" SegmentVariance="0.1"/>
+											</Grid>
+
+											<!-- Mit dem TickBar-Element werden die Teilstriche für das Slider-Element angezeigt. -->
+											<TickBar Visibility="Collapsed" x:Name="TopTick" Height="4" SnapsToDevicePixels="True" Placement="Top" Fill="{TemplateBinding Foreground}"/>
+
+											<!-- Mit dem Track-Element wird das Layout für die RepeatButton-Elemente und das Thumb-Element festgelegt. -->
+											<Track Grid.Row="1" x:Name="PART_Track">
+												<Track.Thumb>
+													<Thumb Style="{DynamicResource VideoThumbStyle}" Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" MinHeight="20"/>
+												</Track.Thumb>
+												<Track.IncreaseRepeatButton>
+													<RepeatButton Style="{StaticResource SliderRepeatButton-Sketch}"  Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" Command="Slider.IncreaseLarge"/>
+													<!-- dies ist mit einer Alphamaske belegt, sodass es interaktiv ist, das darunter liegende Track-Element jedoch sichtbar bleibt-->
+												</Track.IncreaseRepeatButton>
+												<Track.DecreaseRepeatButton>
+													<RepeatButton Style="{StaticResource SliderRepeatButton-Sketch}" Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" Command="Slider.DecreaseLarge"/>
+												</Track.DecreaseRepeatButton>
+											</Track>
+
+											<TickBar Visibility="Collapsed" Grid.Row="2" x:Name="BottomTick" Height="4" SnapsToDevicePixels="True" Placement="Bottom" Fill="{TemplateBinding Foreground}"/>
+										</Grid>
+										<ControlTemplate.Triggers>
+											<Trigger Property="TickPlacement" Value="TopLeft">
+												<Setter Property="Visibility" Value="Visible" TargetName="TopTick"/>
+											</Trigger>
+											<Trigger Property="TickPlacement" Value="BottomRight">
+												<Setter Property="Visibility" Value="Visible" TargetName="BottomTick"/>
+											</Trigger>
+											<Trigger Property="TickPlacement" Value="Both">
+												<Setter Property="Visibility" Value="Visible" TargetName="TopTick"/>
+												<Setter Property="Visibility" Value="Visible" TargetName="BottomTick"/>
+											</Trigger>
+											<Trigger Property="IsEnabled" Value="false">
+												<Setter Property="Background" TargetName="SketchRectangleUC" Value="{DynamicResource BaseBackground-Sketch}"/>
+												<Setter Property="BorderBrush" TargetName="SketchRectangleUC" Value="{DynamicResource DisabledBorder-Sketch}"/>
+											</Trigger>
+
+											<!-- Verwenden Sie eine Drehung, um ein vertikales Slider-Element anhand der Standardhorizontalen zu erstellen. -->
+											<Trigger Property="Orientation" Value="Vertical">
+												<Setter Property="LayoutTransform" TargetName="GridRoot">
+													<Setter.Value>
+														<RotateTransform Angle="-90"/>
+													</Setter.Value>
+												</Setter>
+												<!-- Das Track-Element dreht sich basierend auf der Ausrichtung selbst. Es muss deshalb zurückgedreht werden. -->
+												<Setter TargetName="PART_Track" Property="Orientation" Value="Horizontal"/>
+											</Trigger>
+
+										</ControlTemplate.Triggers>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+
+					</Slider.Resources>
+				</Slider>
+			</DockPanel>
 		</ContentControl>
 		<ListBox Style="{DynamicResource ListBox-Sketch}" DockPanel.Dock="Bottom" ItemsPanel="{DynamicResource ItemsPanelTemplate}">
 			<ListBox.Resources>
@@ -50,28 +172,30 @@
 			<ContentPresenter Content="{StaticResource MergeAverageIcon}"/>
 			<ContentPresenter Content="{StaticResource RgbSplitIcon}"/>
 		</ListBox>
-		<Canvas>
-			<HeaderedContentControl Header="{StaticResource BlurIcon}" Width="60" Canvas.Left="230" Canvas.Top="48" Template="{StaticResource NodeTemplate}">
-				<StackPanel>
-					<Slider Margin="0,10,0,0" Style="{DynamicResource Slider-Sketch}" TickPlacement="BottomRight" Value="3" />
-					<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" Text="Radius" FontStyle="Italic" />
-				</StackPanel>
-			</HeaderedContentControl>
-			<HeaderedContentControl Header="{StaticResource FileIcon}" Template="{StaticResource NodeTemplate}" Width="100" Canvas.Left="33" Canvas.Top="131">
-				<DockPanel>
-					<Button DockPanel.Dock="Right" Style="{DynamicResource Button-Sketch}">...</Button>
-					<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" Text="C:\ka.yuv" />
-				</DockPanel>
-			</HeaderedContentControl>
-			<HeaderedContentControl Header="{StaticResource EyeIcon}" Template="{StaticResource NodeTemplate}" Width="100" Canvas.Left="383" Canvas.Top="101">
-				<StackPanel>
-					<Button Margin="5,5,5,5" Style="{DynamicResource Button-Sketch}">
-						<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}">Display</TextBlock>
-					</Button>
-				</StackPanel>
-			</HeaderedContentControl>
-			<Path Height="85" Canvas.Left="131" Stretch="Fill" Stroke="Black" Canvas.Top="74.04" Width="100" Data="m 0,1 C 0.5,1 0.5,0 1,0"/>
-			<Path Height="58" Canvas.Left="288" Stretch="Fill" Stroke="Black" Canvas.Top="74" Width="97" Data="m 0,0 C 0.5,0 0.5,1 1,1"/>
-		</Canvas>
+		<ScrollViewer Style="{DynamicResource ScrollViewer-Sketch}" HorizontalScrollBarVisibility="Visible">
+			<Canvas Height="248" Width="600">
+				<HeaderedContentControl Header="{StaticResource BlurIcon}" Width="60" Canvas.Left="230" Canvas.Top="48" Template="{StaticResource NodeTemplate}">
+					<StackPanel>
+						<Slider Margin="0,10,0,0" Style="{DynamicResource Slider-Sketch}" TickPlacement="BottomRight" Value="3" />
+						<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" Text="Radius" FontStyle="Italic" />
+					</StackPanel>
+				</HeaderedContentControl>
+				<HeaderedContentControl Header="{StaticResource FileIcon}" Template="{StaticResource NodeTemplate}" Width="100" Canvas.Left="33" Canvas.Top="131">
+					<DockPanel>
+						<Button DockPanel.Dock="Right" Style="{DynamicResource Button-Sketch}" Content="..."/>
+						<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}" Text="C:\ka.yuv" />
+					</DockPanel>
+				</HeaderedContentControl>
+				<HeaderedContentControl Header="{StaticResource EyeIcon}" Template="{StaticResource NodeTemplate}" Width="100" Canvas.Left="383" Canvas.Top="101">
+					<StackPanel>
+						<Button Margin="5,5,5,5" Style="{DynamicResource Button-Sketch}">
+							<TextBlock Style="{DynamicResource BasicTextBlock-Sketch}"><Run Text="Display"/></TextBlock>
+						</Button>
+					</StackPanel>
+				</HeaderedContentControl>
+				<Path Height="85" Canvas.Left="131" Stretch="Fill" Stroke="Black" Canvas.Top="74.04" Width="100" Data="m 0,1 C 0.5,1 0.5,0 1,0"/>
+				<Path Height="58" Canvas.Left="288" Stretch="Fill" Stroke="Black" Canvas.Top="74" Width="97" Data="m 0,0 C 0.5,0 0.5,1 1,1"/>
+			</Canvas>
+		</ScrollViewer>
 	</DockPanel>
 </UserControl>

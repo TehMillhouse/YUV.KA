@@ -10,13 +10,20 @@ Background="White"
 	</UserControl.Resources>
 	<DockPanel>
 		<ContentControl Template="{StaticResource ContentControl-Sketch}" DockPanel.Dock="Top">
-			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-				<TextBlock Margin="5" FontSize="18" VerticalAlignment="Center" Style="{StaticResource TextBlock-Sketch}">Referenz:</TextBlock>
-				<ComboBox Margin="5" Style="{StaticResource ComboBox-Sketch}" Width="100" SelectedIndex="0">
+			<DockPanel>
+				<StackPanel DockPanel.Dock="Left" Orientation="Horizontal" HorizontalAlignment="Right">
+					<TextBlock Margin="5" FontSize="18" VerticalAlignment="Center" Style="{StaticResource TextBlock-Sketch}">Referenz:</TextBlock>
+					<ComboBox Margin="5" Style="{StaticResource ComboBox-Sketch}" Width="100" SelectedIndex="0">
+						<ComboBoxItem>Video1</ComboBoxItem>
+						<ComboBoxItem>Video2</ComboBoxItem>
+					</ComboBox>
+				</StackPanel>
+				<ComboBox HorizontalAlignment="Right" Margin="5" Style="{StaticResource ComboBox-Sketch}" Width="170" SelectedIndex="0">
+					<ComboBoxItem>Graph hinzufügen...</ComboBoxItem>
 					<ComboBoxItem>Video1</ComboBoxItem>
 					<ComboBoxItem>Video2</ComboBoxItem>
 				</ComboBox>
-			</StackPanel>
+			</DockPanel>
 		</ContentControl>
 		<ContentControl DockPanel.Dock="Right" Template="{StaticResource ContentControl-Sketch}">
 			<StackPanel Margin="10">
@@ -24,7 +31,8 @@ Background="White"
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Margin="5" FontSize="18" VerticalAlignment="Center" Style="{StaticResource TextBlock-Sketch}">Video1</TextBlock>
 						<ComboBox  Margin="5" Style="{StaticResource ComboBox-Sketch}" Width="100" SelectedIndex="0">
-							<ComboBoxItem>Pixeldifferenz</ComboBoxItem>
+							<ComboBoxItem Content="Pixeldiff"/>
+							<ComboBoxItem Content="Logdiff"/>
 						</ComboBox>
 						<Button Margin="5" Style="{StaticResource Button-Sketch}">X</Button>
 					</StackPanel>

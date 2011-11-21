@@ -400,7 +400,7 @@
 	<Viewbox Width="20" Height="20" x:Key="StopIcon">
 		<Rectangle Width="1" Height="1" Fill="Black"/>
 	</Viewbox>
-	<Viewbox x:Key="RewindIcon" Height="20">
-		<Path Fill="Black" Data="M 0,0 V 1 h 0.3 V 0 h -0.3 m 0.8,0 l -0.5,0.5 l 0.5,0.5 V 0 m 0.5,0 l -0.5,0.5 l 0.5,0.5 V 0"/>
+	<Viewbox x:Key="SlowDownIcon" Height="20">
+		<Path Fill="Black" Data="M 0.5,0 l -0.5,0.5 l 0.5,0.5 V 0 m 0.5,0 l -0.5,0.5 l 0.5,0.5 V 0"/>
 	</Viewbox>
 </ResourceDictionary>
