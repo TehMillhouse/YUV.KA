@@ -1,16 +1,16 @@
 \section{Funktionale Anforderungen}
 
-\subparagraph{Input/Output zur Videobearbeitung}
+\subsection{Input/Output zur Videobearbeitung}
  
 \begin{description}
         \item[/F10/]YUV-Dateien einlesen \newline
                 Als YUV-Datei gespeicherte Videos sollen eingelesen und anschließend bearbeitet werden können.
-        \item[/F20/]BMP-Dateien als Standbildvideo\newline
-                BMP-Dateien sollen eingelesen und als Standbild abgespielt werden können. Der Benutzer erhält hiermit ein Video, das nur das eingelesene Standbild zeigt.
+        \item[/F20/]PNG-Dateien als Standbildvideo\newline
+                PNG-Dateien sollen eingelesen und als Standbild abgespielt werden können. Der Benutzer erhält hiermit ein Video, das nur das eingelesene Standbild zeigt.
         \item[/F30/]Standbildbibliothek \newline
-                Der Benutzer soll in der Lage sein auf einfache Weise einen Standbildinput abzurufen. Vorgegebene                Standbilder werden beispielsweise ein komplett rotes Bild sein.
-        \item[/F40/](Perlin-)Noise \newline
-                Der Benutzer soll (Perlin-)Noise als Videoinput erzeugen können.
+                Der Benutzer soll in der Lage sein auf einfache Weise einen Standbildinput abzurufen. Vorgegebene Standbilder werden beispielsweise ein komplett rotes Bild sein.
+        \item[/F40/]Perlin-Noise \newline
+                Der Benutzer soll Perlin-Noise als Videoinput erzeugen können.
         \item[/F50/]Speichern von YUV-Dateien \newline
                 Eventuell veränderte Videos sollen im YUV-Format gespeichert werden können.
         \item[/F60/]Speichern von Pipelines \newline
@@ -18,7 +18,7 @@
         \item[/F70/]Anzeigen von (bearbeiteten) Videos
 \end{description}
  
-\subparagraph{Videobearbeitung}
+\subsection{Videobearbeitung}
 \begin{description}
         \item[/F100/]RGB-Trennung \newline
                  Der Benutzer soll ein Video so auftrennen können, dass er drei Videos erhält, von denen das Erste nur den roten Anteil, das Zweite nur den grünen Anteil und das Dritte nur den blauen Anteil des aufgetrennten Videos zeigt.
@@ -30,36 +30,49 @@
                 Lineares und Gauß'sches Weichzeichnen von Videos soll möglich sein.
         \item[/F140/]Farbinvertierung \newline
                 Eine Farbinvertierung der Videos soll möglich sein.
-        \item[/F150/]Quantisieren der Farbpalette eines Videos \newline
-                Die Farbpalette eines Videos soll quantisiert werden können. %klingt dumm
-        \item[/F160/]Kontrast, Farbsättigung und Helligkeit editieren \newline
+        \item[/F150/]Kontrast, Farbsättigung und Helligkeit editieren \newline
                 Der Benutzer soll in der Lage sein den Kontrast, die Farbsättigung und die Helligkeit der Videos zu verändern.
-        \item[/F170/]Verzögern eines Videos um $n$ Frames \newline
+        \item[/F160/]Verzögern eines Videos um $n$ Frames \newline
                 Der Benutzer soll ein Video um $n$ Frames nach hinten versetzen.       
-        \item[/F180/]Bilden des Differenzvideos zweier Videos \newline
+        \item[/F170/]Bilden des Differenzvideos zweier Videos \newline
                 Es soll möglich sein das Differenzvideo durch Subtraktion der Farbwerte positionsgleicher Pixel der beiden Videos zu erstellen.
+	\item[/F180/]Verwendung eines Videoencoders \newline
+		Der Benutzer soll in der Lage sein den zu testenden Videoencoder in die Pipeline einzubauen.
 \end{description}
  
-\subparagraph{Videoanalyse}
-\begin{description}
-        \item Analysemöglichkeiten eines einzelnen Videos  
-                \begin{description}
-                        \item[/F200/]Anzeigen des Inter/Intra-Block/Verhältnisses pro Frame
-                        \item[/F200/]Anzeigen des Helligkeitsverlaufs eines Videos pro Frame
-                        \item[/F210/]Anzeigen des Histogramms eines Video
-                        \item[/F220/]Anzeigen der Pseudo-Noise-Ratio pro Frame
-                   \end{description}
-        \item Vergleich eines oder mehrerer Videos mit einem Referenzvideo
-                \begin{description}
-                        \item[/F300/]Differenzen der Pixelfarben % ?
-                        \item[/F310/]Anzeigen der Differenz der Encoder-Entscheidungen pro Frame
-                        \item[/F320/]Anzeigen der Anzahl der Artefakte pro Frame
-                        \item[/F330/]Videoansicht mit Artefakthighlighting
-                \end{description}  
-        \item Sonstiges
-                \begin{description}
-                        \item[/F410/]Die Punkte /F10/ bis /F330/ sollen im Rahmen der Rechnerleistung beliebig kombinierbar sein.
-                \end{description}
-\end{description}
+\subsection{Videoanalyse}
+\subparagraph{Analyse eines einzelnen Videos} 
+	\begin{description}
+	        \item[/F200/]Anzeigen des Inter/Intra-Block/Verhältnisses pro Frame
+                \item[/F210/]Anzeigen des Helligkeitsverlaufs eines Videos pro Frame
+                \item[/F220/]Anzeigen des Histogramms eines Video
+                \item[/F230/]Anzeigen der peak signal-to-noise ratio pro Frame
+        \end{description}
+\subparagraph{Vergleich eines oder mehrerer Videos mit einem Referenzvideo}
+        \begin{description}
+   	        \item[/F300/]Anzeigen der Differenzen der Pixelfarben
+                \item[/F310/]Anzeigen der Differenz der Encoder-Entscheidungen pro Frame
+                \item[/F320/]Anzeigen der Anzahl der Artefakte pro Frame
+                \item[/F330/]Videoansicht mit Artefakthighlighting \newline
+			Der Benutzer soll sich eine Ansicht anzeigen lassen können, die ihm die Artefakte im Bezug auf das Referenzvideo hervorhebt.
+        \end{description}  
+\subsection{Sonstiges}
+	\begin{description}
+		\item[/F400/]Im Video springen \newline
+			Der Benutzer soll sowohl bei laufendem, als auch bei nicht laufendem Video an einen beliebigen Punkt im Video springen können.
+		\item[/F410/]Video schneller/langsamer abspielen \newline
+			Der Benutzer soll in der Lage sein das Video auf doppelter und halber Geschwindigkeit abzuspielen.	
+  		\item[/F410/]Kombinierbarkeit \newline
+			Die Punkte /F10/ bis /F330/ sollen im Rahmen der Rechnerleistung beliebig kombinierbar sein.
+        \end{description}
+
+\subsection{Wunschkriterien}
+	\begin{description}
+		\item[/F500/]Plugins \newline
+			Das Programm soll durch Plugins erweiterbar sein.
+		\item[/F510/]Quantisieren der Farbpalette eines Videos \newline
+			Die Farbpalette eines Videos soll quantisiert werden können.
+	\end{description}
+
  
 
