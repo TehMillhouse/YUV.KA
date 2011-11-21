@@ -2,24 +2,73 @@
 
 \textbf{Folgende Funktionssequenzen sind zu überprüfen:}
 \begin{itemize}
-	\item\textbf{/T10/} Eingabeknoten erstellen, verschieben, verändern, löschen
-	\item\textbf{/T20/} Manipulationsknoten erstellen, verschieben, verändern, löschen
-	\item\textbf{/T30/} Endknoten erstellen, verschieben, öffnen, schließen, löschen
-	\item\textbf{/T40/} Erstellen, Verschieben und Löschen von Kanten zwischen Knoten
-	\item\textbf{/T50/} Pipeline erstellen, speichern, laden
-	\item\textbf{/T60/} Wiedergabe starten, stoppen, Abspielgeschwindigkeit ändern, fortsetzen, zurücksetzen
-	\item\textbf{/T70/} YUV-Datei einlesen, manipulieren, wiedergeben, speichern
-	\item\textbf{/T80/} Diagrammknoten öffnen, Referenzvideo festlegen, Graph hinzufügen, Graphtyp ändern, Graph entfernen, Diagramm schließen, Knoten deaktivieren, Knoten 
-				reaktivieren
+	\item\textbf{/T10/} Pipeline-Konstruktion
+		\begin{itemize}
+			\item Der Benutzer startet das Programm.
+			\item Der Benutzer wählt "Neue Pipline erstellen".
+			\item Der Benutzer erzeugt jede Art von Knoten mindestens einmal indem er jeden Knoten per "Drag-and-Drop" aus einer am unteren Bildschirmrand
+				angebrachten Leiste erzeugt.
+			\item Der Benutzer verbindet die erstellten Knoten miteinader, indem er Kanten zwischen den Aus- und Eingängen der Knoten erstellt.
+		\end{itemize}
+	\item\textbf{/T20/} Manipulation einer Pipeline
+		\begin{itemize}
+			\item Der Benutzer startet das Programm und erstellet eine beliebige Pipeline mit mindestens 2 Knoten, davon mindestens ein Manipulationsknoten mit Optionen 
+				und mindestens einer Kante.
+			\item Der Benutzer bewegt mindestens einen gesetzte Knoten innerhalb der Pipeline per "Drag-and-Drop".
+			\item Der Benutzer verändert das Ziel mindestens einer gesetzten Kante per "Drag-and-Drop".
+			\item Der Benutzer löscht mindestens eine Kante.
+			\item Der Benutzer verändert mindestens eine Einstellung eines Manipulationsknotens.
+			\item Der Benutzer löscht mindestens einen Knoten.
+		\end{itemize}
+	\item\textbf{/T30/} Sicherung einer Pipeline
+		\begin{itemize}
+			\item Der Benutzer startet das Programm und erstellet eine beliebige Pipeline.
+			\item Der Benutzer speichert die Pipeline.
+			\item Der Benutzer wählt "Neue Pipeline erstellen".
+			\item Der Benutzer läd die gesicherte Pipeline.
+		\end{itemize}
+\newpage
+	\item\textbf{/T40/} Videoverarbeitung
+		\begin{itemize}
+			\item Der Benutzer startet das Programm und erstellet eine beliebige, zusammenhängende, zyklenfreie Pipeline mit mindestens einem Eingabe-, Wiedergabe- sowie 
+				Manipulationsknoten mit Optionen.
+			\item Der Benutzer ändert die Quelle eines EingabeKnotens.
+			\item Der Benutzer öffnet den Wiedergabeknoten, and beginnt das Video abzuspielen.
+			\item Der Benutzer ändert mindestens eine Option eines Manipulationsknotens, während das Video abspielt.
+			\item Der Benutzer ändert die Abspielgeschwindigkeit des Videos.
+			\item Der Benutzer pausiert die Videowiedergabe.
+			\item Der Benutzer setzt die Wiedergabe fort.
+			\item Der Benutzer setzt die Videowiedergabe zurück.
+			\item Der Benutzer speichert das manipulierte Video als YUV-Datei.
+		\end{itemize}
+	\item\textbf{/T50/} Videoanalyse
+		\begin{itemize}
+			\item Der Benutzer startet das Programm und erstellet eine beliebige, zusammenhängende, zyklenfreie Pipeline mit mindestens einem Eingabe-, Überlagerungs- sowie 
+				Diagrammknoten.
+			\item Der Benutzer deaktiviert den Diagrammknoten.
+			\item Der Benutzer öffnet den Überlagerungsknoten.
+			\item Der Benutzer beginnt die Videowiedergabe.
+			\item Der Benutzer fügt eine Überlagerungsoption hinzu, während das Video abspielt.
+			\item Der Benutzer entfernt die hinzugefügte Überlagerungsoption.
+			\item Der Benutzer setzt die Videowiedergabe zurück und schließt den Überlagerungsknoten.
+			\item Der Benutzer reaktiviert den Dieagrammknoten und öffnet diesen.
+			\item Der Benutzer wählt ein Referenzvideo aus und fügt einen Analysegraphen hinzu.
+			\item Der Benutzer startet erneut die Videowiedergabe.
+			\item Der Benutzer ändert den Typ des Analysegraphen.
+			\item Der Benutzer löscht den Analysegraphen.
+		\end{itemize}
 \end{itemize}
 
-~\\
+\newpage
 
 \textbf{Folgende Datenkonsistenzen sind einzuhalten:}
 \begin{itemize}
-	\item\textbf{/T100/} Wiedergabe ist nur möglich, wenn mindests ein Endknoten geöffnet ist.
-	\item\textbf{/T110/} Wiedergabe ist nur möglich, wenn alle mit der Pipeline verbundenen Eingabeknoten eine Quelle besitzen.
-	\item\textbf{/T120/} Das Speichern einer YUV-Datei nach einem Knoten ist nur möglich, wenn dieser Knoten ein gültiges Video als Eingabe besitzt oder ein Eingabeknoten mit 
-				gültiger Quelle ist.
-	\item\textbf{/T130/} Die Pipeline kann nicht verändert werden, während die Wiedergabe läuft oder pausiert ist. Ausnahme hierbei sind die Optionen der Manipulationsknoten.
+	\item\textbf{/T100/} Ergebnislose Wiedergabe verhindern. ~\\
+		Wenn der Benutzer keinen Endknoten geöffnet hat, ist die Videowiedergabe nicht anwählbar.
+	\item\textbf{/T110/} Verarbeitung ohne Eingabe verhindern. ~\\
+		Falls ein Eingabeknoten ohne gültige Videoquelle mit der Pipeline verbunden ist, ist weder die Videowiedergabe, noch das Speichern von Videos als YUF-Datei möglich.
+	\item\textbf{/T120/} Strukturbrüche während der Wiedergabe verhindern ~\\
+		Während der Videowiedergabe kann der Benutzer die Pipelinestruktur nicht verändern.
+	\item\textbf{/T130/} Inkonsistenz eines gespeicherten Videos verhindern ~\\
+		Während dem Speichern eines Videos als YUF-Datei kann der Benutzer keinerlei Änderungen an der Pipeline vornehmen.
 \end{itemize}
