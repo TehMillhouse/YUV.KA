@@ -1,48 +1,65 @@
 \section{Funktionale Anforderungen}
 
-\subparagraph{Input/Output zur Videobearbeitung} 
-\begin{itemize} 
-	\item \textbf{/F10/} Einlesen eines Videos im YUV-Format.
-	\item \textbf{/F20/} Einlesen einer Bilddatei als Standbild-Video.
-	\item \textbf{/F30/} Erzeugung von (Perlin-)Noise.
-	\item \textbf{/F40/} Konstante Farbe als Standbild-Video.
-	\item \textbf{/F50/} Speichern eines Videos als YUV-Datei.
-	\item \textbf{/F60/} Speichern und Laden der erstellten Bearbeitungs-/Analysepipelines
+\subparagraph{Input/Output zur Videobearbeitung}
+ 
+\begin{itemize}
+        \item \textbf{/F10/} YUV-Dateien einlesen \newline
+                Als YUV-Datei gespeicherte Videos sollen eingelesen und anschließend bearbeitet werden können.
+        \item \textbf{/F20/} BMP-Dateien als Standbildvideo\newline
+                BMP-Dateien sollen eingelesen und als Standbild abgespielt werden können. Der Benutzer erhält hiermit ein Video, das nur das eingelesene Standbild zeigt.
+        \item \textbf{/F30/} Standbildbibliothek \newline
+                Der Benutzer soll in der Lage sein auf einfache Weise einen Standbildinput abzurufen. Vorgegebene                Standbilder werden beispielsweise ein komplett rotes Bild sein.
+        \item \textbf{/F40/} (Perlin-)Noise \newline
+                Der Benutzer soll (Perlin-)Noise als Videoinput erzeugen können.
+        \item \textbf{/F50/} Speichern von YUV-Dateien \newline
+                Eventuell veränderte Videos sollen im YUV-Format gespeichert werden können.
+        \item \textbf{/F60/} Speichern von Pipelines \newline
+                Das Programm soll die erstellten Bearbeitungs- und Analysepipelines speichern und laden können.
+        \item \textbf{/F70/} Anzeigen von (bearbeiteten) Videos
 \end{itemize}
-
+ 
 \subparagraph{Videobearbeitung}
 \begin{itemize}
-	\item \textbf{/F100/} Trennung nach den RGB-Farbkanälen.
-	\item \textbf{/F110/} Additives Übereinanderlegen mehrerer Videos.
-	\item \textbf{/F120/} Gewichtet gemitteltes Übereinanderlegen mehrerer Videos.
-	\item \textbf{/F130/} Lineares und Gauß'sches Weichzeichnen von Videos.
-	\item \textbf{/F140/} Farbinvertierung eines Videos.
-	\item \textbf{/F150/} Quantisieren der Farbpalette eines Videos.
-	\item \textbf{/F160/} Änderung von Kontrast, Farbsättigung und Helligkeit eines Videos.
-	\item \textbf{/F170/} Verzögern eines Videos um $n$ Frames.	
-	\item \textbf{/F180/} Bilden des Differenzvideos zweier Videos.
+        \item \textbf{/F100/} RGB-Trennung \newline
+                 Der Benutzer soll ein Video so auftrennen können, dass er drei Videos erhält, von denen das Erste nur den roten Anteil, das Zweite nur den grünen Anteil und das Dritte nur den blauen Anteil des aufgetrennten Videos zeigt.
+        \item \textbf{/F110/} Additives  Übereinanderlegen von Videos \newline
+                Mehrere Videos sollen durch Addition ihrer Pixelwerte übereinandergelegt werden können. Hierbei werden die Farbwerte der positionsgleichen Pixel der Videos aufaddiert und als neuer Farbwert des entstehenden Videos interpretiert.
+        \item \textbf{/F120/} Gewichtet gemitteltes Übereinanderlegen von  Videos \newline
+                Der Benutzer soll in der Lage sein mehrere Videos gemittelt Übereinander zu legen. Hierbei werden die Farbwerte positionsgleicher Pixel gewichtet aufaddiert und anschließend gemittelt, um im gegebenen Farbbereich zu bleiben. Der Benutzer ist außerdem in der Lage die Gewichtung selbst festzulegen.
+        \item \textbf{/F130/} Lineares und Gauß'sches Weichzeichnen \newline
+                Lineares und Gauß'sches Weichzeichnen von Videos soll möglich sein.
+        \item \textbf{/F140/} Farbinvertierung \newline
+                Eine Farbinvertierung der Videos soll möglich sein.
+        \item \textbf{/F150/} Quantisieren der Farbpalette eines Videos \newline
+                Die Farbpalette eines Videos soll quantisiert werden können. %klingt dumm
+        \item \textbf{/F160/} Kontrast, Farbsättigung und Helligkeit editieren \newline
+                Der Benutzer soll in der Lage sein den Kontrast, die Farbsättigung und die Helligkeit der Videos zu verändern.
+        \item \textbf{/F170/} Verzögern eines Videos um $n$ Frames \newline
+                Der Benutzer soll ein Video um $n$ Frames nach hinten versetzen.       
+        \item \textbf{/F180/} Bilden des Differenzvideos zweier Videos \newline
+                Es soll möglich sein das Differenzvideo durch Subtraktion der Farbwerte positionsgleicher Pixel der beiden Videos zu erstellen.
 \end{itemize}
-
+ 
 \subparagraph{Videoanalyse}
 \begin{itemize}
-	\item Analyse eines einzelnen Videos  
-		\begin{itemize}
-			\item \textbf{/F200/} Anzeigen des Inter/Intra-Block-Verhältnisses pro Frame
-			\item \textbf{/F210/} Anzeigen des Helligkeitsverlaufs eines Videos pro Frame.
-			\item \textbf{/F220/} Anzeigen des Histogramms eines Video.
-			\item \textbf{/F230/} Anzeigen der Pseudo-Noise-Ratio pro Frame.
-		   \end{itemize} 
-	\item Vergleich eines oder mehrerer Videos mit einem Referenzvideo
-		\begin{itemize}
-			\item \textbf{/F300/} Differenz der Pixelfarben.
-			\item \textbf{/F310/} Differenz der Encoder-Entscheidungen.
-			\item \textbf{/F320/} Anzahl der Artefakte.
-			\item \textbf{/F330/} Videoansicht mit Artefakthighlighting.
-		\end{itemize}	
-	\item Sonstiges
-		\begin{itemize}
-			\item \textbf{/F400/} Anzeigen eines Videos. 
-			\item \textbf{/F410/} Die Punkte /F10/ bis /F330/ sollen im Rahmen der Rechnerleistung beliebig kombinierbar sein.
-		\end{itemize}
+        \item Analysemöglichkeiten eines einzelnen Videos  
+                \begin{itemize}
+                        \item \textbf{/F200/} Anzeigen des Inter/Intra-Block/Verhältnisses pro Frame
+                        \item \textbf{/F200/} Anzeigen des Helligkeitsverlaufs eines Videos pro Frame
+                        \item \textbf{/F210/} Anzeigen des Histogramms eines Video
+                        \item \textbf{/F220/} Anzeigen der Pseudo-Noise-Ratio pro Frame
+                   \end{itemize}
+        \item Vergleich eines oder mehrerer Videos mit einem Referenzvideo
+                \begin{itemize}
+                        \item \textbf{/F300/} Differenzen der Pixelfarben % ?
+                        \item \textbf{/F310/} Anzeigen der Differenz der Encoder-Entscheidungen pro Frame
+                        \item \textbf{/F320/} Anzeigen der Anzahl der Artefakte pro Frame
+                        \item \textbf{/F330/} Videoansicht mit Artefakthighlighting
+                \end{itemize}  
+        \item Sonstiges
+                \begin{itemize}
+                        \item \textbf{/F410/} Die Punkte /F10/ bis /F330/ sollen im Rahmen der Rechnerleistung beliebig kombinierbar sein.
+                \end{itemize}
 \end{itemize}
+ 
 
