@@ -3,9 +3,9 @@
 
 \begin{description}
 	\item[/PD10/] Videodateien \\
-        Es können Dateien im IYUV-Format\footnote{\url{http://www.fourcc.org/yuv.php\#IYUV}} eingelesen und ausgegeben werden; zusätzlich kann der Encoder eine Logdatei bereitstellen, in der pro Macroblock des zugehörigen Videos die Inter/Intra-Frame-Entscheidung und der Move Vector dokumentiert sind.
+        Zu ladende Videodateien (s. \hyperref[F10]{\emph{/F10/}}) sind im IYUV-Format\footnote{\url{http://www.fourcc.org/yuv.php\#IYUV}} gespeichert. Zusätzlich zum Video-Input kann der Encoder eine Logdatei bereitstellen, in der pro Macroblock des zugehörigen Videos die Inter/Intra-Frame-Entscheidung und der Move Vector dokumentiert sind.
 	\item[/PD20/] Standbilder \\
-        Als Input können auch gewöhnliche Bilder im PNG-Format eingelesen werden, um ein Standbild-Video zu erzeugen.
+        Einzelbilder zum Erzeugen eines Standbildvideos (\hyperref[F20]{\emph{/F20/}}) sind im PNG-Format hinterlegt.
 	\item[/PD30/] Gespeicherte Pipelines \\
-        \sloppy Erstellte Pipelines können ins Dateisystem gespeichert und von dort aus wieder geladen werden. Die Daten werden im XML-Schema des \texttt{System.Runtime.Serialization.NetDataContractSerializer}s\footnote{\url{http://msdn.microsoft.com/en-us/library/system.runtime.serialization.netdatacontractserializer.aspx}} gespeichert.
-\end{description} \fussy
+        Erstellte Pipelines werden im XML-Schema des \texttt{System.Runtime.Serialization.} \texttt{NetDataContractSerializer}s\footnote{\url{http://msdn.microsoft.com/en-us/library/system.runtime.serialization.netdatacontractserializer.aspx}} gespeichert (s. \hyperref[F60]{\emph{/F60/}}).
+\end{description}
