@@ -6,47 +6,47 @@
         \item[/F10/]YUV-Dateien einlesen \label{F10}\newline
                 Als YUV-Datei gespeicherte Videos sollen eingelesen und anschließend bearbeitet werden können.
         \item[/F20/]PNG-Dateien als Standbildvideo \label{F20}\newline
-                PNG-Dateien sollen eingelesen und als Standbild abgespielt werden können. Der Benutzer erhält hiermit ein Video, das nur das eingelesene Standbild zeigt.
-        \item[/F30/]Standbildbibliothek \newline
-                Der Benutzer soll in der Lage sein auf einfache Weise einen Standbildinput abzurufen. Vorgegebene Standbilder werden beispielsweise ein komplett rotes Bild sein.
+                PNG-Dateien sollen eingelesen und als Standbild abgespielt werden können. Der Benutzer erhält hiermit ein Video, das nur das eingelesene Bild als Standbild zeigt.
+        \item[/F30/]Konstante Farbe als Input \newline
+                Der Benutzer soll in der Lage sein, auf einfache Weise eine beliebige Farbe als Standbildinput auszuwählen.
         \item[/F40/]Perlin-Noise \newline
                 Der Benutzer soll Perlin-Noise als Videoinput erzeugen können.
         \item[/F50/]Speichern von YUV-Dateien \newline
                 Eventuell veränderte Videos sollen im YUV-Format gespeichert werden können.
         \item[/F60/]Speichern von Pipelines \label{F60}\newline
-                Das Programm soll die erstellten Bearbeitungs- und Analysepipelines speichern und laden können.
+                Der Benutzer soll die erstellten Bearbeitungs- und Analysepipelines speichern und laden können.
         \item[/F70/]Anzeigen von (bearbeiteten) Videos
 \end{description}
  
 \subsection{Videobearbeitung}
 \begin{description}
         \item[/F100/]RGB-Trennung \newline
-                 Der Benutzer soll ein Video so auftrennen können, dass er drei Videos erhält, von denen das Erste nur den roten Anteil, das Zweite nur den grünen Anteil und das Dritte nur den blauen Anteil des aufgetrennten Videos zeigt.
+                 Der Benutzer soll ein Video so auftrennen können, dass er drei Videos erhält, von denen das erste nur den roten Anteil, das zweite nur den grünen Anteil und das dritte nur den blauen Anteil des aufgetrennten Videos zeigt.
         \item[/F110/]Additives Übereinanderlegen von Videos \newline
                 Mehrere Videos sollen durch Addition ihrer Pixelwerte übereinandergelegt werden können. Hierbei werden die Farbwerte der positionsgleichen Pixel der Videos aufaddiert und als neuer Farbwert des entstehenden Videos interpretiert.
         \item[/F120/]Gewichtet gemitteltes Übereinanderlegen von  Videos \newline
-                Der Benutzer soll in der Lage sein mehrere Videos gemittelt übereinander zu legen. Hierbei werden die Farbwerte positionsgleicher Pixel gewichtet aufaddiert und anschließend gemittelt, um im gegebenen Farbbereich zu bleiben. Der Benutzer ist außerdem in der Lage die Gewichtung selbst festzulegen.
+                Der Benutzer soll in der Lage sein, mehrere Videos gemittelt übereinander zu legen. Hierbei werden die Farbwerte positionsgleicher Pixel gewichtet aufaddiert und anschließend gemittelt, um im gegebenen Farbbereich zu bleiben. Der Benutzer ist außerdem in der Lage, die Gewichtung selbst festzulegen.
         \item[/F130/]Lineares und Gauß'sches Weichzeichnen \newline
                 Lineares und Gauß'sches Weichzeichnen von Videos soll möglich sein.
         \item[/F140/]Farbinvertierung \newline
                 Eine Farbinvertierung der Videos soll möglich sein.
         \item[/F150/]Kontrast, Farbsättigung und Helligkeit editieren \newline
-                Der Benutzer soll in der Lage sein den Kontrast, die Farbsättigung und die Helligkeit der Videos zu verändern.
+                Der Benutzer soll in der Lage sein, den Kontrast, die Farbsättigung und die Helligkeit der Videos zu verändern.
         \item[/F160/]Verzögern eines Videos um $n$ Frames \newline
-                Der Benutzer soll ein Video um $n$ Frames nach hinten versetzen.       
+                Der Benutzer soll ein Video um $n$ Frames nach hinten versetzen können.       
         \item[/F170/]Bilden des Differenzvideos zweier Videos \newline
-                Es soll möglich sein das Differenzvideo durch Subtraktion der Farbwerte positionsgleicher Pixel der beiden Videos zu erstellen.
+                Es soll möglich sein, das Differenzvideo durch Subtraktion der Farbwerte positionsgleicher Pixel der beiden Videos zu erstellen.
 	\item[/F180/]Verwendung eines Videoencoders \newline
-		Der Benutzer soll in der Lage sein den zu testenden Videoencoder in die Pipeline einzubauen.
+		Der Benutzer soll in der Lage sein, den zu testenden Videoencoder in die Pipeline einzubauen.
 \end{description}
  
 \subsection{Videoanalyse}
 \subparagraph{Analyse eines einzelnen Videos} 
 	\begin{description}
-	        \item[/F200/]Anzeigen des Inter/Intra-Block/Verhältnisses pro Frame
+	        \item[/F200/]Anzeigen des Inter/Intra-Block-Verhältnisses pro Frame
                 \item[/F210/]Anzeigen des Helligkeitsverlaufs eines Videos pro Frame
                 \item[/F220/]Anzeigen des Histogramms eines Video
-                \item[/F230/]Anzeigen der peak signal-to-noise ratio pro Frame
+                \item[/F230/]Anzeigen der ``Peak signal-to-noise ratio'' pro Frame
         \end{description}
 \subparagraph{Vergleich eines oder mehrerer Videos mit einem Referenzvideo}
         \begin{description}
@@ -61,7 +61,7 @@
 		\item[/F400/]Im Video springen \newline
 			Der Benutzer soll sowohl bei laufendem, als auch bei nicht laufendem Video an einen beliebigen Punkt im Video springen können.
 		\item[/F410/]Video schneller/langsamer abspielen \newline
-			Der Benutzer soll in der Lage sein das Video auf doppelter und halber Geschwindigkeit abzuspielen.	
+			Der Benutzer soll in der Lage sein, das Video auf doppelter und halber Geschwindigkeit abzuspielen.	
   		\item[/F410/]Kombinierbarkeit \newline
 			Die Punkte /F10/ bis /F330/ sollen im Rahmen der Rechnerleistung beliebig kombinierbar sein.
         \end{description}
