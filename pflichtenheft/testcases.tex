@@ -1,7 +1,9 @@
+\renewcommand{\labelitemi}{$-$}
+
 \section{Testfälle}
 
 \textbf{Folgende Funktionssequenzen sind zu überprüfen:}
-\begin{itemize}
+\begin{description}
 	\item\textbf{/T10/} Pipeline-Konstruktion
 		\begin{itemize}
 			\item Der Benutzer startet das Programm.
@@ -57,12 +59,12 @@
 			\item Der Benutzer ändert den Typ des Analysegraphen.
 			\item Der Benutzer löscht den Analysegraphen.
 		\end{itemize}
-\end{itemize}
+\end{description}
 
 \newpage
 
 \textbf{Folgende Datenkonsistenzen sind einzuhalten:}
-\begin{itemize}
+\begin{description}
 	\item\textbf{/T100/} Ergebnislose Wiedergabe verhindern. ~\\
 		Wenn der Benutzer keinen Endknoten geöffnet hat, ist die Videowiedergabe nicht anwählbar.
 	\item\textbf{/T110/} Verarbeitung ohne Eingabe verhindern. ~\\
@@ -71,4 +73,4 @@
 		Während der Videowiedergabe kann der Benutzer die Pipelinestruktur nicht verändern.
 	\item\textbf{/T130/} Inkonsistenz eines gespeicherten Videos verhindern ~\\
 		Während dem Speichern eines Videos als YUF-Datei kann der Benutzer keinerlei Änderungen an der Pipeline vornehmen.
-\end{itemize}
+\end{description}
