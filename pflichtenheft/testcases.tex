@@ -15,9 +15,9 @@
 		\end{itemize}
 	\item[/T20/] Manipulation einer Pipeline
 		\begin{itemize}
-			\item[--] Der Benutzer startet das Programm und erstellet eine beliebige Pipeline mit mindestens 2 Knoten, davon mindestens ein Manipulationsknoten mit Optionen 
+			\item[--] Der Benutzer startet das Programm und erstellt eine beliebige Pipeline mit mindestens zwei Knoten, davon mindestens ein Manipulationsknoten mit Optionen 
 				und mindestens einer Kante.
-			\item[--] Der Benutzer bewegt einen gesetzte Knoten innerhalb der Pipeline per ``Drag-and-Drop''.
+			\item[--] Der Benutzer bewegt einen gesetzten Knoten innerhalb der Pipeline per ``Drag-and-Drop''.
 			\item[--] Der Benutzer verändert das Ziel einer gesetzten Kante per ``Drag-and-Drop''.
 			\item[--] Der Benutzer löscht eine Kante.
 			\item[--] Der Benutzer verändert eine Einstellung eines Manipulationsknotens.
@@ -25,7 +25,7 @@
 		\end{itemize}
 	\item[/T30/] Sicherung einer Pipeline
 		\begin{itemize}
-			\item[--] Der Benutzer startet das Programm und erstellet eine beliebige Pipeline.
+			\item[--] Der Benutzer startet das Programm und erstellt eine beliebige Pipeline.
 			\item[--] Der Benutzer speichert die Pipeline.
 			\item[--] Der Benutzer wählt ``Neue Pipeline erstellen''.
 			\item[--] Der Benutzer lädt die gesicherte Pipeline.
@@ -33,7 +33,7 @@
 \newpage
 	\item[/T40/] Videoverarbeitung
 		\begin{itemize}
-			\item[--] Der Benutzer startet das Programm und erstellet eine beliebige, zusammenhängende, zyklenfreie Pipeline mit mindestens einem Eingabe-, Wiedergabe- sowie 
+			\item[--] Der Benutzer startet das Programm und erstellt eine beliebige, zusammenhängende, zyklenfreie Pipeline mit mindestens einem Eingabe-, Wiedergabe- sowie 
 				Manipulationsknoten mit Optionen.
 			\item[--] Der Benutzer ändert die Quelle eines Eingabeknotens.
 			\item[--] Der Benutzer öffnet den Wiedergabeknoten und beginnt das Video abzuspielen.
@@ -46,7 +46,7 @@
 		\end{itemize}
 	\item[/T50/] Videoanalyse
 		\begin{itemize}
-			\item[--] Der Benutzer startet das Programm und erstellet eine beliebige, zusammenhängende, zyklenfreie Pipeline mit mindestens einem Eingabe-, Überlagerungs- sowie 
+			\item[--] Der Benutzer startet das Programm und erstellt eine beliebige, zusammenhängende, zyklenfreie Pipeline mit mindestens einem Eingabe-, Überlagerungs- sowie 
 				Diagrammknoten.
 			\item[--] Der Benutzer deaktiviert einen Diagrammknoten.
 			\item[--] Der Benutzer öffnet einen Überlagerungsknoten.
@@ -69,12 +69,12 @@
 \textbf{Folgende Datenkonsistenzen sind einzuhalten:}
 
 \begin{description}
-	\item[/T100/] Ergebnislose Wiedergabe verhindern. ~\\
+	\item[/T100/] Ergebnislose Wiedergabe verhindern ~\\
 		Wenn der Benutzer keinen Endknoten geöffnet hat, ist die Videowiedergabe nicht anwählbar.
-	\item[/T110/] Verarbeitung ohne Eingabe verhindern. ~\\
-		Falls ein Eingabeknoten ohne gültige Videoquelle mit der Pipeline verbunden ist, ist weder die Videowiedergabe, noch das Speichern von Videos als YUF-Datei möglich.
+	\item[/T110/] Verarbeitung ohne Eingabe verhindern ~\\
+		Falls ein Eingabeknoten ohne gültige Videoquelle mit der Pipeline verbunden ist, ist weder die Videowiedergabe, noch das Speichern von Videos als YUV-Datei möglich.
 	\item[/T120/] Strukturbrüche während der Wiedergabe verhindern ~\\
 		Während der Videowiedergabe kann der Benutzer die Pipelinestruktur nicht verändern.
 	\item[/T130/] Inkonsistenz eines gespeicherten Videos verhindern ~\\
-		Während dem Speichern eines Videos als YUF-Datei kann der Benutzer keinerlei Änderungen an der Pipeline vornehmen.
+		Während des Speicherns eines Videos als YUV-Datei kann der Benutzer keinerlei Änderungen an der Pipeline vornehmen.
 \end{description}
