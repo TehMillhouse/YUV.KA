@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="YuvKA.Frame">
+    <Position X="3.75" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Frame.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Data" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YuvKA.AnnotatedFrame">
+    <Position X="4.25" Y="4.25" Width="2.5" />
+    <AssociationLine Name="Decisions" Type="YuvKA.MacroblockDecision">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.294" Y="0.589" Height="0.182" Width="2.139" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>AnnotatedFrame.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Decisions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YuvKA.MacroblockDecision">
+    <Position X="0.5" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MacroblockDecision.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PartitioningDecision" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="YuvKA.NoiseInputNode">
+    <Position X="8" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NoiseInput.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="YuvKA.ColorInputNode">
+    <Position X="8" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>ColorInput.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="YuvKA.BlurNode">
+    <Position X="11.25" Y="4.25" Width="2.5" />
+    <AssociationLine Name="Type" Type="YuvKA.BlurType">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.11" Y="0.195" Height="0.182" Width="0.582" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAgAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>BlurNode.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Type" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="YuvKA.DiagramNode">
+    <Position X="14.25" Y="4.25" Width="2.5" />
+    <AssociationLine Name="Graphs" Type="YuvKA.DiagramGraph">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.006" Y="0.32" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAgAAAAQQAAAAAA=</HashCode>
+      <FileName>DiagramNode.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Graphs" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="YuvKA.DiagramGraph">
+    <Position X="14.25" Y="6.75" Width="2.25" />
+    <AssociationLine Name="Type" Type="YuvKA.IGraphType">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.1" Y="0.3" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAg=</HashCode>
+      <FileName>DiagramGraph.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Type" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="YuvKA.ReplayState">
+    <Position X="12.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ReplayState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.PixelDiff">
+    <Position X="14.25" Y="10.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PixelDiffGraphType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="YuvKA.IntraBlockFrequency">
+    <Position X="15.75" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IntraFreqGraphType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="YuvKA.PipelineDriver">
+    <Position X="8.75" Y="0.5" Width="3.5" />
+    <AssociationLine Name="Nodes" Type="YuvKA.INode">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.051" Y="0.251" Height="0.182" Width="1.497" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAggAAAACAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>PipelineDriver.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Nodes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YuvKA.YuvEncoder">
+    <Position X="0.5" Y="0.5" Width="6" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>YuvEncoder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="YuvKA.RGB">
+    <Position X="0.5" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAEAAQA=</HashCode>
+      <FileName>RGB.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="YuvKA.INode">
+    <Position X="11.25" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>INode.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="YuvKA.IGraphType">
+    <Position X="14.25" Y="8.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IGraphType.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="YuvKA.MacroblockPartitioning" Collapsed="true">
+    <Position X="0.5" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIAAAAAAABEEAAABAAAAAAAAQCAAAEAAEAABA=</HashCode>
+      <FileName>MacroblockPartitioning.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="YuvKA.BlurType">
+    <Position X="11.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>BlurType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
