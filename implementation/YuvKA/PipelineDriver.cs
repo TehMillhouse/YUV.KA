@@ -30,7 +30,7 @@ namespace YuvKA
 			}
 		}
 
-		public void Start(CancellationToken token)
+		public IEnumerable Start()
 		{
 			throw new System.NotImplementedException();
 		}
