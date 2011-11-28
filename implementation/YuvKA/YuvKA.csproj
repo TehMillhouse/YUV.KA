@@ -67,6 +67,7 @@
     <Compile Include="MacroblockPartitioning.cs" />
     <Compile Include="NoiseInput.cs" />
     <Compile Include="PipelineDriver.cs" />
+    <Compile Include="PipelineGraph.cs" />
     <Compile Include="PixelDiffGraphType.cs" />
     <Compile Include="ReplayState.cs" />
     <Compile Include="RGB.cs" />

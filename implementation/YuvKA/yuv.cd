@@ -78,6 +78,9 @@
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAgAAAAQQAAAAAA=</HashCode>
       <FileName>DiagramNode.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ReplayState" />
+    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Graphs" />
     </ShowAsCollectionAssociation>
@@ -99,9 +102,9 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="YuvKA.ReplayState">
-    <Position X="12.75" Y="0.5" Width="2.5" />
+    <Position X="17.75" Y="2.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEABAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ReplayState.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -122,19 +125,19 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="YuvKA.PipelineDriver">
-    <Position X="8.75" Y="0.5" Width="3.5" />
-    <AssociationLine Name="Nodes" Type="YuvKA.INode">
-      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.051" Y="0.251" Height="0.182" Width="1.497" />
+    <Position X="7.75" Y="0.5" Width="4.5" />
+    <AssociationLine Name="Graph" Type="YuvKA.PipelineGraph">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.074" Y="0.105" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAggAAAACAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAgAABAAAAAAAAA=</HashCode>
       <FileName>PipelineDriver.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Nodes" />
-    </ShowAsCollectionAssociation>
+    <ShowAsAssociation>
+      <Property Name="Graph" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="YuvKA.YuvEncoder">
     <Position X="0.5" Y="0.5" Width="6" />
@@ -142,6 +145,21 @@
       <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>YuvEncoder.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.PipelineGraph">
+    <Position X="13" Y="0.5" Width="3.75" />
+    <AssociationLine Name="Nodes" Type="YuvKA.INode">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.092" Y="0.214" Height="0.182" Width="1.661" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAggAAAAAAAAAAACAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PipelineGraph.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Nodes" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Struct Name="YuvKA.RGB">
     <Position X="0.5" Y="2" Width="1.75" />

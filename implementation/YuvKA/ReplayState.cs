@@ -7,7 +7,7 @@ namespace YuvKA
 {
 	public class ReplayState
 	{
-		public int CurrentFrame
+		public int FrameIndex
 		{
 			get
 			{

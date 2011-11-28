@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace YuvKA
 {
 	public class PipelineDriver
 	{
-		public IList<INode> Nodes
+		public PipelineGraph Graph
 		{
 			get
 			{
@@ -19,18 +20,7 @@ namespace YuvKA
 			}
 		}
 
-		public IList<Tuple<INode, INode>> Edges
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-			set
-			{
-			}
-		}
-
-		public IEnumerable Start()
+		public Task RenderFrame(int frameIndex) 
 		{
 			throw new System.NotImplementedException();
 		}
