@@ -5,13 +5,13 @@ using System.Text;
 
 namespace YuvKA
 {
-	public interface IGraphType
+	public interface IOverlayType
 	{
 		bool DependsOnReference
 		{
 			get;
 		}
 	
-		double Process(Frame frame, Frame reference);
+		Frame Process(Frame frame, Frame reference);
 	}
 }

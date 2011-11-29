@@ -28,5 +28,16 @@ namespace YuvKA
 			{
 			}
 		}
+
+        public IList<double> Data
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
 	}
 }

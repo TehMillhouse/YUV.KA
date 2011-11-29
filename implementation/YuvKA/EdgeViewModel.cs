@@ -9,8 +9,8 @@ namespace YuvKA
 {
 	public class EdgeViewModel
 	{
-		Point Start { get; set; }
-		Point End { get; set; }
-		Path Path { get; private set; }
+        public Point Start { get; set; }
+        public Point End { get; set; }
+        public Path Path { get; private set; }
 	}
 }
