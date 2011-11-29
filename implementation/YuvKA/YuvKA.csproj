@@ -61,16 +61,23 @@
     <Compile Include="ColorInput.cs" />
     <Compile Include="DiagramGraph.cs" />
     <Compile Include="DiagramNode.cs" />
+    <Compile Include="EdgeViewModel.cs" />
     <Compile Include="IGraphType.cs" />
     <Compile Include="IntraFreqGraphType.cs" />
     <Compile Include="MacroblockDecision.cs" />
     <Compile Include="MacroblockPartitioning.cs" />
+    <Compile Include="MainViewModel.cs" />
+    <Compile Include="NodeTypeViewModel.cs" />
+    <Compile Include="NodeViewModel.cs" />
     <Compile Include="NoiseInput.cs" />
     <Compile Include="PipelineDriver.cs" />
     <Compile Include="PipelineGraph.cs" />
+    <Compile Include="PipelineViewModel.cs" />
     <Compile Include="PixelDiffGraphType.cs" />
     <Compile Include="ReplayState.cs" />
+    <Compile Include="ReplayStateViewModel.cs" />
     <Compile Include="RGB.cs" />
+    <Compile Include="ToolboxViewModel.cs" />
     <Compile Include="YuvEncoder.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -81,7 +88,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Frame.cs" />
-    <Compile Include="INode.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="InputNode.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

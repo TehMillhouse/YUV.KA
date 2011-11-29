@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YuvKA
 {
-	public abstract class InputNode : INode
+	public abstract class InputNode : Node
 	{
 	}
 }

@@ -5,10 +5,9 @@ using System.Text;
 
 namespace YuvKA
 {
-	public class PipelineGraph
+	public class ReplayStateViewModel
 	{
-
-		public IList<Node> Nodes
+		public int FrameIndex
 		{
 			get
 			{
@@ -25,9 +24,27 @@ namespace YuvKA
 			{
 				throw new System.NotImplementedException();
 			}
+			set
+			{
+			}
+		}
+	
+		public void Slower()
+		{
+			throw new System.NotImplementedException();
 		}
 
-		public bool AddEdge(Node.Output source, Node.Input sink)
+		public void PlayPause()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void Stop()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void Faster()
 		{
 			throw new System.NotImplementedException();
 		}

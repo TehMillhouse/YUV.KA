@@ -7,25 +7,14 @@ using System.Threading.Tasks;
 
 namespace YuvKA
 {
-	public class PipelineDriver
+	public static class PipelineDriver
 	{
-		public PipelineGraph Graph
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-			set
-			{
-			}
-		}
-
-		public Task RenderFrame(int frameIndex) 
+		public static Task RenderFrame(PipelineGraph graph, int frameIndex) 
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public IEnumerable<Frame> Render(INode node, CancellationToken token)
+		public static IEnumerable<Frame> RenderAllTheFrames(PipelineGraph graph, Node node, CancellationToken token)
 		{
 			throw new System.NotImplementedException();
 		}

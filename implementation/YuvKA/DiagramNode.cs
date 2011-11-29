@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YuvKA
 {
-	public class DiagramNode : INode
+	public class DiagramNode : Node
 	{
 		public int? ReferenceVideo
 		{
@@ -35,7 +35,7 @@ namespace YuvKA
 		#region INode Members
 
 
-		public Frame[] Process(Frame[] input)
+		public override void ProcessFrame()
 		{
 			throw new NotImplementedException();
 		}

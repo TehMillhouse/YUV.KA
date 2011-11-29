@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YuvKA
 {
-	public class ColorInputNode : INode
+	public class ColorInputNode : Node
 	{
 		public RGB Color
 		{
@@ -19,7 +19,7 @@ namespace YuvKA
 		}
 		#region INode Members
 
-		public Frame[] Process(Frame[] input)
+		public override void ProcessFrame()
 		{
 			throw new NotImplementedException();
 		}

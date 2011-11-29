@@ -5,11 +5,11 @@ using System.Text;
 
 namespace YuvKA
 {
-	public class NoiseInputNode : INode
+	public class NoiseInputNode : Node
 	{
 		#region INode Members
 
-		public Frame[] Process(Frame[] input)
+		public override void ProcessFrame()
 		{
 			throw new NotImplementedException();
 		}

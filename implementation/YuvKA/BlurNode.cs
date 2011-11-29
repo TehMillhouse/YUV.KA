@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YuvKA
 {
-	public class BlurNode : INode
+	public class BlurNode : Node
 	{
 		public BlurType Type
 		{
@@ -30,7 +30,7 @@ namespace YuvKA
 		}
 		#region INode Members
 
-		public Frame[] Process(Frame[] input)
+		public override void ProcessFrame()
 		{
 			throw new NotImplementedException();
 		}
