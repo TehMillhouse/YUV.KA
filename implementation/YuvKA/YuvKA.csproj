@@ -78,6 +78,7 @@
     <Compile Include="OutputViewModel.cs" />
     <Compile Include="OverlayNode.cs" />
     <Compile Include="OverlayTypes.cs" />
+    <Compile Include="OverlayViewModel.cs" />
     <Compile Include="PipelineDriver.cs" />
     <Compile Include="PipelineGraph.cs" />
     <Compile Include="PipelineViewModel.cs" />
