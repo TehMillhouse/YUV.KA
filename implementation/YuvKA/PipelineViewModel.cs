@@ -10,20 +10,5 @@ namespace YuvKA
 	{
 		public ObservableCollection<NodeViewModel> Nodes { get; private set; }
 		public ObservableCollection<EdgeViewModel> Edges { get; private set; }
-
-		public void Save()
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public void Open()
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public void Clear()
-		{
-			throw new System.NotImplementedException();
-		}
 	}
 }

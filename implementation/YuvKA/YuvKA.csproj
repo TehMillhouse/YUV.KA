@@ -67,8 +67,11 @@
     <Compile Include="HistogramType.cs" />
     <Compile Include="HistogramViewModel.cs" />
     <Compile Include="IGraphType.cs" />
+    <Compile Include="ImageInputNode.cs" />
     <Compile Include="IntraFreqGraphType.cs" />
     <Compile Include="IOverlayType.cs" />
+    <Compile Include="LayoutedNode.cs" />
+    <Compile Include="LayoutedPipelineGraph.cs" />
     <Compile Include="MacroblockDecision.cs" />
     <Compile Include="MacroblockPartitioning.cs" />
     <Compile Include="MainViewModel.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="ReplayStateViewModel.cs" />
     <Compile Include="RGB.cs" />
     <Compile Include="ToolboxViewModel.cs" />
+    <Compile Include="VideoInputNode.cs" />
     <Compile Include="YuvEncoder.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

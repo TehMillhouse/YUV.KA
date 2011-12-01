@@ -29,13 +29,10 @@ namespace YuvKA
 			}
 		}
 
-		[Import(ReplayState)]
-		public ReplayState ReplayState { get; set; }
-
 		#region INode Members
 
 
-		public override void ProcessFrame()
+		public override void ProcessFrame(int frameIndex)
 		{
 			throw new NotImplementedException();
 		}

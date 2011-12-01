@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace YuvKA
 {
-	public abstract class Node
+	public abstract class Node : IDisposable
 	{
 		public class Input
 		{
@@ -24,11 +25,14 @@ namespace YuvKA
 			}
 		}
 
+		public double X { get; set; }
+		public double Y { get; set; }
+
 		public ICollection<Input> Inputs { get; private set; }
 
 		public ICollection<Output> Outputs { get; private set; }
 	
-		public abstract void ProcessFrame();
+		public abstract void ProcessFrame(int frameIndex);
 
 		Output AddOutput()
 		{
@@ -36,5 +40,13 @@ namespace YuvKA
 			Outputs.Add(o);
 			return o;
 		}
+
+		#region IDisposable Members
+
+		public virtual void Dispose()
+		{
+		}
+
+		#endregion
 	}
 }

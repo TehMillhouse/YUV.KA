@@ -11,5 +11,10 @@ namespace YuvKA
 		public Node NodeModel { get; private set; }
 		public double X { get; set; }
 		public double Y { get; set; }
+
+		public void SaveNodeOutput(Node.Output output)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

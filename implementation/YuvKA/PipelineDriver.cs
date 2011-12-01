@@ -9,8 +9,9 @@ namespace YuvKA
 {
 	public static class PipelineDriver
 	{
-		public static Task RenderFrame(PipelineGraph graph, int frameIndex) 
+		public static Task RenderFrame(PipelineGraph graph, IEnumerable<Node> startNodes, int frameIndex) 
 		{
+			//ILookup<Node, Task> tasks = graph.Nodes.ToLookup(node => new Task(() => node.ProcessFrame(int frameIndex)));
 			throw new System.NotImplementedException();
 		}
 

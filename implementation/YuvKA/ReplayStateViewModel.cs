@@ -28,6 +28,17 @@ namespace YuvKA
 			{
 			}
 		}
+
+		public ReplayState State
+		{
+			get
+			{
+				throw new System.NotImplementedException();
+			}
+			set
+			{
+			}
+		}
 	
 		public void Slower()
 		{

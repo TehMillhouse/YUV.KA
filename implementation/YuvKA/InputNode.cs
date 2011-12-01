@@ -7,5 +7,8 @@ namespace YuvKA
 {
 	public abstract class InputNode : Node
 	{
+		public int Height { get; set; }
+		public int Width { get; set; }
+		public virtual int FrameCount { get { return 1; } }
 	}
 }

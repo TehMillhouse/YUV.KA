@@ -30,7 +30,7 @@ namespace YuvKA
 		}
 		#region INode Members
 
-		public override void ProcessFrame()
+		public override void ProcessFrame(int frameIndex)
 		{
 			throw new NotImplementedException();
 		}
