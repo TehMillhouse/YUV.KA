@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YuvKA
 {
-    public class HistogramViewModel
+    public class HistogramViewModel : OutputWindowViewModel
     {
         public HistogramNode NodeModel
         {

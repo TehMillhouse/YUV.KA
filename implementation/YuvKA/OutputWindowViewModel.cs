@@ -5,7 +5,8 @@ using System.Text;
 
 namespace YuvKA
 {
-    public class VideoOutputViewModel : OutputWindowViewModel
+	public abstract	class OutputWindowViewModel
 	{
-    }
+		public Node NodeModel { get; private set; }
+	}
 }

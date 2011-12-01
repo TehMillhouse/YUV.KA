@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YuvKA
 {
-    public class OverlayViewModel
+    public class OverlayViewModel : OutputWindowViewModel
     {
         public OverlayNode NodeModel
         {

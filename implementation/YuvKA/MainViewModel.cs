@@ -17,6 +17,7 @@ namespace YuvKA
 		public ReplayStateViewModel ReplayStateViewModel { get; private set; }
 		public PipelineViewModel PipelineViewModel { get; private set; }
 		public ToolboxViewModel ToolboxViewModel { get; private set; }
+		public IList<OutputWindowViewModel> OpenWindows { get; private set; }
 
 		public void Save()
 		{

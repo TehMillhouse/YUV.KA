@@ -7,6 +7,8 @@ namespace YuvKA
 {
 	public class DiagramNode : Node
 	{
+		public bool IsEnabled { get; set; }
+
 		public int? ReferenceVideo
 		{
 			get
