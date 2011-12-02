@@ -1,4 +1,5 @@
-﻿namespace YuvKA
+﻿using YuvKA.VideoModel;
+namespace YuvKA.Pipeline.Implementation
 {
     public class ArtifactsOverlay : IOverlayType
     {

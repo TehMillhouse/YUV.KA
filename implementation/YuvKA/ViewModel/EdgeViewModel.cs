@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Shapes;
 
-namespace YuvKA
+namespace YuvKA.ViewModel
 {
 	public class EdgeViewModel
 	{

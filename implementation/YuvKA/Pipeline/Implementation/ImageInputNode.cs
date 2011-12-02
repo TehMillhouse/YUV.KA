@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media.Imaging;
 
-namespace YuvKA
+namespace YuvKA.Pipeline.Implementation
 {
 	public class ImageInputNode : InputNode
 	{

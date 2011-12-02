@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using YuvKA.VideoModel;
 
-namespace YuvKA
+namespace YuvKA.Pipeline
 {
 	public static class PipelineDriver
 	{

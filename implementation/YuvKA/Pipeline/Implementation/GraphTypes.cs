@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YuvKA.VideoModel;
 
-namespace YuvKA
+namespace YuvKA.Pipeline.Implementation
 {
 	public class IntraBlockFrequency : IGraphType
 	{

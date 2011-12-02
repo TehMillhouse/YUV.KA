@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace YuvKA
+namespace YuvKA.View
 {
 	/// <summary>
 	/// Interaction logic for App.xaml

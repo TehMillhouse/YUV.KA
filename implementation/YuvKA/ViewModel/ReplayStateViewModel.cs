@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YuvKA.Pipeline;
 
-namespace YuvKA
+namespace YuvKA.ViewModel
 {
 	public class ReplayStateViewModel
 	{

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using YuvKA.VideoModel;
 
-namespace YuvKA
+namespace YuvKA.Pipeline
 {
 	public abstract class Node : IDisposable
 	{
