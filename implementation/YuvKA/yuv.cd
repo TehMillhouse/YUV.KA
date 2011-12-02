@@ -4,7 +4,7 @@
     <Position X="4.25" Y="4.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAAA=</HashCode>
-      <FileName>Frame.cs</FileName>
+      <FileName>VideoModel\Frame.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Data" />
@@ -19,7 +19,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
-      <FileName>AnnotatedFrame.cs</FileName>
+      <FileName>VideoModel\AnnotatedFrame.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Decisions" />
@@ -29,7 +29,7 @@
     <Position X="0.5" Y="6.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>MacroblockDecision.cs</FileName>
+      <FileName>VideoModel\MacroblockDecision.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="PartitioningDecision" />
@@ -39,14 +39,14 @@
     <Position X="7.25" Y="9.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
-      <FileName>NoiseInput.cs</FileName>
+      <FileName>Pipeline\Implementation\NoiseInput.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.ColorInputNode">
     <Position X="1.25" Y="9.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIA=</HashCode>
-      <FileName>ColorInput.cs</FileName>
+      <FileName>Pipeline\Implementation\ColorInput.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.BlurNode">
@@ -58,7 +58,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAIA=</HashCode>
-      <FileName>BlurNode.cs</FileName>
+      <FileName>Pipeline\Implementation\BlurNode.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Type" />
@@ -73,7 +73,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAQAAAAIA=</HashCode>
-      <FileName>DiagramNode.cs</FileName>
+      <FileName>Pipeline\Implementation\DiagramNode.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Graphs" />
@@ -88,7 +88,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAQAAAAAAAAg=</HashCode>
-      <FileName>DiagramGraph.cs</FileName>
+      <FileName>Pipeline\Implementation\DiagramGraph.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Type" />
@@ -98,14 +98,14 @@
     <Position X="14.75" Y="3.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAEABAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ReplayState.cs</FileName>
+      <FileName>Pipeline\ReplayState.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.PipelineDriver">
     <Position X="11.25" Y="0.5" Width="6.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
-      <FileName>PipelineDriver.cs</FileName>
+      <FileName>Pipeline\PipelineDriver.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.YuvEncoder">
@@ -116,14 +116,14 @@
     <NestedTypes>
       <Class Name="YuvKA.YuvEncoder.Video">
         <TypeIdentifier>
-          <NewMemberFileName>YuvEncoder.cs</NewMemberFileName>
+          <NewMemberFileName>VideoModel\YuvEncoder.cs</NewMemberFileName>
         </TypeIdentifier>
         <Lollipop Position="0.2" />
       </Class>
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
-      <FileName>YuvEncoder.cs</FileName>
+      <FileName>VideoModel\YuvEncoder.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.PipelineGraph">
@@ -135,7 +135,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAACAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PipelineGraph.cs</FileName>
+      <FileName>Pipeline\PipelineGraph.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Nodes" />
@@ -149,7 +149,7 @@
     <NestedTypes>
       <Class Name="YuvKA.Node.Input">
         <TypeIdentifier>
-          <NewMemberFileName>Node.cs</NewMemberFileName>
+          <NewMemberFileName>Pipeline\Node.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
       <Class Name="YuvKA.Node.Output">
@@ -157,13 +157,13 @@
           <Compartment Name="Methods" Collapsed="true" />
         </Compartments>
         <TypeIdentifier>
-          <NewMemberFileName>Node.cs</NewMemberFileName>
+          <NewMemberFileName>Pipeline\Node.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>BAAAAAAAACABAAAAAAAAAAAAEAAAAAAAAAAAAAAAYIA=</HashCode>
-      <FileName>Node.cs</FileName>
+      <FileName>Pipeline\Node.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -191,7 +191,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAIQIBAAAZAAAEAAAAAADAAAgAAAAAAgAAAFAAAQ=</HashCode>
-      <FileName>MainViewModel.cs</FileName>
+      <FileName>ViewModel\MainViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="ReplayStateViewModel" />
@@ -203,7 +203,7 @@
     <Position X="28.5" Y="4" Width="2.25" />
     <TypeIdentifier>
       <HashCode>CAAAAAAAAAAAAAAAAAAAAEABAAAAAAAAMAAgBAAAAAA=</HashCode>
-      <FileName>ReplayStateViewModel.cs</FileName>
+      <FileName>ViewModel\ReplayStateViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.ToolboxViewModel">
@@ -215,7 +215,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ToolboxViewModel.cs</FileName>
+      <FileName>ViewModel\ToolboxViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="NodeTypes" />
@@ -225,7 +225,7 @@
     <Position X="31.5" Y="6.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAA=</HashCode>
-      <FileName>NodeTypeViewModel.cs</FileName>
+      <FileName>ViewModel\NodeTypeViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.PipelineViewModel">
@@ -242,7 +242,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PipelineViewModel.cs</FileName>
+      <FileName>ViewModel\PipelineViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Nodes" />
@@ -258,7 +258,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAACAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAYEA=</HashCode>
-      <FileName>NodeViewModel.cs</FileName>
+      <FileName>ViewModel\NodeViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="NodeType" />
@@ -268,7 +268,7 @@
     <Position X="37.75" Y="6.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAACAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EdgeViewModel.cs</FileName>
+      <FileName>ViewModel\EdgeViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.DiagramViewModel">
@@ -279,13 +279,13 @@
     <NestedTypes>
       <Class Name="YuvKA.DiagramViewModel.Input">
         <TypeIdentifier>
-          <NewMemberFileName>DiagramViewModel.cs</NewMemberFileName>
+          <NewMemberFileName>ViewModel\Implementation\DiagramViewModel.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>AgAABIAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAQAAAAAA=</HashCode>
-      <FileName>DiagramViewModel.cs</FileName>
+      <FileName>ViewModel\Implementation\DiagramViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.HistogramNode">
@@ -297,7 +297,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAQAAAAAAAIA=</HashCode>
-      <FileName>HistogramNode.cs</FileName>
+      <FileName>Pipeline\Implementation\HistogramNode.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Type" />
@@ -307,14 +307,14 @@
     <Position X="35" Y="10.25" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>HistogramViewModel.cs</FileName>
+      <FileName>ViewModel\HistogramViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.VideoOutputViewModel">
     <Position X="35" Y="13.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>OutputViewModel.cs</FileName>
+      <FileName>ViewModel\Implementation\VideoOutputViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.OverlayNode">
@@ -326,7 +326,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAQAAAAAAAIA=</HashCode>
-      <FileName>OverlayNode.cs</FileName>
+      <FileName>Pipeline\Implementation\OverlayNode.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Type" />
@@ -336,7 +336,7 @@
     <Position X="24.25" Y="11.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>OverlayTypes.cs</FileName>
+      <FileName>Pipeline\Implementation\OverlayTypes.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.179" />
   </Class>
@@ -344,7 +344,7 @@
     <Position X="24.25" Y="12.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>OverlayTypes.cs</FileName>
+      <FileName>Pipeline\Implementation\OverlayTypes.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -352,7 +352,7 @@
     <Position X="26" Y="11.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>OverlayTypes.cs</FileName>
+      <FileName>Pipeline\Implementation\OverlayTypes.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -360,35 +360,35 @@
     <Position X="35" Y="11.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>OverlayViewModel.cs</FileName>
+      <FileName>ViewModel\Implementation\OverlayViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.VideoInputNode">
     <Position X="10.25" Y="9.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABCAAAAAAAAAAAEABAAAAABIAAAAAAABAAIA=</HashCode>
-      <FileName>VideoInputNode.cs</FileName>
+      <FileName>Pipeline\Implementation\VideoInputNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.ImageInputNode">
     <Position X="4.25" Y="9.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIA=</HashCode>
-      <FileName>ImageInputNode.cs</FileName>
+      <FileName>Pipeline\Implementation\ImageInputNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.InputNode">
     <Position X="6.75" Y="7" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAAAAAEABAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>InputNode.cs</FileName>
+      <FileName>Pipeline\Implementation\InputNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.PipelineState">
     <Position X="18.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAQAAAAAAA=</HashCode>
-      <FileName>PipelineState.cs</FileName>
+      <FileName>Pipeline\PipelineState.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Graph" />
@@ -399,7 +399,7 @@
     <Position X="33.75" Y="8.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>OutputWindowViewModel.cs</FileName>
+      <FileName>ViewModel\OutputWindowViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.IntraBlockFrequency" Collapsed="true">
@@ -409,7 +409,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GraphTypes.cs</FileName>
+      <FileName>Pipeline\Implementation\GraphTypes.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -420,7 +420,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GraphTypes.cs</FileName>
+      <FileName>Pipeline\Implementation\GraphTypes.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -428,43 +428,42 @@
     <Position X="0.5" Y="4.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAEAAQA=</HashCode>
-      <FileName>RGB.cs</FileName>
+      <FileName>VideoModel\RGB.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="YuvKA.IOverlayType">
     <Position X="24.25" Y="9.75" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IOverlayType.cs</FileName>
-      <NewMemberFileName>IGraphType.cs</NewMemberFileName>
+      <FileName>Pipeline\Implementation\IOverlayType.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="YuvKA.IGraphType">
     <Position X="18.75" Y="11.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IGraphType.cs</FileName>
+      <FileName>Pipeline\Implementation\IGraphType.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="YuvKA.MacroblockPartitioning" Collapsed="true">
     <Position X="0.5" Y="8.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAQAAAAIAAAAAAABEEAAABAAAAAAAAQCAAAEAAEAABA=</HashCode>
-      <FileName>MacroblockPartitioning.cs</FileName>
+      <FileName>VideoModel\MacroblockPartitioning.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="YuvKA.BlurType">
     <Position X="14" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
-      <FileName>BlurType.cs</FileName>
+      <FileName>Pipeline\Implementation\BlurType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="YuvKA.HistogramType">
     <Position X="22.5" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCAEAAQA=</HashCode>
-      <FileName>HistogramType.cs</FileName>
+      <FileName>Pipeline\Implementation\HistogramType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

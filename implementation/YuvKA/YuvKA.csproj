@@ -51,59 +51,58 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="View\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AnnotatedFrame.cs" />
-    <Compile Include="BlurNode.cs" />
-    <Compile Include="BlurType.cs" />
-    <Compile Include="ColorInput.cs" />
-    <Compile Include="DiagramGraph.cs" />
-    <Compile Include="DiagramNode.cs" />
-    <Compile Include="DiagramViewModel.cs" />
-    <Compile Include="EdgeViewModel.cs" />
-    <Compile Include="HistogramNode.cs" />
-    <Compile Include="HistogramType.cs" />
-    <Compile Include="HistogramViewModel.cs" />
-    <Compile Include="IGraphType.cs" />
-    <Compile Include="ImageInputNode.cs" />
-    <Compile Include="IntraFreqGraphType.cs" />
-    <Compile Include="IOverlayType.cs" />
-    <Compile Include="LayoutedNode.cs" />
-    <Compile Include="LayoutedPipelineGraph.cs" />
-    <Compile Include="MacroblockDecision.cs" />
-    <Compile Include="MacroblockPartitioning.cs" />
-    <Compile Include="MainViewModel.cs" />
-    <Compile Include="NodeTypeViewModel.cs" />
-    <Compile Include="NodeViewModel.cs" />
-    <Compile Include="NoiseInput.cs" />
-    <Compile Include="OutputViewModel.cs" />
-    <Compile Include="OverlayNode.cs" />
-    <Compile Include="OverlayTypes.cs" />
-    <Compile Include="OverlayViewModel.cs" />
-    <Compile Include="PipelineDriver.cs" />
-    <Compile Include="PipelineGraph.cs" />
-    <Compile Include="PipelineViewModel.cs" />
-    <Compile Include="PixelDiffGraphType.cs" />
-    <Compile Include="ReplayState.cs" />
-    <Compile Include="ReplayStateViewModel.cs" />
-    <Compile Include="RGB.cs" />
-    <Compile Include="ToolboxViewModel.cs" />
-    <Compile Include="VideoInputNode.cs" />
-    <Compile Include="YuvEncoder.cs" />
-    <Page Include="MainWindow.xaml">
+    <Compile Include="VideoModel\AnnotatedFrame.cs" />
+    <Compile Include="Pipeline\Implementation\BlurNode.cs" />
+    <Compile Include="Pipeline\Implementation\BlurType.cs" />
+    <Compile Include="Pipeline\Implementation\ColorInput.cs" />
+    <Compile Include="Pipeline\Implementation\DiagramGraph.cs" />
+    <Compile Include="Pipeline\Implementation\DiagramNode.cs" />
+    <Compile Include="ViewModel\Implementation\DiagramViewModel.cs" />
+    <Compile Include="ViewModel\EdgeViewModel.cs" />
+    <Compile Include="Pipeline\Implementation\GraphTypes.cs" />
+    <Compile Include="Pipeline\Implementation\HistogramNode.cs" />
+    <Compile Include="Pipeline\Implementation\HistogramType.cs" />
+    <Compile Include="ViewModel\HistogramViewModel.cs" />
+    <Compile Include="Pipeline\Implementation\IGraphType.cs" />
+    <Compile Include="Pipeline\Implementation\ImageInputNode.cs" />
+    <Compile Include="Pipeline\Implementation\IOverlayType.cs" />
+    <Compile Include="VideoModel\MacroblockDecision.cs" />
+    <Compile Include="VideoModel\MacroblockPartitioning.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NodeTypeViewModel.cs" />
+    <Compile Include="ViewModel\NodeViewModel.cs" />
+    <Compile Include="Pipeline\Implementation\NoiseInput.cs" />
+    <Compile Include="ViewModel\Implementation\VideoOutputViewModel.cs" />
+    <Compile Include="ViewModel\OutputWindowViewModel.cs" />
+    <Compile Include="Pipeline\Implementation\OverlayNode.cs" />
+    <Compile Include="Pipeline\Implementation\OverlayTypes.cs" />
+    <Compile Include="ViewModel\Implementation\OverlayViewModel.cs" />
+    <Compile Include="Pipeline\PipelineDriver.cs" />
+    <Compile Include="Pipeline\PipelineGraph.cs" />
+    <Compile Include="Pipeline\PipelineState.cs" />
+    <Compile Include="ViewModel\PipelineViewModel.cs" />
+    <Compile Include="Pipeline\ReplayState.cs" />
+    <Compile Include="ViewModel\ReplayStateViewModel.cs" />
+    <Compile Include="VideoModel\RGB.cs" />
+    <Compile Include="ViewModel\ToolboxViewModel.cs" />
+    <Compile Include="Pipeline\Implementation\VideoInputNode.cs" />
+    <Compile Include="VideoModel\YuvEncoder.cs" />
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Frame.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="InputNode.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="VideoModel\Frame.cs" />
+    <Compile Include="Pipeline\Node.cs" />
+    <Compile Include="Pipeline\Implementation\InputNode.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -117,6 +116,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
