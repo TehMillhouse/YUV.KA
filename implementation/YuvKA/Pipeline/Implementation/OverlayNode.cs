@@ -7,7 +7,7 @@ namespace YuvKA
 {
     public class OverlayNode : Node
     {
-        public Frame Output
+        public Frame OverlayedOutput
         {
             get
             {
@@ -29,7 +29,7 @@ namespace YuvKA
             }
         }
     
-        public override void ProcessFrame()
+        public override void ProcessFrame(int frameIndex)
         {
             throw new NotImplementedException();
         }

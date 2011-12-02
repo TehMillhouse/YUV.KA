@@ -11,8 +11,6 @@ namespace YuvKA
 
 		public string FileName { get; set; }
 		public string LogFileName { get; set; }
-		public int Width { get; set; }
-		public int Height { get; set; }
 
 		public override void ProcessFrame(int frameIndex)
 		{

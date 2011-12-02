@@ -20,7 +20,7 @@ namespace YuvKA
 
         public int[] Data { get; private set; }
     
-        public override void ProcessFrame()
+        public override void ProcessFrame(int frameIndex)
         {
             throw new NotImplementedException();
         }

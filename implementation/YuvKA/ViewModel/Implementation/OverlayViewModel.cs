@@ -7,7 +7,7 @@ namespace YuvKA
 {
     public class OverlayViewModel : OutputWindowViewModel
     {
-        public OverlayNode NodeModel
+        public new OverlayNode NodeModel
         {
             get
             {

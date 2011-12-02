@@ -14,6 +14,11 @@ namespace YuvKA
 			throw new NotImplementedException();
 		}
 
+		public bool DependsOnReference
+		{
+			get { throw new NotImplementedException(); }
+		}
+
 		#endregion
 	}
 
@@ -24,6 +29,11 @@ namespace YuvKA
 		public double Process(Frame frame, Frame reference)
 		{
 			throw new NotImplementedException();
+		}
+
+		public bool DependsOnReference
+		{
+			get { throw new NotImplementedException(); }
 		}
 
 		#endregion

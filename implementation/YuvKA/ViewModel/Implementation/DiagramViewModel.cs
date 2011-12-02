@@ -19,7 +19,7 @@ namespace YuvKA
             }
         }
 
-        public DiagramNode NodeModel
+        public new DiagramNode NodeModel
         {
             get
             {

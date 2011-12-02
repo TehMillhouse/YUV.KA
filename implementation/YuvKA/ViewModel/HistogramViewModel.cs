@@ -7,7 +7,7 @@ namespace YuvKA
 {
     public class HistogramViewModel : OutputWindowViewModel
     {
-        public HistogramNode NodeModel
+        public new HistogramNode NodeModel
         {
             get
             {
