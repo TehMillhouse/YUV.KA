@@ -103,8 +103,11 @@
   </Class>
   <Class Name="YuvKA.Pipeline.PipelineDriver">
     <Position X="11.25" Y="0.5" Width="6.5" />
+    <Members>
+      <Method Name="Visit" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAEAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\PipelineDriver.cs</FileName>
     </TypeIdentifier>
   </Class>
