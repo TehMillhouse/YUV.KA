@@ -3,7 +3,7 @@
   <Class Name="YuvKA.VideoModel.Frame">
     <Position X="4.25" Y="4.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAABAAAAAAACAAAAEAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>VideoModel\Frame.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -426,6 +426,20 @@
       <FileName>Pipeline\Implementation\GraphTypes.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="YuvKA.Pipeline.Implementation.InverterNode">
+    <Position X="17" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Pipeline\Implementation\InverterNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.Pipeline.Implementation.BrightnessContrastSaturationNode">
+    <Position X="15.25" Y="11" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABEAAAAAAAAgAAIA=</HashCode>
+      <FileName>Pipeline\Implementation\BrightnessContrastSaturationNode.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Struct Name="YuvKA.VideoModel.RGB">
     <Position X="0.5" Y="4.75" Width="1.75" />

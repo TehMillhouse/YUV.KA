@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pipeline\Implementation\BrightnessContrastSaturationNode.cs" />
+    <Compile Include="Pipeline\Implementation\InverterNode.cs" />
     <Compile Include="VideoModel\AnnotatedFrame.cs" />
     <Compile Include="Pipeline\Implementation\BlurNode.cs" />
     <Compile Include="Pipeline\Implementation\BlurType.cs" />
