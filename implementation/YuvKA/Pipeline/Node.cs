@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using YuvKA.VideoModel;
+using System.ComponentModel;
+using System.ComponentModel.Composition;
 
 namespace YuvKA.Pipeline
 {
+	[InheritedExport]
 	public abstract class Node : IDisposable
 	{
 		public class Input
@@ -26,13 +29,17 @@ namespace YuvKA.Pipeline
 			}
 		}
 
+		[Browsable(false)]
 		public double X { get; set; }
+		[Browsable(false)]
 		public double Y { get; set; }
 
+		[Browsable(false)]
 		public ICollection<Input> Inputs { get; private set; }
 
+		[Browsable(false)]
 		public ICollection<Output> Outputs { get; private set; }
-	
+
 		public abstract void ProcessFrame(int frameIndex);
 
 		Output AddOutput()

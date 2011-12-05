@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -18,6 +19,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
+		[Range(0.0, double.PositiveInfinity)]
 		public int Radius
 		{
 			get

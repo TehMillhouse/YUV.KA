@@ -29,7 +29,7 @@ namespace YuvKA.VideoModel
 			}
 		}
 
-		public RGB[] Data
+		public Rgb[] Data
 		{
 			get
 			{
@@ -40,7 +40,7 @@ namespace YuvKA.VideoModel
 			}
 		}
 
-		public RGB this[int x, int y]
+		public Rgb this[int x, int y]
 		{
 			get { return Data[y * Width + x]; }
 			set { Data[y * Width + x] = value; }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YuvKA.VideoModel
 {
-	public struct RGB
+	public struct Rgb
 	{
 		public byte R
 		{

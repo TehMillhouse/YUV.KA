@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,8 +57,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pipeline\FilePath.cs" />
+    <Compile Include="Pipeline\Implementation\AveragedMergeNode.cs" />
+    <Compile Include="Pipeline\Implementation\AdditiveMergeNode.cs" />
     <Compile Include="Pipeline\Implementation\BrightnessContrastSaturationNode.cs" />
+    <Compile Include="Pipeline\Implementation\DelayNode.cs" />
+    <Compile Include="Pipeline\Implementation\DifferenceNode.cs" />
     <Compile Include="Pipeline\Implementation\InverterNode.cs" />
+    <Compile Include="Pipeline\Implementation\OutputNode.cs" />
+    <Compile Include="Pipeline\Implementation\RgbSplitNode.cs" />
+    <Compile Include="Pipeline\Size.cs" />
     <Compile Include="VideoModel\AnnotatedFrame.cs" />
     <Compile Include="Pipeline\Implementation\BlurNode.cs" />
     <Compile Include="Pipeline\Implementation\BlurType.cs" />
@@ -93,7 +102,7 @@
     <Compile Include="ViewModel\PipelineViewModel.cs" />
     <Compile Include="Pipeline\ReplayState.cs" />
     <Compile Include="ViewModel\ReplayStateViewModel.cs" />
-    <Compile Include="VideoModel\RGB.cs" />
+    <Compile Include="VideoModel\Rgb.cs" />
     <Compile Include="ViewModel\ToolboxViewModel.cs" />
     <Compile Include="Pipeline\Implementation\VideoInputNode.cs" />
     <Compile Include="VideoModel\YuvEncoder.cs" />

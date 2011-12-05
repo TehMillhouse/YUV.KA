@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YuvKA.VideoModel;
+using System.ComponentModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -10,15 +11,18 @@ namespace YuvKA.Pipeline.Implementation
 	{
 		YuvEncoder.Video input;
 
-		public string FileName { get; set; }
-		public string LogFileName { get; set; }
+		[DisplayName("Video File")]
+		public FilePath FileName { get; set; }
+
+		[DisplayName("Optional Log File")]
+		public FilePath LogFileName { get; set; }
+
+		public override int FrameCount { get { return input.FrameCount; } }
 
 		public override void ProcessFrame(int frameIndex)
 		{
 			throw new NotImplementedException();
 		}
-
-		public override int FrameCount { get { return input.FrameCount; } }
 
 		public override void Dispose()
 		{

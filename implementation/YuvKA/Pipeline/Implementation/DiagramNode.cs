@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
-	public class DiagramNode : Node
+	public class DiagramNode : OutputNode
 	{
+		[DisplayName("Enabled")]
 		public bool IsEnabled { get; set; }
 
+		[Browsable(false)]
 		public int? ReferenceVideo
 		{
 			get
@@ -20,6 +23,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
+		[Browsable(false)]
 		public List<DiagramGraph> Graphs
 		{
 			get
