@@ -482,25 +482,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.ViewModel.PropertyEditor.Implementation.BooleanPropertyViewModel">
-    <Position X="63.25" Y="6.75" Width="2.25" />
+    <Position X="65" Y="8" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\PropertyEditor\PropertyViewModels.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.ViewModel.PropertyEditor.PropertyEditorViewModel">
-    <Position X="63.25" Y="3.25" Width="2" />
+    <Position X="70" Y="1.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>ViewModel\PropertyEditor\PropertyEditorViewModel.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="YuvKA.ViewModel.PropertyEditor.PropertyViewModel">
-    <Position X="62.75" Y="4.75" Width="3" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAgAQAAAAA=</HashCode>
-      <FileName>ViewModel\PropertyEditor\PropertyViewModel.cs</FileName>
-    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Properties" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.AdditiveMergeNode">
     <Position X="28.25" Y="8.5" Width="2.75" />
@@ -566,6 +562,75 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>Pipeline\Implementation\RgbSplitNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.ViewModel.PropertyEditor.PropertyViewModel">
+    <Position X="69.5" Y="3.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAgAQAAAAA=</HashCode>
+      <FileName>ViewModel\PropertyEditor\PropertyViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.ViewModel.PropertyEditor.PropertyViewModel&lt;T&gt;">
+    <Position X="70" Y="5.5" Width="2" />
+    <InheritanceLine Type="YuvKA.ViewModel.PropertyEditor.PropertyViewModel" FixedFromPoint="true">
+      <Path>
+        <Point X="71" Y="4.988" />
+        <Point X="71" Y="5.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>ViewModel\PropertyEditor\PropertyViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.ViewModel.PropertyEditor.Implementation.PathPropertyViewModel">
+    <Position X="62.75" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\PropertyEditor\PropertyViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.ViewModel.PropertyEditor.Implementation.RgbPropertyViewModel">
+    <Position X="76.25" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\PropertyEditor\PropertyViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.ViewModel.PropertyEditor.Implementation.SizePropertyViewModel">
+    <Position X="67.5" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\PropertyEditor\PropertyViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.ViewModel.PropertyEditor.Implementation.NumericalPropertyViewModel&lt;T&gt;">
+    <Position X="69.75" Y="8" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\PropertyEditor\PropertyViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.ViewModel.PropertyEditor.Implementation.IntPropertyViewModel">
+    <Position X="68.75" Y="10" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\PropertyEditor\PropertyViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.ViewModel.PropertyEditor.Implementation.DoublePropertyViewModel">
+    <Position X="71.25" Y="10" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\PropertyEditor\PropertyViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.ViewModel.PropertyEditor.Implementation.ObservableCollectionOfDoublePropertyViewModel">
+    <Position X="72.5" Y="8" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\PropertyEditor\PropertyViewModels.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="YuvKA.VideoModel.Rgb">
