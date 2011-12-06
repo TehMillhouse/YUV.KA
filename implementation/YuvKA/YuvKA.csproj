@@ -137,11 +137,16 @@
     </Compile>
     <AppDesigner Include="Properties\" />
     <None Include="packages.config" />
+    <None Include="TestCases\T30.sequencediagram" />
     <None Include="yuv.cd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="TestCases\T30.sequencediagram.layout">
+      <DependentUpon>T30.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
