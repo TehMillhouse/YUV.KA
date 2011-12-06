@@ -43,6 +43,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.1.2.0\lib\Net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -73,7 +74,7 @@
     <Compile Include="Pipeline\Implementation\InverterNode.cs" />
     <Compile Include="Pipeline\Implementation\OutputNode.cs" />
     <Compile Include="Pipeline\Implementation\RgbSplitNode.cs" />
-    <Compile Include="Pipeline\Implementation\TestCases.cs" />
+    <Compile Include="TestCases.cs" />
     <Compile Include="Pipeline\Size.cs" />
     <Compile Include="VideoModel\AnnotatedFrame.cs" />
     <Compile Include="Pipeline\Implementation\BlurNode.cs" />

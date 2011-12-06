@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YuvKA.Pipeline;
+using System.ComponentModel.Composition;
+using Microsoft.Win32;
+using System.Runtime.Serialization;
+using System.IO;
 
 namespace YuvKA.ViewModel
 {
@@ -22,17 +26,27 @@ namespace YuvKA.ViewModel
 
 		public void Save()
 		{
-			throw new System.NotImplementedException();
+			var dialog = new SaveFileDialog();
+			if (dialog.ShowDialog() == true) {
+				var serializer = new NetDataContractSerializer();
+				using (Stream stream = dialog.OpenFile())
+					serializer.WriteObject(stream, Model);
+			}
 		}
 
 		public void Open()
 		{
-			throw new System.NotImplementedException();
+			var dialog = new OpenFileDialog();
+			if (dialog.ShowDialog() == true) {
+				var serializer = new NetDataContractSerializer();
+				using (Stream stream = dialog.OpenFile())
+					Model = (PipelineState)serializer.ReadObject(stream);
+			}
 		}
 
 		public void Clear()
 		{
-			throw new System.NotImplementedException();
+			Model = new PipelineState();
 		}
 
 		public void Undo()
