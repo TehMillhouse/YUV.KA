@@ -66,6 +66,7 @@
     <Compile Include="Pipeline\Implementation\InverterNode.cs" />
     <Compile Include="Pipeline\Implementation\OutputNode.cs" />
     <Compile Include="Pipeline\Implementation\RgbSplitNode.cs" />
+    <Compile Include="Pipeline\Implementation\TestCases.cs" />
     <Compile Include="Pipeline\Size.cs" />
     <Compile Include="VideoModel\AnnotatedFrame.cs" />
     <Compile Include="Pipeline\Implementation\BlurNode.cs" />
