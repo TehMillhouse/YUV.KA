@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.DataAnnotations;
+using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -47,7 +48,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
-		public override void ProcessFrame(int frameIndex)
+		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 		{
 			throw new NotImplementedException();
 		}

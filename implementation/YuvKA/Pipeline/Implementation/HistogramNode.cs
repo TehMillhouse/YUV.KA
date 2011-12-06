@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -23,7 +24,7 @@ namespace YuvKA.Pipeline.Implementation
 		[Browsable(false)]
 		public int[] Data { get; private set; }
 
-		public override void ProcessFrame(int frameIndex)
+		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 		{
 			throw new NotImplementedException();
 		}

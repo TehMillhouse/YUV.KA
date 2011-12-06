@@ -15,13 +15,13 @@ namespace YuvKA.Pipeline
 		public class Input
 		{
 			public Output Source { get; set; }
+			public int Index { get; private set; }
 		}
 
 		public class Output
 		{
-			public Frame Buffer { get; set; }
-
 			public Node Node { get; private set; }
+			public int Index { get; private set; }
 
 			public Output(Node node)
 			{
@@ -40,7 +40,7 @@ namespace YuvKA.Pipeline
 		[Browsable(false)]
 		public ICollection<Output> Outputs { get; private set; }
 
-		public abstract void ProcessFrame(int frameIndex);
+		public abstract Frame[] ProcessFrame(Frame[] inputs, int frameIndex);
 
 		Output AddOutput()
 		{

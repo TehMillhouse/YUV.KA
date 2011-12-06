@@ -10,30 +10,35 @@ namespace YuvKA.Pipeline
 {
 	public static class PipelineDriver
 	{
-		public static Task RenderFrame(IEnumerable<Node> startNodes, int frameIndex) 
+		public static IObservable<Frame[]> RenderFrames(IEnumerable<Node> startNodes, int frameIndex, CancellationToken token)
 		{
-			var tasks = new Dictionary<Node, Task>();
-			IEnumerable<Task> startTasks = startNodes.Select(start => Visit(start, tasks, frameIndex));
-			return Task.Factory.ContinueWhenAll(startTasks.ToArray(), _ => { });
+			throw new NotImplementedException();
 		}
 
-		private static Task Visit(Node node, Dictionary<Node, Task> tasks, int frameIndex)
-		{
-			Task result;
-			if (!tasks.TryGetValue(node, out result)) {
-				IEnumerable<Task> dependencies = node.Inputs.Select(i => Visit(i.Source.Node, tasks, frameIndex)); 
-				tasks.Add(node, result = Task.Factory.ContinueWhenAll(dependencies.ToArray(), _ => node.ProcessFrame(frameIndex)));
-			}
-			return result;
-		}
+		//public static Task RenderFrame(IEnumerable<Node> startNodes, int frameIndex)
+		//{
+		//    var tasks = new Dictionary<Node, Task>();
+		//    IEnumerable<Task> startTasks = startNodes.Select(start => Visit(start, tasks, frameIndex));
+		//    return Task.Factory.ContinueWhenAll(startTasks.ToArray(), _ => { });
+		//}
 
-		public static IEnumerable<Frame> RenderAllTheFrames(Node.Output output, int frameCount, CancellationToken token)
-		{
-			for (int i = 0; i < frameCount; i++) {
-				token.ThrowIfCancellationRequested();
-				RenderFrame(new[] { output.Node }, i).Wait(token);
-				yield return output.Buffer;
-			}
-		}
+		//private static Task Visit(Node node, Dictionary<Node, Task> tasks, int frameIndex)
+		//{
+		//    Task result;
+		//    if (!tasks.TryGetValue(node, out result)) {
+		//        IEnumerable<Task> dependencies = node.Inputs.Select(i => Visit(i.Source.Node, tasks, frameIndex));
+		//        tasks.Add(node, result = Task.Factory.ContinueWhenAll(dependencies.ToArray(), _ => node.ProcessFrame(frameIndex)));
+		//    }
+		//    return result;
+		//}
+
+		//public static IEnumerable<Frame> RenderAllTheFrames(Node.Output output, int frameCount, CancellationToken token)
+		//{
+		//    for (int i = 0; i < frameCount; i++) {
+		//        token.ThrowIfCancellationRequested();
+		//        RenderFrame(new[] { output.Node }, i).Wait(token);
+		//        yield return output.Buffer;
+		//    }
+		//}
 	}
 }

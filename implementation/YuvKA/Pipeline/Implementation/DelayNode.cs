@@ -15,7 +15,7 @@ namespace YuvKA.Pipeline.Implementation
 		[Range(0, 10)]
 		public int Delay { get; set; }
 
-		public override void ProcessFrame(int frameIndex)
+		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 		{
 			throw new NotImplementedException();
 		}

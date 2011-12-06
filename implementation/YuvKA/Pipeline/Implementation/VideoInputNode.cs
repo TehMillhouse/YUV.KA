@@ -19,7 +19,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		public override int FrameCount { get { return input.FrameCount; } }
 
-		public override void ProcessFrame(int frameIndex)
+		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 		{
 			throw new NotImplementedException();
 		}

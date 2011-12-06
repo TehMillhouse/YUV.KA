@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Composition;
 using System.Collections.ObjectModel;
+using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -16,7 +17,7 @@ namespace YuvKA.Pipeline.Implementation
 		[Description("Weights of inputs relative to each other")]
 		public ObservableCollection<double> Weights { get; private set; }
 
-		public override void ProcessFrame(int frameIndex)
+		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 		{
 			throw new NotImplementedException();
 		}

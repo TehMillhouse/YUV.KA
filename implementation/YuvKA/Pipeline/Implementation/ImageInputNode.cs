@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Media.Imaging;
 using System.ComponentModel;
 using System.IO;
+using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -13,7 +14,7 @@ namespace YuvKA.Pipeline.Implementation
 		[DisplayName("File Name")]
 		public FilePath FileName { get; set; }
 
-		public override void ProcessFrame(int frameIndex)
+		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 		{
 			throw new NotImplementedException();
 		}
