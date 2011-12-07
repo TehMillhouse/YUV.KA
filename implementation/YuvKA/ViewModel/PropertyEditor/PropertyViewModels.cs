@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Collections.ObjectModel;
+using YuvKA.VideoModel;
 
 namespace YuvKA.ViewModel.PropertyEditor.Implementation
 {
@@ -26,7 +27,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 	}
 
-	public class SizePropertyViewModel : PropertyViewModel<Pipeline.Size>
+	public class SizePropertyViewModel : PropertyViewModel<Size>
 	{
 		public int Width { get { throw new NotImplementedException(); } set { } }
 		public int Height { get { throw new NotImplementedException(); } set { } }

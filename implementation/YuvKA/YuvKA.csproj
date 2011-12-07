@@ -66,6 +66,7 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Pipeline\FilePath.cs" />
+    <Compile Include="Pipeline\FrameRenderedMessage.cs" />
     <Compile Include="Pipeline\Implementation\AveragedMergeNode.cs" />
     <Compile Include="Pipeline\Implementation\AdditiveMergeNode.cs" />
     <Compile Include="Pipeline\Implementation\BrightnessContrastSaturationNode.cs" />
@@ -75,7 +76,7 @@
     <Compile Include="Pipeline\Implementation\OutputNode.cs" />
     <Compile Include="Pipeline\Implementation\RgbSplitNode.cs" />
     <Compile Include="TestCases.cs" />
-    <Compile Include="Pipeline\Size.cs" />
+    <Compile Include="VideoModel\Size.cs" />
     <Compile Include="VideoModel\AnnotatedFrame.cs" />
     <Compile Include="Pipeline\Implementation\BlurNode.cs" />
     <Compile Include="Pipeline\Implementation\BlurType.cs" />
@@ -107,9 +108,8 @@
     <Compile Include="ViewModel\Implementation\OverlayViewModel.cs" />
     <Compile Include="Pipeline\PipelineDriver.cs" />
     <Compile Include="Pipeline\PipelineGraph.cs" />
-    <Compile Include="Pipeline\PipelineState.cs" />
     <Compile Include="ViewModel\PipelineViewModel.cs" />
-    <Compile Include="Pipeline\ReplayState.cs" />
+    <Compile Include="Pipeline\PipelineState.cs" />
     <Compile Include="ViewModel\ReplayStateViewModel.cs" />
     <Compile Include="VideoModel\Rgb.cs" />
     <Compile Include="ViewModel\ToolboxViewModel.cs" />

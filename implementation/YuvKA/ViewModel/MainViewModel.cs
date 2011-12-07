@@ -46,7 +46,7 @@ namespace YuvKA.ViewModel
 
 		public void Clear()
 		{
-			Model = new PipelineState();
+			Model = new PipelineState(null);
 		}
 
 		public void Undo()

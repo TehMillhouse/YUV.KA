@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {

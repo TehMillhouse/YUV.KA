@@ -10,7 +10,7 @@ namespace YuvKA.Pipeline
 {
 	public static class PipelineDriver
 	{
-		public static IObservable<Frame[]> RenderFrames(IEnumerable<Node> startNodes, int frameIndex, CancellationToken token)
+		public static IObservable<IDictionary<Node.Output, Frame>> RenderFrames(IEnumerable<Node> startNodes, int frameIndex, CancellationToken token)
 		{
 			throw new NotImplementedException();
 		}

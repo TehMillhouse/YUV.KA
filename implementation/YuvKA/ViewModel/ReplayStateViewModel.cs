@@ -28,18 +28,7 @@ namespace YuvKA.ViewModel
 			set
 			{
 			}
-		}
-
-		public ReplayState State
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-			set
-			{
-			}
-		}
+        }
 	
 		public void Slower()
 		{

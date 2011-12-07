@@ -7,27 +7,7 @@ namespace YuvKA.VideoModel
 {
 	public class Frame
 	{
-		public int Height
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-			set
-			{
-			}
-		}
-
-		public int Width
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-			set
-			{
-			}
-		}
+        public Size Size { get; private set; }
 
 		public Rgb[] Data
 		{
@@ -42,8 +22,8 @@ namespace YuvKA.VideoModel
 
 		public Rgb this[int x, int y]
 		{
-			get { return Data[y * Width + x]; }
-			set { Data[y * Width + x] = value; }
+			get { return Data[y * Size.Width + x]; }
+			set { Data[y * Size.Width + x] = value; }
 		}
 	}
 }
