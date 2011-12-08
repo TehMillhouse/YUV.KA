@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Caliburn.Micro;
+using System.Runtime.Serialization;
+using System.ComponentModel.Composition;
 
 namespace YuvKA.Pipeline
 {
+	[DataContract]
 	public class PipelineState
 	{
+		[DataMember]
 		public int FrameIndex
 		{
 			get
@@ -33,27 +37,28 @@ namespace YuvKA.Pipeline
 			}
 		}
 
-        public PipelineGraph Graph
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
+		public PipelineGraph Graph
+		{
+			get
+			{
+				throw new System.NotImplementedException();
+			}
+			set
+			{
+			}
+		}
 
-        public PipelineState(IEventAggregator events) { throw new NotImplementedException(); }
+		[Import(typeof(IEventAggregator))]
+		public IEventAggregator Events { get; set; }
 
-        public void Start()
-        {
-            throw new System.NotImplementedException();
-        }
+		public void Start()
+		{
+			throw new System.NotImplementedException();
+		}
 
-        public void Stop()
-        {
-            throw new System.NotImplementedException();
-        }
+		public void Stop()
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }
