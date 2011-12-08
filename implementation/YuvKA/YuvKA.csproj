@@ -136,6 +136,7 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
+    <None Include="NamespaceDependencies.dgml" />
     <None Include="packages.config" />
     <None Include="TestCases\T30.sequencediagram" />
     <None Include="yuv.cd">
