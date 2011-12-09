@@ -30,6 +30,19 @@ Die Klasse \name{PipelineState} vereint den gesamten Zustand des Datenmodells in
 	\end{verbatim}
 	Ruft die Abspielgeschwindigkeit in Frames pro Sekunde ab oder legt sie fest.
 
+\property{Graph}
+	\begin{verbatim}
+	[DataMember]
+	public PipelineGraph Graph {get; set; }
+	\end{verbatim}
+	Ruft den \name{PipelineGraph} auf, der die Struktur der Pipeline repräsentiert und legt ihn fest.
+\property{Events}
+	\begin{verbatim}
+	[Import(typeof(IEventAggregator))]
+	public IEventAgggregator Events {get; set; }
+	\end{verbatim}
+	Per Dependency Injection injizierte Schnittstelle zum Caliburn Message System, über das die Ausgabefenster über die Beendigung der Berechnung eines Frames benachrichtigt werden.
+
 \method{Start}
 	\begin{verbatim}
 	public void Start()
