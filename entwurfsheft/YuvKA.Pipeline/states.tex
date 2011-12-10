@@ -36,12 +36,15 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 	public PipelineGraph Graph {get; set; }
 	\end{verbatim}
 	Ruft den \name{PipelineGraph} auf, der die Struktur der Pipeline repräsentiert und legt ihn fest.
+
 \property{Events}
 	\begin{verbatim}
 	[Import(typeof(IEventAggregator))]
 	public IEventAgggregator Events {get; set; }
 	\end{verbatim}
 	Per Dependency Injection injizierte Schnittstelle zum Caliburn Message System, über das die Ausgabefenster über die Beendigung der Berechnung eines Frames benachrichtigt werden.
+
+
 
 \method{Start}
 	\begin{verbatim}
@@ -56,6 +59,40 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 	Beendet die Wiedergabe und stoppt den \name{PipelineDriver}. Danach vom \name{PipelineDriver} asynchron erhaltene Frames werden ignoriert.
 \end{itemize}
 
-\subsubsection{YuvKA.Pipeline.FrameRenderedMessage}
-
 \subsubsection{YuvKA.Pipeline.PipelineGraph}
+	
+\begin{verbatim}
+[DaraContract]
+public class PipelineGraph	
+\end{verbatim}
+
+\paragraph{Beschreibung}~\\
+Die Klasse \name{PipelineGraph} verwaltet den Aufbau des Pipeline-Graphen. 
+	
+\paragraph{Typmember}
+\begin{itemize}
+
+\property{Nodes}
+	\begin{verbatim}
+	[DataMember]
+	public IList<Node> Nodes {get;}
+	\end{verbatim}
+	Verwaltet die im Pipeline-Graphen verfügbaren Knoten und gibt sie aus.
+
+\property{FrameCount}
+	\begin{verbatim}
+	[DataMember]
+	public int FrameCount {get;}
+	\end{verbatim}
+	Ruft die maximale Länge aller als Input gegebenen Videos auf.
+
+
+	
+\method{AddEdge}
+	\begin{verbatim}
+	public bool AddEdge(Output source, Input sink)
+	\end{verbatim}
+	Wenn die durch \name{source} und \name{sink} spezifizierte Kante zu keinem Zyklus innerhalb des Pipeline-Graphen führt, so soll sie durch setzen der Output-Property von \name{source} als \name{sink} hinzugefügt und true ausgegeben werden. Andernfalls soll die Kante nicht zum Graphen hinzugefügt und false ausgegeben werden.
+\end{itemize}
+	
+\subsubsection{YuvKA.Pipeline.FrameRenderedMessage}
