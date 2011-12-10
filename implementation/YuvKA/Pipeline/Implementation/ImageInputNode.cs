@@ -6,12 +6,14 @@ using System.Windows.Media.Imaging;
 using System.ComponentModel;
 using System.IO;
 using YuvKA.VideoModel;
+using System.Runtime.Serialization;
 
 namespace YuvKA.Pipeline.Implementation
 {
 	public class ImageInputNode : InputNode
 	{
 		[DisplayName("File Name")]
+        [DataMember]
 		public FilePath FileName { get; set; }
 
 		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
