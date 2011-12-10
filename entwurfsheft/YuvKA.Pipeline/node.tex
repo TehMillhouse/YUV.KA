@@ -8,6 +8,7 @@ UML-Klassendiagramm der Basisklasse \name{Node} von der alle Eingabe-, Manipulat
 
 \begin{verbatim}
 [InheritedExport]
+[DataContract]
 public abstract class Node : IDisposable
 \end{verbatim}
 
@@ -20,6 +21,7 @@ Die Klasse \name{Node} stellt die gemeinsame Struktur aller Knoten zur Verfügun
 \property{X}
 	\begin{verbatim}
 	[Browsable(false)]
+	[DataMember]
 	public double X { get; set; }
 	\end{verbatim}
 	%<Membererklärung>

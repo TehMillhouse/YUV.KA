@@ -26,9 +26,9 @@ Die abstrakte Klasse \name{InputNode} modelliert die Eingabequellen der Pipeline
 \property{FrameCount}
 	\begin{verbatim}
 	[DataMember]
-	public virtual int FrameCount { get { return 1; } }
+	public virtual int FrameCount { get; }
 	\end{verbatim}
-	Ruft die Anzahl an vom Knoten zu liefernden \name{Frame}s ab oder legt sie fest.
+	Ruft die Anzahl an vom Knoten zu liefernden \name{Frame}s ab. Der Standardrückgabewert ist 1, die Methode ist allerdings in Unterklassen überschreibbar.
 
 \end{itemize}
 

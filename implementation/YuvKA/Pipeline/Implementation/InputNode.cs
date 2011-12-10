@@ -15,7 +15,6 @@ namespace YuvKA.Pipeline.Implementation
 		public Size Size { get; set; }
 
 		[Browsable(false)]
-        [DataMember]    
 		public virtual int FrameCount { get { return 1; } }
 	}
 }
