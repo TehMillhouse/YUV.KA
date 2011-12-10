@@ -56,7 +56,7 @@ public FilePath FileName { get; set; }
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
-	Ignoriert jegliche Eingabe und liefert als Rückgabewert einen Array, der einen \name{Frame} mit den Bilddaten der Datei (aus dem Pfad \name{FileName}) enthält.
+	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert einen Array, der einen \name{Frame} mit den Bilddaten der Datei (aus dem Pfad \name{FileName}) enthält.
 
 \end{itemize}
 \subsubsection{YuvKA.Pipeline.ColorInputNode}
@@ -84,10 +84,36 @@ Die Klasse \name{ColorInputNode} liefert die Funktionalität, einen Videostream 
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
-	Ignoriert jegliche Eingabe und liefert als Rückgabewert einen Array, der einen \name{Frame} enthält welcher vollends mit der vom Benutzer gewählten Farbe ausgefüllt ist.
+	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert einen Array, der einen \name{Frame} enthält welcher vollends mit der vom Benutzer gewählten Farbe ausgefüllt ist.
 
 \end{itemize}
 
 \subsubsection{YuvKA.Pipeline.NoiseInputNode}
+
+\begin{verbatim}
+public class NoiseInputNode : InputNode
+\end{verbatim}
+
+\paragraph{Beschreibung}~\\
+Die Klasse \name{NoiseInputNode} stellt einen Knoten bereit, welcher eine von zwei Arten zufällig generierter Videostreams in Form von \name{Frame}s mit Rauschsignal an die Pipeline liefert. Die Klasse erbt von der abstrakten \name{InputNode}-Klasse.
+
+\paragraph{Typmember}
+\begin{itemize}
+
+\property{Type}
+	\begin{verbatim}
+        [DataMember]
+        public NoiseType Type { get; set; }
+	\end{verbatim}
+	Setzt den Typ des Videostreams fest, welcher generiert wird. Zur Auswahl stehen Perlin-Noise und kohärentes Bildrauschen. 
+
+\method{ProcessFrame}
+	\begin{verbatim}
+	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex
+	\end{verbatim}
+	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert einen Array, der einen \name{Frame} enthält mit den Bilddaten des zufällig generierten \name{Frame}s.
+
+
+\end{itemize}
 
 \subsubsection{YuvKA.Pipeline.VideoInputNode}

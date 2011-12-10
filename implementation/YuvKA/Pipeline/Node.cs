@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 namespace YuvKA.Pipeline
 {
 	[InheritedExport]
-    [DataContract]
+	[DataContract]
 	public abstract class Node : IDisposable
 	{
 		public class Input
@@ -31,10 +31,10 @@ namespace YuvKA.Pipeline
 		}
 
 		[Browsable(false)]
-        [DataMember]
+		[DataMember]
 		public double X { get; set; }
 		[Browsable(false)]
-        [DataMember]
+		[DataMember]
 		public double Y { get; set; }
 
 		[Browsable(false)]

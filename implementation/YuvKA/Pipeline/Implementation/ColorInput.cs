@@ -7,10 +7,10 @@ using System.Runtime.Serialization;
 
 namespace YuvKA.Pipeline.Implementation
 {
-    [DataContract]
+	[DataContract]
 	public class ColorInputNode : InputNode
 	{
-        [DataMember]
+		[DataMember]
 		public Rgb Color
 		{
 			get

@@ -10,10 +10,11 @@ using System.Runtime.Serialization;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	[DataContract]
 	public class ImageInputNode : InputNode
 	{
 		[DisplayName("File Name")]
-        [DataMember]
+		[DataMember]
 		public FilePath FileName { get; set; }
 
 		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)

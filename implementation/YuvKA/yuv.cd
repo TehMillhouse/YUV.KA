@@ -41,11 +41,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.NoiseInputNode">
-    <Position X="15.5" Y="10.25" Width="3.75" />
+    <Position X="15.75" Y="10.25" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAIA=</HashCode>
       <FileName>Pipeline\Implementation\NoiseInput.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Type" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.ColorInputNode">
     <Position X="13.25" Y="12.25" Width="3.75" />
@@ -102,7 +105,7 @@
   <Class Name="YuvKA.Pipeline.PipelineState">
     <Position X="27.75" Y="3.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAAAAAEABAAAAAAgAIAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAEABAgAAAAgAIAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\PipelineState.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -303,12 +306,6 @@
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.HistogramNode">
     <Position X="43.75" Y="10.75" Width="3.75" />
-    <InheritanceLine Type="YuvKA.Pipeline.Implementation.OutputNode" FixedToPoint="true">
-      <Path>
-        <Point X="45.5" Y="9.497" />
-        <Point X="45.5" Y="10.75" />
-      </Path>
-    </InheritanceLine>
     <AssociationLine Name="Type" Type="YuvKA.Pipeline.Implementation.HistogramType">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.06" Y="0.11" Height="0.182" Width="0.588" />
@@ -383,7 +380,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.VideoInputNode">
-    <Position X="17.75" Y="12.25" Width="3.75" />
+    <Position X="18.5" Y="12.25" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAAAAAABAAAAABIAAAAAAABAAIA=</HashCode>
       <FileName>Pipeline\Implementation\VideoInputNode.cs</FileName>
@@ -623,6 +620,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCAEAAQA=</HashCode>
       <FileName>Pipeline\Implementation\HistogramType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="YuvKA.NoiseType">
+    <Position X="16.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>NoiseType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
