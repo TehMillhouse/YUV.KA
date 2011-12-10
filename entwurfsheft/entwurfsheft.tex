@@ -9,8 +9,10 @@
 \usepackage{verbatim}
 %\renewcommand{\contentsname}{Inhaltsverzeichnis}
 \newcommand{\name}[1]{\textbf{#1}}
+\newcommand{\field}[1]{\item \name{#1}}
 \newcommand{\property}[1]{\item \name{#1}}
 \newcommand{\method}[1]{\item \name{#1}}
+
 \begin{document}
 \title{
     \hspace{-0.5cm} \includegraphics[height=5cm]{logo.png} \\[1cm]
@@ -33,5 +35,6 @@
 \include{YuvKA.Pipeline/states}
 \include{YuvKA.Pipeline/node}
 \include{YuvKA.Pipeline/inputnodes}
+\include{YuvKA.Pipeline/manipulationnodes}
 
 \end{document}
