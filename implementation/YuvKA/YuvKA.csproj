@@ -65,6 +65,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="NoiseType.cs" />
     <Compile Include="Pipeline\FilePath.cs" />
     <Compile Include="Pipeline\FrameRenderedMessage.cs" />
     <Compile Include="Pipeline\Implementation\AveragedMergeNode.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="VideoModel\AnnotatedFrame.cs" />
     <Compile Include="Pipeline\Implementation\BlurNode.cs" />
     <Compile Include="Pipeline\Implementation\BlurType.cs" />
-    <Compile Include="Pipeline\Implementation\ColorInput.cs" />
+    <Compile Include="Pipeline\Implementation\ColorInputNode.cs" />
     <Compile Include="Pipeline\Implementation\DiagramGraph.cs" />
     <Compile Include="Pipeline\Implementation\DiagramNode.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyViewModels.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NodeTypeViewModel.cs" />
     <Compile Include="ViewModel\NodeViewModel.cs" />
-    <Compile Include="Pipeline\Implementation\NoiseInput.cs" />
+    <Compile Include="Pipeline\Implementation\NoiseInputNode.cs" />
     <Compile Include="ViewModel\Implementation\VideoOutputViewModel.cs" />
     <Compile Include="ViewModel\OutputWindowViewModel.cs" />
     <Compile Include="Pipeline\Implementation\OverlayNode.cs" />
