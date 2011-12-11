@@ -57,7 +57,7 @@ public FilePath FileName { get; set; }
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
-	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert einen Array, der einen \name{Frame} mit den Bilddaten der Datei (aus dem Pfad \name{FileName}) enthält.
+	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert ein Array der Größe 1, das einen \name{Frame} mit den Bilddaten der Datei (aus dem Pfad \name{FileName}) enthält.
 
 \end{itemize}
 \subsubsection{YuvKA.Pipeline.ColorInputNode}
@@ -85,7 +85,7 @@ Die Klasse \name{ColorInputNode} liefert die Funktionalität, einen Videostream 
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
-	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert einen Array, der einen \name{Frame} enthält welcher vollends mit der vom Benutzer gewählten Farbe ausgefüllt ist.
+	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert ein Array der Größe 1, das einen \name{Frame} enthält welcher vollends mit der vom Benutzer gewählten Farbe ausgefüllt ist.
 
 \end{itemize}
 
@@ -119,7 +119,7 @@ Die Klasse \name{NoiseInputNode} stellt einen Knoten bereit, welcher eine von zw
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex
 	\end{verbatim}
-	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert einen Array, der einen \name{Frame} enthält mit den Bilddaten des zufällig generierten \name{Frame}s.
+	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert ein Array der Größe 1, das einen \name{Frame} enthält mit den Bilddaten des zufällig generierten \name{Frame}s.
 
 
 \end{itemize}
