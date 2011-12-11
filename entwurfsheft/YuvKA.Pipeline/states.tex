@@ -33,14 +33,14 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 \property{Graph}
 	\begin{verbatim}
 	[DataMember]
-	public PipelineGraph Graph {get; set; }
+	public PipelineGraph Graph { get; set; }
 	\end{verbatim}
-	Ruft den \name{PipelineGraph} auf, der die Struktur der Pipeline repräsentiert und legt ihn fest.
+	Ruft den \name{PipelineGraph} auf, der die Struktur der Pipeline repräsentiert, oder legt ihn fest.
 
 \property{Events}
 	\begin{verbatim}
 	[Import(typeof(IEventAggregator))]
-	public IEventAgggregator Events {get; set; }
+	public IEventAgggregator Events { get; set; }
 	\end{verbatim}
 	Per Dependency Injection injizierte Schnittstelle zum Caliburn Message System, über das die Ausgabefenster über die Beendigung der Berechnung eines Frames benachrichtigt werden.
 
@@ -50,7 +50,7 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 	\begin{verbatim}
 	public void Start()
 	\end{verbatim}
-	Weist den \name{PipelineDriver} an, die Pipeline ab dem aktuellen \name{FrameIndex} zu berechnen.
+	Weist den \name{PipelineDriver} an, die Pipeline ab dem aktuellen \name{FrameIndex} zu berechnen. Bei abgeschlossener Berechnung aller Frames im aktuellen Zeitabschnitt wird eine \name{FrameRenderedMessage} geworfen.
 
 \method{Stop}
 	\begin{verbatim}
@@ -62,7 +62,7 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 \subsubsection{YuvKA.Pipeline.PipelineGraph}
 	
 \begin{verbatim}
-[DaraContract]
+[DataContract]
 public class PipelineGraph	
 \end{verbatim}
 
@@ -75,14 +75,14 @@ Die Klasse \name{PipelineGraph} verwaltet den Aufbau des Pipeline-Graphen.
 \property{Nodes}
 	\begin{verbatim}
 	[DataMember]
-	public IList<Node> Nodes {get;}
+	public IList<Node> Nodes { get; }
 	\end{verbatim}
 	Verwaltet die im Pipeline-Graphen verfügbaren Knoten und gibt sie aus.
 
 \property{FrameCount}
 	\begin{verbatim}
 	[DataMember]
-	public int FrameCount {get;}
+	public int FrameCount { get; }
 	\end{verbatim}
 	Ruft die maximale Länge aller als Input gegebenen Videos auf.
 
@@ -96,3 +96,28 @@ Die Klasse \name{PipelineGraph} verwaltet den Aufbau des Pipeline-Graphen.
 \end{itemize}
 	
 \subsubsection{YuvKA.Pipeline.FrameRenderedMessage}
+		
+\begin{verbatim}
+public class FrameRenderedMessage
+\end{verbatim}
+
+\paragraph{Beschreibung}~\\
+Die Klasse \name{FrameRenderedMessage} enthält die zuletzt gerenderten Frames aller \name{Output}s.
+
+\paragraph{Typmember}
+\begin{itemize}
+	
+\property{this[]}
+	\begin{verbatim}
+	public Frame this[Output output] { get; set; }
+	\end{verbatim}
+Indexer. Ruft den durch \name{output} spezifizierten Frame auf, oder legt ihn fest.
+
+\end{itemize}
+
+
+
+
+	
+
+
