@@ -26,6 +26,7 @@ namespace YuvKA.Pipeline
 		/// <summary>
 		/// Replay speed in frames per second
 		/// </summary>
+		[DataMember]
 		public int Speed
 		{
 			get
@@ -37,6 +38,7 @@ namespace YuvKA.Pipeline
 			}
 		}
 
+		[DataMember]
 		public PipelineGraph Graph
 		{
 			get

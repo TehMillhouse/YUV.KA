@@ -5,9 +5,11 @@ using System.Text;
 
 namespace YuvKA.Pipeline
 {
+	[DataContract]#
 	public class PipelineGraph
 	{
 
+		[DataMember]
 		public IList<Node> Nodes
 		{
 			get
@@ -19,6 +21,7 @@ namespace YuvKA.Pipeline
 			}
 		}
 
+		[DataMember]
 		public int FrameCount
 		{
 			get
