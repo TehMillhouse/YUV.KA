@@ -25,6 +25,7 @@ Die abstrakte Klasse \name{InputNode} modelliert die Eingabequellen der Pipeline
 
 \property{FrameCount}
 	\begin{verbatim}
+	[Browsable(false)]
 	public virtual int FrameCount { get; }
 	\end{verbatim}
 	Ruft die Anzahl an vom Knoten zu liefernden \name{Frame}s ab. Der Standardrückgabewert ist 1, die Methode ist allerdings in Unterklassen überschreibbar.
@@ -91,6 +92,7 @@ Die Klasse \name{ColorInputNode} liefert die Funktionalität, einen Videostream 
 \subsubsection{YuvKA.Pipeline.NoiseInputNode}
 
 \begin{verbatim}
+[DataContract]
 public class NoiseInputNode : InputNode
 \end{verbatim}
 
@@ -102,10 +104,16 @@ Die Klasse \name{NoiseInputNode} stellt einen Knoten bereit, welcher eine von zw
 
 \property{Type}
 	\begin{verbatim}
-        [DataMember]
-        public NoiseType Type { get; set; }
+	[DataMember]
+	public NoiseType Type { get; set; }
 	\end{verbatim}
-	Setzt den Typ des Videostreams fest, welcher generiert wird. Zur Auswahl stehen Perlin-Noise und kohärentes Bildrauschen. 
+	Setzt den Typ des Videostreams fest, welcher generiert wird. Standardmäßig werden folgende Verfahren Unterstützt:
+	\begin{description}
+		\item[Perlin-Noise]~\\
+		Bei Perlin-Noise werden Pseudozufällige Signale dadurch generiert, dass die Koordinaten des angefragten Punktes anhand eines vorgerechneten Rasters mit zufälligen Vektoren nachgeschlagen werden. Der resultierende Wert ist das Resultat des Kreuzproduktes des Abstandsvektors (zum nächsten Rasterpunkt) mit dem im Raster gefundenen Vektor, kombiniert mit einfacher Interpolation, um das resultierende Bild stetig zu halten.
+		\item[Coherent Noise]~\\
+		Hierbei handelt es sich um einfaches, kohärentes Bildrauschen, welches Pixelweise erzeugt wird.
+	\end{description}
 
 \method{ProcessFrame}
 	\begin{verbatim}

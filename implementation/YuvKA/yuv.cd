@@ -44,7 +44,7 @@
     <Position X="15.75" Y="10.25" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAIA=</HashCode>
-      <FileName>Pipeline\Implementation\NoiseInput.cs</FileName>
+      <FileName>Pipeline\Implementation\NoiseInputNode.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Type" />
@@ -54,7 +54,7 @@
     <Position X="13.25" Y="12.25" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIA=</HashCode>
-      <FileName>Pipeline\Implementation\ColorInput.cs</FileName>
+      <FileName>Pipeline\Implementation\ColorInputNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.BlurNode">
