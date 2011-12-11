@@ -9,28 +9,11 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public class BlurNode : Node
 	{
-		public BlurType Type
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-			set
-			{
-			}
-		}
+		public BlurType Type { get; set; }
 
 		[Range(0.0, double.PositiveInfinity)]
-		public int Radius
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-			set
-			{
-			}
-		}
+		public int Radius  { get; set; }
+
 
 		#region INode Members
 
