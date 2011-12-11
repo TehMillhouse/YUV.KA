@@ -580,6 +580,17 @@
       <FileName>Pipeline\FrameRenderedMessage.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="YuvKA.Pipeline.Implementation.PeakSignalNoiseRatio" Collapsed="true">
+    <Position X="41.75" Y="18" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pipeline\Implementation\GraphTypes.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Struct Name="YuvKA.VideoModel.Rgb">
     <Position X="2" Y="6.25" Width="1.75" />
     <TypeIdentifier>

@@ -23,6 +23,23 @@ namespace YuvKA.Pipeline.Implementation
 		#endregion
 	}
 
+	public class PeakSignalNoiseRatio : IGraphType
+	{
+		#region IGraphType Members
+
+		public double Process(Frame frame, Frame reference)
+		{
+			throw new NotImplementedException();
+		}
+
+		public bool DependsOnReference
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		#endregion
+	}
+
 	public class PixelDiff : IGraphType
 	{
 		#region IGraphType Members
