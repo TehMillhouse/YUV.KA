@@ -77,7 +77,7 @@ Die Klasse \name{AverageMergeNode} modelliert das Zusammenführen von Videos dur
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
-	Mittelt alle übergebenen \name{Frame}s Pixelweise unter beachtung der von \name{Weights} defienirten Gewichtungen.\\
+	Mittelt alle übergebenen \name{Frame}s Pixelweise unter Beachtung der von \name{Weights} definierten Gewichtungen.\\
 	-pseudocode notwendig?-
 	
 	
@@ -108,7 +108,7 @@ Die Klasse \name{DelayNode} modelliert die Verzögerung von Videostreams innerha
 	[Range(0, 10)]
 	public int Delay { get; set; }
 	\end{verbatim}
-	Ruft die Dauer der Verögerung in der Einheit \name{Frame}s ab, oder legt sie fest.
+	Ruft die Dauer der Verzögerung in der Einheit \name{Frame}s ab, oder legt sie fest.
 
 \method{ProcessFrame}
 	\begin{verbatim}

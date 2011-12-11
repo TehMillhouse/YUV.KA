@@ -8,16 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public class OverlayNode : OutputNode
 	{
-		public IOverlayType Type
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-			set
-			{
-			}
-		}
+		public IOverlayType Type { get; set; }
 
 		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 		{
