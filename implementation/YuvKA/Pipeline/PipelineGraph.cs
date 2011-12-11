@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YuvKA.Pipeline
 {
-	[DataContract]#
+	[DataContract]
 	public class PipelineGraph
 	{
 
