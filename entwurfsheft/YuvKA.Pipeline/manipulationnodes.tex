@@ -1,9 +1,28 @@
+
 \subsection{Manipulationsknoten}
 
 \includegraphics[width=\textwidth]{YuvKA.Pipeline/manipulationnodes.png}
 UML-Klassendiagramm der Knoten, die Videostreams innerhalb der Pipeline verändern können.
 
 \subsubsection{YuvKA.Pipeline.InverterNode}
+\begin{verbatim}
+public class InverterNode : Node
+\end{verbatim}
+
+\paragraph{Beschreibung}~\\
+Die Klasse \name{InverterNode} invertiert die Farben des \name{Frame}s.
+
+\paragraph{Typmember}
+\begin{itemize}
+
+\method{ProcessFrame}
+	\begin{verbatim}
+	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	\end{verbatim}
+	Invertiert die Farbe der einzelnen Pixel des \name{Frame}s. Dafür wird das Komplement von jedem der drei Farbkanäle eines Pixels gebildet.
+
+\end{itemize}
+
 
 \subsubsection{YuvKA.Pipeline.BlurNode}
 
@@ -73,7 +92,59 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 	
 \end{itemize}
 
+
 \subsubsection{YuvKA.Pipeline.BrightnessContrastSaturationNode}
+
+\begin{verbatim}
+public class BrightnessContrastSaturationNode : Node
+\end{verbatim}
+
+\paragraph{Beschreibung}~\\
+Diese Klasse\name{BrightnessContrastSaturationNode} ändert die Helligkeit, den Kontrast oder die Farbsättigung des \name{Frame}s.
+
+\begin{itemize}
+
+\property{Brightness}
+	\begin{verbatim}
+	[Range(-1.0, 1.0)]
+	public double Brightness
+	\end{verbatim}
+	Ruft den Helligkeitswert, zu dem dieses \name{Frame} gesetzt werden soll, ab, oder legt ihn fest. Der Wert muss zwischen -1.0 und 1.0 liegen.
+	
+\property{Contrast}
+	\begin{verbatim}
+	[Range(-1.0, 1.0)]
+	public double Contrast
+	\end{verbatim}
+	Ruft den Kontrastwert, zu dem dieses \name{Frame} gesetzt werden soll, ab, oder legt ihn fest. Der Wert muss zwischen -1.0 und 1.0 liegen.
+	
+\property{Saturation}
+	\begin{verbatim}
+	[Range(-1.0, 1.0)]
+	public double Saturation
+	\end{verbatim}
+	Ruft den Farbsättigungswert, zu dem dieses \name{Frame} gesetzt werden soll, ab, oder legt ihn fest. Der Wert muss zwischen -1.0 und 1.0 liegen.
+
+\method{ProcessFrame}
+	\begin{verbatim}
+	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	\end{verbatim}
+	Setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSV-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert. Es werden folgende Algorithmen für die Konvertierungen benutzt:
+	\floatname{algorithm}{Algorithmus}
+	\begin{algorithm}
+	\caption{RGB nach HSV Konvertierung}
+		\begin{algorithmic}[1]
+		\STATE \COMMENT{Algorithm1 goes here}
+		\end{algorithmic}
+	\end{algorithm}
+	
+	\begin{algorithm}
+	\caption{HSV nach RGB Konvertierung}
+		\begin{algorithmic}[1]
+		\STATE \COMMENT{Algorithm2 goes here}
+		\end{algorithmic}
+	\end{algorithm}
+\end{itemize}
 
 \subsubsection{YuvKA.Pipeline.AdditiveMergeNode}
 
