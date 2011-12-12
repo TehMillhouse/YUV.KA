@@ -43,12 +43,6 @@ Die Klasse \name{Video} hält die vom \name{YuvEncoder} umgewandelten Videos als
 \paragraph{Typmember}
 \begin{itemize}
 
-\field{stream}
-	\begin{verbatim}
-	Stream stream;
-	\end{verbatim}
-	Hält das eingegebene Video als Videostream fest.
-
 \property{FrameCount}
 	\begin{verbatim}
 	public int FrameCount { get; }
@@ -93,12 +87,6 @@ Die Klasse \name{Frame} stellt ein Einzelbild eines Videostreams im RGB-Format d
 	\end{verbatim}
 	Ruft den Farbwert des \name{Frame}s an der Stelle \name{x,y} in RGB ab oder legt ihn fest.
 
-\property{Data}
-	\begin{verbatim}
-	public Rgb[] Data { get; set; }
-	\end{verbatim}
-	Ruft die einzelnen Farbwerte des \name{Frame}s pixelweise als Array ab oder legt sie fest.
-
 \end{itemize}
 
 \subsubsection{YuvKA.VideoModel.AnnotatedFrame}
@@ -137,7 +125,7 @@ Die Klasse \name{MacroblockDecision} stellt die Entscheidung dar, die der Encode
 	\begin{verbatim}
 	public Vector Movement { get; }
 	\end{verbatim}
-	Ruft die Information, aus welchem Makroblock dieser Makroblock berechnet wurde als Vektor ab.
+	Ruft den Bewegungsvektor des Makroblocks relativ zum vorherigen Frame ab.
 
 \property{PartitioningDecision}
 	\begin{verbatim}
@@ -152,20 +140,10 @@ Die Klasse \name{MacroblockDecision} stellt die Entscheidung dar, die der Encode
 \begin{verbatim}
 public enum MacroblockPartitioning
 {
-    InterSkip,
-    Inter16x16,
-    Inter16x8,
-    Inter8x16,
-    Inter8x8,
-    Inter8x4,
-    Inter4x8,
-    Inter4x4,
-    Inter8x8OrBelow,
-    Intra4x4,
-    Intra16x16,
-    Intra8x8,
-    IntraPCM,
-    Unknown
+    InterSkip, Inter16x16, Inter16x8, Inter8x16,
+    Inter8x8, Inter8x4, Inter4x8, Inter4x4,
+    Inter8x8OrBelow, Intra4x4, Intra16x16, Intra8x8,
+    IntraPCM, Unknown
 }
 \end{verbatim}
 Die \name{MacroblockPartitioning} gibt die verschiedenen Möglichkeiten der Partitionierung eines Makroblocks als Inter- bzw. Intraframe an.
