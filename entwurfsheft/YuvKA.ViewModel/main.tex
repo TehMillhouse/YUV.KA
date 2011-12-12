@@ -36,7 +36,8 @@ Die \name{MainViewModel}-Klasse hält das Programm-Model in Form einer \name{Pip
 	Ruft eine Liste der derzeit geöffneten Ausgabefenster ab.
 
 \property{ReplayStateViewModel, PipelineViewModel, ToolboxViewModel}
-	Ruft jeweils eine Instanz der gleichnamigen Klasse ab.
+
+	Rufen jeweils eine Instanz der gleichnamigen Klasse ab.
 
 \method{Clear, Open}
 	\begin{verbatim}
@@ -51,7 +52,7 @@ Die \name{MainViewModel}-Klasse hält das Programm-Model in Form einer \name{Pip
 	\end{verbatim}
 	Speichert das derzeitige Model in einer Datei ab. Dazu öffnet Save einen \name{SaveFileDialog} und serialisiert dann das \name{Model}-Objekt in die gewählte Datei.
 
-\method{SaveSnapshot()}
+\method{SaveSnapshot}
 	\begin{verbatim}
 	public void SaveSnapshot()
 	\end{verbatim}
@@ -63,5 +64,56 @@ Die \name{MainViewModel}-Klasse hält das Programm-Model in Form einer \name{Pip
 	public void Redo()
 	\end{verbatim}
 	Stellt den Zustand des nächsten Rückgängig- bzw. Wiederholen-Schrittes wieder her.
+
+\end{itemize}
+
+\subsubsection{ReplayStateViewModel}
+
+\begin{verbatim}
+public class ReplayStateViewModel
+\end{verbatim}
+
+\paragraph{Beschreibung}~\\
+Die \name{ReplayStateViewModel}-Klasse verwaltet den aktuellen Wiedergabestatus der geöffneten Pipeline.
+
+\paragraph{Typmember}
+\begin{itemize}
+
+\property{TickCount}
+	\begin{verbatim}
+	public int TickCount { get; }
+	\end{verbatim}
+	Ruft die Zahl der abspielbaren Ticks der aktuellen Pipeline ab.
+
+\property{CurrentTick}
+	\begin{verbatim}
+	public int CurrentTick { get; set; }
+	\end{verbatim}
+	Ruft den nächsten abzuspielenden Tick ab oder legt ihn fest.
+
+\property{IsPlaying}
+	\begin{verbatim}
+	public bool IsPlaying { get; }
+	\end{verbatim}
+	Ruft ab, ob die Pipeline gerade abgespielt wird.
+
+\method{Slower, Faster}
+	\begin{verbatim}
+	public void Slower()
+	public void Faster()
+	\end{verbatim}
+	Erniedrigt bzw. erhöht die Abspielgeschwindigkeit um einen konstanten Faktor, der im Ermessen der Implementierung liegt.
+
+\method{PlayPause}
+	\begin{verbatim}
+	public void PlayPause()
+	\end{verbatim}
+	Pausiert die Wiedergabe bzw. setzt sie fort.
+
+\method{Stop}
+	\begin{verbatim}
+	public void Stop()
+	\end{verbatim}
+	Pausiert die Wiedergabe und setzt \name{CurrentTick} auf 0.
 
 \end{itemize}
