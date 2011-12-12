@@ -15,7 +15,7 @@ namespace YuvKA.Pipeline.Implementation
 	{
 		[Range(0.0, 1.0)]
 		[Description("Weights of inputs relative to each other")]
-		public ObservableCollection<double> Weights { get; private set; }
+		public ObservableCollection<double> Weights { get; }
 
 		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 		{

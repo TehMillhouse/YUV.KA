@@ -99,7 +99,7 @@ public class BrightnessContrastSaturationNode : Node
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Diese Klasse\name{BrightnessContrastSaturationNode} ändert die Helligkeit, den Kontrast oder die Farbsättigung des \name{Frame}s.
+Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den Kontrast und/oder die Farbsättigung des \name{Frame}s.
 
 \begin{itemize}
 
@@ -219,14 +219,14 @@ Diese Klasse \name{AdditiveMergeNode} legt mehrere Frames additiv übereinander.
 Die Methode \name{ProcessFrame} legt mehrere Frames additiv übereinander, indem sie die Farbwerte der positionsgleichen Pixel addiert und den so entstandenen Farbwert als das neue Pixel speichert.
 \end{itemize}
 
-\subsubsection{YuvKA.Pipeline.AverageMergeNode}
+\subsubsection{YuvKA.Pipeline.AveragedMergeNode}
 
 \begin{verbatim}
 public class AveragedMergeNode : Node
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{AverageMergeNode} modelliert das Zusammenführen von Videos durch gewichtete Mittelung der \name{Frame}s.
+Die Klasse \name{AveragedMergeNode} modelliert das Zusammenführen von Videos durch gewichtete Mittelung der \name{Frame}s.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -234,9 +234,9 @@ Die Klasse \name{AverageMergeNode} modelliert das Zusammenführen von Videos dur
 \property{Weights}
 	\begin{verbatim}
 		[Range(0.0, 1.0)]
-		public ObservableCollection<double> Weights { get; private set; }
+		public ObservableCollection<double> Weights { get; }
 	\end{verbatim}
-	Ruft eine Sammlung von Gewichtungen einzelner Videos ab oder legt diese fest.
+	Ruft eine Sammlung von Gewichtungen einzelner Videos ab.
 
 \method{ProcessFrame}
 	\begin{verbatim}
