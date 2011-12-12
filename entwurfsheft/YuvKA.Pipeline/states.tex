@@ -19,9 +19,9 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 \property{Tick}
 	\begin{verbatim}
 	[DataMember]
-	public int Tick { get; set; }
+	public int CurrentTick { get; set; }
 	\end{verbatim}
-	Ruft den Index des zuletzt berechneten \name{Tick}s ab oder legt ihn fest. Das Neusetzen führt nicht zum erneuten Berechnen der im Tick berechneten \name{Frame}s, sondern muss mit \name{Start} explizit angefordert werden. Ein \name{Tick} repräsentiert hierbei den Zeitaschnitt für die Berechnung aller relevanten \name{Frame}s mit dem gegebenen Index.
+	Ruft den Index des zuletzt berechneten Ticks ab oder legt ihn fest. Das Neusetzen führt nicht zum erneuten Berechnen der im Tick berechneten \name{Frame}s, sondern muss mit \name{Start} explizit angefordert werden. Ein Tick repräsentiert hierbei den Zeitaschnitt für die Berechnung aller relevanten \name{Frame}s mit dem gegebenen Index.
 
 \property{Speed}
 	\begin{verbatim}
@@ -50,7 +50,7 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 	\begin{verbatim}
 	public void Start()
 	\end{verbatim}
-	Weist den \name{PipelineDriver} an, die Pipeline ab dem aktuellen \name{Tick} zu berechnen. Bei abgeschlossener Berechnung aller \name{Frame}s im aktuellen Zeitabschnitt wird eine \name{FrameRenderedMessage} geworfen.
+	Weist den \name{PipelineDriver} an, die Pipeline ab dem aktuellen Tick zu berechnen. Bei abgeschlossener Berechnung aller \name{Frame}s im aktuellen Zeitabschnitt wird eine \name{FrameRenderedMessage} geworfen.
 
 \method{Stop}
 	\begin{verbatim}
