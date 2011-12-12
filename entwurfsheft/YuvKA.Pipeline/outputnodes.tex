@@ -1,9 +1,9 @@
 \subsection{Ausgabeknoten}
 
 \includegraphics[width=\textwidth]{YuvKA.Pipeline/outputnodes.png}
-UML-Klassendiagramm der Knoten, die für die Wiedergabe, Analyse und Vergleich von Videos in der Pipeline zuständig sind.
+Die folgenden Klassen stellen Knoten zur Verfügung, die die Ausgabe und Analyse der Videos der Pipeline übernehmen. All diese Klassen erben von der abstrakten Klasse \name{OutputNode}, welche wiederum von der abstrakten Klasse \name{Node} erbt.
 
-\subsubsection{YuvKA.Pipeline.Outputnode}
+\subsubsection{YuvKA.Pipeline.OutputNode}
 
 \begin{verbatim}
 public abstract class OutputNode : Node
@@ -12,7 +12,7 @@ public abstract class OutputNode : Node
 \paragraph{Beschreibung}~\\
 Die abstrakte Klasse \name{OutputNode} modelliert die Ausgabemöglichkeiten der Pipeline und bietet eine gemeinsame Basis für deren konkrete Implementationen.
 
-\subsubsection{YuvKA.Pipeline.DiagrammNode}
+\subsubsection{YuvKA.Pipeline.DiagramNode}
 
 \subsubsection{YuvKA.Pipeline.HistogramNode}
 
@@ -64,17 +64,19 @@ Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \na
 \subsubsection{YuvKA.Pipeline.OverlayNode}
 
 \begin{verbatim}
+[DataContract]
 public class OverlayNode : OutputNode
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{OverlayNode} modelliert das Überlagern von Videos mit graphischen Darstellungen von Analysedaten.
+Die Klasse \name{OverlayNode} modelliert das überlagern von Videos mit graphischen Darstellungen von Analysedaten.
 
 \paragraph{Typmember}
 \begin{itemize}
 
 \property{Type}
 	\begin{verbatim}
+	[DataMember]
 	public IOverlayType Type { get; set; }
 	\end{verbatim}
 	Ruft die Art der Überlagerung ab, oder legt sie fest. Standardmäßig werden die Markierung von Artefakten im Vergleich mit einem Referenzvideo, das Anzeigen von Bewegungsvektoren sowie eine Anzeige der Makroblockentscheidungen des Encoders unterstützt.
@@ -88,7 +90,7 @@ Die Klasse \name{OverlayNode} modelliert das Überlagern von Videos mit graphisc
 		\item[Artefaktüberlagerung]~\\
 			Für diese Überlagerung werden zwei Eingabeframes benötigt, da hier die Artefakte eines \name{Frame}s im Vergleich mit einem anderen hervorgehoben werden.
 		\item[Blocküberlagerung]~\\
-			Für diese Überlagerung wird eine Eingabe in Form eines \name{AnnotatedFrame}s benötigt, da aus den Logdateien die Makroblockentscheidungen des Encoders entnommen werden um damit die Darstellung dieser Entscheidungen über dem \name{Frame} zu legen.
+			Für diese Überlagerung wird eine Eingabe in Form eines \name{AnnotatedFrame}s benötigt, da aus den Logdateien die Makroblockentscheidungen des Encoders entnommen werden. Diese werden durch durch Einzeichnen der vom Encoder eingeteilten Inter- und Intramakroblöcken in die übergebene \name{Frame} dargestellt.
 		\item[MoveVectorsOverlay]~\\
 			Für diese Überlagerung wird eine Eingabe in Form eines \name{AnnotatedFrame}s benötigt, da aus den Logdateien die erkannten Bewegungsvektoren des Encoders entnommen werden um diese in den \name{Frame} einzuzeichnen.
 	\end{description}
