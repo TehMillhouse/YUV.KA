@@ -14,7 +14,7 @@ namespace YuvKA.VideoModel
 			{
 				throw new System.NotImplementedException();
 			}
-			set
+			private set
 			{
 			}
 		}
@@ -25,7 +25,7 @@ namespace YuvKA.VideoModel
 			{
 				throw new System.NotImplementedException();
 			}
-			set
+			private set
 			{
 			}
 		}

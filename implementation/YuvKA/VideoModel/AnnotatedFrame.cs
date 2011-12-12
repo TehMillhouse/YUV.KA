@@ -13,7 +13,7 @@ namespace YuvKA.VideoModel
 			{
 				throw new System.NotImplementedException();
 			}
-			set
+			private set
 			{
 			}
 		}
