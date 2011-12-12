@@ -23,7 +23,7 @@ namespace YuvKA.Pipeline
 		}
 
 		[DataMember]
-		public int FrameCount
+		public int TickCount
 		{
 			get
 			{

@@ -23,7 +23,7 @@ namespace YuvKA.Pipeline.Implementation
 		public FilePath LogFileName { get; set; }
 
 		[Browsable(false)]
-		public override int FrameCount { get { return input.FrameCount; } }
+		public override int TickCount { get { return input.FrameCount; } }
 
 		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 		{

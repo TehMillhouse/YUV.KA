@@ -15,7 +15,7 @@ namespace YuvKA.Pipeline.Implementation
 		public Size Size { get; set; }
 
 		[Browsable(false)]
-		public virtual int FrameCount { get { return 1; } }
+		public virtual int TickCount { get { return 1; } }
 
 		public sealed override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 		{

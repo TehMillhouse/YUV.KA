@@ -19,7 +19,7 @@ namespace YuvKA.ViewModel
 			}
 		}
 
-		public int FrameCount { get { throw new NotImplementedException(); } }
+		public int TickCount { get { throw new NotImplementedException(); } }
 		public bool IsPlaying { get { throw new NotImplementedException(); } }
 	
 		public void Slower()
