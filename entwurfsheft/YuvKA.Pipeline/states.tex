@@ -42,7 +42,7 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 	[Import(typeof(IEventAggregator))]
 	public IEventAgggregator Events { get; set; }
 	\end{verbatim}
-	Per Dependency Injection injizierte Schnittstelle zum Caliburn Message System, über das die Ausgabefenster über die Beendigung aller im aktuellen Tick  benachrichtigt werden.
+	Per Dependency Injection injizierte Schnittstelle zum Caliburn Message System, über das die Ausgabefenster über die Beendigung aller im aktuellen Tick berechneten \name{Frame}s benachrichtigt werden.
 
 
 
