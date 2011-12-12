@@ -1,3 +1,8 @@
+\renewcommand{\algorithmicrequire}{\textbf{Eingabe:}} 
+\renewcommand{\algorithmicensure}{\textbf{Ausgabe:}} 
+%\renewcommand{\algorithmicif}{\textbf{falls}}
+%\renewcommand{\algorithmicthen}{\textbf{dann}}
+%\renewcommand{\algorithmicend}{\textbf{ende}}
 
 \subsection{Manipulationsknoten}
 
@@ -134,8 +139,31 @@ Diese Klasse\name{BrightnessContrastSaturationNode} ändert die Helligkeit, den 
 	\begin{algorithm}
 	\caption{RGB nach HSV Konvertierung}
 		\begin{algorithmic}[1]
-		\STATE \COMMENT{Algorithm1 goes here}
-		\end{algorithmic}
+		\REQUIRE $ R, G, B \in [0, 1] $
+		\STATE $ MAX \gets \text{max}(R, G, B) $
+		\STATE $ MIN \gets \text{min}(R, G, B) $
+		\STATE \[
+					H \gets
+					\begin{cases}
+						0^{\circ}, & \text{falls } MAX = MIN \Leftrightarrow R = G = B \\
+						60^{\circ}\cdot(0 + \frac{G - B}{MAX - MIN}), & \text{falls } MAX = R \\
+						60^{\circ}\cdot(2 + \frac{B - R}{MAX - MIN}), & \text{falls } MAX = G \\
+						60^{\circ}\cdot(4 + \frac{R - G}{MAX - MIN}), & \text{falls } MAX = B
+					\end{cases}
+				\]
+		\IF {$ H < 0^{\circ} $}
+			\STATE $ H \gets H + 360^{\circ} $
+		\ENDIF
+		\STATE \[
+					S \gets
+					\begin{cases}
+						0, & \text{falls } MAX = 0 \Leftrightarrow R = G = B = 0 \\
+						\frac{MAX - MIN}{MAX}, & \text{sonst}
+					\end{cases}
+				\]
+		\STATE $ V \gets MAX $
+		\ENSURE $ H \in [0^{\circ}, 360^{\circ}],\ S, V \in [0, 1] $
+	\end{algorithmic}
 	\end{algorithm}
 	
 	\begin{algorithm}
