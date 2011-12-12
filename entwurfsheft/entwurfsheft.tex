@@ -11,8 +11,11 @@
 \usepackage{verbatim}
 \usepackage{algorithm}
 \usepackage{algorithmic}
+\renewcommand{\algorithmiccomment}[1]{\textit{#1}}
+\renewcommand{\algorithmicrequire}{\textbf{Eingabe:}} 
+\renewcommand{\algorithmicensure}{\textbf{Ausgabe:}}
 %\renewcommand{\contentsname}{Inhaltsverzeichnis}
-\newcommand{\name}[1]{\textbf{\texttt{#1}}}
+\newcommand{\name}[1]{\textbf{#1}}
 \newcommand{\field}[1]{\item \name{#1}}
 \newcommand{\property}[1]{\item \name{#1}}
 \newcommand{\method}[1]{\item \name{#1}}

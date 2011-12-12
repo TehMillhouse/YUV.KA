@@ -22,7 +22,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[Browsable(false)]
-		public int[] Data { get; private set; }
+		public double[] Data { get; private set; }
 
 		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 		{

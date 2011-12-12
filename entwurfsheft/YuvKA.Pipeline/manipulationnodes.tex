@@ -1,9 +1,3 @@
-\renewcommand{\algorithmicrequire}{\textbf{Eingabe:}} 
-\renewcommand{\algorithmicensure}{\textbf{Ausgabe:}} 
-%\renewcommand{\algorithmicif}{\textbf{falls}}
-%\renewcommand{\algorithmicthen}{\textbf{dann}}
-%\renewcommand{\algorithmicend}{\textbf{ende}}
-
 \subsection{Manipulationsknoten}
 
 \includegraphics[width=\textwidth]{YuvKA.Pipeline/manipulationnodes.png}
@@ -134,7 +128,7 @@ Diese Klasse\name{BrightnessContrastSaturationNode} ändert die Helligkeit, den 
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
-	Die Methode \method{ProcessFrame} setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSV-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert, wie in den obigen Algorithmen zu sehen ist.
+	Die Methode \name{ProcessFrame} setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSV-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert, wie in den obigen Algorithmen zu sehen ist.
 	\floatname{algorithm}{Algorithmus}
 	\begin{algorithm}
 	\caption{RGB nach HSV Konvertierung}
