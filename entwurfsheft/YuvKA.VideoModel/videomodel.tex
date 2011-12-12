@@ -10,7 +10,7 @@ public static class YuvEncoder
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos, die im YUV-Format eingegeben werden, ins RGB-Format umzuwandeln, damit das Programm damit arbeiten kann. Desweiteren wandelt sie die manipulierten Videos vom RGB-Format ins YUV-Format um, damit sie abgespeichert werden können.
+Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos, die im YUV-Format eingegeben werden, ins RGB-Format umzuwandeln, damit das Programm damit arbeiten kann. Des Weiteren wandelt sie die manipulierten Videos vom RGB-Format ins YUV-Format um, damit sie abgespeichert werden können.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -20,7 +20,7 @@ Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos, die im YUV-Form
 	public static Video Decode(string fileName, string logFileName,
     int width, int height)
 	\end{verbatim}
-	Wandelt das im \name{fileName} angegebene YUV-Video ins RGB-Format um, das interne Format des Programms. 
+	Wandelt das im \name{fileName} angegebene YUV-Video ins RGB-Format um, das interne Format des Programms.  Falls ein \name{logFile} vorhanden ist, werden die \name{Frame}s als \name{AnnotatedFrame}s ausgegeben.
 
 \method{Encode}
 	\begin{verbatim}
@@ -37,7 +37,7 @@ public class Video : IDisposable
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{Video} bietet die Funktionalität, dass sie die vom \name{YuvEncoder} umgewandelte Videos als Videostream hält.
+Die Klasse \name{Video} hält die vom \name{YuvEncoder} umgewandelten Videos als Videostream.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -46,7 +46,7 @@ Die Klasse \name{Video} bietet die Funktionalität, dass sie die vom \name{YuvEn
 	\begin{verbatim}
 	Stream stream;
 	\end{verbatim}
-	Hält das eingegebene Video als Array fest.
+	Hält das eingegebene Video als Videostream fest.
 
 \property{FrameCount}
 	\begin{verbatim}
@@ -136,12 +136,36 @@ Die Klasse \name{MacroblockDecision} stellt die Entscheidung dar, die der Encode
 	\begin{verbatim}
 	public Vector Movement { get; set; }
 	\end{verbatim}
-	Ruft die Weg, den ein Makroblock bei der Kodierung gegangen ist ab oder legt sie fest.
+	Ruft die Information aus welchem Makroblock dieser Makroblock berechnet wurde als Vektor ab oder legt sie fest.
 
 \property{PartitioningDecision}
 	\begin{verbatim}
 	public MacroblockPartitioning PartitioningDecision { get; set; }
 	\end{verbatim}
-	Ruft Informationen darüber ab, wenn und falls ja wie sich ein Makroblock, normalerweise ein Block von 16 x 16 Pixeln, sich aufspaltet, oder legt sie fest. Außerdem ruft er die Information ab, es sich um einen Intr- oder Infraframe handelt oder legt sie fest.
+	Ruft die die Entscheidung darüber, welche \name{MacroblockPartitioning} bei der Kodierung verwendet wurde ab oder legt sie fest.
 
 \end{itemize}
+
+\subsubsection{YuvKA.VideoModel.MacroblockPartitioning}
+
+\begin{verbatim}
+public enum MacroblockPartitioning
+{
+    InterSkip,
+    Inter16x16,
+    Inter16x8,
+    Inter8x16,
+    Inter8x8,
+    Inter8x4,
+    Inter4x8,
+    Inter4x4,
+    Inter8x8OrBelow,
+    Intra4x4,
+    Intra16x16,
+    Intra8x8,
+    IntraPCM,
+    Unknown
+}
+\end{verbatim}
+
+Die \name{MacroblockPartitioning} gibt die verschiedenen Möglichkeiten der Partitionierung eines Makroblocks als Inter- bzw. Intraframe an.
