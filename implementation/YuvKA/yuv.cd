@@ -41,7 +41,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.NoiseInputNode">
-    <Position X="15.75" Y="10.25" Width="3.75" />
+    <Position X="15.75" Y="10.75" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAIA=</HashCode>
       <FileName>Pipeline\Implementation\NoiseInputNode.cs</FileName>
@@ -51,7 +51,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.ColorInputNode">
-    <Position X="13.25" Y="12.25" Width="3.75" />
+    <Position X="13.25" Y="12.75" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIA=</HashCode>
       <FileName>Pipeline\Implementation\ColorInputNode.cs</FileName>
@@ -105,7 +105,7 @@
   <Class Name="YuvKA.Pipeline.PipelineState">
     <Position X="27.75" Y="3.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAAAAAEABAgAAAAgAIAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAJAgAAAAgAIAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\PipelineState.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -126,6 +126,9 @@
     </Compartments>
     <NestedTypes>
       <Class Name="YuvKA.VideoModel.YuvEncoder.Video">
+        <Members>
+          <Field Name="stream" Hidden="true" />
+        </Members>
         <TypeIdentifier>
           <NewMemberFileName>VideoModel\YuvEncoder.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -173,17 +176,21 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>BAAAAAAAACABAAAAAAAAAAAAEAAAAAAAAAAAAAAAYIA=</HashCode>
+      <HashCode>BAAAAAAAACAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAYIA=</HashCode>
       <FileName>Pipeline\Node.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="YuvKA.ViewModel.MainViewModel">
     <Position X="54.25" Y="1.75" Width="4" />
+    <Members>
+      <Field Name="redoStack" Hidden="true" />
+      <Field Name="undoStack" Hidden="true" />
+    </Members>
     <AssociationLine Name="ReplayStateViewModel" Type="YuvKA.ViewModel.ReplayStateViewModel" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="54.25" Y="4.938" />
-        <Point X="53.125" Y="4.938" />
+        <Point X="54.25" Y="4.389" />
+        <Point X="53.125" Y="4.389" />
         <Point X="53.125" Y="6" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -192,8 +199,8 @@
     </AssociationLine>
     <AssociationLine Name="PipelineViewModel" Type="YuvKA.ViewModel.PipelineViewModel" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="58.25" Y="4.938" />
-        <Point X="60.812" Y="4.938" />
+        <Point X="58.25" Y="4.389" />
+        <Point X="60.812" Y="4.389" />
         <Point X="60.812" Y="6" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
@@ -218,7 +225,7 @@
   <Class Name="YuvKA.ViewModel.ReplayStateViewModel">
     <Position X="52" Y="6" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>CAAAAAAAAAAAAAAAAAAAAEABAAAAAAAAMAAgAAAAAAA=</HashCode>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAEABAAQAAAAAMAAgAAAAAAA=</HashCode>
       <FileName>ViewModel\ReplayStateViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -380,28 +387,31 @@
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.VideoInputNode">
-    <Position X="18.5" Y="12.25" Width="3.75" />
+    <Position X="18.5" Y="12.75" Width="3.75" />
+    <Members>
+      <Field Name="input" Hidden="true" />
+    </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAAAAAABAAAAABIAAAAAAABAAIA=</HashCode>
       <FileName>Pipeline\Implementation\VideoInputNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.ImageInputNode">
-    <Position X="11" Y="10.25" Width="3.75" />
+    <Position X="11" Y="10.75" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIA=</HashCode>
       <FileName>Pipeline\Implementation\ImageInputNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.InputNode">
-    <Position X="16" Y="8.25" Width="2" />
+    <Position X="16" Y="8.25" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAABAAAAAAAAAAAgAAAAAIA=</HashCode>
       <FileName>Pipeline\Implementation\InputNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.ViewModel.OutputWindowViewModel">
-    <Position X="57.5" Y="10.5" Width="2.25" />
+    <Position X="57.5" Y="10.5" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAIAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\OutputWindowViewModel.cs</FileName>
@@ -477,6 +487,9 @@
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.DelayNode">
     <Position X="35.25" Y="11" Width="3.75" />
+    <Members>
+      <Field Name="queue" Hidden="true" />
+    </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAIAAAAAAAAAAAAAIA=</HashCode>
       <FileName>Pipeline\Implementation\DelayNode.cs</FileName>
@@ -490,9 +503,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.OutputNode">
-    <Position X="44.75" Y="8.5" Width="1.5" />
+    <Position X="44.75" Y="8.5" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>Pipeline\Implementation\OutputNode.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -634,7 +647,7 @@
     </TypeIdentifier>
   </Enum>
   <Enum Name="YuvKA.NoiseType">
-    <Position X="16.75" Y="14.5" Width="1.5" />
+    <Position X="16.75" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
       <FileName>NoiseType.cs</FileName>
