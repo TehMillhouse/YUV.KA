@@ -28,7 +28,7 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 	[Range(0.0, double.PositiveInfinity)]
 	public int Radius { get; set; }
 	\end{verbatim}
-	Ruft die den Weichzeichnungsradius ab, oder legt diesen fest. Dieser Wert ist maßgeblich für das Ausmaß der Weichzeichnung.
+	Ruft den Weichzeichnungsradius ab, oder legt diesen fest. Dieser Wert ist maßgeblich für das Ausmaß der Weichzeichnung.
 
 \method{ProcessFrame}
 	\begin{verbatim}
@@ -37,15 +37,38 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 	Zeichnet den übergebenen \name{Frame} weich. Die genaue Art der Weichzeichnung wird hierbei durch \name{Type} festgelegt. Die standardmäßig unterstützten Arten sind:
 	\begin{description}
 		\item[Lineares Weichzeichnen]~\\
-			Beim linearen Weichzeichnen wird der neue Wert eines Pixels dadurch berechnet, dass die alten Werte aller umliegenden Pixel innerhalb einer Box mit Höhe und Breite (2 * \name{Radius}) + 1 gemittelt werden.~\\
-			-insert pseudocode here-
+			Beim linearen Weichzeichnen wird der neue Wert eines Pixels dadurch berechnet, dass die alten Werte aller umliegenden Pixel innerhalb einer Box mit Höhe und Breite (2 * \name{Radius}) + 1 gemittelt werden. Über den \name{Frame}rand hinaus benötigte Pixel werden werden durch den Pixel, der dem gesuchten Pixel am nächsten ist, simuliert. ~\\~\\
+			PseudoCode:
+			\begin{verbatim}
+				Frame newFrame = new Frame(inputs[0])
+				for (int x = 0, x < inputs[0].size.x, x++)
+				  for (int y = 0, y < inputs[0].size.y, y++)
+				    newFrame.Data[x][y] = 0
+				    for (xi = x - Radius, xi < x + Radius, xi++)
+				      for (yi = y - Radius, yi < y + Radius, yi++)
+				        newFrame.Data[x][y] += (1 / (Radius * Radius)) * inputs[0].Data[x][y]
+				return newFrame
+				
+			\end{verbatim}
 		\item[Gaußsches Weichzeichnen]~\\
-			Beim Gaußschen Weichzeichnen wird der neue Wert eines Pixels durch eine gewichtete Mittlung der umliegenden Pixel berechnet. Die Gewichtung der umliegenden Pixel wird hierbei durch folgende gaußsche Funktion definiert:\\
+			Beim Gaußschen Weichzeichnen wird der neue Wert eines Pixels durch eine gewichtete Mittelung der umliegenden Pixel berechnet. Die Gewichtung der umliegenden Pixel wird hierbei durch folgende gaußsche Funktion definiert:\\
 			\[
 			G(x,y) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{x^2}{2\sigma^2}}
 			\]
 			Wobei $\sigma$ der \name{Radius} ist.\\
-			-insert pseudocode here-
+			 Über den \name{Frame}rand hinaus benötigte Pixel werden werden durch den Pixel, der dem gesuchten Pixel am nächsten ist, simuliert.~\\~\\
+			PseudoCode:
+			\begin{verbatim}
+				Frame newFrame = new Frame(inputs[0])
+				for (int x = 0, x < inputs[0].size.x, x++)
+				  for (int y = 0, y < inputs[0].size.y, y++)
+				    newFrame.Data[x][y] = 0
+				    for (xi = x - (3 * Radius), xi < x + (3 * Radius), xi++)
+				      for (yi = y - (3 * Radius), yi < y + (3 * Radius), yi++)
+				        newFrame.Data[x][y] += G(xi - x, yi - y) * inputs[0].Data[x][y]
+				return newFrame
+				
+			\end{verbatim}
 	\end{description}
 	
 \end{itemize}
@@ -61,7 +84,7 @@ public class AveragedMergeNode : Node
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{AverageMergeNode} modelliert das Zusammenführen von Videos durch gewichtete Mittlung der \name{Frame}s.
+Die Klasse \name{AverageMergeNode} modelliert das Zusammenführen von Videos durch gewichtete Mittelung der \name{Frame}s.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -77,9 +100,21 @@ Die Klasse \name{AverageMergeNode} modelliert das Zusammenführen von Videos dur
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
-	Mittelt alle übergebenen \name{Frame}s Pixelweise unter Beachtung der von \name{Weights} definierten Gewichtungen.\\
-	-pseudocode notwendig?-
-	
+	Mittelt alle übergebenen \name{Frame}s Pixelweise unter Beachtung der von \name{Weights} definierten Gewichtungen.\\~\\
+	PseudoCode:
+	\begin{verbatim}
+		Frame newFrame = new Frame(inputs[0])
+		for (int x = 0, x < inputs[0].size.x, x++)
+		  for (int y = 0, y < inputs[0].size.y, y++)
+		    newFrame.Data[x][y] = 0
+		    int sumOfWeights = 0
+		    for (int i = 0, i < inputs.size(), i++)
+		      newFrame.Data[x][y] += inputs[i].Data[x][y] * Weights[i]
+		      sumOfWeights += Weights[i]
+		    newFrame.Data[x][y] = newFrame.Data[x][y] / sumOfWeights
+		return newFrame
+		
+	\end{verbatim}
 	
 \end{itemize}
 
