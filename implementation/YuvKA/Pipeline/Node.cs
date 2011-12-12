@@ -41,13 +41,6 @@ namespace YuvKA.Pipeline
 
 		public abstract Frame[] ProcessFrame(Frame[] inputs, int frameIndex);
 
-		Output AddOutput()
-		{
-			Output o = new Output(); //new Output(this);
-			Outputs.Add(o);
-			return o;
-		}
-
 		#region IDisposable Members
 
 		public virtual void Dispose()

@@ -18,7 +18,7 @@ Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos, die im YUV-Form
 	public static Video Decode(string fileName, string logFileName,
     int width, int height)
 	\end{verbatim}
-	Wandelt das im \name{fileName} angegebene YUV-Video ins RGB-Format um, das interne Format des Programms.  Falls ein \name{logFile} vorhanden ist, werden die \name{Frame}s als \name{AnnotatedFrame}s ausgegeben.
+	Wandelt das im \name{fileName} angegebene YUV-Video ins RGB-Format um, das interne Format des Programms. Falls der Parameter \name{logFileName} nicht \name{null} ist, werden die \name{Frame}s mit entsprechendem Log als \name{AnnotatedFrame}s ausgegeben.
 
 \method{Encode}
 	\begin{verbatim}

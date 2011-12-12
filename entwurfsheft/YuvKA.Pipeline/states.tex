@@ -1,7 +1,7 @@
 \subsection{Zustandshaltung der Pipeline}
 
 \includegraphics[width=\textwidth]{YuvKA.Pipeline/states.png}
-Diese Gruppe von Klassen dient dazu, den Zustand der Pipeline zu verwalten. Der \name{PipelineState} benutzt zur Verwaltung der im Pipeline-Graphen vorhandenen Knoten und Kanten den \name{PipelineGraph}. Er ist zudem dafür zuständig die Berechnung der Pipeline zu starten und zu stoppen. Die \name{FrameRenderedMessage} wird geworfen, wenn ein Zeitabschnitt berechnet ist.
+Diese Gruppe von Klassen dient dazu, den Zustand der Pipeline zu verwalten. Der \name{PipelineState} benutzt zur Verwaltung der im Pipeline-Graphen vorhandenen Knoten und Kanten den \name{PipelineGraph}. Er ist zudem dafür zuständig, die Berechnung der Pipeline zu starten und zu stoppen. Die \name{TickRenderedMessage} wird geworfen, wenn ein Zeitabschnitt berechnet ist.
 
 \subsubsection{YuvKA.Pipeline.PipelineState}
 
@@ -35,12 +35,12 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 	[DataMember]
 	public PipelineGraph Graph { get; }
 	\end{verbatim}
-	Ruft den \name{PipelineGraph} ab, der die Struktur der Pipeline repräsentiert, oder legt ihn fest.
+	Ruft den \name{PipelineGraph} ab, der die Struktur der Pipeline repräsentiert.
 
 \property{Events}
 	\begin{verbatim}
 	[Import(typeof(IEventAggregator))]
-	public IEventAgggregator Events { get; set; }
+	public IEventAggregator Events { get; set; }
 	\end{verbatim}
 	Per Dependency Injection injizierte Schnittstelle zum Caliburn Message System, über das die Ausgabefenster über die Beendigung aller im aktuellen Tick berechneten \name{Frame}s benachrichtigt werden.
 
@@ -50,7 +50,7 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 	\begin{verbatim}
 	public void Start()
 	\end{verbatim}
-	Weist den \name{PipelineDriver} an, die Pipeline ab dem aktuellen Tick zu berechnen. Bei abgeschlossener Berechnung aller \name{Frame}s im aktuellen Zeitabschnitt wird eine \name{FrameRenderedMessage} geworfen.
+	Weist den \name{PipelineDriver} an, die Pipeline ab dem aktuellen Tick zu berechnen. Bei abgeschlossener Berechnung aller \name{Frame}s im aktuellen Zeitabschnitt wird eine \name{TickRenderedMessage} geworfen.
 
 \method{Stop}
 	\begin{verbatim}
@@ -95,14 +95,14 @@ Die Klasse \name{PipelineGraph} verwaltet den Aufbau des Pipeline-Graphen.
 	Wenn die durch \name{source} und \name{sink} spezifizierte Kante zu keinem Zyklus innerhalb des Pipeline-Graphen führt, so soll sie durch setzen der Output-Property von \name{source} als \name{sink} hinzugefügt und true ausgegeben werden. Andernfalls soll die Kante nicht zum Graphen hinzugefügt und false ausgegeben werden.
 \end{itemize}
 	
-\subsubsection{YuvKA.Pipeline.FrameRenderedMessage}
+\subsubsection{YuvKA.Pipeline.TickRenderedMessage}
 		
 \begin{verbatim}
-public class FrameRenderedMessage
+public class TickRenderedMessage
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{FrameRenderedMessage} enthält die im letzten Tick berechneten \name{Frame}s aller \name{Output}s.
+Die Klasse \name{TickRenderedMessage} enthält die im letzten Tick berechneten \name{Frame}s aller \name{Output}s.
 
 \paragraph{Typmember}
 \begin{itemize}

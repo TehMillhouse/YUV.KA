@@ -1,7 +1,7 @@
 \subsection{Eingabeknoten}
 
 \includegraphics[width=\textwidth]{YuvKA.Pipeline/inputnodes.png}
-Der im Folgenden spezifizierte Teil des Programmes beschreibt die Knoten, welche die Eingabedaten der Pipeline bereitstellen. Alle solchen Knoten erben von der abstrakten Klasse \name{InputNode}, welche die Member \name{FrameCount} und \name{Size} definiert, welche die Anzahl an zu liefernden \name{Frame}s bzw. die Größe eines jeden \name{Frame} angeben.
+Der im Folgenden spezifizierte Teil des Programmes beschreibt die Knoten, welche die Eingabedaten der Pipeline bereitstellen. Alle solchen Knoten erben von der abstrakten Klasse \name{InputNode}, welche die Member \name{TickCount} und \name{Size} definiert, welche die Anzahl an zu liefernden \name{Frame}s bzw. die Größe eines jeden \name{Frame}s angeben.
 \name{InputNode} selbst erbt von der \name{Node}-Klasse.
 
 
@@ -25,10 +25,10 @@ Die abstrakte Klasse \name{InputNode} modelliert die Eingabequellen der Pipeline
 	\end{verbatim}
 	Spezifiziert die Größe des vom Knoten gelieferten \name{Frame}s in Form eines \name{Size}-Objektes.
 
-\property{FrameCount}
+\property{TickCount}
 	\begin{verbatim}
 	[Browsable(false)]
-	public virtual int FrameCount { get; }
+	public virtual int TickCount { get; }
 	\end{verbatim}
 	Ruft die Anzahl an vom Knoten zu liefernden \name{Frame}s ab. Der Standardrückgabewert ist 1, die Methode ist allerdings in Unterklassen überschreibbar.
 
@@ -127,3 +127,34 @@ Die Klasse \name{NoiseInputNode} stellt einen Knoten bereit, welcher eine von zw
 \end{itemize}
 
 \subsubsection{YuvKA.Pipeline.VideoInputNode}
+
+\begin{verbatim}
+[DataContract]
+public class VideoInputNode : InputNode
+\end{verbatim}
+%
+%\paragraph{Beschreibung}~\\
+%%<Beschreibung der Klasse>
+%
+%
+%
+%\paragraph{Typmember}
+%\begin{itemize}
+%
+%\property{<Membername>}
+%        \begin{verbatim}
+%        <Membersignatur>
+%        \end{verbatim}
+%        %<Membererklärung>
+%
+%%[etc.]
+%
+%\method{<Methodenname>}
+%        \begin{verbatim}
+%        <Methodensignatur>
+%        \end{verbatim}
+        %<Methodenerklärung>
+
+%[etc.]
+
+%\end{itemize}
