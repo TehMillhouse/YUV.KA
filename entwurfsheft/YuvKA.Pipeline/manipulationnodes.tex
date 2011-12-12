@@ -1,7 +1,7 @@
 \subsection{Manipulationsknoten}
 
 \includegraphics[width=\textwidth]{YuvKA.Pipeline/manipulationnodes.png}
-UML-Klassendiagramm der Knoten, die Videostreams innerhalb der Pipeline verändern können.
+Diese Klassen sind für die Manipulation der Videos innerhalb der Pipeline zuständig. Die einzelnen Knoten sowie deren Implementation werden im Folgenden erläutert.
 
 \subsubsection{YuvKA.Pipeline.InverterNode}
 \begin{verbatim}
@@ -26,6 +26,7 @@ Die Klasse \name{InverterNode} invertiert die Farben des \name{Frame}s.
 \subsubsection{YuvKA.Pipeline.BlurNode}
 
 \begin{verbatim}
+[DataContract]
 public class BlurNode : Node
 \end{verbatim}
 
@@ -37,12 +38,14 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 
 \property{Type}
 	\begin{verbatim}
+	[DataMember]
 	public BlurType Type { get; set; }
 	\end{verbatim}
 	Ruft die Art der Weichzeichnung ab oder legt sie fest. Standardmäßig werden gaußsches und lineares Weichzeichnen unterstützt.
 	
 \property{Radius}
 	\begin{verbatim}
+	[DataMember]
 	[Range(0.0, double.PositiveInfinity)]
 	public int Radius { get; set; }
 	\end{verbatim}
@@ -59,12 +62,13 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 			PseudoCode:
 			\begin{verbatim}
 				Frame newFrame = new Frame(inputs[0])
-				for (int x = 0, x < inputs[0].size.x, x++)
-				  for (int y = 0, y < inputs[0].size.y, y++)
-				    newFrame.Data[x][y] = 0
-				    for (xi = x - Radius, xi < x + Radius, xi++)
-				      for (yi = y - Radius, yi < y + Radius, yi++)
-				        newFrame.Data[x][y] += (1 / (Radius * Radius)) * inputs[0].Data[x][y]
+				for (int x = 0; x < inputs[0].Size.X; x++)
+				  for (int y = 0; y < inputs[0].Size.Y; y++)
+				    newFrame(x, y) = 0
+				    for (xi = x - Radius; xi <= x + Radius; xi++)
+				      for (yi = y - Radius; yi <= y + Radius; yi++)
+				        newFrame(x, y) += (1 / (Radius * Radius))
+				                           * inputs[0](x, y)
 				return newFrame
 				
 			\end{verbatim}
@@ -81,8 +85,8 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 				for (int x = 0, x < inputs[0].size.x, x++)
 				  for (int y = 0, y < inputs[0].size.y, y++)
 				    newFrame.Data[x][y] = 0
-				    for (xi = x - (3 * Radius), xi < x + (3 * Radius), xi++)
-				      for (yi = y - (3 * Radius), yi < y + (3 * Radius), yi++)
+				    for (int xi = x - (3 * Radius); xi < x + (3 * Radius;, xi++)
+				      for (int yi = y - (3 * Radius); yi < y + (3 * Radius); yi++)
 				        newFrame.Data[x][y] += G(xi - x, yi - y) * inputs[0].Data[x][y]
 				return newFrame
 				
@@ -222,6 +226,7 @@ Die Methode \name{ProcessFrame} legt mehrere Frames additiv übereinander, indem
 \subsubsection{YuvKA.Pipeline.AveragedMergeNode}
 
 \begin{verbatim}
+[DataContract]
 public class AveragedMergeNode : Node
 \end{verbatim}
 
@@ -233,6 +238,7 @@ Die Klasse \name{AveragedMergeNode} modelliert das Zusammenführen von Videos du
 
 \property{Weights}
 	\begin{verbatim}
+		[DataMember]
 		[Range(0.0, 1.0)]
 		public ObservableCollection<double> Weights { get; }
 	\end{verbatim}
@@ -242,18 +248,18 @@ Die Klasse \name{AveragedMergeNode} modelliert das Zusammenführen von Videos du
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
-	Mittelt alle übergebenen \name{Frame}s Pixelweise unter Beachtung der von \name{Weights} definierten Gewichtungen.\\~\\
+	Mittelt alle übergebenen \name{Frame}s Pixelweise unter Beachtung der von \name{Weights} definierten Gewichtungen. Falls zwei Videos mit verschiedener Auflösung zusammengeführt werden, so wird das Maximum der Höhe bzw. Breite der beiden Videos als Auflösung des neuen Videos genommen. Fehlende Bildinformationen bei auflösungstechnisch kleineren Videos werden durch Schwarz ergänzt.\\~\\
 	PseudoCode:
 	\begin{verbatim}
 		Frame newFrame = new Frame(inputs[0])
-		for (int x = 0, x < inputs[0].size.x, x++)
-		  for (int y = 0, y < inputs[0].size.y, y++)
-		    newFrame.Data[x][y] = 0
+		for (int x = 0; x < inputs[0].Size.X; x++)
+		  for (int y = 0; y < inputs[0].Size.Y; y++)
+		    newFrame(x, y) = 0
 		    int sumOfWeights = 0
-		    for (int i = 0, i < inputs.size(), i++)
-		      newFrame.Data[x][y] += inputs[i].Data[x][y] * Weights[i]
+		    for (int i = 0; i < inputs.Size(); i++)
+		      newFrame(x, y) += inputs[i](x, y) * Weights[i]
 		      sumOfWeights += Weights[i]
-		    newFrame.Data[x][y] = newFrame.Data[x][y] / sumOfWeights
+		    newFrame(x, y) = newFrame(x, y) / sumOfWeights
 		return newFrame
 		
 	\end{verbatim}
@@ -281,6 +287,7 @@ Die Methode \name{ProcessFrame} bildet die Differenz zweier \name{Frame}s, indem
 \subsubsection{YuvKA.Pipeline.DelayNode}
 
 \begin{verbatim}
+[DataContract]
 public class DelayNode : Node
 \end{verbatim}
 
@@ -289,15 +296,10 @@ Die Klasse \name{DelayNode} modelliert die Verzögerung von Videostreams innerha
 
 \paragraph{Typmember}
 \begin{itemize}
-
-\field{Queue}
-	\begin{verbatim}
-	Queue<Frame> queue
-	\end{verbatim}
-	Enthält eine Warteschlange von \name{Frame}s die Verzögert werden.
 	
 \property{Delay}
 	\begin{verbatim}
+	[DataMember]
 	[Range(0, 10)]
 	public int Delay { get; set; }
 	\end{verbatim}
@@ -307,7 +309,7 @@ Die Klasse \name{DelayNode} modelliert die Verzögerung von Videostreams innerha
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
-	Stellt den übergebenen \name{Frame} in die Warteschlange \name{Queue} mit der Länge \name{Delay} an, und gibt den ersten \name{Frame} der Warteschlange zurück.
+	Stellt den übergebenen \name{Frame} in eine Warteschlange mit der Länge \name{Delay} an, und gibt den ersten \name{Frame} der Warteschlange zurück.
 	
 \end{itemize}
 
@@ -327,6 +329,6 @@ Die Klasse \name{RgbSplitNode} modelliert die Aufteilung der \name{Frame}s eines
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
-	Erzeugt aus dem übergebenen \name{Frame} drei neue \name{Frame}s die jeweils nur einen Farbkanal des ursprünglichen \name{Frame}s enthalten und gibt diese drei \name{Frame}s zurück.
+	Erzeugt aus dem übergebenen \name{Frame} drei neue \name{Frame}s die jeweils nur einen Farbkanal des ursprünglichen \name{Frame}s enthalten und gibt diese zurück.
 	
 \end{itemize}
