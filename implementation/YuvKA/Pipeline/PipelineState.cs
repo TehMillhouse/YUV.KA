@@ -12,7 +12,7 @@ namespace YuvKA.Pipeline
 	public class PipelineState
 	{
 		[DataMember]
-		public int FrameIndex
+		public int Tick
 		{
 			get
 			{
