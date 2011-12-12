@@ -1,5 +1,3 @@
-%\subsection{<Name der Funktion des Teilgraphen, bsp: Eingabeknoten / Pipelinequellen>}
-	
 \includegraphics[width=\textwidth]{YuvKA.VideoModel/videomodel.png}
 UML-Diagramm, welches die Klassen darstellt, die die unterschiedlichen Framearten bilden, einschließlich ihrer Hilfsklassen. Auch dargestellt ist die Klasse \name{YuvEncoder} mit der inneren Klasse \name{Video}, die Videos vom YUV-Format ins RGB-Format umwandelt, mit der das Programm intern arbeitet.
 
@@ -24,14 +22,17 @@ Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos, die im YUV-Form
 
 \method{Encode}
 	\begin{verbatim}
-	public static void Encode(string fileName, IEnumerable<Frame> frames)
+	public static void Encode(string fileName,
+    IEnumerable<Frame> frames)
 	\end{verbatim}
 	Wandelt das als RGB-Frameliste angegeben Video ins YUV-Format um und speichert es unter \name{fileName}. 
 
 \end{itemize}
+
 \setcounter{secnumdepth}{4}
 \paragraph{YuvKA.VideoModel.YuvEncoder.Video}
 \setcounter{secnumdepth}{3}
+
 \begin{verbatim}
 public class Video : IDisposable
 \end{verbatim}
@@ -96,7 +97,7 @@ Die Klasse \name{Frame} stellt ein Einzelbild eines Videostreams im RGB-Format d
 	\begin{verbatim}
 	public Rgb[] Data { get; set; }
 	\end{verbatim}
-	Ruft die einzelnen Farbwerte des \name{Frame}s als Array ab oder legt sie fest.
+	Ruft die einzelnen Farbwerte des \name{Frame}s pixelweise als Array ab oder legt sie fest.
 
 \end{itemize}
 
@@ -114,9 +115,9 @@ Die Klasse \name{AnnotedFrame} erweitert die Klasse \name{Frame} um die Funktion
 
 \property{Decisions}
 	\begin{verbatim}
-	public MacroblockDecision[] Decisions { get; set; }
+	public MacroblockDecision[] Decisions { get; }
 	\end{verbatim}
-	Ruft die Entscheidungen, die der Encoder bei der Kodierung getroffen hat, als Array von \name{MacroblockDecision}-Objekten ab oder legt sie fest.
+	Ruft die Entscheidungen, die der Encoder bei der Kodierung getroffen hat, als Array von \name{MacroblockDecision}-Objekten ab.
 
 \end{itemize}
 
@@ -134,15 +135,15 @@ Die Klasse \name{MacroblockDecision} stellt die Entscheidung dar, die der Encode
 
 \property{Movement}
 	\begin{verbatim}
-	public Vector Movement { get; set; }
+	public Vector Movement { get; }
 	\end{verbatim}
-	Ruft die Information aus welchem Makroblock dieser Makroblock berechnet wurde als Vektor ab oder legt sie fest.
+	Ruft die Information, aus welchem Makroblock dieser Makroblock berechnet wurde als Vektor ab.
 
 \property{PartitioningDecision}
 	\begin{verbatim}
-	public MacroblockPartitioning PartitioningDecision { get; set; }
+	public MacroblockPartitioning PartitioningDecision { get; }
 	\end{verbatim}
-	Ruft die die Entscheidung darüber, welche \name{MacroblockPartitioning} bei der Kodierung verwendet wurde ab oder legt sie fest.
+	Ruft die Entscheidung darüber, welche \name{MacroblockPartitioning} bei der Kodierung verwendet wurde ab.
 
 \end{itemize}
 
@@ -167,5 +168,4 @@ public enum MacroblockPartitioning
     Unknown
 }
 \end{verbatim}
-
 Die \name{MacroblockPartitioning} gibt die verschiedenen Möglichkeiten der Partitionierung eines Makroblocks als Inter- bzw. Intraframe an.
