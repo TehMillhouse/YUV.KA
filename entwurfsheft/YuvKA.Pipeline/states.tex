@@ -16,12 +16,12 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 \paragraph{Typmember}
 \begin{itemize}
 
-\property{Tick}
+\property{CurrentTick}
 	\begin{verbatim}
 	[DataMember]
 	public int CurrentTick { get; set; }
-	\end{verbatim}
-	Ruft den Index des zuletzt berechneten Ticks ab oder legt ihn fest. Das Neusetzen führt nicht zum erneuten Berechnen der im Tick berechneten \name{Frame}s, sondern muss mit \name{Start} explizit angefordert werden. Ein Tick repräsentiert hierbei den Zeitaschnitt für die Berechnung aller relevanten \name{Frame}s mit dem gegebenen Index.
+	\end{verbatim} 
+	Ruft den nächstes zu berechnenden Tick ab oder legt ihn fest. Das Neusetzen der Property führt zum Abbruch der Berechnung des aktuellen Ticks.
 
 \property{Speed}
 	\begin{verbatim}
