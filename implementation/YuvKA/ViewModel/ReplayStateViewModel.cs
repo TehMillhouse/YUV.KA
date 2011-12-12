@@ -19,16 +19,7 @@ namespace YuvKA.ViewModel
 			}
 		}
 
-		public int FrameCount
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-			set
-			{
-			}
-        }
+		public int FrameCount { get { throw new NotImplementedException(); } }
 	
 		public void Slower()
 		{

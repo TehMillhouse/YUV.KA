@@ -15,14 +15,14 @@ namespace YuvKA.ViewModel
 		Stack<PipelineState> undoStack = new Stack<PipelineState>();
 		Stack<PipelineState> redoStack = new Stack<PipelineState>();
 
-		public PipelineState Model { get; private set; }
+		public PipelineState Model { get { throw new NotImplementedException(); } }
 		public bool CanUndo { get { return undoStack.Any(); } }
 		public bool CanRedo { get { return redoStack.Any(); } }
 
 		public ReplayStateViewModel ReplayStateViewModel { get; private set; }
-		public PipelineViewModel PipelineViewModel { get; private set; }
+		public PipelineViewModel PipelineViewModel { get { throw new NotImplementedException(); } }
 		public ToolboxViewModel ToolboxViewModel { get; private set; }
-		public IList<OutputWindowViewModel> OpenWindows { get; private set; }
+		public IList<OutputWindowViewModel> OpenWindows { get { throw new NotImplementedException(); } }
 
 		public void Save()
 		{
