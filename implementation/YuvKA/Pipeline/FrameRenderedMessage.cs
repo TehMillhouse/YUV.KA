@@ -11,7 +11,6 @@ namespace YuvKA.Pipeline
         public Frame this[Node.Output output]
         {
             get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
         }
     }
 }
