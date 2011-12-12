@@ -7,7 +7,7 @@ namespace YuvKA.VideoModel
 {
 	public class Frame
 	{
-		public Size Size { get; private set; }
+		public Size Size { get; }
 
 		public Frame(Size size)
 		{
