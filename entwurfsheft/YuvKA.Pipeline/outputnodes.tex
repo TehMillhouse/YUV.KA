@@ -19,7 +19,7 @@ Die abstrakte Klasse \name{OutputNode} modelliert die Ausgabemöglichkeiten der 
 \begin{verbatim}
 public class HistogramNode : OutputNode
 \end{verbatim}
-Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \name{HistogramViewModel} verwendet werden, um die Histogramm Grafiken darzustellen. Es werden für jeden der drei Farbkanäle sowie für für den Farbwert im HSV-Raum jeweils ein Histogramm unterstützt.
+Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \name{HistogramViewModel} verwendet werden, um die Histogrammgrafiken darzustellen. Es werden für jeden der drei Farbkanäle sowie für für den Farbwert V im HSV-Raum jeweils ein Histogramm unterstützt.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -35,7 +35,7 @@ Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \na
 		[Browsable(false)]
 		public double[] Data { get; private set; }
 	\end{verbatim}
-	Ruft ein Array der Größe 256 ab, in dem die Verteilung des Farbkanals oder HSV-Farbwerts im \name{Frame} dargestellt ist. Die Stelle $ i (0 \leq i \leq 255) $ im Array speichert die Häufigkeit des Farbwerts $ i $ im \name{Frame} für den gewählten Farb\name{typ} (R, G, B oder V). Der Wert liegt zwischen 0.0 und 1.0, da eine relative Häufigkeit dargestellt wird.
+	Ruft ein Array der Größe 256 ab, in dem die Verteilung des Farbkanals oder HSV-Farbwerts im \name{Frame} dargestellt ist. Die Stelle $ i \ (0 \leq i \leq 255) $ im Array speichert die Häufigkeit des Farbwerts $ i $ im \name{Frame} für den gewählten Farb\name{typ} (R, G, B oder V). Der Wert liegt zwischen 0.0 und 1.0, da eine relative Häufigkeit dargestellt wird.
 
 \method{ProcessFrame}
 	\begin{verbatim}
@@ -43,17 +43,19 @@ Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \na
 	\end{verbatim}
 	Die Methode \name{ProcessFrame} berechnet für den angegebenen Histogramm\name{typ} die Häufigkeit der Farbwerte von 0 bis 255 und speichert diese an der entsprechenden Stelle im Array \name{Data}, wie im folgenden Algorithmus zu sehen ist:
 	\floatname{algorithm}{Algorithmus}
-	\begin{algorithm}
+	\begin{algorithm}[H]
 		\caption{Berechnung der relativen Häufigkeit eines Farbtyps}
 		\begin{algorithmic}[1]
-			\STATE \COMMENT{ Sei $ FW_{type}(p) $ der Wert der Farbe $ type $ im Pixel $ p (type \in \{ R, G, B, V \})$, $ type $ festgesetzt in \name{Type} }
+			\REQUIRE $ PIXELS, $ \COMMENT { Die Menge aller Pixel im Frame.}
+			\STATE \COMMENT{ Sei $ f_{t}(p) $ der Wert der Farbe $ t $ im Pixel $ p \ (t \in \{ R, G, B, V \})$, $ t $ festgesetzt in \name{Type}. \\ $ D_i $ entspricht dem \textbf{Data} Array.}
 			\FORALL{$ p \in PIXELS $}
-				\STATE $ i \gets FW_{type}(p) $
-				\STATE $ DATA_i \gets DATA_i + 1 $
+				\STATE $ i \gets f_{t}(p) $
+				\STATE $ D_i \gets D_i + 1 $
 			\ENDFOR
 			\FOR{$ i \gets 0 \text{\textbf{ to }} 255 $}
-				\STATE $ DATA_i \gets \frac{DATA_i}{|PIXELS|} $
+				\STATE $ D_i \gets \frac{D_i}{|PIXELS|} $
 			\ENDFOR
+			\ENSURE $ D_i, $ \COMMENT { Das Ausgabearray, in dem die Verteilung gespeichert ist.}
 		\end{algorithmic}
 	\end{algorithm}
 

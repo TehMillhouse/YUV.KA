@@ -128,9 +128,9 @@ Diese Klasse\name{BrightnessContrastSaturationNode} ändert die Helligkeit, den 
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
-	Die Methode \name{ProcessFrame} setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSV-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert, wie in den obigen Algorithmen zu sehen ist.
+	Die Methode \name{ProcessFrame} setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSV-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert, wie in folgenden beiden Algorithmen zu sehen ist:
 	\floatname{algorithm}{Algorithmus}
-	\begin{algorithm}
+	\begin{algorithm}[H]
 	\caption{RGB nach HSV Konvertierung}
 		\begin{algorithmic}[1]
 		\REQUIRE $ R, G, B \in [0, 1] $
@@ -164,7 +164,7 @@ Diese Klasse\name{BrightnessContrastSaturationNode} ändert die Helligkeit, den 
 	\end{algorithmic}
 	\end{algorithm}
 	
-	\begin{algorithm}
+	\begin{algorithm}[H]
 	\caption{HSV nach RGB Konvertierung}
 		\begin{algorithmic}[1]
 			\REQUIRE $ H \in [0^{\circ}, 360^{\circ}],\ S, V \in [0, 1] $ \\
@@ -193,11 +193,11 @@ Diese Klasse\name{BrightnessContrastSaturationNode} ändert die Helligkeit, den 
 	\end{algorithm} 
 
 	Nach der RGB - HSV Konvertierung können die S (Sättigung) und V (Helligkeit) Werte in den oben angegebenen Schranken modifiziert werden, um dann wieder nach RGB umgewandelt zu werden und in den neuen Pixeln geschrieben zu werden. \\
-	Für den Kontrast ist lediglich der Abstand zwischen einem Farbkanal und 128 zu vergrößern, wie in der folgenden Formel zu sehen ist: %$
-%	r = (r - 128) \cdot \text{\property{Contrast}} + 128 
+	Für den Kontrast ist lediglich der Abstand zwischen einem Farbkanal und 128 zu vergrößern, wie in der folgenden Formel zu sehen ist: [formulas here]
+%   r = (r - 128) \cdot \text{\property{Contrast}} + 128
 %	g = (g - 128) \cdot \text{\property{Contrast}} + 128 
 %	b = (b - 128) \cdot \text{\property{Contrast}} + 128
-%$
+%
 
 \end{itemize}
 
