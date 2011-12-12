@@ -15,8 +15,6 @@ namespace YuvKA.VideoModel
 			Size = size;
 		}
 
-		public Rgb[] Data { get; set; }
-
 		public Rgb this[int x, int y]
 		{
 			get { return Data[y * Size.Width + x]; }

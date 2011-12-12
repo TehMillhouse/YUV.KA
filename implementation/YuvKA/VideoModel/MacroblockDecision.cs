@@ -14,9 +14,6 @@ namespace YuvKA.VideoModel
 			{
 				throw new System.NotImplementedException();
 			}
-			private set
-			{
-			}
 		}
 
 		public MacroblockPartitioning PartitioningDecision
@@ -24,9 +21,6 @@ namespace YuvKA.VideoModel
 			get
 			{
 				throw new System.NotImplementedException();
-			}
-			private set
-			{
 			}
 		}
 	}
