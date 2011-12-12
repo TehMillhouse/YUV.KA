@@ -16,12 +16,12 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 \paragraph{Typmember}
 \begin{itemize}
 
-\property{FrameIndex}
+\property{Tick}
 	\begin{verbatim}
 	[DataMember]
-	public int FrameIndex { get; set; }
+	public int Tick { get; set; }
 	\end{verbatim}
-	Ruft den Index des zuletzt angezeigten Frames ab oder legt ihn fest. Das Neusetzen führt nicht zum erneuten Berechnen des Frames, sondern muss mit \name{Start} explizit angefordert werden.
+	Ruft den Index des zuletzt berechneten \name{Tick}s ab oder legt ihn fest. Das Neusetzen führt nicht zum erneuten Berechnen der im Tick berechneten \name{Frame}s, sondern muss mit \name{Start} explizit angefordert werden. Ein \name{Tick} repräsentiert hierbei den Zeitaschnitt für die Berechnung aller relevanten \name{Frame}s mit dem gegebenen Index.
 
 \property{Speed}
 	\begin{verbatim}
@@ -33,16 +33,16 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 \property{Graph}
 	\begin{verbatim}
 	[DataMember]
-	public PipelineGraph Graph { get; set; }
+	public PipelineGraph Graph { get; }
 	\end{verbatim}
-	Ruft den \name{PipelineGraph} auf, der die Struktur der Pipeline repräsentiert, oder legt ihn fest.
+	Ruft den \name{PipelineGraph} ab, der die Struktur der Pipeline repräsentiert, oder legt ihn fest.
 
 \property{Events}
 	\begin{verbatim}
 	[Import(typeof(IEventAggregator))]
 	public IEventAgggregator Events { get; set; }
 	\end{verbatim}
-	Per Dependency Injection injizierte Schnittstelle zum Caliburn Message System, über das die Ausgabefenster über die Beendigung der Berechnung eines Frames benachrichtigt werden.
+	Per Dependency Injection injizierte Schnittstelle zum Caliburn Message System, über das die Ausgabefenster über die Beendigung aller im aktuellen Tick  benachrichtigt werden.
 
 
 
@@ -50,13 +50,13 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 	\begin{verbatim}
 	public void Start()
 	\end{verbatim}
-	Weist den \name{PipelineDriver} an, die Pipeline ab dem aktuellen \name{FrameIndex} zu berechnen. Bei abgeschlossener Berechnung aller Frames im aktuellen Zeitabschnitt wird eine \name{FrameRenderedMessage} geworfen.
+	Weist den \name{PipelineDriver} an, die Pipeline ab dem aktuellen \name{Tick} zu berechnen. Bei abgeschlossener Berechnung aller \name{Frame}s im aktuellen Zeitabschnitt wird eine \name{FrameRenderedMessage} geworfen.
 
 \method{Stop}
 	\begin{verbatim}
 	public void Stop()
 	\end{verbatim}
-	Beendet die Wiedergabe und stoppt den \name{PipelineDriver}. Danach vom \name{PipelineDriver} asynchron erhaltene Frames werden ignoriert.
+	Beendet die Wiedergabe und stoppt den \name{PipelineDriver}. Danach vom \name{PipelineDriver} asynchron erhaltene \name{Frame}s werden ignoriert.
 \end{itemize}
 
 \subsubsection{YuvKA.Pipeline.PipelineGraph}
@@ -77,14 +77,14 @@ Die Klasse \name{PipelineGraph} verwaltet den Aufbau des Pipeline-Graphen.
 	[DataMember]
 	public IList<Node> Nodes { get; }
 	\end{verbatim}
-	Verwaltet die im Pipeline-Graphen verfügbaren Knoten und gibt sie aus.
+	Verwaltet die im Pipeline-Graphen verfügbaren Knoten und gibt sie ab.
 
 \property{FrameCount}
 	\begin{verbatim}
 	[DataMember]
 	public int FrameCount { get; }
 	\end{verbatim}
-	Ruft die maximale Länge aller als Input gegebenen Videos auf.
+	Ruft die maximale Länge aller als Input gegebenen Videos ab.
 
 
 	
@@ -102,7 +102,7 @@ public class FrameRenderedMessage
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{FrameRenderedMessage} enthält die zuletzt gerenderten Frames aller \name{Output}s.
+Die Klasse \name{FrameRenderedMessage} enthält die im letzten Tick berechneten \name{Frame}s aller \name{Output}s.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -111,7 +111,7 @@ Die Klasse \name{FrameRenderedMessage} enthält die zuletzt gerenderten Frames a
 	\begin{verbatim}
 	public Frame this[Output output] { get; }
 	\end{verbatim}
-Indexer. Ruft den durch \name{output} spezifizierten Frame auf.
+Indexer. Ruft den durch \name{output} spezifizierten \name{Frame} auf.
 
 \end{itemize}
 
