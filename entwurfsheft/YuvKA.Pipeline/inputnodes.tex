@@ -1,7 +1,7 @@
 \subsection{Eingabeknoten}
 
 \includegraphics[width=\textwidth]{YuvKA.Pipeline/inputnodes.png}
-Der im Folgenden spezifizierte Teil des Programmes beschreibt die Knoten, welche die Eingabedaten der Pipeline bereitstellen. Alle solchen Knoten erben von der abstrakten Klasse \name{InputNode}, welche die Member \name{TickCount} und \name{Size} definiert, welche die Anzahl an zu liefernden \name{Frame}s bzw. die Größe eines jeden \name{Frame}s angeben.
+Der im Folgenden spezifizierte Teil des Programmes beschreibt die Knoten, welche die Eingabedaten der Pipeline bereitstellen. Alle solchen Knoten erben von der abstrakten Klasse \name{InputNode}, welche die Member \name{TickCount} und \name{Size} definiert, die die Anzahl an zu liefernden \name{Frame}s bzw. die Größe eines jeden \name{Frame}s angeben.
 \name{InputNode} selbst erbt von der \name{Node}-Klasse.
 
 
@@ -21,7 +21,7 @@ Die abstrakte Klasse \name{InputNode} modelliert die Eingabequellen der Pipeline
 \property{Size}
 	\begin{verbatim}
 	[DataMember]
-	public Size Size{ get; set; }
+	public Size Size { get; set; }
 	\end{verbatim}
 	Spezifiziert die Größe des vom Knoten gelieferten \name{Frame}s in Form eines \name{Size}-Objektes.
 
@@ -70,7 +70,7 @@ public class ColorInputNode : InputNode
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{ColorInputNode} liefert die Funktionalität, einen Videostream einer Benutzerdefinierten Farbe in Form von \name{Frame}s an die Pipeline zu liefern. Sie erbt von der abstrakten \name{InputNode}-Klasse.
+Die Klasse \name{ColorInputNode} liefert die Funktionalität, einen Videostream einer benutzerdefinierten Farbe in Form von \name{Frame}s an die Pipeline zu liefern. Sie erbt von der abstrakten \name{InputNode}-Klasse.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -109,17 +109,17 @@ Die Klasse \name{NoiseInputNode} stellt einen Knoten bereit, welcher eine von zw
 	[DataMember]
 	public NoiseType Type { get; set; }
 	\end{verbatim}
-	Setzt den Typ des Videostreams fest, welcher generiert wird. Standardmäßig werden folgende Verfahren Unterstützt:
+	Setzt den Typ des Videostreams fest, welcher generiert wird. Standardmäßig werden folgende Verfahren unterstützt:
 	\begin{description}
 		\item[Perlin-Noise]~\\
-		Bei Perlin-Noise werden Pseudozufällige Signale dadurch generiert, dass die Koordinaten des angefragten Punktes anhand eines vorgerechneten Rasters mit zufälligen Vektoren nachgeschlagen werden. Der resultierende Wert ist das Resultat des Kreuzproduktes des Abstandsvektors (zum nächsten Rasterpunkt) mit dem im Raster gefundenen Vektor, kombiniert mit einfacher Interpolation, um das resultierende Bild stetig zu halten.
+		Bei Perlin-Noise werden pseudozufällige Signale dadurch generiert, dass die Koordinaten des angefragten Punktes anhand eines vorgerechneten Rasters mit zufälligen Vektoren nachgeschlagen werden. Der resultierende Wert ist das Resultat des Kreuzproduktes aus Abstandsvektors (zum nächsten Rasterpunkt) mit dem im Raster gefundenen Vektor, kombiniert mit einfacher Interpolation, um das resultierende Bild stetig zu halten.
 		\item[Coherent Noise]~\\
-		Hierbei handelt es sich um einfaches, kohärentes Bildrauschen, welches Pixelweise erzeugt wird.
+		Hierbei handelt es sich um einfaches, kohärentes Bildrauschen, welches pixelweise erzeugt wird.
 	\end{description}
 
 \method{ProcessFrame}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex
+	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
 	\end{verbatim}
 	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert ein Array der Größe 1, das den generierten \name{Frame} enthält. Das benutzte Generierungsverfahren hängt vom Wert von \name{Type} ab.
 

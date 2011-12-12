@@ -39,14 +39,14 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 	\begin{verbatim}
 	public BlurType Type { get; set; }
 	\end{verbatim}
-	Ruft die Art der Weichzeichnung ab, oder legt sie fest. Standardmäßig werden gaußsches und lineares Weichzeichnen unterstützt.
+	Ruft die Art der Weichzeichnung ab oder legt sie fest. Standardmäßig werden gaußsches und lineares Weichzeichnen unterstützt.
 	
 \property{Radius}
 	\begin{verbatim}
 	[Range(0.0, double.PositiveInfinity)]
 	public int Radius { get; set; }
 	\end{verbatim}
-	Ruft den Weichzeichnungsradius ab, oder legt diesen fest. Dieser Wert ist maßgeblich für das Ausmaß der Weichzeichnung.
+	Ruft den Weichzeichnungsradius ab oder legt diesen fest. Dieser Wert ist maßgeblich für das Ausmaß der Weichzeichnung.
 
 \method{ProcessFrame}
 	\begin{verbatim}
@@ -108,21 +108,21 @@ Diese Klasse\name{BrightnessContrastSaturationNode} ändert die Helligkeit, den 
 	[Range(-1.0, 1.0)]
 	public double Brightness
 	\end{verbatim}
-	Ruft den Helligkeitswert, zu dem dieses \name{Frame} gesetzt werden soll, ab, oder legt ihn fest. Der Wert muss zwischen -1.0 und 1.0 liegen.
+	Ruft den Helligkeitswert, zu dem dieses \name{Frame} gesetzt werden soll, ab oder legt ihn fest. Der Wert muss zwischen -1.0 und 1.0 liegen.
 	
 \property{Contrast}
 	\begin{verbatim}
 	[Range(-1.0, 1.0)]
 	public double Contrast
 	\end{verbatim}
-	Ruft den Kontrastwert, zu dem dieses \name{Frame} gesetzt werden soll, ab, oder legt ihn fest. Der Wert muss zwischen -1.0 und 1.0 liegen.
+	Ruft den Kontrastwert, zu dem dieses \name{Frame} gesetzt werden soll, ab oder legt ihn fest. Der Wert muss zwischen -1.0 und 1.0 liegen.
 	
 \property{Saturation}
 	\begin{verbatim}
 	[Range(-1.0, 1.0)]
 	public double Saturation
 	\end{verbatim}
-	Ruft den Farbsättigungswert, zu dem dieses \name{Frame} gesetzt werden soll, ab, oder legt ihn fest. Der Wert muss zwischen -1.0 und 1.0 liegen.
+	Ruft den Farbsättigungswert, zu dem dieses \name{Frame} gesetzt werden soll, ab oder legt ihn fest. Der Wert muss zwischen -1.0 und 1.0 liegen.
 
 \method{ProcessFrame}
 	\begin{verbatim}
@@ -236,7 +236,7 @@ Die Klasse \name{AverageMergeNode} modelliert das Zusammenführen von Videos dur
 		[Range(0.0, 1.0)]
 		public ObservableCollection<double> Weights { get; private set; }
 	\end{verbatim}
-	Ruft eine Sammlung von Gewichtungen einzelner Videos ab, oder legt diese fest.
+	Ruft eine Sammlung von Gewichtungen einzelner Videos ab oder legt diese fest.
 
 \method{ProcessFrame}
 	\begin{verbatim}
@@ -301,7 +301,7 @@ Die Klasse \name{DelayNode} modelliert die Verzögerung von Videostreams innerha
 	[Range(0, 10)]
 	public int Delay { get; set; }
 	\end{verbatim}
-	Ruft die Dauer der Verzögerung in der Einheit \name{Frame}s ab, oder legt sie fest.
+	Ruft die Dauer der Verzögerung in der Einheit \name{Frame}s ab oder legt sie fest.
 
 \method{ProcessFrame}
 	\begin{verbatim}
