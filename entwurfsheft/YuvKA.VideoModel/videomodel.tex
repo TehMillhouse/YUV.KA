@@ -1,7 +1,7 @@
 %\subsection{<Name der Funktion des Teilgraphen, bsp: Eingabeknoten / Pipelinequellen>}
 	
 \includegraphics[width=\textwidth]{YuvKA.VideoModel/videomodel.png}
-UML-Diagramm, welches die Klassen darstellen, die die unterschiedlichen Framearten bilden, einschließlich ihrer Hilfsklassen. Auch dargestellt ist die Klasse \name{YuvEncoder} mit der inneren Klasse \name{Video} die Videos vom YUV-Format ins RGB-Format umwandelt, mit der das Programm intern arbeitet.
+UML-Diagramm, welches die Klassen darstellt, die die unterschiedlichen Framearten bilden, einschließlich ihrer Hilfsklassen. Auch dargestellt ist die Klasse \name{YuvEncoder} mit der inneren Klasse \name{Video}, die Videos vom YUV-Format ins RGB-Format umwandelt, mit der das Programm intern arbeitet.
 
 \subsubsection{YuvKA.VideoModel.YuvEncoder}
 
@@ -10,14 +10,15 @@ public static class YuvEncoder
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos die im YUV-Format eingegeben werden, ins RGB-Format umzuwandeln, damit das Programm damit arbeiten kann. Desweiteren wandelt es die manipulierten Videos vom RGB-Format ins YUV-Format um, damit sie abgespeichert werden können.
+Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos, die im YUV-Format eingegeben werden, ins RGB-Format umzuwandeln, damit das Programm damit arbeiten kann. Desweiteren wandelt sie die manipulierten Videos vom RGB-Format ins YUV-Format um, damit sie abgespeichert werden können.
 
 \paragraph{Typmember}
 \begin{itemize}
 
 \method{Decode}
 	\begin{verbatim}
-	public static Video Decode(string fileName, string logFileName, int width, int height)
+	public static Video Decode(string fileName, string logFileName,
+    int width, int height)
 	\end{verbatim}
 	Wandelt das im \name{fileName} angegebene YUV-Video ins RGB-Format um, das interne Format des Programms. 
 
@@ -36,7 +37,7 @@ public class Video : IDisposable
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{Video} bietet die Funktionalität, dass sie die vom \name{YuvEncoder} umgewandelten Videos als Videostream hält.
+Die Klasse \name{Video} bietet die Funktionalität, dass sie die vom \name{YuvEncoder} umgewandelte Videos als Videostream hält.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -51,7 +52,7 @@ Die Klasse \name{Video} bietet die Funktionalität, dass sie die vom \name{YuvEn
 	\begin{verbatim}
 	public int FrameCount { get; }
 	\end{verbatim}
-	Ruft die Anzahl der \name{Frames} im \name{stream} ab.
+	Ruft die Anzahl der \name{Frame}s im \name{stream} ab.
 
 \property{this[int index]}
 	\begin{verbatim}
@@ -63,7 +64,7 @@ Die Klasse \name{Video} bietet die Funktionalität, dass sie die vom \name{YuvEn
 	\begin{verbatim}
 	public void Dispose()
 	\end{verbatim}
-	Schließt den \name{stream} des \name{Video}-Objekt, sodass der allokierte Speicher frei wird.
+	Schließt den \name{stream} des \name{Video}-Objekts, sodass das File-Handle freigegeben wird.
 
 \end{itemize}
 
@@ -81,21 +82,21 @@ Die Klasse \name{Frame} stellt ein Einzelbild eines Videostreams im RGB-Format d
 
 \property{Size}
 	\begin{verbatim}
-	public Size Size { get; private set; }
+	public Size Size { get; }
 	\end{verbatim}
-	Ruft die Auflösung des \name{Frames} ab oder legt sie fest.
+	Ruft die Auflösung des \name{Frame}s ab.
 
 \property{this[int x, int y]}
 	\begin{verbatim}
 	public Rgb this[int x, int y] { get; set; }
 	\end{verbatim}
-	Ruft den Farbwert des \name{Frames} an der Stelle \name{x,y} in RGB ab oder legt sie fest.
+	Ruft den Farbwert des \name{Frame}s an der Stelle \name{x,y} in RGB ab oder legt ihn fest.
 
 \property{Data}
 	\begin{verbatim}
 	public Rgb[] Data { get; set; }
 	\end{verbatim}
-	Ruft die einzelnen Farbwerte des \name{Frames} als Array ab oder legt sie fest.
+	Ruft die einzelnen Farbwerte des \name{Frame}s als Array ab oder legt sie fest.
 
 \end{itemize}
 
@@ -115,7 +116,7 @@ Die Klasse \name{AnnotedFrame} erweitert die Klasse \name{Frame} um die Funktion
 	\begin{verbatim}
 	public MacroblockDecision[] Decisions { get; set; }
 	\end{verbatim}
-	Ruft die Entscheidungen, die der Encoder bei der Kodierung getroffen hat als Array von \name{MacroblockDecision} ab oder legt sie fest.
+	Ruft die Entscheidungen, die der Encoder bei der Kodierung getroffen hat, als Array von \name{MacroblockDecision}-Objekten ab oder legt sie fest.
 
 \end{itemize}
 
@@ -137,10 +138,10 @@ Die Klasse \name{MacroblockDecision} stellt die Entscheidung dar, die der Encode
 	\end{verbatim}
 	Ruft die Weg, den ein Makroblock bei der Kodierung gegangen ist ab oder legt sie fest.
 
-\property{Decisions}
+\property{PartitioningDecision}
 	\begin{verbatim}
 	public MacroblockPartitioning PartitioningDecision { get; set; }
 	\end{verbatim}
-	Ruft Informationen darüber ab, wenn und falls ja wie sich ein Makroblock, normalerweise ein Block von 16 x 16 Pixeln, sich aufspaltet oder legt sie fest. Außerdem ruft er die Information ab, es sich um einen Intr- oder Infraframe handelt oder legt sie fest.
+	Ruft Informationen darüber ab, wenn und falls ja wie sich ein Makroblock, normalerweise ein Block von 16 x 16 Pixeln, sich aufspaltet, oder legt sie fest. Außerdem ruft er die Information ab, es sich um einen Intr- oder Infraframe handelt oder legt sie fest.
 
 \end{itemize}
