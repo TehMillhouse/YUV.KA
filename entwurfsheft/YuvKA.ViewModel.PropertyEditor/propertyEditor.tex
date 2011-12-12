@@ -2,43 +2,7 @@
 
 
 \includegraphics[width=\textwidth]{YuvKA.ViewModel.PropertyEditor/propertyEditor.png}
-
-
-
-\subsubsection{YuvKA.ViewModel.PropertyEditor.PropertyViewModel}
-
-\begin{verbatim}
-public abstract class PropertyViewModel
-\end{verbatim}
-
-\paragraph{Beschreibung}~\\
-insert description
-
-\paragraph{Typmember}
-\begin{itemize}
-
-\property{Properties}
-	\begin{verbatim}
-	public IEnumerable<PropertyViewModel> { get; set; }
-	\end{verbatim}
-	
-\property{Property}
-	\begin{verbatim}
-	public PropertyDescriptor Property { get; set; }
-	\end{verbatim}
-
-\property{Source}
-	\begin{verbatim}
-	public object Source { get; set; }
-	\end{verbatim}
-
-\property{Value}
-	\begin{verbatim}
-	public object Value { get; set; }
-	\end{verbatim}
-
-\end{itemize}
-
+Diese Klassen dienen der Darstellung der vom Benutzer veränderbaren Properties mithilfe der View. 
 
 
 
@@ -49,15 +13,57 @@ public class PropertyEditorViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-insert description
+Die Klasse \name{PropertyEditorViewModel} verwaltet eine Anzahl von Properties und ermöglicht ihre Darstellung mithilfe der View.
 
 \paragraph{Typmember}
 \begin{itemize}
+
+\property{Properties}
+	\begin{verbatim}
+	public IEnumerable<PropertyViewModel> Properties { get; set; }
+	\end{verbatim}
+	Ruft die Liste der zu verwaltenden Properties ab oder legt sie fest.
 
 \property{Source}
 	\begin{verbatim}
 	public object Source { get; set; }
 	\end{verbatim}
+	Ruft die Quelle der zu verwaltenden Properties ab oder legt sie fest.
+
+\end{itemize}
+
+
+
+
+\subsubsection{YuvKA.ViewModel.PropertyEditor.PropertyViewModel}
+
+\begin{verbatim}
+public abstract class PropertyViewModel
+\end{verbatim}
+
+\paragraph{Beschreibung}~\\
+Abstrakte Oberklasse zu den einzelnen Property View Model Klassen.
+
+\paragraph{Typmember}
+\begin{itemize}
+ 	
+\property{Property}
+	\begin{verbatim}
+	public PropertyDescriptor Property { get; set; }
+	\end{verbatim}
+	Ruft die Beschreibung der verwalteten Property ab oder legt sie fest.
+
+\property{Source}
+	\begin{verbatim}
+	public object Source { get; set; }
+	\end{verbatim}
+	Ruft die Quelle der verwalteten Property ab oder legt sie fest.
+
+\property{Value}
+	\begin{verbatim}
+	public object Value { get; set; }
+	\end{verbatim}
+	Ruft den Wert der verwalteten Property ab oder legt ihn fest.
 
 \end{itemize}
 
@@ -71,7 +77,7 @@ public generic abstract class PropertyViewModel<T>
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-insert description
+Abstrakte Klasse zur Darstellung der benötigten Properties mithilfe der View.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -80,7 +86,7 @@ insert description
 	\begin{verbatim}
 	public T Value { get; set; }
 	\end{verbatim}
-
+	Ruft den Wert der Property ab oder legt ihn fest. T ist hierbei der Typ, der verwalteten Property.
 \end{itemize}
 
 
@@ -93,7 +99,8 @@ public class BooleanPropertyViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-insert description
+Klasse zur Darstellung einer Property vom Typ \name{boolean} mithilfe der View. Hier ist lediglich der Typ der zu verwaltenden Property als \name{boolean} gesetzt.
+
 
 
 
@@ -104,7 +111,7 @@ public class PathPropertyViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-insert description
+Klasse zur Darstellung einer Property, welche einen Dateipfad darstellt.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -113,6 +120,7 @@ insert description
 	\begin{verbatim}
 	public void OpenDialog()
 	\end{verbatim}
+	Öffnet einen Dialog zur Auswahl des Dateipfades.
 
 \end{itemize}
 
@@ -126,7 +134,8 @@ public class SizePropertyViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-insert description
+Klasse zur Darstellung einer Property vom Typ \name{Size} mithilfe der View.
+
 \paragraph{Typmember}
 \begin{itemize}
 	
@@ -134,11 +143,13 @@ insert description
 	\begin{verbatim}
 	public int Height { get; set; }
 	\end{verbatim}
+	Ruft den \name{Height}-Wert der verwalteten \name{Size} Property ab oder legt ihn fest.
 
 \property{Width}
 	\begin{verbatim}
 	public int Width { get; set; }
 	\end{verbatim}
+	Ruft den \name{Width}-Wert der verwalteten \name{Size} Property ab oder legt ihn fest.
 
 \end{itemize}
 
@@ -152,7 +163,7 @@ public generic abstract class NumericalPropertyViewModel<T>
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-insert description
+Abstrakte Klasse zur Darstellung einer numerischen Property mithilfe der View.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -161,11 +172,13 @@ insert description
 	\begin{verbatim}
 	public Nullable<double> Maximum
 	\end{verbatim}
+	Ruft die obere Grenze des Wertes der verwalteten Property ab oder legt ihn fest.
 
 \property{Minimum}
 	\begin{verbatim}
 	public Nullable<double> Minimum
 	\end{verbatim}
+	Ruft die untere Grenze des Wertes der verwalteten Property ab oder legt ihn fest.
 
 \end{itemize}
 
@@ -179,7 +192,7 @@ public class IntPropertyViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-insert description
+Klasse zur Darstellung eines \name{int}-Wertes mithilfe der View. Hier ist lediglich der Typ der zu verwaltenden Property als \name{int} gesetzt.
 
 
 
@@ -191,7 +204,7 @@ public class DoublePropertyViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-insert description
+Klasse zur Darstellung  eines \name{double}-Wertes mithilfe der View. Hier ist lediglich der Typ der zu verwaltenden Property als \name{double} gesetzt.
 
 
 
@@ -203,7 +216,7 @@ public class ObservableCollectionOfDoublePropertyViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-insert description
+Klasse zur Darstellung einer \name{ObservableCollection} von \name{double}-Werten mithilfe der View.
 
 
 
@@ -214,7 +227,7 @@ public class RgbPropertyViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-insert description
+Klasse zur Darstellung einer \name{Rgb} Property mithilfe der View.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -223,6 +236,7 @@ insert description
 	\begin{verbatim}
 	public void OpenDialog()
 	\end{verbatim}
+	Öffnet einen Dialog zur Auswahl des Farbkanals.
 
 \end{itemize}
 
