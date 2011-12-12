@@ -8,13 +8,20 @@ using System.Runtime.Serialization;
 
 namespace YuvKA.Pipeline.Implementation
 {
-    [DataContract]
+	[DataContract]
 	public abstract class InputNode : Node
 	{
-        [DataMember]
+		[DataMember]
 		public Size Size { get; set; }
 
 		[Browsable(false)]
 		public virtual int FrameCount { get { return 1; } }
+
+		public sealed override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+		{
+			return new[] { OutputFrame(frameIndex) };
+		}
+
+		public abstract Frame OutputFrame(int frameIndex);
 	}
 }
