@@ -24,10 +24,6 @@ namespace YuvKA.Pipeline
 			public Node Node { get; private set; }
 			public int Index { get; private set; }
 
-			public Output(Node node)
-			{
-				Node = node;
-			}
 		}
 
 		[Browsable(false)]
@@ -47,7 +43,7 @@ namespace YuvKA.Pipeline
 
 		Output AddOutput()
 		{
-			Output o = new Output(this);
+			Output o = new Output(); //new Output(this);
 			Outputs.Add(o);
 			return o;
 		}

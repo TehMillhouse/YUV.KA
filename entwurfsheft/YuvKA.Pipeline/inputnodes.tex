@@ -1,7 +1,9 @@
 \subsection{Eingabeknoten}
 
 \includegraphics[width=\textwidth]{YuvKA.Pipeline/inputnodes.png}
-UML-Diagramm zum Klassenbaum, welcher die Knoten darstellt, welche als Pipeline-Eingabequellen dienen.
+Der im Folgenden spezifizierte Teil des Programmes beschreibt die Knoten, welche die Eingabedaten der Pipeline bereitstellen. Alle solchen Knoten erben von der abstrakten Klasse \name{InputNode}, welche die Member \name{FrameCount} und \name{Size} definiert, welche die Anzahl an zu liefernden \name{Frame}s bzw. die Größe eines jeden \name{Frame} angeben.
+\name{InputNode} selbst erbt von der \name{Node}-Klasse.
+
 
 \subsubsection{YuvKA.Pipeline.InputNode}
 
@@ -119,7 +121,7 @@ Die Klasse \name{NoiseInputNode} stellt einen Knoten bereit, welcher eine von zw
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex
 	\end{verbatim}
-	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert ein Array der Größe 1, das einen \name{Frame} enthält mit den Bilddaten des zufällig generierten \name{Frame}s.
+	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert ein Array der Größe 1, das den generierten \name{Frame} enthält. Das benutzte Generierungsverfahren hängt vom Wert von \name{Type} ab.
 
 
 \end{itemize}
