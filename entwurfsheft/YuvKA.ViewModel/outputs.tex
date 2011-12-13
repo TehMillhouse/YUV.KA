@@ -6,11 +6,11 @@ Die abstrakte Klasse \name{OutputWindowViewModel} und ihre konkreten Implementie
 \subsubsection{YuvKA.ViewModel.OutputWindowViewModel}
 
 \begin{verbatim}
-public abstract	class OutputWindowViewModel : IHandle<FrameRenderedMessage>
+public abstract	class OutputWindowViewModel : IHandle<TickRenderedMessage>
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die \name{OutputWindowViewModel}-Klasse hält das \name{Node}-Objekt, das die anzuzeigenden Daten enthält, und reagiert auf \name{FrameRenderedMessage}s, die vom \name{PipelineState} verschickt werden.
+Die \name{OutputWindowViewModel}-Klasse hält das \name{Node}-Objekt, das die anzuzeigenden Daten enthält, und reagiert auf \name{TickRenderedMessage}s, die vom \name{PipelineState} verschickt werden.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -23,7 +23,7 @@ public Node NodeModel { get; }
 
 \method{Handle}
 	\begin{verbatim}
-public virtual void Handle(FrameRenderedMessage message)
+public virtual void Handle(TickRenderedMessage message)
 	\end{verbatim}
 	Aktualisiert das Ausgabefenster nach Rendern eines Pipeline-Ticks. Die Standardimplementierung ist leer.
 

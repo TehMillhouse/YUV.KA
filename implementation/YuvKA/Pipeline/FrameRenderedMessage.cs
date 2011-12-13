@@ -6,7 +6,7 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline
 {
-    public class FrameRenderedMessage
+    public class TickRenderedMessage
     {
         public Frame this[Node.Output output]
         {
