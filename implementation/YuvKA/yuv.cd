@@ -73,7 +73,7 @@
     <Position X="39.75" Y="10.75" Width="3.75" />
     <AssociationLine Name="Graphs" Type="YuvKA.Pipeline.Implementation.DiagramGraph">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.222" Y="0.277" />
+        <Position X="0.122" Y="0.07" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -111,6 +111,10 @@
   </Class>
   <Class Name="YuvKA.Pipeline.PipelineDriver">
     <Position X="23" Y="2" Width="8.25" />
+    <Members>
+      <Field Name="blurNode" Hidden="true" />
+      <Field Name="videoInputNode" Hidden="true" />
+    </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAACAAAAAAEAAAA=</HashCode>
       <FileName>Pipeline\PipelineDriver.cs</FileName>
@@ -184,14 +188,6 @@
       <Field Name="redoStack" Hidden="true" />
       <Field Name="undoStack" Hidden="true" />
     </Members>
-    <AssociationLine Name="Model" Type="YuvKA.Pipeline.PipelineState" FixedFromPoint="true">
-      <Path>
-        <Point X="54.25" Y="4.125" />
-        <Point X="31.583" Y="4.125" Type="JumpStart" />
-        <Point X="31.417" Y="4.125" Type="JumpEnd" />
-        <Point X="31.25" Y="4.125" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="ReplayStateViewModel" Type="YuvKA.ViewModel.ReplayStateViewModel" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="54.25" Y="4.494" />
@@ -202,24 +198,29 @@
         <Position X="0.47" Y="0.201" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="PipelineViewModel" Type="YuvKA.ViewModel.PipelineViewModel" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="58.25" Y="4.225" />
-        <Point X="60.812" Y="4.225" />
-        <Point X="60.812" Y="6" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.19" Y="0.175" Height="0.182" Width="1.601" />
-      </MemberNameLabel>
-    </AssociationLine>
     <AssociationLine Name="ToolboxViewModel" Type="YuvKA.ViewModel.ToolboxViewModel">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.068" Y="0.215" Height="0.182" Width="1.666" />
       </MemberNameLabel>
     </AssociationLine>
+    <AssociationLine Name="Model" Type="YuvKA.Pipeline.PipelineState">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="22.056" Y="0.171" />
+      </MemberNameLabel>
+    </AssociationLine>
     <AssociationLine Name="OpenWindows" Type="YuvKA.ViewModel.OutputWindowViewModel">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-3.273" Y="0.736" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="PipelineViewModel" Type="YuvKA.ViewModel.PipelineViewModel" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="58.25" Y="4.312" />
+        <Point X="60.875" Y="4.312" />
+        <Point X="60.875" Y="5.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.19" Y="0.175" Height="0.182" Width="1.601" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -266,15 +267,18 @@
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.ViewModel.PipelineViewModel">
-    <Position X="60" Y="6" Width="1.75" />
+    <Position X="60" Y="5.5" Width="1.75" />
+    <Members>
+      <Field Name="pipelineGraph" Hidden="true" />
+    </Members>
     <AssociationLine Name="Nodes" Type="YuvKA.ViewModel.NodeViewModel">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.042" Y="0.31" Height="0.182" Width="1.038" />
+        <Position X="0.123" Y="0.121" Height="0.182" Width="1.038" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="Edges" Type="YuvKA.ViewModel.EdgeViewModel">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="-0.987" Y="0.326" Height="0.182" Width="0.894" />
+        <Position X="-1.014" Y="0.151" Height="0.182" Width="0.894" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -288,14 +292,22 @@
   </Class>
   <Class Name="YuvKA.ViewModel.NodeViewModel">
     <Position X="58.25" Y="7.5" Width="2.75" />
+    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Node" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="58.25" Y="9.062" />
+        <Point X="57.927" Y="9.062" Type="JumpStart" />
+        <Point X="57.76" Y="9.062" Type="JumpEnd" />
+        <Point X="49.794" Y="9.062" />
+        <Point X="49.794" Y="6.188" />
+        <Point X="22" Y="6.188" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="34.443" Y="-5.075" />
+      </MemberNameLabel>
+    </AssociationLine>
     <AssociationLine Name="NodeType" Type="YuvKA.ViewModel.NodeType">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.14" Y="0.144" Height="0.182" Width="1.031" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Node">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.195" Y="0.06" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -319,6 +331,16 @@
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
+    <AssociationLine Name="Types" Type="YuvKA.Pipeline.Implementation.IGraphType">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="10.429" Y="1.497" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Implementation.DiagramNode">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-14.778" Y="0.484" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AgAABIAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\Implementation\DiagramViewModel.cs</FileName>
@@ -347,20 +369,9 @@
   </Class>
   <Class Name="YuvKA.ViewModel.Implementation.HistogramViewModel">
     <Position X="58.75" Y="12.5" Width="3" />
-    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Implementation.HistogramNode" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="59.25" Y="12.5" />
-        <Point X="59.25" Y="12.312" />
-        <Point X="58.783" Y="12.312" Type="JumpStart" />
-        <Point X="58.617" Y="12.312" Type="JumpEnd" />
-        <Point X="56.833" Y="12.312" Type="JumpStart" />
-        <Point X="56.667" Y="12.312" Type="JumpEnd" />
-        <Point X="49.708" Y="12.312" Type="JumpStart" />
-        <Point X="49.542" Y="12.312" Type="JumpEnd" />
-        <Point X="47.5" Y="12.312" />
-      </Path>
+    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Implementation.HistogramNode">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.185" Y="-0.297" />
+        <Position X="5.547" Y="-0.26" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -372,7 +383,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="YuvKA.ViewModel.VideoOutputViewModel">
-    <Position X="58.75" Y="15.5" Width="2" />
+    <Position X="56.25" Y="14.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\VideoOutputViewModel.cs</FileName>
@@ -419,7 +430,7 @@
   </Class>
   <Class Name="YuvKA.ViewModel.Implementation.OverlayViewModel">
     <Position X="58.75" Y="14" Width="2.75" />
-    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Implementation.OverlayNode" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Implementation.OverlayNode" ManuallyRouted="true">
       <Path>
         <Point X="61.5" Y="14.438" />
         <Point X="62.009" Y="14.438" />
@@ -428,6 +439,9 @@
         <Point X="59.167" Y="11.875" Type="JumpEnd" />
         <Point X="51.5" Y="11.875" />
       </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="10.853" Y="-2.188" />
+      </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -456,6 +470,14 @@
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.InputNode">
     <Position X="16" Y="9" Width="3.75" />
+    <InheritanceLine Type="YuvKA.Pipeline.Node" FixedFromPoint="true">
+      <Path>
+        <Point X="20.125" Y="7.415" />
+        <Point X="20.125" Y="8.125" />
+        <Point X="17.875" Y="8.125" />
+        <Point X="17.875" Y="9" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAkAAAAgAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Pipeline\Implementation\InputNode.cs</FileName>
@@ -463,17 +485,17 @@
   </Class>
   <Class Name="YuvKA.ViewModel.OutputWindowViewModel">
     <Position X="57.5" Y="10.5" Width="3.5" />
-    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Node" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Node" ManuallyRouted="true">
       <Path>
         <Point X="57.5" Y="11" />
         <Point X="54.99" Y="11" />
         <Point X="54.99" Y="9.07" />
-        <Point X="49.833" Y="9.07" />
-        <Point X="49.833" Y="6.188" />
+        <Point X="49.757" Y="9.07" />
+        <Point X="49.757" Y="6.188" />
         <Point X="22" Y="6.188" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.194" Y="0.048" />
+        <Position X="34.605" Y="-3.103" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -509,6 +531,14 @@
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.InverterNode">
     <Position X="20" Y="8.5" Width="3.75" />
+    <InheritanceLine Type="YuvKA.Pipeline.Node" FixedFromPoint="true">
+      <Path>
+        <Point X="20.125" Y="7.415" />
+        <Point X="20.125" Y="8.125" />
+        <Point X="21.875" Y="8.125" />
+        <Point X="21.875" Y="8.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\Implementation\InverterNode.cs</FileName>
@@ -516,6 +546,14 @@
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.BrightnessContrastSaturationNode">
     <Position X="26.25" Y="11" Width="3.75" />
+    <InheritanceLine Type="YuvKA.Pipeline.Node" FixedFromPoint="true">
+      <Path>
+        <Point X="20.125" Y="7.415" />
+        <Point X="20.125" Y="8.125" />
+        <Point X="28.125" Y="8.125" />
+        <Point X="28.125" Y="11" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAQAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAgAAIA=</HashCode>
       <FileName>Pipeline\Implementation\BrightnessContrastSaturationNode.cs</FileName>
@@ -540,6 +578,14 @@
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.AdditiveMergeNode">
     <Position X="28.5" Y="8.5" Width="3.75" />
+    <InheritanceLine Type="YuvKA.Pipeline.Node" FixedFromPoint="true">
+      <Path>
+        <Point X="20.125" Y="7.415" />
+        <Point X="20.125" Y="8.125" />
+        <Point X="30.375" Y="8.125" />
+        <Point X="30.375" Y="8.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\Implementation\AdditiveMergeNode.cs</FileName>
@@ -547,6 +593,14 @@
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.AveragedMergeNode">
     <Position X="30.75" Y="11" Width="3.75" />
+    <InheritanceLine Type="YuvKA.Pipeline.Node" FixedFromPoint="true">
+      <Path>
+        <Point X="20.125" Y="7.415" />
+        <Point X="20.125" Y="8.125" />
+        <Point X="32.625" Y="8.125" />
+        <Point X="32.625" Y="11" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Pipeline\Implementation\AveragedMergeNode.cs</FileName>
@@ -557,6 +611,14 @@
     <Members>
       <Field Name="queue" Hidden="true" />
     </Members>
+    <InheritanceLine Type="YuvKA.Pipeline.Node" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="20.125" Y="7.415" />
+        <Point X="20.125" Y="8.125" />
+        <Point X="37.125" Y="8.125" />
+        <Point X="37.125" Y="11" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgBAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\Implementation\DelayNode.cs</FileName>
@@ -564,6 +626,14 @@
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.DifferenceNode">
     <Position X="33" Y="8.5" Width="3.75" />
+    <InheritanceLine Type="YuvKA.Pipeline.Node" FixedFromPoint="true">
+      <Path>
+        <Point X="20.125" Y="7.415" />
+        <Point X="20.125" Y="8.125" />
+        <Point X="34.875" Y="8.125" />
+        <Point X="34.875" Y="8.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\Implementation\DifferenceNode.cs</FileName>
@@ -571,13 +641,29 @@
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.OutputNode">
     <Position X="44.75" Y="8.5" Width="3.75" />
+    <InheritanceLine Type="YuvKA.Pipeline.Node" FixedFromPoint="true">
+      <Path>
+        <Point X="20.125" Y="7.415" />
+        <Point X="20.125" Y="8.125" />
+        <Point X="46.625" Y="8.125" />
+        <Point X="46.625" Y="8.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\Implementation\OutputNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.RgbSplitNode">
     <Position X="37.5" Y="8.5" Width="3.75" />
+    <InheritanceLine Type="YuvKA.Pipeline.Node" FixedFromPoint="true">
+      <Path>
+        <Point X="20.125" Y="7.415" />
+        <Point X="20.125" Y="8.125" />
+        <Point X="39.375" Y="8.125" />
+        <Point X="39.375" Y="8.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\Implementation\RgbSplitNode.cs</FileName>
