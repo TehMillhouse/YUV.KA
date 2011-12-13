@@ -64,11 +64,11 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 				Frame newFrame = new Frame(inputs[0])
 				for (int x = 0; x < inputs[0].Size.X; x++)
 				  for (int y = 0; y < inputs[0].Size.Y; y++)
-				    newFrame(x, y) = 0
+				    newFrame[x, y] = 0
 				    for (xi = x - Radius; xi <= x + Radius; xi++)
 				      for (yi = y - Radius; yi <= y + Radius; yi++)
-				        newFrame(x, y) += (1 / (Radius * Radius))
-				                           * inputs[0](x, y)
+				        newFrame[x, y] += (1 / (Radius * Radius))
+				                           * inputs[0][x, y]
 				return newFrame
 				
 			\end{verbatim}
@@ -82,12 +82,12 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 			PseudoCode:
 			\begin{verbatim}
 				Frame newFrame = new Frame(inputs[0])
-				for (int x = 0, x < inputs[0].size.x, x++)
-				  for (int y = 0, y < inputs[0].size.y, y++)
-				    newFrame.Data[x][y] = 0
-				    for (int xi = x - (3 * Radius); xi < x + (3 * Radius;, xi++)
+				for (int x = 0; x < inputs[0].Size.X; x++)
+				  for (int y = 0; y < inputs[0].Size.Y; y++)
+				    newFrame[x, y] = 0
+				    for (int xi = x - (3 * Radius); xi < x + (3 * Radius; xi++)
 				      for (int yi = y - (3 * Radius); yi < y + (3 * Radius); yi++)
-				        newFrame.Data[x][y] += G(xi - x, yi - y) * inputs[0].Data[x][y]
+				        newFrame[x, y] += G(xi - x, yi - y) * inputs[0][x, y]
 				return newFrame
 				
 			\end{verbatim}
@@ -228,12 +228,12 @@ Die Klasse \name{AveragedMergeNode} modelliert das Zusammenführen von Videos du
 		Frame newFrame = new Frame(inputs[0])
 		for (int x = 0; x < inputs[0].Size.X; x++)
 		  for (int y = 0; y < inputs[0].Size.Y; y++)
-		    newFrame(x, y) = 0
+		    newFram[x, y] = 0
 		    int sumOfWeights = 0
 		    for (int i = 0; i < inputs.Size(); i++)
-		      newFrame(x, y) += inputs[i](x, y) * Weights[i]
+		      newFrame[x, y] += inputs[i][x, y] * Weights[i]
 		      sumOfWeights += Weights[i]
-		    newFrame(x, y) = newFrame(x, y) / sumOfWeights
+		    newFrame[x, y] = newFrame[x, y] / sumOfWeights
 		return newFrame
 		
 	\end{verbatim}
