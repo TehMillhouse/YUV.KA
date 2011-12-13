@@ -51,11 +51,11 @@ Die Klasse \name{DiagramNode} berechnet die Daten, die vom \name{ViewModel} gebr
 	\paragraph{Art der Analyse}~\\ Es werden drei Arten von Bildanalysen unterstützt: 
 		\begin{itemize}
 			\item \name{PixelDiff} Hierbei werden die Farbdifferenzen zwischen dem ausgewählten Frame und dem Referenzframe pixelweise berechnet.
-			\item \name{IntraBlockFrequency}
+			\item \name{IntraBlockFrequency} Berechnung der Anzahl der Intra-Blöcke im Frame.
 			\item \name{PeakSignalNoiseRatio} Stellt das Verhältnis zwischen einem Bild in Originalqualität und dessen komprimierte Version, in der die Informationsmenge durch das Komprimieren in unterschiedlichem Maße abgenommen hat, dar. Dieses Verhältnis wird mit Hilfe folgender Formeln beschrieben. \\
 			Der "mittlere quadratische Fehler" (oder "mean square error") für RGB Pixel wird definiert als 
 			\[ MSE = \frac{1}{3mn} \sum_{i = 1}^{m - 1}{ \sum_{j = 0}^{n - 1}{[I(i, j) - K(i, j)]^2} } \]
-			wobei I und K zwei Bilder sind, von denen das eine die komprimierte Version des anderen ist. Das "peak signal-to-noise ratio" wird dann gegeben durch
+			wobei $ I $ und $ K $ zwei Bilder sind, von denen das eine die komprimierte Version des anderen ist. Das "peak signal-to-noise ratio" wird dann gegeben durch
 			\[ PSNR = 10 \cdot \log_{10}{\frac{MAX_I^2}{MSE}} \]
 			wobei $ MAX_I $ der größtmögliche Wert ist, den man in einem Pixel speichern kann. Für RGB Pixel (24-bit) ist das $ 2^{24} - 1 $.
 		\end{itemize}
