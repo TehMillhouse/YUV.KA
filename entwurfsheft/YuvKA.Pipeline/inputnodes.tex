@@ -132,29 +132,42 @@ Die Klasse \name{NoiseInputNode} stellt einen Knoten bereit, welcher eine von zw
 [DataContract]
 public class VideoInputNode : InputNode
 \end{verbatim}
-%
-%\paragraph{Beschreibung}~\\
-%%<Beschreibung der Klasse>
-%
-%
-%
-%\paragraph{Typmember}
-%\begin{itemize}
-%
-%\property{<Membername>}
-%        \begin{verbatim}
-%        <Membersignatur>
-%        \end{verbatim}
-%        %<Membererklärung>
-%
-%%[etc.]
-%
-%\method{<Methodenname>}
-%        \begin{verbatim}
-%        <Methodensignatur>
-%        \end{verbatim}
-        %<Methodenerklärung>
 
-%[etc.]
+\paragraph{Beschreibung}~\\
+Die Klasse \name{VideoInputNode} modelliert einen Knoten, welcher die Daten eines aus einer Datei gelesenen Videostream in die Pipeline einspeist. Befindet sich an der durch \name{LogFileName} angegebenen Stelle eine gültige Log-Datei, so wird diese als Metadaten mit einem \name{AnnotatedFrame} mitgereicht. Sie erbt von der abstrakten \name{InputNode}-Klasse.
 
-%\end{itemize}
+
+\paragraph{Typmember}
+\begin{itemize}
+
+\property{FileName}
+        \begin{verbatim}
+[DisplayName("Video File")]
+[DataMember]
+public FilePath FileName { get; set; }
+        \end{verbatim}
+	Ruft den Dateipfad der zu lesenden Videodatei ab oder setzt diesen fest.
+
+\property{LogFileName}
+        \begin{verbatim}
+[DisplayName("Optional Log File")]
+[DataMember]
+public FilePath LogFileName { get; set; }
+        \end{verbatim}
+	Ruft den Dateipfad der (optionalen) zu lesenden Log-Datei ab oder setzt diesen fest.
+
+\property{TickCount}
+        \begin{verbatim}
+[Browsable(false)]
+public override int TickCount { get; }
+        \end{verbatim}
+	Ruft die Anzahl der im Videostream befindlichen \name{Frame}s ab.
+
+\method{Dispose}
+        \begin{verbatim}
+public override void Dispose()
+        \end{verbatim}
+Schließt den Videostream, sodass das File-Handle freigegeben wird.
+
+
+\end{itemize}
