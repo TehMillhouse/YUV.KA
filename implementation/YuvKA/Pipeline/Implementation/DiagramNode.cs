@@ -41,7 +41,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
-		public override void ProcessFrameCore(Frame[] inputs, int tick)
+		public override void ProcessCore(Frame[] inputs, int tick)
 		{
 			throw new NotImplementedException();
 		}

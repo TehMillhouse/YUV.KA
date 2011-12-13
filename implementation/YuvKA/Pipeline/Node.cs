@@ -23,7 +23,6 @@ namespace YuvKA.Pipeline
 		{
 			public Node Node { get; private set; }
 			public int Index { get; private set; }
-			public bool OutputsLog { get; set; }
 
 		}
 
@@ -40,7 +39,7 @@ namespace YuvKA.Pipeline
 		[Browsable(false)]
 		public ICollection<Output> Outputs { get; private set; }
 
-		public abstract Frame[] ProcessFrame(Frame[] inputs, int tick);
+		public abstract Frame[] Process(Frame[] inputs, int tick);
 
 		#region IDisposable Members
 

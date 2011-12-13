@@ -8,12 +8,12 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public abstract class OutputNode : Node
 	{
-		public sealed override Frame[] ProcessFrame(Frame[] inputs, int tick)
+		public sealed override Frame[] Process(Frame[] inputs, int tick)
 		{
-			ProcessFrameCore(inputs, frameIndex);
+			ProcessCore(inputs, frameIndex);
 			return new Frame[] { };
 		}
 
-		public abstract void ProcessFrameCore(Frame[] inputs, int tick);
+		public abstract void ProcessCore(Frame[] inputs, int tick);
 	}
 }

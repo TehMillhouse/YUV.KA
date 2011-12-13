@@ -14,9 +14,9 @@ Die Klasse \name{InverterNode} invertiert die Farben des \name{Frame}s.
 \paragraph{Typmember}
 \begin{itemize}
 
-\method{ProcessFrame}
+\method{Process}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
+	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
 	Invertiert die Farbe der einzelnen Pixel des \name{Frame}s. Dafür wird das Komplement von jedem der drei Farbkanäle eines Pixels gebildet.
 
@@ -51,9 +51,9 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 	\end{verbatim}
 	Ruft den Weichzeichnungsradius ab oder legt diesen fest. Dieser Wert ist maßgeblich für das Ausmaß der Weichzeichnung.
 
-\method{ProcessFrame}
+\method{Process}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
+	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
 	Zeichnet den übergebenen \name{Frame} weich. Die genaue Art der Weichzeichnung wird hierbei durch \name{Type} festgelegt. Die standardmäßig unterstützten Arten sind:
 	\begin{description}
@@ -132,11 +132,11 @@ Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den
 	\end{verbatim}
 	Ruft den Farbsättigungswert, zu dem dieses \name{Frame} gesetzt werden soll, ab oder legt ihn fest. Der Wert muss zwischen -1.0 und 1.0 liegen.
 
-\method{ProcessFrame}
+\method{Process}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
+	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
-	Die Methode \name{ProcessFrame} setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSL-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert. Für die RGB - HSL Konvertierung werden die Methoden \name{Color.GetHue}, \name{Color.GetSaturation} und \name{Color.GetBrightness} aus dem .NET Framework benutzt. Für die Rückrichtung wird folgender Algorithmus benutzt:
+	Die Methode \name{Process} setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSL-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert. Für die RGB - HSL Konvertierung werden die Methoden \name{Color.GetHue}, \name{Color.GetSaturation} und \name{Color.GetBrightness} aus dem .NET Framework benutzt. Für die Rückrichtung wird folgender Algorithmus benutzt:
 	\floatname{algorithm}{Algorithmus}
 	\begin{algorithm}[H]
 	\caption{HSL nach RGB Konvertierung}
@@ -190,11 +190,11 @@ Diese Klasse \name{AdditiveMergeNode} legt mehrere Frames additiv übereinander.
 
 \begin{itemize}
 
-\method{ProcessFrame}
+\method{Process}
 \begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
+	public override Frame[] Process(Frame[] inputs, int tick)
 \end{verbatim}
-Die Methode \name{ProcessFrame} legt mehrere Frames additiv übereinander, indem sie die Farbwerte der positionsgleichen Pixel addiert und den so entstandenen Farbwert als das neue Pixel speichert.
+Die Methode \name{Process} legt mehrere Frames additiv übereinander, indem sie die Farbwerte der positionsgleichen Pixel addiert und den so entstandenen Farbwert als das neue Pixel speichert.
 \end{itemize}
 
 \subsubsection{YuvKA.Pipeline.AveragedMergeNode}
@@ -218,9 +218,9 @@ Die Klasse \name{AveragedMergeNode} modelliert das Zusammenführen von Videos du
 	\end{verbatim}
 	Ruft eine Sammlung von Gewichtungen einzelner Videos ab.
 
-\method{ProcessFrame}
+\method{Process}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
+	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
 	Mittelt alle übergebenen \name{Frame}s Pixelweise unter Beachtung der von \name{Weights} definierten Gewichtungen. Falls zwei Videos mit verschiedener Auflösung zusammengeführt werden, so wird das Maximum der Höhe bzw. Breite der beiden Videos als Auflösung des neuen Videos genommen. Fehlende Bildinformationen bei auflösungstechnisch kleineren Videos werden durch Schwarz ergänzt.\\~\\
 	PseudoCode:
@@ -250,11 +250,11 @@ public class DifferenceNode : Node
 Die Klasse \name{DifferenceNode} bildet die Differenz zweier \name{Frame}s.
 
 \begin{itemize}
-\method{ProcessFrame}
+\method{Process}
 	\begin{verbatim}
-		public override Frame[] ProcessFrame(Frame[] inputs, int tick)
+		public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
-Die Methode \name{ProcessFrame} bildet die Differenz zweier \name{Frame}s, indem sie die Farbwerte positionsgleicher Pixel subtrahiert.
+Die Methode \name{Process} bildet die Differenz zweier \name{Frame}s, indem sie die Farbwerte positionsgleicher Pixel subtrahiert.
 
 \end{itemize}
 
@@ -279,9 +279,9 @@ Die Klasse \name{DelayNode} modelliert die Verzögerung von Videostreams innerha
 	\end{verbatim}
 	Ruft die Dauer der Verzögerung in der Einheit \name{Frame}s ab oder legt sie fest.
 
-\method{ProcessFrame}
+\method{Process}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
+	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
 	Stellt den übergebenen \name{Frame} in eine Warteschlange mit der Länge \name{Delay} an, und gibt den ersten \name{Frame} der Warteschlange zurück.
 	
@@ -299,9 +299,9 @@ Die Klasse \name{RgbSplitNode} modelliert die Aufteilung der \name{Frame}s eines
 \paragraph{Typmember}
 \begin{itemize}
 
-\method{ProcessFrame}
+\method{Process}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
+	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
 	Erzeugt aus dem übergebenen \name{Frame} drei neue \name{Frame}s die jeweils nur einen Farbkanal des ursprünglichen \name{Frame}s enthalten und gibt diese zurück.
 	
