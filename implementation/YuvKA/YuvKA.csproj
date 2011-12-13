@@ -92,7 +92,7 @@
     <Compile Include="Pipeline\Implementation\GraphTypes.cs" />
     <Compile Include="Pipeline\Implementation\HistogramNode.cs" />
     <Compile Include="Pipeline\Implementation\HistogramType.cs" />
-    <Compile Include="ViewModel\HistogramViewModel.cs" />
+    <Compile Include="ViewModel\Implementation\HistogramViewModel.cs" />
     <Compile Include="Pipeline\Implementation\IGraphType.cs" />
     <Compile Include="Pipeline\Implementation\ImageInputNode.cs" />
     <Compile Include="Pipeline\Implementation\IOverlayType.cs" />
@@ -102,7 +102,7 @@
     <Compile Include="ViewModel\NodeType.cs" />
     <Compile Include="ViewModel\NodeViewModel.cs" />
     <Compile Include="Pipeline\Implementation\NoiseInputNode.cs" />
-    <Compile Include="ViewModel\Implementation\VideoOutputViewModel.cs" />
+    <Compile Include="ViewModel\VideoOutputViewModel.cs" />
     <Compile Include="ViewModel\OutputWindowViewModel.cs" />
     <Compile Include="Pipeline\Implementation\OverlayNode.cs" />
     <Compile Include="Pipeline\Implementation\OverlayTypes.cs" />

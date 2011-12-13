@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using YuvKA.Pipeline.Implementation;
 
-namespace YuvKA.ViewModel
+namespace YuvKA.ViewModel.Implementation
 {
 	public class HistogramViewModel : OutputWindowViewModel
 	{

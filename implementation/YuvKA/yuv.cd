@@ -352,18 +352,18 @@
       <Property Name="Type" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="YuvKA.ViewModel.HistogramViewModel">
+  <Class Name="YuvKA.ViewModel.Implementation.HistogramViewModel">
     <Position X="58.75" Y="12.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ViewModel\HistogramViewModel.cs</FileName>
+      <FileName>ViewModel\Implementation\HistogramViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="YuvKA.ViewModel.Implementation.VideoOutputViewModel">
+  <Class Name="YuvKA.ViewModel.VideoOutputViewModel">
     <Position X="58.75" Y="15.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ViewModel\Implementation\VideoOutputViewModel.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\VideoOutputViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.OverlayNode">
