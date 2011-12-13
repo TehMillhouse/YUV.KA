@@ -1,7 +1,7 @@
-\subsection{Output View Models}
+\subsection{Ausgabefenster}
 \begin{center}\includegraphics[scale=0.7]{YuvKA.ViewModel/outputs.png} \\
 \end{center}
-%< Beschreibung des Subsystems >
+Die abstrakte Klasse \name{OutputWindowViewModel} und ihre konkreten Implementierungen stellen die Daten für die verschiedenen Ausgabefenster, die aus der Hauptoberfläche heraus geöffnet werden können, bereit.
 
 \subsubsection{YuvKA.ViewModel.OutputWindowViewModel}
 
@@ -10,7 +10,7 @@ public abstract	class OutputWindowViewModel : IHandle<FrameRenderedMessage>
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-%< Beschreibung der Klasse >
+Die \name{OutputWindowViewModel}-Klasse hält das \name{Node}-Objekt, das die anzuzeigenden Daten enthält, und reagiert auf \name{FrameRenderedMessage}s, die vom \name{PipelineState} verschickt werden.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -19,15 +19,13 @@ public abstract	class OutputWindowViewModel : IHandle<FrameRenderedMessage>
 	\begin{verbatim}
 public Node NodeModel { get; }
 	\end{verbatim}
-%	<Membererklärung>
-
+	\name{Node}-Objekt, das die anzuzeigenden Daten enthält	
 
 \method{Handle}
 	\begin{verbatim}
 public virtual void Handle(FrameRenderedMessage message)
 	\end{verbatim}
-%< Methodenerklärung >
-
+	Aktualisiert das Ausgabefenster nach Rendern eines Pipeline-Ticks. Die Standardimplementierung ist leer.
 
 \end{itemize}
 
@@ -38,35 +36,34 @@ public class DiagramViewModel : OutputWindowViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-%< Beschreibung der Klasse >
+Die \name{DiagramViewModel}-Klasse repräsentiert das Ausgabefenster eines \name{DiagramNode}s.
 
 \paragraph{Typmember}
 \begin{itemize}
 
 \property{NodeModel}
 	\begin{verbatim}
-public Node NodeModel { get; }
+public DiagramNode NodeModel { get; }
 	\end{verbatim}
-%	<Membererklärung>
+	\name{OutputWindowViewModel.NodeModel}, spezifiziert auf \name{DiagramNode}
 
 \property{Types}
 	\begin{verbatim}
 public IList<IGraphType> Types { get; }
 	\end{verbatim}
-%	<Membererklärung>
-
+	Ermittelt die dynamisch erweiterbare Menge der \name{IGraphType}-Ableitungen und ruft für jede dieser Subklassen eine Instanz ab.
 
 \method{AddGraph}
 	\begin{verbatim}
 public void AddGraph(Input video)
 	\end{verbatim}
-%< Methodenerklärung >
+	Fügt \name{NodeModel.Graphs} ein neues \name{DiagramGraph}-Objekt mit dem angegebenen Eingabevideo hinzu.
 
 \method{DeleteGraph}
 	\begin{verbatim}
 public void DeleteGraph(DiagramGraph graph)
 	\end{verbatim}
-%< Methodenerklärung >
+	Löscht den angegebenen Graph aus \name{NodeModel.Graphs}.
 
 %%%%% Interne Klasse Input Hier bitte. %%%%%
 
@@ -79,7 +76,7 @@ public class HistogramViewModel : OutputWindowViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-%< Beschreibung der Klasse >
+Die \name{HistogramViewModel}-Klasse repräsentiert das Ausgabefenster eines \name{HistogramNode}s.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -88,7 +85,7 @@ public class HistogramViewModel : OutputWindowViewModel
 	\begin{verbatim}
 public Node NodeModel { get; }
 	\end{verbatim}
-%	<Membererklärung>
+	\name{OutputWindowViewModel.NodeModel}, spezifiziert auf \name{HistogramNode}
 
 \end{itemize}
 
@@ -99,7 +96,7 @@ public class OverlayViewModel : OutputWindowViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-%< Beschreibung der Klasse >
+Die \name{OverlayViewModel}-Klasse repräsentiert das Ausgabefenster eines \name{OverlayNode}s.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -108,7 +105,7 @@ public class OverlayViewModel : OutputWindowViewModel
 	\begin{verbatim}
 public Node NodeModel { get; }
 	\end{verbatim}
-%	<Membererklärung>
+	\name{OutputWindowViewModel.NodeModel}, spezifiziert auf \name{OverlayNode}
 
 \end{itemize}
 
@@ -119,4 +116,14 @@ public class VideoOutputViewModel : OutputWindowViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-%< Beschreibung der Klasse >
+Die \name{VideoOutputViewModel}-Klasse repräsentiert das Ausgabefenster eines einzelnen Knotenausgangs.
+
+\begin{itemize}
+
+\property{Output}
+	\begin{verbatim}
+	public Node.Output Output { get; }
+	\end{verbatim}
+	Ruft den \name{Node.Output} ab, dessen Frameausgabe angezeigt werden soll.
+
+\end{itemize}
