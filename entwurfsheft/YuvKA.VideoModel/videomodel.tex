@@ -1,7 +1,7 @@
 \includegraphics[width=\textwidth]{YuvKA.VideoModel/videomodel.png}
 Das \name{VideoModel} besteht aus denjenigen Klassen, die die unterschiedlichen Framearten bilden, einschließlich ihrer Hilfsklassen. Außerdem gehört die Klasse \name{YuvEncoder} mit der inneren Klasse \name{Video} dazu, die Videos vom YUV-Format ins RGB-Format umwandelt, mit der das Programm intern arbeitet.
 
-\subsubsection{YuvKA.VideoModel.YuvEncoder}
+\subsection{YuvKA.VideoModel.YuvEncoder}
 
 \begin{verbatim}
 public static class YuvEncoder
@@ -29,9 +29,7 @@ Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos, die im YUV-Form
 
 \end{itemize}
 
-\setcounter{secnumdepth}{4}
-\paragraph{YuvKA.VideoModel.YuvEncoder.Video}
-\setcounter{secnumdepth}{3}
+\subsubsection*{YuvKA.VideoModel.YuvEncoder.Video}
 
 \begin{verbatim}
 public class Video : IDisposable
@@ -63,7 +61,7 @@ Die Klasse \name{Video} hält die vom \name{YuvEncoder} umgewandelten Videos als
 
 \end{itemize}
 
-\subsubsection{YuvKA.VideoModel.Frame}
+\subsection{YuvKA.VideoModel.Frame}
 
 \begin{verbatim}
 public class Frame
@@ -89,7 +87,7 @@ Die Klasse \name{Frame} stellt ein Einzelbild eines Videostreams im RGB-Format d
 
 \end{itemize}
 
-\subsubsection{YuvKA.VideoModel.AnnotatedFrame}
+\subsection{YuvKA.VideoModel.AnnotatedFrame}
 
 \begin{verbatim}
 public class AnnotatedFrame : Frame
@@ -109,7 +107,7 @@ Die Klasse \name{AnnotatedFrame} erweitert die Klasse \name{Frame} um die Funkti
 
 \end{itemize}
 
-\subsubsection{YuvKA.VideoModel.MacroblockDecision}
+\subsection{YuvKA.VideoModel.MacroblockDecision}
 
 \begin{verbatim}
 public class MacroblockDecision
@@ -135,7 +133,7 @@ Die Klasse \name{MacroblockDecision} stellt die Entscheidung dar, die der Encode
 
 \end{itemize}
 
-\subsubsection{YuvKA.VideoModel.MacroblockPartitioning}
+\subsection{YuvKA.VideoModel.MacroblockPartitioning}
 
 \begin{verbatim}
 public enum MacroblockPartitioning
