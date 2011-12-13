@@ -5,13 +5,16 @@ using System.Text;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	[DataContract]
 	[Description("Changes brightness, contrast, and/or saturation of the input")]
 	public class BrightnessContrastSaturationNode : Node
 	{
+		[DataMember]
 		[Range(-1.0, 1.0)]
 		public double Brightness
 		{
@@ -24,6 +27,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
+		[DataMember]
 		[Range(-1.0, 1.0)]
 		public double Contrast
 		{
@@ -36,6 +40,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
+		[DataMember]
 		[Range(-1.0, 1.0)]
 		public double Saturation
 		{

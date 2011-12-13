@@ -99,6 +99,7 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 \subsubsection{YuvKA.Pipeline.BrightnessContrastSaturationNode}
 
 \begin{verbatim}
+[DataContract]
 public class BrightnessContrastSaturationNode : Node
 \end{verbatim}
 
@@ -109,6 +110,7 @@ Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den
 
 \property{Brightness}
 	\begin{verbatim}
+	[DataMember]
 	[Range(-1.0, 1.0)]
 	public double Brightness
 	\end{verbatim}
@@ -116,6 +118,7 @@ Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den
 	
 \property{Contrast}
 	\begin{verbatim}
+	[DataMember]
 	[Range(-1.0, 1.0)]
 	public double Contrast
 	\end{verbatim}
@@ -123,6 +126,7 @@ Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den
 	
 \property{Saturation}
 	\begin{verbatim}
+	[DataMember]
 	[Range(-1.0, 1.0)]
 	public double Saturation
 	\end{verbatim}

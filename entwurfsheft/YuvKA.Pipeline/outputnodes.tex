@@ -13,18 +13,64 @@ public abstract class OutputNode : Node
 Die abstrakte Klasse \name{OutputNode} modelliert die Ausgabemöglichkeiten der Pipeline und bietet eine gemeinsame Basis für deren konkrete Implementationen.
 
 \subsubsection{YuvKA.Pipeline.DiagramNode}
+\begin{verbatim}
+[DataContract]
+public class DiagramNode : OutputNode
+\end{verbatim}
+\paragraph{Beschreibung}~\\
+Die Klasse \name{DiagramNode} berechnet die Daten, die vom \name{ViewModel} gebraucht werden, um Analysegrafiken zu erstellen. Diese Daten beziehen sich auf die Differenzen der Pixelfarben zweier Frames, das Intra-Block-Verhältniss pro \name{Frame} und dem Peak signal-to-noise ratio.
+
+\paragraph{Typmember}
+\begin{itemize}
+
+\property{IsEnabled}
+	\begin{verbatim}
+		[DataMember]
+		[DisplayName("Enabled")]
+		public bool IsEnabled { get; set; }
+	\end{verbatim}
+	Setzt fest, ob der Knoten aktiv sein soll, d.h. ob er die \name{Frame}s analysiert, oder nicht.
+	
+\property{ReferenceVideo}
+	\begin{verbatim}
+		[DataMember]
+			[Browsable(false)]
+			public int? ReferenceVideo
+	\end{verbatim}
+	Ruft den Index des Referenzframes im Array, das vom \name{ViewModel} übergeben wurde, ab oder legt ihn fest.
+
+\property{Graphs}
+	\begin{verbatim}
+		[DataMember]
+		[Browsable(false)]
+		public List<DiagramGraph> Graphs
+	\end{verbatim}
+	Stellt eine Liste der Diagrammtypen, für die Analysedaten bereitgestellt werden sollen, zur Verfügung. Ein Diagrammtyp wird von den folgenden drei Eigenschaften charakterisiert:
+	\paragraph{Analysedaten}~\\ Diese sind die eigentlichen Daten, die dann vom \name{View} angezeigt werden. Sie sind mit Hilfe eines Arrays von Gleitkommazahlen dargestellt.
+	\paragraph{Video}~\\ Der Index des Videos, dessen \name{Frame} gerade analysiert werden soll.
+	\paragraph{Art der Analyse}~\\ Es werden drei Arten von Bildanalysen unterstützt: 
+		\begin{itemize}
+			\item \name{PixelDiff} Hierbei werden die Farbdifferenzen zwischen dem ausgewählten Frame und dem Referenzframe pixelweise berechnet.
+			\item \name{IntraBlockFrequency}
+			\item \name{PeakSignalNoiseRatio} 
+		\end{itemize}
+\end{itemize}
+
 
 \subsubsection{YuvKA.Pipeline.HistogramNode}
 
 \begin{verbatim}
+[DataContract]
 public class HistogramNode : OutputNode
 \end{verbatim}
+\paragraph{Beschreibung}~\\
 Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \name{HistogramViewModel} verwendet werden, um die Histogrammgrafiken darzustellen. Es werden für jeden der drei Farbkanäle sowie für für den Farbwert V im HSV-Raum jeweils ein Histogramm unterstützt.
 
 \paragraph{Typmember}
 \begin{itemize}
 \property{Type}
 	\begin{verbatim}
+		[DataMember]
 		[Browsable(false)]
 		public HistogramType Type
 	\end{verbatim}
@@ -32,6 +78,7 @@ Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \na
 	
 \property{Data}
 	\begin{verbatim}
+		[DataMember]
 		[Browsable(false)]
 		public double[] Data { get; }
 	\end{verbatim}

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	[DataContract]
 	public class DiagramGraph
 	{
+		[DataMember]
 		public int Video
 		{
 			get
@@ -18,6 +21,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
+		[DataMember]
 		public IGraphType Type
 		{
 			get
@@ -29,6 +33,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
+		[DataMember]
         public IList<double> Data
         {
             get
