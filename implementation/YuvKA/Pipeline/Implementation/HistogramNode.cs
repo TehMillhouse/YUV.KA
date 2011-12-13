@@ -16,9 +16,6 @@ namespace YuvKA.Pipeline.Implementation
 			{
 				throw new System.NotImplementedException();
 			}
-			set
-			{
-			}
 		}
 
 		[Browsable(false)]
