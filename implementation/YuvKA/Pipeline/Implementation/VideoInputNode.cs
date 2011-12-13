@@ -25,7 +25,7 @@ namespace YuvKA.Pipeline.Implementation
 		[Browsable(false)]
 		public override int TickCount { get { return input.FrameCount; } }
 
-		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+		public override Frame OutputFrame(int tick)
 		{
 			throw new NotImplementedException();
 		}

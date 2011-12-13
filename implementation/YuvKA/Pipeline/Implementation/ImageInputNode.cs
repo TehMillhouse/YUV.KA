@@ -17,7 +17,7 @@ namespace YuvKA.Pipeline.Implementation
 		[DataMember]
 		public FilePath FileName { get; set; }
 
-		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+		public override Frame OutputFrame(int tick)
 		{
 			throw new NotImplementedException();
 		}

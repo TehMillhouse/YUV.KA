@@ -36,14 +36,9 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
-		#region INode Members
-
-
-		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+		public override void ProcessFrameCore(Frame[] inputs, int frameIndex)
 		{
 			throw new NotImplementedException();
 		}
-
-		#endregion
 	}
 }

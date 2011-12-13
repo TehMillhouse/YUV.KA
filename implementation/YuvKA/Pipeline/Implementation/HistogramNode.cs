@@ -24,7 +24,7 @@ namespace YuvKA.Pipeline.Implementation
 		[Browsable(false)]
 		public double[] Data { get; private set; }
 
-		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+		public override void ProcessFrameCore(Frame[] inputs, int frameIndex)
 		{
 			throw new NotImplementedException();
 		}
