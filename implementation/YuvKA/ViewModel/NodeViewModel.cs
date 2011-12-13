@@ -10,10 +10,13 @@ namespace YuvKA.ViewModel
 	{
 		public NodeType NodeType { get { throw new NotImplementedException(); } }
 		public Node NodeModel { get { throw new NotImplementedException(); } }
-		public double X { get; set; }
-		public double Y { get; set; }
 
 		public void SaveNodeOutput(Node.Output output)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void ShowNodeOutput(Node.Output output)
 		{
 			throw new System.NotImplementedException();
 		}

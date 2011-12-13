@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Shapes;
+using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
 	public class EdgeViewModel
 	{
-        public Point Start { get; set; }
-        public Point End { get; set; }
-        public Path Path { get; private set; }
+		public Node.Output Start { get; set; }
+		public Node.Input End { get; set; }
+		public Path Path { get { throw new NotImplementedException(); } }
 	}
 }
