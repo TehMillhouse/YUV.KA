@@ -9,6 +9,7 @@ namespace YuvKA.ViewModel
 	public class ReplayStateViewModel
 	{
 		public bool IsPlaying { get { throw new NotImplementedException(); } }
+		public MainViewModel Parent { get { throw new NotImplementedException(); } }
 	
 		public void Slower()
 		{
@@ -17,7 +18,7 @@ namespace YuvKA.ViewModel
 
 		public void PlayPause()
 		{
-			throw new System.NotImplementedException();
+			Parent.Model.Start(Parent.OpenWindows.Select(w => w.NodeModel));
 		}
 
 		public void Stop()

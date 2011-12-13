@@ -102,7 +102,7 @@
   <Class Name="YuvKA.Pipeline.PipelineState">
     <Position X="28.5" Y="3.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAAAAAAAJAgAAAAgAIAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAJAgAAAQgAIAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\PipelineState.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -112,7 +112,7 @@
   <Class Name="YuvKA.Pipeline.PipelineDriver">
     <Position X="23" Y="2" Width="8.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAACAAAAAAEAAAA=</HashCode>
       <FileName>Pipeline\PipelineDriver.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -194,8 +194,8 @@
     </AssociationLine>
     <AssociationLine Name="ReplayStateViewModel" Type="YuvKA.ViewModel.ReplayStateViewModel" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="54.25" Y="4.312" />
-        <Point X="53.125" Y="4.312" />
+        <Point X="54.25" Y="4.494" />
+        <Point X="53.125" Y="4.494" />
         <Point X="53.125" Y="6" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -204,8 +204,8 @@
     </AssociationLine>
     <AssociationLine Name="PipelineViewModel" Type="YuvKA.ViewModel.PipelineViewModel" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="58.25" Y="4.061" />
-        <Point X="60.812" Y="4.061" />
+        <Point X="58.25" Y="4.225" />
+        <Point X="60.812" Y="4.225" />
         <Point X="60.812" Y="6" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
@@ -223,7 +223,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAIQIBAAAZAAAEAAAAAADAAAgAAAAAAgAAAFAAAQ=</HashCode>
+      <HashCode>IAAAAIQIBAAAZAAAEAAAAAADAAAgAAAAAAgAAAFAAAQ=</HashCode>
       <FileName>ViewModel\MainViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -239,7 +239,7 @@
   <Class Name="YuvKA.ViewModel.ReplayStateViewModel">
     <Position X="52" Y="6" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAMAAgAAAAAAA=</HashCode>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAQAAAAAQAAAAAMAAgAAAAAAA=</HashCode>
       <FileName>ViewModel\ReplayStateViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -278,7 +278,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAggAAAAAAQAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\PipelineViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -299,7 +299,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAECAAAAAAAAAAAAAAAEA=</HashCode>
+      <HashCode>AAAAACAAAAAAAAAAAAAAQAAAECAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>ViewModel\NodeViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -319,27 +319,6 @@
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Class Name="YuvKA.ViewModel.Implementation.DiagramViewModel.Input">
-        <TypeIdentifier>
-          <NewMemberFileName>ViewModel\Implementation\DiagramViewModel.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
-    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Implementation.DiagramNode" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="55" Y="12.917" />
-        <Point X="49.708" Y="12.917" Type="JumpStart" />
-        <Point X="49.542" Y="12.917" Type="JumpEnd" />
-        <Point X="45.333" Y="12.917" Type="JumpStart" />
-        <Point X="45.167" Y="12.917" Type="JumpEnd" />
-        <Point X="43.375" Y="12.917" />
-        <Point X="43.375" Y="12.627" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-1.092" Y="0.079" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AgAABIAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\Implementation\DiagramViewModel.cs</FileName>
@@ -593,7 +572,7 @@
   <Class Name="YuvKA.Pipeline.Implementation.OutputNode">
     <Position X="44.75" Y="8.5" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\Implementation\OutputNode.cs</FileName>
     </TypeIdentifier>
   </Class>

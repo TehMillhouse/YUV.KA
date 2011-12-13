@@ -10,9 +10,16 @@ namespace YuvKA.Pipeline
 {
 	public static class PipelineDriver
 	{
-		public static IObservable<IDictionary<Node.Output, Frame>> RenderFrames(IEnumerable<Node> startNodes, int tick, CancellationToken token)
+		static Node videoInputNode = new YuvKA.Pipeline.Implementation.VideoInputNode();
+		static Node blurNode = new YuvKA.Pipeline.Implementation.BlurNode();
+
+		public static IObservable<IDictionary<Node.Output, Frame>> RenderTicks(IEnumerable<Node> startNodes, int tick, CancellationToken token)
 		{
-			throw new NotImplementedException();
+			Task.Factory.StartNew(() => {
+				Frame[] frames = videoInputNode.Process(new Frame[0], tick);
+				frames = blurNode.Process(frames, tick);
+				return new Dictionary<Node.Output, Frame> { { blurNode.Outputs[0], frames[0] } };
+			});
 		}
 
 		//public static Task RenderFrame(IEnumerable<Node> startNodes, int tick)

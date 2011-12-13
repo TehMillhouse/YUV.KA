@@ -10,6 +10,7 @@ namespace YuvKA.ViewModel
 	{
 		public NodeType NodeType { get { throw new NotImplementedException(); } }
 		public Node NodeModel { get { throw new NotImplementedException(); } }
+		public MainViewModel Parent { get { throw new NotImplementedException(); } }
 
 		public void SaveNodeOutput(Node.Output output)
 		{
@@ -18,7 +19,7 @@ namespace YuvKA.ViewModel
 
 		public void ShowNodeOutput(Node.Output output)
 		{
-			throw new System.NotImplementedException();
+			Parent.OpenWindow(new VideoOutputViewModel { Output = output });
 		}
 	}
 }

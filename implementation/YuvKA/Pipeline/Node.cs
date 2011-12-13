@@ -34,10 +34,10 @@ namespace YuvKA.Pipeline
 		public double Y { get; set; }
 
 		[Browsable(false)]
-		public ICollection<Input> Inputs { get; private set; }
+		public IList<Input> Inputs { get; private set; }
 
 		[Browsable(false)]
-		public ICollection<Output> Outputs { get; private set; }
+		public IList<Output> Outputs { get; private set; }
 
 		public abstract Frame[] Process(Frame[] inputs, int tick);
 

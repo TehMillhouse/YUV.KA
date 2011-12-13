@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using YuvKA.Pipeline.Implementation;
+using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel.Implementation
 {
@@ -32,15 +33,9 @@ namespace YuvKA.ViewModel.Implementation
 			throw new System.NotImplementedException();
 		}
 
-		public void AddGraph(Input video)
+		public void AddGraph(Node.Input video)
 		{
 			throw new System.NotImplementedException();
-		}
-
-		public class Input
-		{
-			public int Index { get; set; }
-			public string Name { get { return "Video " + (Index + 1); } }
 		}
 	}
 }

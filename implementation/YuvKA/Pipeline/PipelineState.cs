@@ -53,14 +53,19 @@ namespace YuvKA.Pipeline
 		[Import(typeof(IEventAggregator))]
 		public IEventAggregator Events { get; set; }
 
-		public void Start()
+		public void Start(IEnumerable<Node> startNodes)
 		{
-			throw new System.NotImplementedException();
+			PipelineDriver.RenderTicks(startNodes, CurrentTick, null);
 		}
 
 		public void Stop()
 		{
 			throw new System.NotImplementedException();
+		}
+
+		public void RenderTick(IEnumerable<Node> startNodes)
+		{
+			PipelineDriver.RenderTicks(startNodes, CurrentTick, null);
 		}
 	}
 }

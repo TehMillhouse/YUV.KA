@@ -139,12 +139,24 @@
     <AppDesigner Include="Properties\" />
     <None Include="NamespaceDependencies.dgml" />
     <None Include="packages.config" />
+    <None Include="TestCases\NodeViewModel_ShowNodeOutput.sequencediagram" />
+    <None Include="TestCases\PipelineViewModel_Drop.sequencediagram" />
+    <None Include="TestCases\ReplayStateViewModel_PlayPause.sequencediagram" />
     <None Include="TestCases\T30.sequencediagram" />
     <None Include="yuv.cd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="TestCases\NodeViewModel_ShowNodeOutput.sequencediagram.layout">
+      <DependentUpon>NodeViewModel_ShowNodeOutput.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestCases\PipelineViewModel_Drop.sequencediagram.layout">
+      <DependentUpon>PipelineViewModel_Drop.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestCases\ReplayStateViewModel_PlayPause.sequencediagram.layout">
+      <DependentUpon>ReplayStateViewModel_PlayPause.sequencediagram</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestCases\T30.sequencediagram.layout">
       <DependentUpon>T30.sequencediagram</DependentUpon>
     </EmbeddedResource>

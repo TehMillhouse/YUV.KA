@@ -65,5 +65,11 @@ namespace YuvKA.ViewModel
 		{
 			throw new System.NotImplementedException();
 		}
+
+		public void OpenWindow(OutputWindowViewModel window)
+		{
+			OpenWindows.Add(window);
+			Model.RenderTick(new[] { blurNode });
+		}
 	}
 }
