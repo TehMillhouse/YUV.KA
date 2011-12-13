@@ -12,9 +12,9 @@ Die Klasse soll möglichst parallel implementiert werden, sodass mehrere aufeina
 \paragraph{Typmember}
 \begin{itemize}
 
-\property{RenderFrames}
+\property{RenderTicks}
 	\begin{verbatim}
-public static IObservable<IDictionary<Node.Output, Frame>> RenderFrames(
+public static IObservable<IDictionary<Node.Output, Frame>> RenderTicks(
     IEnumerable<Node> startNodes, int tick, CancellationToken token)
     \end{verbatim}
 	Berechnet die Pipeline ab dem angegebenen Tick und liefert eine asynchrone Aufzählung zurück, die pro Tick ein Dictionary enthält, das jedem Ausgang der gegebenen Knoten \name{startNodes} den jeweils berechneten Frame zuordnet.
