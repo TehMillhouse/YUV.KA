@@ -8,18 +8,6 @@ namespace YuvKA.ViewModel
 {
 	public class ReplayStateViewModel
 	{
-		public int FrameIndex
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-			set
-			{
-			}
-		}
-
-		public int TickCount { get { throw new NotImplementedException(); } }
 		public bool IsPlaying { get { throw new NotImplementedException(); } }
 	
 		public void Slower()
