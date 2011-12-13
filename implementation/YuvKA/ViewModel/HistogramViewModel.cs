@@ -6,17 +6,14 @@ using YuvKA.Pipeline.Implementation;
 
 namespace YuvKA.ViewModel
 {
-    public class HistogramViewModel : OutputWindowViewModel
-    {
-        public new HistogramNode NodeModel
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
-    }
+	public class HistogramViewModel : OutputWindowViewModel
+	{
+		public new HistogramNode NodeModel
+		{
+			get
+			{
+				throw new System.NotImplementedException();
+			}
+		}
+	}
 }

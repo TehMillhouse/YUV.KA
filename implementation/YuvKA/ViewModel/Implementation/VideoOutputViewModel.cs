@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YuvKA.ViewModel.Implementation
 {
-    public class VideoOutputViewModel : OutputWindowViewModel
+	public class VideoOutputViewModel : OutputWindowViewModel
 	{
-    }
+	}
 }

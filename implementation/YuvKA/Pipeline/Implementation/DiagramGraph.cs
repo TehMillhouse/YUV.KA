@@ -34,15 +34,15 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DataMember]
-        public IList<double> Data
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
+		public IList<double> Data
+		{
+			get
+			{
+				throw new System.NotImplementedException();
+			}
+			set
+			{
+			}
+		}
 	}
 }

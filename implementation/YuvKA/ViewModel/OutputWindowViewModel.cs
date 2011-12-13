@@ -7,12 +7,12 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
-	public abstract	class OutputWindowViewModel : IHandle<FrameRenderedMessage>
+	public abstract class OutputWindowViewModel : IHandle<FrameRenderedMessage>
 	{
-		public Node NodeModel { get; private set; }
+		public Node NodeModel { get; }
 
-        public virtual void Handle(FrameRenderedMessage message)
-        {
-        }
-    }
+		public virtual void Handle(FrameRenderedMessage message)
+		{
+		}
+	}
 }

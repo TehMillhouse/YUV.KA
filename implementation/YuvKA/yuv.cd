@@ -332,30 +332,10 @@
         </TypeIdentifier>
       </Class>
     </NestedTypes>
-    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Implementation.DiagramNode" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="55" Y="12.917" />
-        <Point X="49.708" Y="12.917" Type="JumpStart" />
-        <Point X="49.542" Y="12.917" Type="JumpEnd" />
-        <Point X="45.333" Y="12.917" Type="JumpStart" />
-        <Point X="45.167" Y="12.917" Type="JumpEnd" />
-        <Point X="43.375" Y="12.917" />
-        <Point X="43.375" Y="12.627" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-1.092" Y="0.079" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AgAABIAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAQAAAAAA=</HashCode>
+      <HashCode>AgAABIAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\Implementation\DiagramViewModel.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="NodeModel" />
-    </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="Types" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.HistogramNode">
     <Position X="43.75" Y="10.75" Width="3.75" />
@@ -374,29 +354,10 @@
   </Class>
   <Class Name="YuvKA.ViewModel.HistogramViewModel">
     <Position X="58.75" Y="12.5" Width="3" />
-    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Implementation.HistogramNode" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="59.25" Y="12.5" />
-        <Point X="59.25" Y="12.312" />
-        <Point X="58.783" Y="12.312" Type="JumpStart" />
-        <Point X="58.617" Y="12.312" Type="JumpEnd" />
-        <Point X="56.833" Y="12.312" Type="JumpStart" />
-        <Point X="56.667" Y="12.312" Type="JumpEnd" />
-        <Point X="49.708" Y="12.312" Type="JumpStart" />
-        <Point X="49.542" Y="12.312" Type="JumpEnd" />
-        <Point X="47.5" Y="12.312" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.185" Y="-0.297" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\HistogramViewModel.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="NodeModel" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="YuvKA.ViewModel.Implementation.VideoOutputViewModel">
     <Position X="58.75" Y="15.5" Width="2" />
@@ -446,23 +407,10 @@
   </Class>
   <Class Name="YuvKA.ViewModel.Implementation.OverlayViewModel">
     <Position X="58.75" Y="14" Width="2.75" />
-    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Implementation.OverlayNode" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="61.5" Y="14.438" />
-        <Point X="62.009" Y="14.438" />
-        <Point X="62.009" Y="11.875" />
-        <Point X="59.333" Y="11.875" Type="JumpStart" />
-        <Point X="59.167" Y="11.875" Type="JumpEnd" />
-        <Point X="51.5" Y="11.875" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\Implementation\OverlayViewModel.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="NodeModel" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.VideoInputNode">
     <Position X="18.5" Y="12.75" Width="3.75" />
@@ -490,26 +438,10 @@
   </Class>
   <Class Name="YuvKA.ViewModel.OutputWindowViewModel">
     <Position X="57.5" Y="10.5" Width="3.5" />
-    <AssociationLine Name="NodeModel" Type="YuvKA.Pipeline.Node" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="57.5" Y="11" />
-        <Point X="54.99" Y="11" />
-        <Point X="54.99" Y="9.07" />
-        <Point X="49.833" Y="9.07" />
-        <Point X="49.833" Y="6.188" />
-        <Point X="22" Y="6.188" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.194" Y="0.048" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAIAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\OutputWindowViewModel.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="NodeModel" />
-    </ShowAsAssociation>
     <Lollipop Position="0.583" />
   </Class>
   <Class Name="YuvKA.Pipeline.Implementation.IntraBlockFrequency" Collapsed="true">
