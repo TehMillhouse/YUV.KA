@@ -34,16 +34,16 @@ Die Klasse \name{DiagramNode} berechnet die Daten, die vom \name{ViewModel} gebr
 \property{ReferenceVideo}
 	\begin{verbatim}
 		[DataMember]
-			[Browsable(false)]
-			public Input ReferenceVideo
+		[Browsable(false)]
+		public Input ReferenceVideo { get; set; }
 	\end{verbatim}
-	Ruft den Index des Referenzframes im Array, das vom \name{ViewModel} übergeben wurde, ab oder legt ihn fest.
+	Ruft den Eingang des Referenzvideos, das vom \name{ViewModel} übergeben wurde, ab oder legt ihn fest.
 
 \property{Graphs}
 	\begin{verbatim}
 		[DataMember]
 		[Browsable(false)]
-		public List<DiagramGraph> Graphs
+		public List<DiagramGraph> Graphs { get; set; }
 	\end{verbatim}
 	Stellt eine Liste der Diagrammtypen, für die Analysedaten bereitgestellt werden sollen, zur Verfügung. Ein Diagrammtyp wird durch die folgenden drei Eigenschaften charakterisiert:
 	\paragraph{Analysedaten}~\\ Diese sind die eigentlichen Daten, die dann vom \name{View} angezeigt werden. Sie sind mit Hilfe eines Arrays von Gleitkommazahlen dargestellt.
