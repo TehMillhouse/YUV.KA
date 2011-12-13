@@ -39,7 +39,7 @@ namespace YuvKA.Pipeline
 		[Browsable(false)]
 		public ICollection<Output> Outputs { get; private set; }
 
-		public abstract Frame[] ProcessFrame(Frame[] inputs, int frameIndex);
+		public abstract Frame[] ProcessFrame(Frame[] inputs, int tick);
 
 		#region IDisposable Members
 

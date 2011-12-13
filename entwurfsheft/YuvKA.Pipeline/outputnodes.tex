@@ -39,7 +39,7 @@ Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \na
 
 \method{ProcessFrame}
 	\begin{verbatim}
-		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+		public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 	Die Methode \name{ProcessFrame} berechnet für den angegebenen Histogramm\name{typ} die Häufigkeit der Farbwerte von 0 bis 255 und speichert diese an der entsprechenden Stelle im Array \name{Data}, wie im folgenden Algorithmus zu sehen ist:
 	\floatname{algorithm}{Algorithmus}
@@ -83,7 +83,7 @@ Die Klasse \name{OverlayNode} modelliert das überlagern von Videos mit graphisc
 
 \method{ProcessFrame}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 	Überlagert den übergebenen \name{Frame} mit den durch \name{Type} spezifizierten Daten und gibt den Überlagerten \name{Frame} zurück. Bei den standardmäßig unterstützen Möglichkeiten handelt es sich um:
 	\begin{description}

@@ -57,7 +57,7 @@ public FilePath FileName { get; set; }
 
 \method{ProcessFrame}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert ein Array der Größe 1, das einen \name{Frame} mit den Bilddaten der Datei (aus dem Pfad \name{FileName}) enthält.
 
@@ -85,7 +85,7 @@ Die Klasse \name{ColorInputNode} liefert die Funktionalität, einen Videostream 
 
 \method{ProcessFrame}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert ein Array der Größe 1, das einen \name{Frame} enthält welcher vollends mit der vom Benutzer gewählten Farbe ausgefüllt ist.
 
@@ -119,7 +119,7 @@ Die Klasse \name{NoiseInputNode} stellt einen Knoten bereit, welcher eine von zw
 
 \method{ProcessFrame}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 	Ignoriert den Wert der Eingabeparameter und liefert als Rückgabewert ein Array der Größe 1, das den generierten \name{Frame} enthält. Das benutzte Generierungsverfahren hängt vom Wert von \name{Type} ab.
 

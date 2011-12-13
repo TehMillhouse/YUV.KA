@@ -16,7 +16,7 @@ Die Klasse \name{InverterNode} invertiert die Farben des \name{Frame}s.
 
 \method{ProcessFrame}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 	Invertiert die Farbe der einzelnen Pixel des \name{Frame}s. Dafür wird das Komplement von jedem der drei Farbkanäle eines Pixels gebildet.
 
@@ -53,7 +53,7 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 
 \method{ProcessFrame}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 	Zeichnet den übergebenen \name{Frame} weich. Die genaue Art der Weichzeichnung wird hierbei durch \name{Type} festgelegt. Die standardmäßig unterstützten Arten sind:
 	\begin{description}
@@ -130,7 +130,7 @@ Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den
 
 \method{ProcessFrame}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 	Die Methode \name{ProcessFrame} setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSV-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert, wie in folgenden beiden Algorithmen zu sehen ist:
 	\floatname{algorithm}{Algorithmus}
@@ -218,7 +218,7 @@ Diese Klasse \name{AdditiveMergeNode} legt mehrere Frames additiv übereinander.
 
 \method{ProcessFrame}
 \begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 \end{verbatim}
 Die Methode \name{ProcessFrame} legt mehrere Frames additiv übereinander, indem sie die Farbwerte der positionsgleichen Pixel addiert und den so entstandenen Farbwert als das neue Pixel speichert.
 \end{itemize}
@@ -246,7 +246,7 @@ Die Klasse \name{AveragedMergeNode} modelliert das Zusammenführen von Videos du
 
 \method{ProcessFrame}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 	Mittelt alle übergebenen \name{Frame}s Pixelweise unter Beachtung der von \name{Weights} definierten Gewichtungen. Falls zwei Videos mit verschiedener Auflösung zusammengeführt werden, so wird das Maximum der Höhe bzw. Breite der beiden Videos als Auflösung des neuen Videos genommen. Fehlende Bildinformationen bei auflösungstechnisch kleineren Videos werden durch Schwarz ergänzt.\\~\\
 	PseudoCode:
@@ -278,7 +278,7 @@ Die Klasse \name{DifferenceNode} bildet die Differenz zweier \name{Frame}s.
 \begin{itemize}
 \method{ProcessFrame}
 	\begin{verbatim}
-		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+		public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 Die Methode \name{ProcessFrame} bildet die Differenz zweier \name{Frame}s, indem sie die Farbwerte positionsgleicher Pixel subtrahiert.
 
@@ -307,7 +307,7 @@ Die Klasse \name{DelayNode} modelliert die Verzögerung von Videostreams innerha
 
 \method{ProcessFrame}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 	Stellt den übergebenen \name{Frame} in eine Warteschlange mit der Länge \name{Delay} an, und gibt den ersten \name{Frame} der Warteschlange zurück.
 	
@@ -327,7 +327,7 @@ Die Klasse \name{RgbSplitNode} modelliert die Aufteilung der \name{Frame}s eines
 
 \method{ProcessFrame}
 	\begin{verbatim}
-	public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
 	Erzeugt aus dem übergebenen \name{Frame} drei neue \name{Frame}s die jeweils nur einen Farbkanal des ursprünglichen \name{Frame}s enthalten und gibt diese zurück.
 	

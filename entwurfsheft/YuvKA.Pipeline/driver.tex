@@ -15,7 +15,7 @@ Die Klasse soll möglichst parallel implementiert werden, sodass mehrere aufeina
 \property{RenderFrames}
 	\begin{verbatim}
 public static IObservable<IDictionary<Node.Output, Frame>> RenderFrames(
-    IEnumerable<Node> startNodes, int frameIndex, CancellationToken token)
+    IEnumerable<Node> startNodes, int tick, CancellationToken token)
     \end{verbatim}
 	Berechnet die Pipeline ab dem angegebenen Frame-Index und liefert eine asynchrone Aufzählung zurück, die pro Frame-Index ein Dictionary enthält, das jedem Ausgang der gegebenen Knoten \name{startNodes} den jeweils berechneten Frame zuordnet.
 

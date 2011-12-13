@@ -10,19 +10,19 @@ namespace YuvKA.Pipeline
 {
 	public static class PipelineDriver
 	{
-		public static IObservable<IDictionary<Node.Output, Frame>> RenderFrames(IEnumerable<Node> startNodes, int frameIndex, CancellationToken token)
+		public static IObservable<IDictionary<Node.Output, Frame>> RenderFrames(IEnumerable<Node> startNodes, int tick, CancellationToken token)
 		{
 			throw new NotImplementedException();
 		}
 
-		//public static Task RenderFrame(IEnumerable<Node> startNodes, int frameIndex)
+		//public static Task RenderFrame(IEnumerable<Node> startNodes, int tick)
 		//{
 		//    var tasks = new Dictionary<Node, Task>();
 		//    IEnumerable<Task> startTasks = startNodes.Select(start => Visit(start, tasks, frameIndex));
 		//    return Task.Factory.ContinueWhenAll(startTasks.ToArray(), _ => { });
 		//}
 
-		//private static Task Visit(Node node, Dictionary<Node, Task> tasks, int frameIndex)
+		//private static Task Visit(Node node, Dictionary<Node, Task> tasks, int tick)
 		//{
 		//    Task result;
 		//    if (!tasks.TryGetValue(node, out result)) {

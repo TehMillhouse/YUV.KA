@@ -17,11 +17,11 @@ namespace YuvKA.Pipeline.Implementation
 		[Browsable(false)]
 		public virtual int TickCount { get { return 1; } }
 
-		public sealed override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+		public sealed override Frame[] ProcessFrame(Frame[] inputs, int tick)
 		{
 			return new[] { OutputFrame(frameIndex) };
 		}
 
-		public abstract Frame OutputFrame(int frameIndex);
+		public abstract Frame OutputFrame(int tick);
 	}
 }

@@ -13,7 +13,7 @@ namespace YuvKA.Pipeline.Implementation
         [DataMember]
 		public IOverlayType Type { get; set; }
 
-		public override void ProcessFrameCore(Frame[] inputs, int frameIndex)
+		public override void ProcessFrameCore(Frame[] inputs, int tick)
 		{
 			throw new NotImplementedException();
 		}

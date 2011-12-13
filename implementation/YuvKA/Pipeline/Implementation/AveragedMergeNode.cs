@@ -20,7 +20,7 @@ namespace YuvKA.Pipeline.Implementation
 		[Description("Weights of inputs relative to each other")]
 		public ObservableCollection<double> Weights { get { throw new NotImplementedException(); } }
 
-		public override Frame[] ProcessFrame(Frame[] inputs, int frameIndex)
+		public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 		{
 			throw new NotImplementedException();
 		}
