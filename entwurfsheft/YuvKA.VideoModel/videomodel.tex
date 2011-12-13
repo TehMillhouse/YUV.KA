@@ -18,7 +18,7 @@ Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos, die im YUV-Form
 	public static Video Decode(string fileName, string logFileName,
     int width, int height)
 	\end{verbatim}
-	Wandelt das im \name{fileName} angegebene YUV-Video ins RGB-Format um, das interne Format des Programms. Falls der Parameter \name{logFileName} nicht \name{null} ist, werden die \name{Frame}s mit entsprechendem Log als \name{AnnotatedFrame}s ausgegeben.
+	Wandelt das im \name{fileName} angegebene YUV-Video zu \name{Frame}s im RGB-Format mit der angegebenen Auflösung um, das interne Format des Programms. Falls der Parameter \name{logFileName} nicht \name{null} ist, werden die \name{Frame}s mit entsprechendem Log als \name{AnnotatedFrame}s ausgegeben.
 
 \method{Encode}
 	\begin{verbatim}
@@ -96,7 +96,7 @@ public class AnnotatedFrame : Frame
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{AnnotedFrame} erweitert die Klasse \name{Frame} um die Funktion, Logfiles des Encoders zu halten.
+Die Klasse \name{AnnotatedFrame} erweitert die Klasse \name{Frame} um die Funktion, Logdaten des Encoders zu halten.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -131,7 +131,7 @@ Die Klasse \name{MacroblockDecision} stellt die Entscheidung dar, die der Encode
 	\begin{verbatim}
 	public MacroblockPartitioning PartitioningDecision { get; }
 	\end{verbatim}
-	Ruft die Entscheidung darüber, welche \name{MacroblockPartitioning} bei der Kodierung verwendet wurde ab.
+	Ruft die Entscheidung darüber, welche \name{MacroblockPartitioning} bei der Kodierung verwendet wurde, ab.
 
 \end{itemize}
 

@@ -58,7 +58,7 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 	Zeichnet den übergebenen \name{Frame} weich. Die genaue Art der Weichzeichnung wird hierbei durch \name{Type} festgelegt. Die standardmäßig unterstützten Arten sind:
 	\begin{description}
 		\item[Lineares Weichzeichnen]~\\
-			Beim linearen Weichzeichnen wird der neue Wert eines Pixels dadurch berechnet, dass die alten Werte aller umliegenden Pixel innerhalb einer Box mit Höhe und Breite (2 * \name{Radius}) + 1 gemittelt werden. Über den \name{Frame}rand hinaus benötigte Pixel werden werden durch den Pixel, der dem gesuchten Pixel am nächsten ist, simuliert. ~\\~\\
+			Beim linearen Weichzeichnen wird der neue Wert eines Pixels dadurch berechnet, dass die alten Werte aller umliegenden Pixel innerhalb einer Box mit Höhe und Breite (2 * \name{Radius}) + 1 gemittelt werden. Über den \name{Frame}rand hinaus benötigte Pixel werden durch den Pixel, der dem gesuchten Pixel am nächsten ist, simuliert. ~\\~\\
 			PseudoCode:
 			\begin{verbatim}
 				Frame newFrame = new Frame(inputs[0])
@@ -78,7 +78,7 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 			G(x,y) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{x^2}{2\sigma^2}}
 			\]
 			Wobei $\sigma$ der \name{Radius} ist.\\
-			 Über den \name{Frame}rand hinaus benötigte Pixel werden werden durch den Pixel, der dem gesuchten Pixel am nächsten ist, simuliert.~\\~\\
+			 Über den \name{Frame}rand hinaus benötigte Pixel werden durch den Pixel, der dem gesuchten Pixel am nächsten ist, simuliert.~\\~\\
 			PseudoCode:
 			\begin{verbatim}
 				Frame newFrame = new Frame(inputs[0])
@@ -201,11 +201,11 @@ Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den
 	\end{algorithm} 
 
 	Nach der RGB - HSV Konvertierung können die S (Sättigung) und V (Helligkeit) Werte in den oben angegebenen Schranken modifiziert werden, um dann wieder nach RGB umgewandelt zu werden und in den neuen Pixeln geschrieben zu werden. \\
-	Für den Kontrast ist lediglich der Abstand zwischen einem Farbkanal und 128 zu vergrößern, wie in der folgenden Formel zu sehen ist: \begin{eqnarray}
+	Für den Kontrast ist lediglich der Abstand zwischen einem Farbkanal und 128 zu vergrößern, wie in der folgenden Formel zu sehen ist: \begin{eqnarray*}
    r = (r - 128) \cdot \text{\name{Contrast}} + 128 \\
 	g = (g - 128) \cdot \text{\name{Contrast}} + 128 \\
 	b = (b - 128) \cdot \text{\name{Contrast}} + 128
-\end{eqnarray}
+\end{eqnarray*}
 
 \end{itemize}
 
