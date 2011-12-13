@@ -8,7 +8,7 @@ namespace YuvKA.ViewModel
 {
 	public class PipelineViewModel
 	{
-		public ObservableCollection<NodeViewModel> Nodes { get; private set; }
-		public ObservableCollection<EdgeViewModel> Edges { get; private set; }
+		public IList<NodeViewModel> Nodes { get; private set; }
+		public IEnumerable<EdgeViewModel> Edges { get; private set; }
 	}
 }

@@ -17,7 +17,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		[DataMember]
 		[Browsable(false)]
-		public int? ReferenceVideo
+		public Input ReferenceVideo
 		{
 			get
 			{

@@ -10,7 +10,7 @@ namespace YuvKA.Pipeline.Implementation
 	public class DiagramGraph
 	{
 		[DataMember]
-		public int Video
+		public YuvKA.Pipeline.Node.Input Video
 		{
 			get
 			{

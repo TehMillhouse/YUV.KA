@@ -23,6 +23,7 @@ namespace YuvKA.Pipeline
 		{
 			public Node Node { get; private set; }
 			public int Index { get; private set; }
+			public bool OutputsLog { get; set; }
 
 		}
 

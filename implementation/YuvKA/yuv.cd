@@ -297,8 +297,8 @@
         <Point X="57.927" Y="9.062" Type="JumpStart" />
         <Point X="57.76" Y="9.062" Type="JumpEnd" />
         <Point X="49.84" Y="9.062" />
-        <Point X="49.84" Y="6.188" />
-        <Point X="22" Y="6.188" />
+        <Point X="49.84" Y="6.337" />
+        <Point X="22" Y="6.337" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.195" Y="0.06" />
