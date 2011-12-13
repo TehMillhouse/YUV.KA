@@ -3,12 +3,9 @@
   <Class Name="YuvKA.VideoModel.Frame">
     <Position X="5.75" Y="6.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAACAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAgAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>VideoModel\Frame.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Data" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="YuvKA.VideoModel.AnnotatedFrame">
     <Position X="6.25" Y="8.25" Width="1.5" />
@@ -187,6 +184,12 @@
       <Field Name="redoStack" Hidden="true" />
       <Field Name="undoStack" Hidden="true" />
     </Members>
+    <AssociationLine Name="Model" Type="YuvKA.Pipeline.PipelineState" FixedFromPoint="true">
+      <Path>
+        <Point X="54.25" Y="4.125" />
+        <Point X="31.25" Y="4.125" />
+      </Path>
+    </AssociationLine>
     <AssociationLine Name="ReplayStateViewModel" Type="YuvKA.ViewModel.ReplayStateViewModel" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="54.25" Y="4.312" />
@@ -212,12 +215,6 @@
         <Position X="0.068" Y="0.215" Height="0.182" Width="1.666" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="Model" Type="YuvKA.Pipeline.PipelineState" FixedFromPoint="true">
-      <Path>
-        <Point X="54.25" Y="4.125" />
-        <Point X="31.25" Y="4.125" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="OpenWindows" Type="YuvKA.ViewModel.OutputWindowViewModel">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-3.273" Y="0.736" />
@@ -228,10 +225,10 @@
       <FileName>ViewModel\MainViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Property Name="Model" />
       <Property Name="ReplayStateViewModel" />
       <Property Name="PipelineViewModel" />
       <Property Name="ToolboxViewModel" />
-      <Property Name="Model" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="OpenWindows" />
@@ -246,7 +243,7 @@
   </Class>
   <Class Name="YuvKA.ViewModel.ToolboxViewModel">
     <Position X="55" Y="6" Width="1.75" />
-    <AssociationLine Name="NodeTypes" Type="YuvKA.ViewModel.NodeTypeViewModel">
+    <AssociationLine Name="NodeTypes" Type="YuvKA.ViewModel.NodeType">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="-1.873" Y="0.287" Height="0.182" Width="1.754" />
       </MemberNameLabel>
@@ -259,11 +256,11 @@
       <Property Name="NodeTypes" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="YuvKA.ViewModel.NodeTypeViewModel">
+  <Class Name="YuvKA.ViewModel.NodeType">
     <Position X="55" Y="7.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAA=</HashCode>
-      <FileName>ViewModel\NodeTypeViewModel.cs</FileName>
+      <FileName>ViewModel\NodeType.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.ViewModel.PipelineViewModel">
@@ -289,7 +286,7 @@
   </Class>
   <Class Name="YuvKA.ViewModel.NodeViewModel">
     <Position X="58.25" Y="7.5" Width="2.75" />
-    <AssociationLine Name="NodeType" Type="YuvKA.ViewModel.NodeTypeViewModel">
+    <AssociationLine Name="NodeType" Type="YuvKA.ViewModel.NodeType">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.14" Y="0.144" Height="0.182" Width="1.031" />
       </MemberNameLabel>
@@ -381,8 +378,8 @@
       <Path>
         <Point X="59.25" Y="12.5" />
         <Point X="59.25" Y="12.312" />
-        <Point X="58.731" Y="12.312" Type="JumpStart" />
-        <Point X="58.564" Y="12.312" Type="JumpEnd" />
+        <Point X="58.783" Y="12.312" Type="JumpStart" />
+        <Point X="58.617" Y="12.312" Type="JumpEnd" />
         <Point X="56.833" Y="12.312" Type="JumpStart" />
         <Point X="56.667" Y="12.312" Type="JumpEnd" />
         <Point X="49.708" Y="12.312" Type="JumpStart" />
@@ -473,7 +470,7 @@
       <Field Name="input" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAAAAAAABAAAAABIAAAAgAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAEAAAAAAAAAAAAAAAABIAAAAgAABAAAA=</HashCode>
       <FileName>Pipeline\Implementation\VideoInputNode.cs</FileName>
     </TypeIdentifier>
   </Class>

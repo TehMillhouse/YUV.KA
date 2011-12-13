@@ -8,8 +8,8 @@ namespace YuvKA.ViewModel
 {
 	public class NodeViewModel
 	{
-		public NodeTypeViewModel NodeType { get; private set; }
-		public Node NodeModel { get; private set; }
+		public NodeType NodeType { get { throw new NotImplementedException(); } }
+		public Node NodeModel { get { throw new NotImplementedException(); } }
 		public double X { get; set; }
 		public double Y { get; set; }
 

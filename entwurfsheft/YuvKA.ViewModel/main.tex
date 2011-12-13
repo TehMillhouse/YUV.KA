@@ -1,7 +1,7 @@
 \subsection{Hauptoberfläche}
 
 \includegraphics[width=\textwidth]{YuvKA.ViewModel/main.png}
-Das Programm wird durch Instanzierung des \name{MainViewModel}s und Anzeigen der zugehörigen View gestartet. Diese Klasse delegiert Einheiten der Hauptoberfläche an untergeordnete View Models, wobei die Klassen zur Anzeige des Pipeline-Graphen in einem eigenen Abschnitt beschrieben werden.
+Das Programm wird durch Instanziierung des \name{MainViewModel}s und Anzeigen der zugehörigen View gestartet. Diese Klasse delegiert Einheiten der Hauptoberfläche an untergeordnete View Models, wobei die Klassen zur Anzeige des Pipeline-Graphen in einem eigenen Abschnitt beschrieben werden.
 
 \subsubsection{MainViewModel}
 
@@ -10,7 +10,7 @@ public class MainViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die \name{MainViewModel}-Klasse hält das Programm-Model in Form einer \name{PipelineState}-Instanz, verwaltet es in einem Undo/Redo-System und instanziert weitere untergeordnete View Models.
+Die \name{MainViewModel}-Klasse hält das Programm-Model in Form einer \name{PipelineState}-Instanz, verwaltet es in einem Undo/Redo-System und instanziiert weitere untergeordnete View Models.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -44,7 +44,7 @@ Die \name{MainViewModel}-Klasse hält das Programm-Model in Form einer \name{Pip
 	public void Clear()
 	public void Open()
 	\end{verbatim}
-	Ersetzen das derzeitige Model durch eine neue leere bzw. aus einer Datei geladenen Pipeline, dabei wird jeweils ein neuer Rückgangig-Schritt erzeugt. Open öffnet zusätzlich einen \name{OpenFileDialog} zur Auswahl des Dateipfades.
+	Ersetzen das derzeitige Model durch eine neue leere bzw. aus einer Datei geladenen Pipeline, dabei wird jeweils ein neuer Rückgängig-Schritt erzeugt. Open öffnet zusätzlich einen \name{OpenFileDialog} zur Auswahl des Dateipfades.
 
 \method{Save}
 	\begin{verbatim}
@@ -115,5 +115,51 @@ Die \name{ReplayStateViewModel}-Klasse verwaltet den aktuellen Wiedergabestatus 
 	public void Stop()
 	\end{verbatim}
 	Pausiert die Wiedergabe und setzt \name{CurrentTick} auf 0.
+
+\end{itemize}
+
+\subsubsection{YuvKA.ViewModel.ToolboxViewModel}
+
+\begin{verbatim}
+public class ToolboxViewModel
+\end{verbatim}
+
+\paragraph{Beschreibung}~\\
+Die \name{ToolboxViewModel}-Klasse ist dafür zuständig, die dynamisch erweiterbare Menge der Knotentypen zu ermitteln.
+
+\paragraph{Typmember}
+\begin{itemize}
+
+\property{NodeTypes}
+	\begin{verbatim}
+	public IList<NodeType> NodeTypes { get; }
+	\end{verbatim}
+	Ruft die Menge der geladenen Knotentypen ab.
+
+\end{itemize}
+
+\subsubsection{YuvKA.ViewModel.NodeType}
+
+\begin{verbatim}
+public class NodeType
+\end{verbatim}
+
+\paragraph{Beschreibung}~\\
+Die \name{NodeType}-Klasse hält die \name{Type}-Instanz und das Icon eines dynamisch geladenen Knotentyps.
+
+\paragraph{Typmember}
+\begin{itemize}
+
+\property{Icon}
+	\begin{verbatim}
+	public Image Icon { get; }
+	\end{verbatim}
+	Ruft das Icon des Knotentyps ab, falls verfügbar. Hierzu muss der Knotentyp mit dem \name{ToolboxBitmapAttribute} annotiert sein.
+
+\method{Type}
+	\begin{verbatim}
+	public Type Type { get; set; }
+	\end{verbatim}
+	Ruft den CLR-Typ des Knotentyps ab oder legt ihn fest. Über diesen Wert kann der Knotentyp instanziiert werden.
 
 \end{itemize}

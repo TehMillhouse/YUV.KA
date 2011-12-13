@@ -8,6 +8,6 @@ namespace YuvKA.ViewModel
 {
 	public class ToolboxViewModel
 	{
-		public IList<NodeTypeViewModel> NodeTypes { get; private set; }
+		public IList<NodeType> NodeTypes { get; private set; }
 	}
 }

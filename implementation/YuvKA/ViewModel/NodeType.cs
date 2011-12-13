@@ -6,9 +6,9 @@ using System.Windows.Controls;
 
 namespace YuvKA.ViewModel
 {
-	public class NodeTypeViewModel
+	public class NodeType
 	{
-		public Image Icon { get; set; }
+		public Image Icon { get { throw new NotImplementedException(); } }
 		public Type Type { get; set; }
 	}
 }

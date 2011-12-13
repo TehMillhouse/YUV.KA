@@ -99,7 +99,7 @@
     <Compile Include="VideoModel\MacroblockDecision.cs" />
     <Compile Include="VideoModel\MacroblockPartitioning.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\NodeTypeViewModel.cs" />
+    <Compile Include="ViewModel\NodeType.cs" />
     <Compile Include="ViewModel\NodeViewModel.cs" />
     <Compile Include="Pipeline\Implementation\NoiseInputNode.cs" />
     <Compile Include="ViewModel\Implementation\VideoOutputViewModel.cs" />
