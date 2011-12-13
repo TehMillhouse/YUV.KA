@@ -136,70 +136,40 @@ Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den
 	\begin{verbatim}
 	public override Frame[] ProcessFrame(Frame[] inputs, int tick)
 	\end{verbatim}
-	Die Methode \name{ProcessFrame} setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSV-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert, wie in folgenden beiden Algorithmen zu sehen ist:
+	Die Methode \name{ProcessFrame} setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSL-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert. Für die RGB - HSL Konvertierung werden die Methoden \name{Color.GetHue}, \name{Color.GetSaturation} und \name{Color.GetBrightness} aus dem .NET Framework benutzt. Für die Rückrichtung wird folgender Algorithmus benutzt:
 	\floatname{algorithm}{Algorithmus}
 	\begin{algorithm}[H]
-	\caption{RGB nach HSV Konvertierung}
+	\caption{HSL nach RGB Konvertierung}
 		\begin{algorithmic}[1]
-		\REQUIRE $ R, G, B \in [0, 1] $
-		\STATE $ MAX \gets \text{max}(R, G, B) $
-		\STATE $ MIN \gets \text{min}(R, G, B) $ 
-		\vspace{5px}
-		\STATE $
-					H \gets
-					\begin{cases}
-						0^{\circ}, & \text{falls } MAX = MIN \Leftrightarrow R = G = B \\
-						60^{\circ}\cdot(0 + \frac{G - B}{MAX - MIN}), & \text{falls } MAX = R \\
-						60^{\circ}\cdot(2 + \frac{B - R}{MAX - MIN}), & \text{falls } MAX = G \\
-						60^{\circ}\cdot(4 + \frac{R - G}{MAX - MIN}), & \text{falls } MAX = B
+			\REQUIRE $ H \in [0^\circ, 360^\circ], \ S \in [0, 1], \ L \in [0, 1] $ \\
+			\COMMENT {Als erstes berechnen wir die Chroma. Dann können wir einen Punkt $ (R_1, G_1, B_1) $ mit dem gleichen Farbton und Chroma wie unsere Farbe entlang der unteren drei Seiten des RGB-Würfels finden, indem wir einen temporären Wert $ X $ für ihre zweitgrößte Komponente benutzten.}
+			\vspace{3px}
+			\STATE $ C \gets (1 - |2L - 1|) \cdot S $
+			\STATE $ H' = \frac{H}{60^\circ} $
+			\STATE $ X = C(1 - |H' \ mod \ 2 - 1|) $
+			\vspace{3px}
+			\STATE $ (R_1, G_1, B_1) \gets
+					\begin{cases} 
+						(0, 0, 0), & \text{falls } S = 0 \\
+						(C, X, 0), & \text{falls } 0 \leq H' < 1 \\
+						(X, C, 0), & \text{falls } 1 \leq H' < 2 \\
+						(0, C, X), & \text{falls } 2 \leq H' < 3 \\
+						(0, X, C), & \text{falls } 3 \leq H' < 4 \\
+						(X, 0, C), & \text{falls } 4 \leq H' < 5 \\
+						(C, 0, X), & \text{falls } 5 \leq H' < 6 \\
 					\end{cases}
-				$  
-				\vspace{5px}
-		\IF {$ H < 0^{\circ} $}
-			\STATE $ H \gets H + 360^{\circ} $
-		\ENDIF 
-		\vspace{5px}
-		\STATE $ 
-					S \gets
-					\begin{cases}
-						0, & \text{falls } MAX = 0 \Leftrightarrow R = G = B = 0 \\
-						\frac{MAX - MIN}{MAX}, & \text{sonst}
-					\end{cases}
-				$
-		\vspace{5px}
-		\STATE $ V \gets MAX $ 
-		\ENSURE $ H \in [0^{\circ}, 360^{\circ}],\ S, V \in [0, 1] $
-	\end{algorithmic}
+				   $
+			\vspace{3px} \\
+			\COMMENT { Schließlich erhalten wir R, G, und B durch das dazuaddieren des gleichen Werts, damit sie mit der Helligkeit übereinstimmen.}
+			\vspace{3px}
+			\STATE $ m \gets L - \frac{1}{2}C $
+			\STATE $ (R, G, B) \gets (R_1 + m, G_1 + m, B_1 + m) $
+			\vspace{3px}
+			\ENSURE $ R, \ G, \ B \in [0, 1] $ \\
+			\COMMENT {Ist $ S = 0$ , dann ist die resultierende Farbe Neutralgrau, und die Formel vereinfacht sich zu $ R = G = B = L $.}
+		\end{algorithmic}
 	\end{algorithm}
 	
-	\begin{algorithm}[H]
-	\caption{HSV nach RGB Konvertierung}
-		\begin{algorithmic}[1]
-			\REQUIRE $ H \in [0^{\circ}, 360^{\circ}],\ S, V \in [0, 1] $ \\
-			\COMMENT{Es werden das Grundfarbenintervall h, der Wert innerhalb dieses Intervalls f in [0,1] und noch drei Hilfswerte bestimmt, die bereits die jeweiligen Streckenlängen enthalten, aber entsprechend auf die Komponenten R, G und B zu verteilen sind:}
-			\STATE $ h \gets \lfloor\frac{H}{60^\circ}\rfloor $
-			\STATE $ f \gets \frac{H}{60^{\circ}} - h $
-			\STATE $ p \gets V \cdot (1 - S) $ 
-			\STATE $ q \gets V \cdot (1 - S \cdot f) $
-			\STATE $ t \gets V \cdot (1 - S \cdot (1 - f)) $
-			\vspace{5px}
-			\STATE $
-						(R, G, B) \gets
-						\begin{cases}
-							(V, t, p), & \text{falls } h \in \{0, 6\} \\
-							(q, V, p), & \text{falls } h = 1 \\
-							(p, V, t), & \text{falls } h = 2 \\
-							(p, q, V), & \text{falls } h = 3 \\
-							(t, p, V), & \text{falls } h = 4 \\
-							(V, p, q), & \text{falls } h = 5
-						\end{cases}
-					$
-			\vspace{5px}
-			\ENSURE $ R, G, B \in [0, 1] $ \\
-			\COMMENT {Ist S = 0, dann ist die resultierende Farbe Neutralgrau, und die Formel vereinfacht sich zu R = G = B = V.}
-		\end{algorithmic}
-	\end{algorithm} 
-
 	Nach der RGB - HSV Konvertierung können die S (Sättigung) und V (Helligkeit) Werte in den oben angegebenen Schranken modifiziert werden, um dann wieder nach RGB umgewandelt zu werden und in den neuen Pixeln geschrieben zu werden. \\
 	Für den Kontrast ist lediglich der Abstand zwischen einem Farbkanal und 128 zu vergrößern, wie in der folgenden Formel zu sehen ist: \begin{eqnarray*}
    r = (r - 128) \cdot \text{\name{Contrast}} + 128 \\
