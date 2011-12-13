@@ -51,7 +51,7 @@ Stellt die Ausgänge eines Knoten dar. Siehe innere Klasse \name{Output}
 	\begin{verbatim}
 public abstract Frame[] Process(Frame[] inputs, int tick);
 	\end{verbatim}
-	Verarbeitet die gegebenen \name{Frame}s entsprechend des internen Algorithmus' und gibt ein Array von \name{Frame}s als Resultat zurück. Der Parameter \name{inputs} ist hierbei direkt als die Daten, welche an den Eingängen des Knotens anliegen, zu interpretieren. Dementsprechend entspricht der Rückgabewert den Daten, welche an den Ausgängen des Knotens durchgereicht werden. Verschiedene Arten von Knoten überschreiben diese Methode auf verschiedene Arten und Weisen, je nachdem, wie viele Eingänge und Ausgänge die jeweilige Knotenart in der Regel hat. Der API-Konsistenz wegen wird ist diese Methode trotzdem bei allen Knotenarten verfügbar und korrekt benutzbar.
+	Verarbeitet die gegebenen \name{Frame}s entsprechend dem internen Algorithmus und gibt ein Array von \name{Frame}s als Resultat zurück. Der Parameter \name{inputs} ist hierbei direkt als die Daten, welche an den Eingängen des Knotens anliegen, zu interpretieren. Dementsprechend entspricht der Rückgabewert den Daten, welche an den Ausgängen des Knotens durchgereicht werden. Verschiedene Knoten überschreiben diese Methode mit verschiedenen Implementationen.
 
 
 \end{itemize}
