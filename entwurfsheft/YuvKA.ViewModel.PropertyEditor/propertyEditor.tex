@@ -20,9 +20,9 @@ Die Klasse \name{PropertyEditorViewModel} verwaltet eine Anzahl von Properties u
 
 \property{Properties}
 	\begin{verbatim}
-	public IEnumerable<PropertyViewModel> Properties { get; set; }
+	public IEnumerable<PropertyViewModel> Properties { get; }
 	\end{verbatim}
-	Ruft die Liste der zu verwaltenden Properties ab oder legt sie fest.
+	Ruft die Liste der zu verwaltenden Properties ab.
 
 \property{Source}
 	\begin{verbatim}
@@ -73,7 +73,7 @@ Abstrakte Oberklasse zu den einzelnen Property View Model Klassen.
 \subsubsection{YuvKA.ViewModel.PropertyEditor.PropertyViewModel\textless T\textgreater}
 
 \begin{verbatim}
-public generic abstract class PropertyViewModel<T>
+public abstract class PropertyViewModel<T>
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
@@ -86,7 +86,7 @@ Abstrakte Klasse zur Darstellung der benötigten Properties mithilfe der View.
 	\begin{verbatim}
 	public T Value { get; set; }
 	\end{verbatim}
-	Ruft den Wert der Property ab oder legt ihn fest. T ist hierbei der Typ, der verwalteten Property.
+	Ruft den Wert der Property ab oder legt ihn fest. T ist hierbei der Typ der verwalteten Property.
 \end{itemize}
 
 
@@ -99,7 +99,7 @@ public class BooleanPropertyViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Klasse zur Darstellung einer Property vom Typ \name{boolean} mithilfe der View. Hier ist lediglich der Typ der zu verwaltenden Property als \name{boolean} gesetzt.
+Klasse zur Darstellung einer Property vom Typ \name{bool} mithilfe der View. Hier ist lediglich der Typ der zu verwaltenden Property als \name{bool} gesetzt.
 
 
 

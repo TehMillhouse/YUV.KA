@@ -136,7 +136,7 @@ Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den
 	\begin{verbatim}
 	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
-	Die Methode \name{Process} setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSL-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert. Für die RGB-HSL Konvertierung werden die Methoden \name{Color.GetHue}, \name{Color.GetSaturation} und \name{Color.GetBrightness} aus dem .NET Framework benutzt. Für die Rückrichtung wird folgender Algorithmus benutzt:
+	Die Methode \name{Process} setzt die Helligkeit, den Kontrast und die Farbsättigung des \name{Frame}s auf die gegebenen Werte. Dafür werden die Farbkanäle jedes Pixels aus dem RGB-Raum in den HSL-Raum umgerechnet, die Änderungen vorgenommen und anschließend wieder nach RGB konvertiert. Für die RGB-HSL-Konvertierung werden die Methoden \name{Color.GetHue}, \name{Color.GetSaturation} und \name{Color.GetBrightness} aus dem .NET Framework benutzt. Für die Rückrichtung wird folgender Algorithmus benutzt:
 	\floatname{algorithm}{Algorithmus}
 	\begin{algorithm}[H]
 	\caption{HSL nach RGB Konvertierung}
@@ -222,7 +222,7 @@ Die Klasse \name{AveragedMergeNode} modelliert das Zusammenführen von Videos du
 	\begin{verbatim}
 	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
-	Mittelt alle übergebenen \name{Frame}s Pixelweise unter Beachtung der von \name{Weights} definierten Gewichtungen. Falls zwei Videos mit verschiedener Auflösung zusammengeführt werden, so wird das Maximum der Höhe bzw. Breite der beiden Videos als Auflösung des neuen Videos genommen. Fehlende Bildinformationen bei auflösungstechnisch kleineren Videos werden durch Schwarz ergänzt.\\~\\
+	Mittelt alle übergebenen \name{Frame}s pixelweise unter Beachtung der von \name{Weights} definierten Gewichtungen. Falls zwei Videos mit verschiedener Auflösung zusammengeführt werden, so wird das Maximum der Höhe bzw. Breite der beiden Videos als Auflösung des neuen Videos genommen. Fehlende Bildinformationen bei auflösungstechnisch kleineren Videos werden durch Schwarz ergänzt.\\~\\
 	PseudoCode:
 	\begin{verbatim}
 		Frame newFrame = new Frame(inputs[0])
@@ -277,7 +277,7 @@ Die Klasse \name{DelayNode} modelliert die Verzögerung von Videostreams innerha
 	[Range(0, 10)]
 	public int Delay { get; set; }
 	\end{verbatim}
-	Ruft die Dauer der Verzögerung in der Einheit \name{Frame}s ab oder legt sie fest.
+	Ruft die Dauer der Verzögerung in der Einheit \name{Tick}s ab oder legt sie fest.
 
 \method{Process}
 	\begin{verbatim}
