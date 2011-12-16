@@ -9,8 +9,8 @@ namespace YuvKA.ViewModel.PropertyEditor
 {
 	public abstract class PropertyViewModel
 	{
-		public object Source { get; private set; }
-		public PropertyDescriptor Property { get; private set; }
+		public object Source { get { throw new NotImplementedException(); } }
+		public PropertyDescriptor Property { get { throw new NotImplementedException(); } }
 		public object Value { get { throw new NotImplementedException(); } set { } }
 	}
 
