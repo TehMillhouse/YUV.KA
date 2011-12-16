@@ -2,7 +2,7 @@
 
 
 \includegraphics[width=\textwidth]{YuvKA.ViewModel.PropertyEditor/propertyEditor.png}
-Diese Klassen dienen der Darstellung der vom Benutzer veränderbaren Properties mithilfe der View. 
+Diese Klassen dienen der Darstellung der vom Benutzer veränderbaren Properties unter Zuhilfenahme der View. 
 
 
 
@@ -12,8 +12,8 @@ Diese Klassen dienen der Darstellung der vom Benutzer veränderbaren Properties 
 public class PropertyEditorViewModel
 \end{verbatim}
 
-\paragraph{Beschreibung}~\\
-Die Klasse \name{PropertyEditorViewModel} verwaltet eine Anzahl von Properties und ermöglicht ihre Darstellung mithilfe der View.
+\paragraph{Beschreibung}~\\als
+Die Klasse \name{PropertyEditorViewModel} verwaltet eine Anzahl von Properties und ermöglicht mithilfe der View ihre Darstellung.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -49,15 +49,15 @@ Abstrakte Oberklasse zu den einzelnen Property View Model Klassen.
  	
 \property{Property}
 	\begin{verbatim}
-	public PropertyDescriptor Property { get; set; }
+	public PropertyDescriptor Property { get; }
 	\end{verbatim}
-	Ruft die Beschreibung der verwalteten Property ab oder legt sie fest.
+	Ruft die Beschreibung der verwalteten Property ab.
 
 \property{Source}
 	\begin{verbatim}
-	public object Source { get; set; }
+	public object Source { get; }
 	\end{verbatim}
-	Ruft die Quelle der verwalteten Property ab oder legt sie fest.
+	Ruft die Quelle der verwalteten Property ab.
 
 \property{Value}
 	\begin{verbatim}
@@ -73,11 +73,12 @@ Abstrakte Oberklasse zu den einzelnen Property View Model Klassen.
 \subsubsection{YuvKA.ViewModel.PropertyEditor.PropertyViewModel\textless T\textgreater}
 
 \begin{verbatim}
-public abstract class PropertyViewModel<T>
+[InheritedExport]
+public abstract class PropertyViewModel<T> : PropertyViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Abstrakte Klasse zur Darstellung der benötigten Properties mithilfe der View.
+Abstrakte Klasse zur Darstellung der benötigten Properties mithilfe der View dar.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -91,152 +92,74 @@ Abstrakte Klasse zur Darstellung der benötigten Properties mithilfe der View.
 
 
 
+\subsubsection{Weitere PropertyViewModels}
 
-\subsubsection{YuvKA.ViewModel.PropertyEditor.BooleanPropertyViewModel}
-
-\begin{verbatim}
-public class BooleanPropertyViewModel
-\end{verbatim}
-
-\paragraph{Beschreibung}~\\
-Klasse zur Darstellung einer Property vom Typ \name{bool} mithilfe der View. Hier ist lediglich der Typ der zu verwaltenden Property als \name{bool} gesetzt.
-
-
-
-
-\subsubsection{YuvKA.ViewModel.PropertyEditor.PathPropertyViewModel}
-
-\begin{verbatim}
-public class PathPropertyViewModel
-\end{verbatim}
-
-\paragraph{Beschreibung}~\\
-Klasse zur Darstellung einer Property, welche einen Dateipfad darstellt.
-
-\paragraph{Typmember}
 \begin{itemize}
 
-\method{OpenDialog}
+\item{\textbf{YuvKA.ViewModel.PropertyEditor.BooleanPropertyViewModel\\}}
+	\begin{verbatim}
+	public class BooleanPropertyViewModel : PropertyViewModel <bool>
+	\end{verbatim}
+	Stellt mithilfe der View eine Property vom Typ \name{bool}.
+
+\item{\textbf{VuvKA.ViewModel.PropertyEditor.PathPropertyViewModel\\}}
+	\begin{verbatim}
+	public class PathPropertyViewModel 
+	: PropertyViewModel<Pipeline.FilePath>
+	\end{verbatim}
+	Stellt mithilfe der View eine Property, welche einen Dateipfad darstellt, dar.\\
+	Die Klasse besitzt zudem die folgende Methode, welche einen Dialog zur Auswahl des Dateipfades öffnet.
 	\begin{verbatim}
 	public void OpenDialog()
 	\end{verbatim}
-	Öffnet einen Dialog zur Auswahl des Dateipfades.
 
-\end{itemize}
-
-
-
-
-\subsubsection{YuvKA.ViewModel.PropertyEditor.SizePropertyViewModel}
-
-\begin{verbatim}
-public class SizePropertyViewModel
-\end{verbatim}
-
-\paragraph{Beschreibung}~\\
-Klasse zur Darstellung einer Property vom Typ \name{Size} mithilfe der View.
-
-\paragraph{Typmember}
-\begin{itemize}
-	
-\property{Height}
+\item{\textbf{YuvKA.ViewModel.PropertyEditor.SizePropertyViewModel\\}}
 	\begin{verbatim}
-	public int Height { get; set; }
+	public class SizePropertyViewModel : PropertyViewModel<Size>
 	\end{verbatim}
-	Ruft den \name{Height}-Wert der verwalteten \name{Size} Property ab oder legt ihn fest.
-
-\property{Width}
+	Stellt mithilfe der View eine Property vom Typ \name{Size} dar.\\
+	Die Klasse besitzt Folgende Properties, welche die Höhe und die Breite von \name {Size} repräsentieren.
 	\begin{verbatim}
 	public int Width { get; set; }
+	public int Height { get; set; } 
 	\end{verbatim}
-	Ruft den \name{Width}-Wert der verwalteten \name{Size} Property ab oder legt ihn fest.
 
-\end{itemize}
-
-
-
-
-\subsubsection{YuvKA.ViewModel.PropertyEditor.NumericalPropertyViewModel\textless T\textgreater}
-
-\begin{verbatim}
-public generic abstract class NumericalPropertyViewModel<T>
-\end{verbatim}
-
-\paragraph{Beschreibung}~\\
-Abstrakte Klasse zur Darstellung einer numerischen Property mithilfe der View.
-
-\paragraph{Typmember}
-\begin{itemize}
-
-\property{Maximum}
+\item{\textbf{YuvKA.ViewModel.PropertyEditor.NumericalPropertyViewModel\\}}
 	\begin{verbatim}
-	public Nullable<double> Maximum
+	public abstract class NumericalPropertyViewModel<T> 
+	: PropertyViewModel<T>
 	\end{verbatim}
-	Ruft die obere Grenze des Wertes der verwalteten Property ab oder legt ihn fest.
-
-\property{Minimum}
+	Stellt mithilfe der View eine numerische Property dar. Die Klasse besitzt zudem die folgenden Properties, welche die obere und untere Grenze der darzustellenden Property darstellen.
 	\begin{verbatim}
-	public Nullable<double> Minimum
+	public Nullable{double} Maximum { get; set; }
+	public Nullable{double} Minimum { get; set; }
 	\end{verbatim}
-	Ruft die untere Grenze des Wertes der verwalteten Property ab oder legt ihn fest.
+	Von dieser Klasse erben die folgenden numerischen Property View Models, welche einen \name{int}-Wert bzw einen \name{double}-Wert darstellen:
 
-\end{itemize}
-
-
-
-
-\subsubsection{YuvKA.ViewModel.PropertyEditor.IntPropertyViewModel}
-
-\begin{verbatim}
-public class IntPropertyViewModel
-\end{verbatim}
-
-\paragraph{Beschreibung}~\\
-Klasse zur Darstellung eines \name{int}-Wertes mithilfe der View. Hier ist lediglich der Typ der zu verwaltenden Property als \name{int} gesetzt.
-
-
-
-
-\subsubsection{YuvKA.ViewModel.PropertyEditor.DoublePropertyViewModel}
-
-\begin{verbatim}
-public class DoublePropertyViewModel
-\end{verbatim}
-
-\paragraph{Beschreibung}~\\
-Klasse zur Darstellung  eines \name{double}-Wertes mithilfe der View. Hier ist lediglich der Typ der zu verwaltenden Property als \name{double} gesetzt.
-
-
-
-
-\subsubsection{YuvKA.ViewModel.PropertyEditor.ObservableCollectionOfDoublePropertyViewModel}
-
-\begin{verbatim}
-public class ObservableCollectionOfDoublePropertyViewModel
-\end{verbatim}
-
-\paragraph{Beschreibung}~\\
-Klasse zur Darstellung einer \name{ObservableCollection} von \name{double}-Werten mithilfe der View.
-
-
-
-\subsubsection{YuvKA.ViewModel.PropertyEditor.RgbPropertyViewModel}
-
-\begin{verbatim}
-public class RgbPropertyViewModel
-\end{verbatim}
-
-\paragraph{Beschreibung}~\\
-Klasse zur Darstellung einer \name{Rgb} Property mithilfe der View.
-
-\paragraph{Typmember}
-\begin{itemize}
+	\begin{verbatim}
+	public class IntPropertyViewModel 
+	: NumericalPropertyViewModel<int>
 	
-\method{OpenDialog}
+	public class DoublePropertyViewModel 
+	: NumericalPropertyViewModel<double>
+	\end{verbatim}				
+
+\item{\textbf{YuvKA.ViewModel.PropertyEditor.ObservableCollectionOfDoublePropertyViewModel\\}}
+	\begin{verbatim}
+	public class ObservableCollectionOfDoublePropertyViewModel 
+	: PropertyViewMode<ObservalbeCollection<double>>
+	\end{verbatim}
+	Stellt mithilfe der View eine \name{ObservableCollection} von \name{double}-Werten dar.
+
+\item{\textbf{YuvKA.ViewModel.PropertyEditor.RgbPropertyViewModel\\}}
+	\begin{verbatim}
+	public class RgbPropertyViewModel : PropertyViewModel<VideoModel.Rgb>
+	\end{verbatim}	
+	Stellt eine \name{Rgb}-Property mithilfe der View dar.\\
+	Die Klasse besitzt die folgende Methode, welche einen Dialog zur Auswahl des Farbkanals öffnet.
 	\begin{verbatim}
 	public void OpenDialog()
 	\end{verbatim}
-	Öffnet einen Dialog zur Auswahl des Farbkanals.
 
 \end{itemize}
 
