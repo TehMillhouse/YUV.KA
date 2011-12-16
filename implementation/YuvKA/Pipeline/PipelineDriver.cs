@@ -8,12 +8,12 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline
 {
-	public static class PipelineDriver
+	public class PipelineDriver
 	{
-		static Node videoInputNode = new YuvKA.Pipeline.Implementation.VideoInputNode();
-		static Node blurNode = new YuvKA.Pipeline.Implementation.BlurNode();
+		Node videoInputNode = new YuvKA.Pipeline.Implementation.VideoInputNode();
+		Node blurNode = new YuvKA.Pipeline.Implementation.BlurNode();
 
-		public static IObservable<IDictionary<Node.Output, Frame>> RenderTicks(IEnumerable<Node> startNodes, int tick, CancellationToken token)
+		public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(IEnumerable<Node> startNodes, int tick, CancellationToken token)
 		{
 			Task.Factory.StartNew(() => {
 				Frame[] frames = videoInputNode.Process(new Frame[0], tick);

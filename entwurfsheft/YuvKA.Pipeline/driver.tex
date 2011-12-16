@@ -2,7 +2,7 @@
 
 \includegraphics[width=\textwidth]{YuvKA.Pipeline/driver.png}
 \begin{verbatim}
-public static class PipelineDriver
+public class PipelineDriver
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
@@ -14,11 +14,11 @@ Die Klasse soll möglichst parallel implementiert werden, sodass mehrere aufeina
 
 \property{RenderTicks}
 	\begin{verbatim}
-public static IObservable<IDictionary<Node.Output, Frame>> RenderTicks(
+public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(
     IEnumerable<Node> startNodes, int tick, CancellationToken token)
     \end{verbatim}
 	Berechnet die Pipeline ab dem angegebenen Tick und liefert eine asynchrone Aufzählung zurück, die pro Tick ein Dictionary enthält, das jedem Ausgang der gegebenen Knoten \name{startNodes} den jeweils berechneten Frame zuordnet.
 
-    Parallelitätszusicherungen: Die Methode führt auf einer \name{Node}-Instanz \name{Process} immer seriell mit strikt aufsteigendem Tick aus. Die gleiche Ordnung gilt für den Rückgabewert. Die Berechnung wird bei Aktivierung des \name{token}s am nächstmöglichen Punkt beendet.
+    Parallelitätszusicherungen: Die Methode führt auf einer \name{Node}-Instanz \name{Process} immer seriell mit strikt aufsteigendem Tick aus. Die gleiche Ordnung gilt für den Rückgabewert. Die Berechnung wird bei Aktivierung des \name{token}s am nächstmöglichen Punkt beendet und beim nächsten Aufruf von \name{RenderTicks} erst gestartet, wenn alle vorhergehenden Berechungen beendet sind.
 
 \end{itemize}
