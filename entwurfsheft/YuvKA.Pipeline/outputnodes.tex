@@ -45,10 +45,72 @@ Die Klasse \name{DiagramNode} berechnet die Daten, die vom \name{ViewModel} gebr
 		[Browsable(false)]
 		public List<DiagramGraph> Graphs { get; set; }
 	\end{verbatim}
-	Stellt eine Liste der Diagrammtypen, für die Analysedaten bereitgestellt werden sollen, zur Verfügung. Ein Diagrammtyp wird durch die folgenden drei Eigenschaften charakterisiert:
-	\paragraph{Analysedaten}~\\ Diese sind die eigentlichen Daten, die dann vom \name{View} angezeigt werden. Sie sind mit Hilfe eines Arrays von Gleitkommazahlen dargestellt.
-	\paragraph{Video}~\\ Der Index des Videos, dessen \name{Frame} gerade analysiert werden soll.
-	\paragraph{Art der Analyse}~\\ Es werden drei Arten von Bildanalysen unterstützt: 
+	Stellt eine Liste der unterstützten Diagramme zur Verfügung. (siehe Klasse \name{DiagramGraph})
+	
+\method{ProcessCore}
+	\begin{verbatim}
+		public override void ProcessCore(Frame[] inputs, int tick)
+	\end{verbatim}
+	Berechnet die Daten für drei verschiedenen Analysearten. (siehe \name{IGraphType})
+	
+\end{itemize}
+
+\subsubsection{YuvKA.Pipeline.DiagramGraph}
+\begin{verbatim}
+[DataContract]
+public class DiagramGraph
+\end{verbatim}
+
+\paragraph{Beschreibung}~\\
+Die Klasse \name{DiagramGraph} stellt ein Diagramm dar. Ein Diagramm wird durch seinen Typ, seinen zugehörigen Analysedaten und dem zu analysierenden Video beschrieben.
+
+\paragraph{Typmember}
+\begin{itemize}
+
+\property{Video}
+	\begin{verbatim}
+	[DataMember]
+	public YuvKA.Pipeline.Node.Input Video
+	\end{verbatim}
+	Ruft das zu analysierende Video ab oder legt es fest.
+	
+\property{Data}
+	\begin{verbatim}
+	[DataMember]
+	public IList<double> Data
+	\end{verbatim}
+	Enthält eine Liste der berechneten Analysedaten zum entsprechenden Diagramm\name{typ}en.
+	
+\property{Type}
+	\begin{verbatim}
+	[DataMember]
+	public IGraphType Type
+	\end{verbatim}
+	Setzt die Art der Analyse fest. (siehe \name{IGraphType})
+
+\end{itemize}
+
+\subsubsection{YuvKA.Pipeline.IGraphType}
+\begin{verbatim}
+public interface IGraphType
+\end{verbatim}
+
+\paragraph{Beschreibung}~\\
+Die Schnittstelle \name{IGraphType} stellt den Diagrammtypen der Klasse \name{DiagramGraph} dar.
+
+\paragraph{Typmember}
+\begin{itemize}
+
+\property{DependsOnReference}
+	\begin{verbatim}
+	bool DependsOnReference
+	\end{verbatim}
+	
+\method{Process}
+	\begin{verbatim}
+	double Process(Frame frame, Frame reference)
+	\end{verbatim}
+	Berechnet die Analysedaten. Es werden drei Arten von Bildanalysen unterstützt: 
 		\begin{itemize}
 			\item \name{PixelDiff} Hierbei werden die Farbdifferenzen zwischen dem ausgewählten Frame und dem Referenzframe pixelweise berechnet.
 			\item \name{IntraBlockFrequency} Berechnung der Anzahl der Intra-Blöcke im Frame.
@@ -59,16 +121,8 @@ Die Klasse \name{DiagramNode} berechnet die Daten, die vom \name{ViewModel} gebr
 			\[ PSNR = 10 \cdot \log_{10}{\frac{MAX_I^2}{MSE}} \]
 			wobei $ MAX_I $ der größtmögliche Wert ist, den man in einem Pixel speichern kann. Für RGB Pixel (24-bit) ist das $ 2^{24} - 1 $.
 		\end{itemize}
-	
-\method{ProcessCore}
-	\begin{verbatim}
-		public override void ProcessCore(Frame[] inputs, int tick)
-	\end{verbatim}
-	Berechnet die Daten für die drei verschiedenen Analysearten auf die oben aufgeführte Weise.
-	
-	
+		
 \end{itemize}
-
 
 \subsubsection{YuvKA.Pipeline.HistogramNode}
 
