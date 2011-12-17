@@ -112,7 +112,29 @@ Die Klasse \name{NoiseInputNode} stellt einen Knoten bereit, welcher eine von zw
 	Setzt den Typ des Videostreams fest, welcher generiert wird. Standardmäßig werden folgende Verfahren unterstützt:
 	\begin{description}
 		\item[Perlin-Noise]~\\
-		Bei Perlin-Noise werden pseudozufällige Signale dadurch generiert, dass die Koordinaten des angefragten Punktes anhand eines vorgerechneten Rasters mit zufälligen Vektoren nachgeschlagen werden. Der resultierende Wert ist das Resultat des Kreuzproduktes aus Abstandsvektors (zum nächsten Rasterpunkt) mit dem im Raster gefundenen Vektor, kombiniert mit einfacher Interpolation, um das resultierende Bild stetig zu halten.
+		Bei Perlin-Noise werden pseudozufällige Signale dadurch generiert, dass die Koordinaten des angefragten Punktes anhand eines vorgerechneten Rasters mit zufälligen Vektoren nachgeschlagen werden. Der resultierende Wert ist das Resultat des Skalarproduktes aus Abstandsvektors (zum nächsten Rasterpunkt) mit dem im Raster gefundenen Vektor, kombiniert mit einfacher Interpolation, um das resultierende Bild stetig zu halten. PseudoCode der 2-dimensionalen Version:
+\begin{verbatim}
+public double PerlinNoise(int x, int y) {
+  int xint = Math.floor(x);
+  int yint = Math.floor(y);
+  // Vorberechnete Vektoren an nächsten Gitterpunkten
+  // nachschlagen und das Skalarprodukt mit dem 
+  // Abstandsvektor zu den Koordinaten bilden
+  latticeVect0 = DotProduct(randVectors[xint, yint],
+                            (x - xint, y - yint) );
+  latticeVect1 = DotProduct(randVectors[xint+1, yint], 
+                            (x - xint-1, y - yint) );
+  latticeVect2 = DotProduct(randVectors[xint, yint+1], 
+                            (x - xint, y - yint-1) );
+  latticeVect3 = DotProduct(randVectors[xint+1, yint+1], 
+                            (x - xint-1, y - yint-1) );
+
+  // Resultate interpolieren
+  xValue = interpolate(latticeVect0, latticeVect1);
+  yValue = interpolate(latticeVect2, latticeVect3);
+  return interpolate(xValue, yValue);
+\end{verbatim}
+        Das Resultat von diesem Algorithmus muss bei der weiteren Verarbeitung noch an den Farbraum (hier RGB) angepasst werden. Anzumerken ist, dass es sich hierbei um die ``Rohform'' des Algorithmus handelt, bei der nur eine Iteration durchgeführt wird.
 		\item[Coherent Noise]~\\
 		Hierbei handelt es sich um einfaches, kohärentes Bildrauschen, welches pixelweise erzeugt wird.
 	\end{description}
