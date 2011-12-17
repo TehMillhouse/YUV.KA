@@ -21,7 +21,7 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 	[DataMember]
 	public int CurrentTick { get; set; }
 	\end{verbatim} 
-	Ruft den nächstes zu berechnenden Tick ab oder legt ihn fest. Das Neusetzen der Property führt zum Abbruch der Berechnung des aktuellen Ticks.
+	Ruft den als nächstes zu berechnenden Tick ab oder legt ihn fest. Das Neusetzen der Property führt zum Abbruch der Berechnung des aktuellen Ticks.
 
 \property{Speed}
 	\begin{verbatim}
@@ -35,7 +35,7 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 	[DataMember]
 	public PipelineGraph Graph { get; }
 	\end{verbatim}
-	Ruft den \name{PipelineGraph} ab, der die Struktur der Pipeline repräsentiert.
+	Ruft den \name{PipelineGraph} ab, welcher die Struktur der Pipeline repräsentiert.
 
 \property{Events}
 	\begin{verbatim}
@@ -96,7 +96,14 @@ Die Klasse \name{PipelineGraph} verwaltet den Aufbau des Pipeline-Graphen.
 	\begin{verbatim}
 	public bool AddEdge(Output source, Input sink)
 	\end{verbatim}
-	Wenn die durch \name{source} und \name{sink} spezifizierte Kante zu keinem Zyklus innerhalb des Pipeline-Graphen führt, so soll sie durch setzen der Output-Property von \name{source} als \name{sink} hinzugefügt und true ausgegeben werden. Andernfalls soll die Kante nicht zum Graphen hinzugefügt und false ausgegeben werden.
+	Wenn die durch \name{source} und \name{sink} spezifizierte Kante zu keinem Zyklus innerhalb des Pipeline-Graphen führt, so soll sie durch Setzen der Source-Property von \name{sink} als \name{source} hinzugefügt und true ausgegeben werden. Andernfalls soll die Kante nicht zum Graphen hinzugefügt und false ausgegeben werden.
+
+\method{DepthFirstSearch}
+    \begin{verbatim}
+    public IEnumerable<Node> DepthFirstSearch(Node startNode)
+    \end{verbatim}
+    Führt eine Tiefensuche auf dem Graphen aus und liefert eine Liste gefundener Knoten in topologischer Reihenfolge zurück. Dies wird für die Zyklensuche im Graph benötigt.
+
 \end{itemize}
 	
 \subsubsection{YuvKA.Pipeline.TickRenderedMessage}

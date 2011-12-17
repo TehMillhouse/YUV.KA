@@ -3,7 +3,7 @@
 \begin{center}	
 \includegraphics[width=0.5\textwidth]{YuvKA.ViewModel/pipeline.png}
 \end{center}
-Die Klasse \name{PipelineViewModel} und ihre untergeordneten View Models sind für die Darstellung und Manipulation des Pipeline-Graphen zuständig.
+Die Klasse \name{PipelineViewModel} und ihre untergeordneten ViewModels sind für die Darstellung und Manipulation des Pipeline-Graphen zuständig.
 
 \subsubsection{YuvKA.ViewModel.PipelineViewModel}
 
@@ -12,7 +12,7 @@ public class PipelineViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die \name{PipelineViewModel}-Klasse erzeugt aus dem Model-Graph passende View Models für Knoten und Kanten.
+Die \name{PipelineViewModel}-Klasse erzeugt aus dem Graphen des Models passende ViewModels für Knoten und Kanten.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -21,13 +21,13 @@ Die \name{PipelineViewModel}-Klasse erzeugt aus dem Model-Graph passende View Mo
 	\begin{verbatim}
 	public IList<NodeViewModel> Nodes { get; }
 	\end{verbatim}
-	Ruft die Menge der Knoten-View-Models ab.
+	Ruft die Menge der Knoten-ViewModels ab.
 
 \method{Edges}
 	\begin{verbatim}
 	public IEnumerable<EdgeViewModel> Edges { get; }
 	\end{verbatim}
-	Ruft eine Auflistung von Kanten-View-Models ab. Der Propertywert wird bei Abruf dynamisch aus der Knotenmenge erzeugt.
+	Ruft eine Auflistung von Kanten-ViewModels ab. Der Propertywert wird bei Abruf dynamisch aus der Knotenmenge erzeugt.
 
 \end{itemize}
 

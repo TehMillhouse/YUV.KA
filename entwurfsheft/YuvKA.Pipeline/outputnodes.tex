@@ -10,7 +10,7 @@ public abstract class OutputNode : Node
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die abstrakte Klasse \name{OutputNode} modelliert die Ausgabemöglichkeiten der Pipeline und bietet eine gemeinsame Basis für deren konkrete Implementationen.
+Die abstrakte Klasse \name{OutputNode} modelliert die Ausgabemöglichkeiten der Pipeline und bietet eine gemeinsame Basis für deren konkrete Implementierungen.
 
 \subsubsection{YuvKA.Pipeline.DiagramNode}
 \begin{verbatim}
@@ -79,7 +79,7 @@ Die Klasse \name{DiagramGraph} stellt ein Diagramm dar. Ein Diagramm wird durch 
 	[DataMember]
 	public IList<double> Data { get; set; }
 	\end{verbatim}
-	Enthält eine Liste der berechneten Analysedaten zum entsprechenden Diagramm\name{typ}en.
+	Enthält eine Liste der berechneten Analysedaten zum entsprechenden Diagrammtypen.
 	
 \property{Type}
 	\begin{verbatim}
@@ -111,14 +111,14 @@ Das Interface \name{IGraphType} stellt den Diagrammtypen der Klasse \name{Diagra
 	\begin{verbatim}
 	double Process(Frame frame, Frame reference)
 	\end{verbatim}
-	Berechnet die Analysedaten des \name{Frame}s und falls vorhanden, berechnet diese im Zusammenhang mit dem \name{Frame} des Referenzvideos. Es werden standardmäßig drei Arten von Bildanalysen unterstützt:
+	Berechnet die Analysedaten des \name{Frame}s und, falls vorhanden, berechnet diese im Zusammenhang mit dem \name{Frame} des Referenzvideos. Es werden standardmäßig drei Arten von Bildanalysen unterstützt:
 		\begin{itemize}
 			\item \name{PixelDiff} Hierbei werden die Farbdifferenzen zwischen dem ausgewählten Frame und dem Referenzframe pixelweise berechnet.
 			\item \name{IntraBlockFrequency} Berechnung der Anzahl der Intra-Blöcke im Frame.
-			\item \name{PeakSignalNoiseRatio} Stellt das Verhältnis zwischen einem Bild in Originalqualität und dessen komprimierte Version, in der die Informationsmenge durch das Komprimieren in unterschiedlichem Maße abgenommen hat, dar. Dieses Verhältnis wird mit Hilfe folgender Formeln beschrieben. \\
-			Der ``mittlere quadratische Fehler'' (oder ``mean square error'') für RGB Pixel wird definiert als 
+			\item \name{PeakSignalNoiseRatio} Stellt das Verhältnis zwischen der Qualität zweier Videos dar. Hierbei ist eines der Videos in der Regel eine verlustbehaftete Version des anderen. Dieses Verhältnis wird mit Hilfe folgender Formeln beschrieben. \\
+			Der MSE (``mittlere quadratische Fehler'' oder ``mean square error'') für RGB Pixel wird definiert als 
 			\[ \text{MSE} = \frac{1}{3mn} \sum_{i = 1}^{m - 1}{ \sum_{j = 0}^{n - 1}{[I(i, j) - K(i, j)]^2} } \]
-			wobei $ I $ und $ K $ zwei Bilder sind, von denen das eine die komprimierte Version des anderen ist. Das ``peak signal-to-noise ratio'' wird dann gegeben durch
+			wobei $ I $ und $ K $ zwei Bilder sind, von denen das eine die komprimierte Version des anderen ist. Die ``peak signal-to-noise ratio'' wird dann gegeben durch
 			\[ \text{PSNR} = 10 \cdot \log_{10}{\frac{\text{MAX}_I^2}{\text{MSE}}} \]
 			wobei $ MAX_I $ der größtmögliche Wert ist, den man in einem Pixel speichern kann. Für RGB Pixel (24-bit) ist das $ 2^{24} - 1 $.
 		\end{itemize}
@@ -132,7 +132,7 @@ Das Interface \name{IGraphType} stellt den Diagrammtypen der Klasse \name{Diagra
 public class HistogramNode : OutputNode
 \end{verbatim}
 \paragraph{Beschreibung}~\\
-Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \name{HistogramViewModel} verwendet werden, um die Histogrammgrafiken darzustellen. Es werden für jeden der drei Farbkanäle sowie für für den Farbwert V im HSV-Raum jeweils ein Histogramm unterstützt.
+Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \name{HistogramViewModel} verwendet werden, um die Histogrammgrafiken darzustellen. Es werden für jeden der drei Farbkanäle sowie für den Farbwert V im HSV-Raum jeweils ein Histogramm unterstützt.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -142,7 +142,7 @@ Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \na
 		[Browsable(false)]
 		public HistogramType Type { get; }
 	\end{verbatim}
-	Ruft den Histogrammtyp ab. Es werden vier Arten von Histogrammen unterstützt: jeweils einen für jeden der drei Farbkanäle, sowie einen für den Farbwert im HSV-Raum.
+	Ruft den Histogrammtyp ab. Es werden vier Arten von Histogrammen unterstützt: jeweils eine pro Farbkanal sowie eine für den Farbwert im HSV-Raum.
 	
 \property{Data}
 	\begin{verbatim}
@@ -150,13 +150,13 @@ Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \na
 		[Browsable(false)]
 		public double[] Data { get; }
 	\end{verbatim}
-	Ruft ein Array der Größe 256 ab, in dem die Verteilung des Farbkanals oder HSV-Farbwerts im \name{Frame} dargestellt ist. Die Stelle $ i \ (0 \leq i \leq 255) $ im Array speichert die Häufigkeit des Farbwerts $ i $ im \name{Frame} für den gewählten Farb\name{typ} (R, G, B oder V). Der Wert liegt zwischen 0.0 und 1.0, da eine relative Häufigkeit dargestellt wird.
+	Ruft ein Array der Größe 256 ab, in dem die Verteilung des Farbkanals oder HSV-Farbwerts im \name{Frame} dargestellt ist. Die Stelle $ i \ (0 \leq i \leq 255) $ im Array speichert die Häufigkeit des Farbwerts $ i $ im \name{Frame} für den gewählten Farbtyp (R, G, B oder V). Der Wert liegt zwischen 0 und 1, da eine relative Häufigkeit dargestellt wird.
 
 \method{Process}
 	\begin{verbatim}
 		public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
-	Die Methode \name{Process} berechnet für den angegebenen Histogramm\name{typ} die Häufigkeit der Farbwerte von 0 bis 255 und speichert diese an der entsprechenden Stelle im Array \name{Data}, wie im folgenden Algorithmus zu sehen ist:
+	Die Methode \name{Process} berechnet für den angegebenen Histogrammtyp die Häufigkeit der Farbwerte von 0 bis 255 und speichert diese an der entsprechenden Stelle im Array \name{Data}, wie im folgenden Algorithmus zu sehen ist:
 	\floatname{algorithm}{Algorithmus}
 	\begin{algorithm}[H]
 		\caption{Berechnung der relativen Häufigkeit eines Farbtyps}
@@ -194,13 +194,13 @@ Die Klasse \name{OverlayNode} modelliert das überlagern von Videos mit graphisc
 	[DataMember]
 	public IOverlayType Type { get; set; }
 	\end{verbatim}
-	Ruft die Art der Überlagerung ab, oder legt sie fest. Standardmäßig werden die Markierung von Artefakten im Vergleich mit einem Referenzvideo, das Anzeigen von Bewegungsvektoren sowie eine Anzeige der Makroblockentscheidungen des Encoders unterstützt.
+	Ruft die Art der Überlagerung ab oder legt sie fest. Standardmäßig werden die Markierung von Artefakten im Vergleich mit einem Referenzvideo, das Anzeigen von Bewegungsvektoren sowie eine Anzeige der Makroblockentscheidungen des Encoders unterstützt.
 
 \method{Process}
 	\begin{verbatim}
 	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
-	Überlagert den übergebenen \name{Frame} mit den durch \name{Type} spezifizierten Daten und gibt den Überlagerten \name{Frame} zurück. Bei den standardmäßig unterstützen Möglichkeiten handelt es sich um:
+	Überlagert den übergebenen \name{Frame} mit den durch \name{Type} spezifizierten Daten und gibt den überlagerten \name{Frame} zurück. Bei den standardmäßig unterstützen Möglichkeiten handelt es sich um:
 	\begin{description}
 		\item[ArtifactsOverlay]~\\
 			Für diese Überlagerung werden zwei Eingabeframes benötigt, da hier die Artefakte eines \name{Frame}s im Vergleich mit einem anderen hervorgehoben werden.

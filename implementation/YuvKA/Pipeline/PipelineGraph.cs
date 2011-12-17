@@ -35,5 +35,10 @@ namespace YuvKA.Pipeline
 		{
 			throw new System.NotImplementedException();
 		}
+
+        public IEnumerable<Node> DepthFirstSearch(Node startNode)
+        {
+            throw new System.NotImplementedException();
+        }
 	}
 }
