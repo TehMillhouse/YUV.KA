@@ -12,7 +12,7 @@ public abstract class Node : IDisposable
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die abstrakte Klasse \name{Node} stellt die gemeinsame Struktur aller Knoten zur Verfügung. Die allgemeine Arbeitsweise eines solchen Knotens besteht darin, dass er nach seiner Konstruktion und dem Verbinden seiner Eingänge (falls er welche hat) durch einen Aufruf der Funktion \name{Process} zur Verarbeitung der gegebenen \name{Frame}s ab dem gegebenen Index gebracht wird. Was die Bearbeitung beinhaltet wird in der jeweiligen Unterklasse spezifiziert.
+Die abstrakte Klasse \name{Node} stellt die gemeinsame Struktur aller Knoten zur Verfügung. Die allgemeine Arbeitsweise eines solchen Knotens besteht darin, dass er nach seiner Konstruktion und dem Verbinden seiner Eingänge (falls er welche hat) durch einen Aufruf der Funktion \name{Process} zur Verarbeitung der gegebenen \name{Frame}s ab dem gegebenen Index gebracht wird. Was die Bearbeitung beinhaltet, wird in der jeweiligen Unterklasse spezifiziert.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -38,14 +38,14 @@ Die abstrakte Klasse \name{Node} stellt die gemeinsame Struktur aller Knoten zur
 [Browsable(false)]
 public ICollection<Input> Inputs { get; private set; }
 	\end{verbatim}
-Stellt die Eingänge eines Knoten dar. Siehe innere Klasse \name{Input}
+Stellt die Eingänge eines Knoten dar. Siehe innere Klasse \name{Input}.
 
 \property{Outputs}
 	\begin{verbatim}
 [Browsable(false)]
 public ICollection<Output> Outputs { get; private set; }
 	\end{verbatim}
-Stellt die Ausgänge eines Knoten dar. Siehe innere Klasse \name{Output}
+Stellt die Ausgänge eines Knoten dar. Siehe innere Klasse \name{Output}.
 
 \method{Process}
 	\begin{verbatim}
@@ -63,7 +63,7 @@ public class Input
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die innere Klasse \name{Input} stellt einen Eingang eines Knotens dar, von dem der Knoten seine zu verarbeitenden Daten bezieht. (Dies gilt natürlich nicht für Unterklassen der Klasse \name{InputNode}, welche in der Regel keine Eingänge haben und ihre Daten von anderen Stellen beziehen.)
+Die innere Klasse \name{Input} stellt einen Eingang eines Knotens dar, von dem der Knoten seine zu verarbeitenden Daten bezieht. \footnote{Dies gilt natürlich nicht für Unterklassen der Klasse \name{InputNode}, welche in der Regel keine Eingänge haben und ihre Daten von anderen Stellen beziehen.}
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -78,7 +78,7 @@ Enthält die Quelle des Einganges. Graphisch gesehen entspricht dies dem ``Anfan
 	\begin{verbatim}
 public int Index { get; }
 	\end{verbatim}
-Speichert den Index des Einganges. Dies ist insbesondere bei Knoten wichtig, welche einen Unterschied zwischen verschiedenen Eingängen machen (zum Beispiel der \name{DifferenceNode}-Knoten, welcher die Pixeldaten verschiedener Eingänge voneinander subtrahiert).
+Speichert den Index des Einganges. Dies ist insbesondere bei Knoten wichtig, welche einen Unterschied zwischen verschiedenen Eingängen machen. \footnote{Beispiel: Der \name{DifferenceNode}-Knoten, welcher die Pixeldaten verschiedener Eingänge voneinander subtrahiert.}
 
 \end{itemize}
 
@@ -90,7 +90,7 @@ public class Input
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die innere Klasse \name{Output} stellt einen Ausgang eines Knotens dar, durch den die verarbeiteten Daten eines Rechenschrittes weitergegeben werden. (Dies gilt natürlich nicht für Unterklassen der Klasse \name{OutputNode}, welche in der Regel keine Ausgänge haben.)
+Die innere Klasse \name{Output} stellt einen Ausgang eines Knotens dar, durch den die verarbeiteten Daten eines Rechenschrittes weitergegeben werden. \footnote{Dies gilt natürlich nicht für Unterklassen der Klasse \name{OutputNode}, welche in der Regel keine Ausgänge haben.}
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -105,6 +105,6 @@ Speichert den Knoten, zu dem der Ausgang gehört.
 	\begin{verbatim}
 public int Index { get; }
 	\end{verbatim}
-Speichert den Index des Ausgangs. Dies ist insbesondere bei Knoten wichtig, welche einen Unterschied zwischen verschiedenen Ausgängen machen (zum Beispiel der \name{RgbSplitNode}-Knoten, welcher die Pixeldaten seiner Eingabe in Rot-, Grün- und Blaukanal aufteilt).
+Speichert den Index des Ausgangs. Dies ist insbesondere bei Knoten wichtig, welche einen Unterschied zwischen verschiedenen Ausgängen machen \footnote{Beispiel: Der \name{RgbSplitNode}-Knoten, welcher die Pixeldaten seiner Eingabe in Rot-, Grün- und Blaukanal aufteilt.}
 
 \end{itemize}

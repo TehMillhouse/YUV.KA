@@ -58,7 +58,7 @@ Die Klasse \name{BlurNode} modelliert die Weichzeichnung der \name{Frame}s des V
 	Zeichnet den übergebenen \name{Frame} weich. Die genaue Art der Weichzeichnung wird hierbei durch \name{Type} festgelegt. Die standardmäßig unterstützten Arten sind:
 	\begin{description}
 		\item[Lineares Weichzeichnen]~\\
-			Beim linearen Weichzeichnen wird der neue Wert eines Pixels dadurch berechnet, dass die alten Werte aller umliegenden Pixel innerhalb einer Box mit Höhe und Breite (2 * \name{Radius}) + 1 gemittelt werden. Über den \name{Frame}rand hinaus benötigte Pixel werden durch den Pixel, der dem gesuchten Pixel am nächsten ist, simuliert. ~\\~\\
+			Beim linearen Weichzeichnen wird der neue Wert eines Pixels dadurch berechnet, dass die alten Werte aller umliegenden Pixel innerhalb einer Box mit Höhe und Breite (2 * \name{Radius}) + 1 gemittelt werden. Über den Bildrand hinaus benötigte Pixel werden durch den Pixel, der dem gesuchten Pixel am nächsten ist, simuliert. ~\\~\\
 			PseudoCode:
 			\begin{verbatim}
 				Frame newFrame = new Frame(inputs[0])
@@ -104,7 +104,7 @@ public class BrightnessContrastSaturationNode : Node
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den Kontrast und/oder die Farbsättigung des \name{Frame}s.
+Die Klasse \name{BrightnessContrastSaturationNode} ermöglicht die Änderung von Helligkeit, Kontrast und Farbsättigung des \name{Frame}s.
 
 \begin{itemize}
 
@@ -142,7 +142,7 @@ Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den
 	\caption{HSL nach RGB Konvertierung}
 		\begin{algorithmic}[1]
 			\REQUIRE $ H \in [0^\circ, 360^\circ], \ S \in [0, 1], \ L \in [0, 1] $ \\
-			\COMMENT {Als erstes berechnen wir die Chroma. Dann können wir einen Punkt $ (R_1, G_1, B_1) $ mit dem gleichen Farbton und Chroma wie unsere Farbe entlang der unteren drei Seiten des RGB-Würfels finden, indem wir einen temporären Wert $ X $ für ihre zweitgrößte Komponente benutzten.}
+			\COMMENT {Als erstes berechnen wir die Chroma. Dann können wir einen Punkt $ (R_1, G_1, B_1) $ mit dem gleichen Farbton und Chroma wie unsere Farbe entlang der unteren drei Seiten des RGB-Würfels finden, indem wir einen temporären Wert $ X $ für ihre zweitgrößte Komponente benutzen.}
 			\vspace{3px}
 			\STATE $ C \gets (1 - |2L - 1|) \cdot S $
 			\STATE $ H' = \frac{H}{60^\circ} $
@@ -170,7 +170,7 @@ Diese Klasse \name{BrightnessContrastSaturationNode} ändert die Helligkeit, den
 		\end{algorithmic}
 	\end{algorithm}
 	
-	Nach der RGB-HSL Konvertierung können die S (Sättigung) und V (Helligkeit) Werte in den oben angegebenen Schranken modifiziert werden, um dann wieder nach RGB umgewandelt zu werden und in den neuen Pixeln geschrieben zu werden. \\
+	Nach der RGB-HSL Konvertierung können die Werte für S \footnote{Sättigung} und V \footnote{Helligkeit} in den oben angegebenen Schranken modifiziert werden. Anschließend können die veränderten HSL-Werte wieder in RGB-Werte konvertiert und danach in den Ausgabeframe geschrieben werden. \\
 	Für den Kontrast ist lediglich der Abstand zwischen einem Farbkanal und 128 zu vergrößern, wie in der folgenden Formel zu sehen ist: \begin{eqnarray*}
    r = (r - 128) \cdot \text{\name{Contrast}} + 128 \\
 	g = (g - 128) \cdot \text{\name{Contrast}} + 128 \\
@@ -186,7 +186,7 @@ public class AdditiveMergeNode : Node
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Diese Klasse \name{AdditiveMergeNode} legt mehrere Frames additiv übereinander.
+Die Klasse \name{AdditiveMergeNode} legt mehrere Frames additiv übereinander.
 
 \begin{itemize}
 
@@ -194,7 +194,7 @@ Diese Klasse \name{AdditiveMergeNode} legt mehrere Frames additiv übereinander.
 \begin{verbatim}
 	public override Frame[] Process(Frame[] inputs, int tick)
 \end{verbatim}
-Die Methode \name{Process} legt mehrere Frames additiv übereinander, indem sie die Farbwerte der positionsgleichen Pixel addiert und den so entstandenen Farbwert als das neue Pixel speichert.
+Die Methode \name{Process} legt mehrere Frames additiv übereinander, indem sie die Farbwerte der positionsgleichen Pixel addiert und den so entstandenen Farbwert im Ausgabeframe speichert.
 \end{itemize}
 
 \subsubsection{YuvKA.Pipeline.AveragedMergeNode}
@@ -216,19 +216,19 @@ Die Klasse \name{AveragedMergeNode} modelliert das Zusammenführen von Videos du
 		[Range(0.0, 1.0)]
 		public ObservableCollection<double> Weights { get; }
 	\end{verbatim}
-	Ruft eine Sammlung von Gewichtungen einzelner Videos ab.
+	Ruft die Gewichtungen der Eingabevideos ab.
 
 \method{Process}
 	\begin{verbatim}
 	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
-	Mittelt alle übergebenen \name{Frame}s pixelweise unter Beachtung der von \name{Weights} definierten Gewichtungen. Falls zwei Videos mit verschiedener Auflösung zusammengeführt werden, so wird das Maximum der Höhe bzw. Breite der beiden Videos als Auflösung des neuen Videos genommen. Fehlende Bildinformationen bei auflösungstechnisch kleineren Videos werden durch Schwarz ergänzt.\\~\\
+	Mittelt alle übergebenen \name{Frame}s pixelweise unter Beachtung der von \name{Weights} definierten Gewichtungen. Falls zwei Videos mit verschiedener Auflösung zusammengeführt werden, so wird das Maximum der Höhe bzw. Breite der beiden Videos als Auflösung des neuen Videos genommen. Fehlende Bildinformationen bei auflösungstechnisch kleineren Videos werden rechts und unten durch Schwarz ergänzt.\\~\\
 	PseudoCode:
 	\begin{verbatim}
 		Frame newFrame = new Frame(inputs[0])
 		for (int x = 0; x < inputs[0].Size.X; x++)
 		  for (int y = 0; y < inputs[0].Size.Y; y++)
-		    newFram[x, y] = 0
+		    newFrame[x, y] = 0
 		    int sumOfWeights = 0
 		    for (int i = 0; i < inputs.Size(); i++)
 		      newFrame[x, y] += inputs[i][x, y] * Weights[i]
@@ -254,7 +254,7 @@ Die Klasse \name{DifferenceNode} bildet die Differenz zweier \name{Frame}s.
 	\begin{verbatim}
 		public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
-Die Methode \name{Process} bildet die Differenz zweier \name{Frame}s, indem sie die Farbwerte positionsgleicher Pixel subtrahiert.
+Die Methode \name{Process} bildet die Differenz zweier \name{Frame}s, indem sie die Farbwerte positionsgleicher Pixel voneinander subtrahiert.
 
 \end{itemize}
 
@@ -283,7 +283,7 @@ Die Klasse \name{DelayNode} modelliert die Verzögerung von Videostreams innerha
 	\begin{verbatim}
 	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
-	Stellt den übergebenen \name{Frame} in eine Warteschlange mit der Länge \name{Delay} an, und gibt den ersten \name{Frame} der Warteschlange zurück.
+	Stellt den übergebenen \name{Frame} in einer Warteschlange mit der Länge \name{Delay} an und gibt den ersten \name{Frame} der Warteschlange zurück.
 	
 \end{itemize}
 
@@ -303,6 +303,6 @@ Die Klasse \name{RgbSplitNode} modelliert die Aufteilung der \name{Frame}s eines
 	\begin{verbatim}
 	public override Frame[] Process(Frame[] inputs, int tick)
 	\end{verbatim}
-	Erzeugt aus dem übergebenen \name{Frame} drei neue \name{Frame}s die jeweils nur einen Farbkanal des ursprünglichen \name{Frame}s enthalten und gibt diese zurück.
+	Erzeugt aus dem übergebenen \name{Frame} drei neue Frames, die jeweils nur einen Farbkanal des ursprünglichen Frames enthalten, und gibt diese zurück.
 	
 \end{itemize}

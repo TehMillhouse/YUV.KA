@@ -1,5 +1,5 @@
 \includegraphics[width=\textwidth]{YuvKA.VideoModel/videomodel.png}
-Das \name{VideoModel} besteht aus denjenigen Klassen, die die unterschiedlichen Framearten bilden, einschließlich ihrer Hilfsklassen. Außerdem gehört die Klasse \name{YuvEncoder} mit der inneren Klasse \name{Video} dazu, die Videos vom YUV-Format ins RGB-Format umwandelt, mit der das Programm intern arbeitet.
+Das \name{VideoModel} besteht aus den Klassen, die die unterschiedlichen \name{Frame}-Typen darstellen, sowie den dazugehörigen Hilfsklassen. Zudem beinhaltet es die Klasse \name{YuvEncoder} mit der inneren Klasse \name{Video}, welche Videos vom YUV-Format ins RGB-Format umwandelt. Das RGB-Format wird im allgemeinen als interne Darstellungsform einzelner Frames verwendet.
 
 \subsection{YuvKA.VideoModel.YuvEncoder}
 
@@ -8,7 +8,7 @@ public static class YuvEncoder
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos, die im YUV-Format eingegeben werden, ins RGB-Format umzuwandeln, damit das Programm damit arbeiten kann. Des Weiteren wandelt sie die manipulierten Videos vom RGB-Format ins YUV-Format um, damit sie abgespeichert werden können.
+Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos, die als YUV-Dateien eingegeben werden, ins RGB-Format umzuwandeln. Des Weiteren können Videos vom RGB-Format ins YUV-Format umgewandelt und als YUV-Datei abgespeichert werden.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -18,7 +18,7 @@ Die Klasse \name{YuvEncoder} bietet die Funktionalität, Videos, die im YUV-Form
 	public static Video Decode(string fileName, string logFileName,
     int width, int height)
 	\end{verbatim}
-	Wandelt das im \name{fileName} angegebene YUV-Video zu \name{Frame}s im RGB-Format mit der angegebenen Auflösung um, das interne Format des Programms. Falls der Parameter \name{logFileName} nicht \name{null} ist, werden die \name{Frame}s mit entsprechendem Log als \name{AnnotatedFrame}s ausgegeben.
+	Wandelt das im \name{fileName} angegebene YUV-Video zu \name{Frame}s im RGB-Format mit der durch \name{width} und \name{height} angegebenen Auflösung um. Falls der Parameter \name{logFileName} nicht \name{null} ist, werden die \name{Frame}s mit entsprechendem Log als \name{AnnotatedFrame}s ausgegeben.
 
 \method{Encode}
 	\begin{verbatim}
@@ -45,19 +45,19 @@ Die Klasse \name{Video} hält die vom \name{YuvEncoder} umgewandelten Videos als
 	\begin{verbatim}
 	public int FrameCount { get; }
 	\end{verbatim}
-	Ruft die Anzahl der \name{Frame}s im \name{stream} ab.
+	Ruft die Anzahl der \name{Frame}s im Stream ab.
 
 \property{this[int index]}
 	\begin{verbatim}
 	public Frame this[int index] { get; }
 	\end{verbatim}
-	Ruft den an der Stelle \name{index} abgespeicherten \name{Frame} im \name{stream} ab.
+	Ruft den an der Stelle \name{index} abgespeicherten \name{Frame} im Stream ab.
 
 \method{Dispose}
 	\begin{verbatim}
 	public void Dispose()
 	\end{verbatim}
-	Schließt den \name{stream} des \name{Video}-Objekts, sodass das File-Handle freigegeben wird.
+	Schließt den Stream des \name{Video}-Objekts, sodass das File-Handle freigegeben wird.
 
 \end{itemize}
 
