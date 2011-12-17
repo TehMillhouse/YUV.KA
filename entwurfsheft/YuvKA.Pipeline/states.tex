@@ -44,19 +44,23 @@ Die Klasse \name{PipelineState} vereint in sich den Gesamtzustand des Datenmodel
 	\end{verbatim}
 	Per Dependency Injection injizierte Schnittstelle zum Caliburn Message System, über das die Ausgabefenster über die Beendigung aller im aktuellen Tick berechneten \name{Frame}s benachrichtigt werden.
 
-
-
 \method{Start}
 	\begin{verbatim}
-	public void Start()
+	public void Start(IEnumerable<Node> outputNodes)
 	\end{verbatim}
-	Weist den \name{PipelineDriver} an, die Pipeline ab dem aktuellen Tick zu berechnen. Bei abgeschlossener Berechnung aller \name{Frame}s im aktuellen Zeitabschnitt wird eine \name{TickRenderedMessage} geworfen.
+	Weist den \name{PipelineDriver} an, die Pipeline ab dem aktuellen Tick für die gegebenen Knoten zu berechnen. Pro abgeschlossener Berechnung eines Ticks wird eine \name{TickRenderedMessage} geworfen.
 
 \method{Stop}
 	\begin{verbatim}
 	public void Stop()
 	\end{verbatim}
 	Beendet die Wiedergabe und stoppt den \name{PipelineDriver}. Danach vom \name{PipelineDriver} asynchron erhaltene \name{Frame}s werden ignoriert.
+
+\method{Stop}
+	\begin{verbatim}
+	public void RenderTick(IEnumerable<Node> outputNodes)
+	\end{verbatim}
+	Weist den \name{PipelineDriver} an, die Pipeline für den aktuellen Tick und die gegebenen Knoten zu berechnen. Bei abgeschlossener Berechnung wird eine \name{TickRenderedMessage} geworfen.
 \end{itemize}
 
 \subsubsection{YuvKA.Pipeline.PipelineGraph}
@@ -114,10 +118,3 @@ Die Klasse \name{TickRenderedMessage} enthält die im letzten Tick berechneten \
 Indexer. Ruft den durch \name{output} spezifizierten \name{Frame} auf.
 
 \end{itemize}
-
-
-
-
-	
-
-
