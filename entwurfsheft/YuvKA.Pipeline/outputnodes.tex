@@ -45,13 +45,13 @@ Die Klasse \name{DiagramNode} berechnet die Daten, die vom \name{ViewModel} gebr
 		[Browsable(false)]
 		public List<DiagramGraph> Graphs { get; set; }
 	\end{verbatim}
-	Stellt eine Liste der unterstützten Diagramme zur Verfügung. (siehe Klasse \name{DiagramGraph})
+	Stellt eine Liste der ausgewählten/anzuzeigenden Graphen zur Verfügung. (siehe Klasse \name{DiagramGraph})
 	
 \method{ProcessCore}
 	\begin{verbatim}
 		public override void ProcessCore(Frame[] inputs, int tick)
 	\end{verbatim}
-	Berechnet die Daten für drei verschiedenen Analysearten. (siehe Klasse \name{IGraphType})
+	Berechnet die Daten für die ausgewählten Graphen indem es \name{Process} auf jedem Graph aufruft. (siehe Interface \name{IGraphType})
 	
 \end{itemize}
 
@@ -70,23 +70,23 @@ Die Klasse \name{DiagramGraph} stellt ein Diagramm dar. Ein Diagramm wird durch 
 \property{Video}
 	\begin{verbatim}
 	[DataMember]
-	public YuvKA.Pipeline.Node.Input Video
+	public YuvKA.Pipeline.Node.Input Video { get; set; }
 	\end{verbatim}
 	Ruft das zu analysierende Video ab oder legt es fest.
 	
 \property{Data}
 	\begin{verbatim}
 	[DataMember]
-	public IList<double> Data
+	public IList<double> Data { get; set; }
 	\end{verbatim}
 	Enthält eine Liste der berechneten Analysedaten zum entsprechenden Diagramm\name{typ}en.
 	
 \property{Type}
 	\begin{verbatim}
 	[DataMember]
-	public IGraphType Type
+	public IGraphType Type { get; set; }
 	\end{verbatim}
-	Setzt die Art des Analysediagramms fest. (siehe Klasse \name{IGraphType})
+	Setzt die Art des Analysediagramms fest. (siehe Interface \name{IGraphType})
 
 \end{itemize}
 
@@ -96,14 +96,14 @@ public interface IGraphType
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Die Schnittstelle \name{IGraphType} stellt den Diagrammtypen der Klasse \name{DiagramGraph} dar.
+Das Interface \name{IGraphType} stellt den Diagrammtypen der Klasse \name{DiagramGraph} dar.
 
 \paragraph{Typmember}
 \begin{itemize}
 
 \property{DependsOnReference}
 	\begin{verbatim}
-	bool DependsOnReference
+	bool DependsOnReference { get; } 
 	\end{verbatim}
 	Setzt fest, ob der Diagrammtyp das Referenzvideo benötigt.
 	
@@ -111,15 +111,15 @@ Die Schnittstelle \name{IGraphType} stellt den Diagrammtypen der Klasse \name{Di
 	\begin{verbatim}
 	double Process(Frame frame, Frame reference)
 	\end{verbatim}
-	Berechnet die Analysedaten des \name{Frame}s und falls vorhanden, berechnet diese im Zusammenhang mit dem \name{Frame} des Referenzvideos. Es werden drei Arten von Bildanalysen unterstützt:
+	Berechnet die Analysedaten des \name{Frame}s und falls vorhanden, berechnet diese im Zusammenhang mit dem \name{Frame} des Referenzvideos. Es werden standardmäßig drei Arten von Bildanalysen unterstützt:
 		\begin{itemize}
 			\item \name{PixelDiff} Hierbei werden die Farbdifferenzen zwischen dem ausgewählten Frame und dem Referenzframe pixelweise berechnet.
 			\item \name{IntraBlockFrequency} Berechnung der Anzahl der Intra-Blöcke im Frame.
 			\item \name{PeakSignalNoiseRatio} Stellt das Verhältnis zwischen einem Bild in Originalqualität und dessen komprimierte Version, in der die Informationsmenge durch das Komprimieren in unterschiedlichem Maße abgenommen hat, dar. Dieses Verhältnis wird mit Hilfe folgender Formeln beschrieben. \\
 			Der ``mittlere quadratische Fehler'' (oder ``mean square error'') für RGB Pixel wird definiert als 
-			\[ MSE = \frac{1}{3mn} \sum_{i = 1}^{m - 1}{ \sum_{j = 0}^{n - 1}{[I(i, j) - K(i, j)]^2} } \]
+			\[ \text{MSE} = \frac{1}{3mn} \sum_{i = 1}^{m - 1}{ \sum_{j = 0}^{n - 1}{[I(i, j) - K(i, j)]^2} } \]
 			wobei $ I $ und $ K $ zwei Bilder sind, von denen das eine die komprimierte Version des anderen ist. Das ``peak signal-to-noise ratio'' wird dann gegeben durch
-			\[ PSNR = 10 \cdot \log_{10}{\frac{MAX_I^2}{MSE}} \]
+			\[ \text{PSNR} = 10 \cdot \log_{10}{\frac{\text{MAX}_I^2}{\text{MSE}}} \]
 			wobei $ MAX_I $ der größtmögliche Wert ist, den man in einem Pixel speichern kann. Für RGB Pixel (24-bit) ist das $ 2^{24} - 1 $.
 		\end{itemize}
 		
@@ -140,7 +140,7 @@ Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \na
 	\begin{verbatim}
 		[DataMember]
 		[Browsable(false)]
-		public HistogramType Type
+		public HistogramType Type { get; }
 	\end{verbatim}
 	Ruft den Histogrammtyp ab oder legt ihn fest. Es werden vier Arten von Histogrammen unterstützt: jeweils einen für jeden der drei Farbkanäle, sowie einen für den Farbwert im HSV-Raum.
 	
