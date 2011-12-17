@@ -105,7 +105,7 @@ Das Interface \name{IGraphType} stellt den Diagrammtypen der Klasse \name{Diagra
 	\begin{verbatim}
 	bool DependsOnReference { get; } 
 	\end{verbatim}
-	Setzt fest, ob der Diagrammtyp das Referenzvideo benötigt.
+	Ruft ab, ob der Diagrammtyp das Referenzvideo benötigt.
 	
 \method{Process}
 	\begin{verbatim}
@@ -142,7 +142,7 @@ Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \na
 		[Browsable(false)]
 		public HistogramType Type { get; }
 	\end{verbatim}
-	Ruft den Histogrammtyp ab oder legt ihn fest. Es werden vier Arten von Histogrammen unterstützt: jeweils einen für jeden der drei Farbkanäle, sowie einen für den Farbwert im HSV-Raum.
+	Ruft den Histogrammtyp ab. Es werden vier Arten von Histogrammen unterstützt: jeweils einen für jeden der drei Farbkanäle, sowie einen für den Farbwert im HSV-Raum.
 	
 \property{Data}
 	\begin{verbatim}
