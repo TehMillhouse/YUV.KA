@@ -8,15 +8,15 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
-    [DataContract]
+	[DataContract]
 	public class BlurNode : Node
 	{
-        [DataMember]
+		[DataMember]
 		public BlurType Type { get; set; }
 
-        [DataMember]
+		[DataMember]
 		[Range(0.0, double.PositiveInfinity)]
-		public int Radius  { get; set; }
+		public int Radius { get; set; }
 
 
 		#region INode Members

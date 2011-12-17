@@ -6,11 +6,11 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
-    public class InverterNode : Node
-    {
-        public override Frame[] Process(Frame[] inputs, int tick)
-        {
-            throw new NotImplementedException();
-        }
-    }
+	public class InverterNode : Node
+	{
+		public override Frame[] Process(Frame[] inputs, int tick)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
