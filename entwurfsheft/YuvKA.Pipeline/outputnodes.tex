@@ -111,12 +111,12 @@ Das Interface \name{IGraphType} stellt den Diagrammtypen der Klasse \name{Diagra
 	\begin{verbatim}
 	double Process(Frame frame, Frame reference)
 	\end{verbatim}
-	Berechnet die Analysedaten des \name{Frame}s und, falls vorhanden, berechnet diese im Zusammenhang mit dem \name{Frame} des Referenzvideos. Es werden standardmäßig drei Arten von Bildanalysen unterstützt:
+	Berechnet die Analysedaten des \name{Frame}s, wobei bei vorhandenem Referenzframe weitere Analysearten möglich sind. Es werden standardmäßig drei Arten von Bildanalysen unterstützt:
 		\begin{itemize}
 			\item \name{PixelDiff} Hierbei werden die Farbdifferenzen zwischen dem ausgewählten Frame und dem Referenzframe pixelweise berechnet.
 			\item \name{IntraBlockFrequency} Berechnung der Anzahl der Intra-Blöcke im Frame.
-			\item \name{PeakSignalNoiseRatio} Stellt das Verhältnis zwischen der Qualität zweier Videos dar. Hierbei ist eines der Videos in der Regel eine verlustbehaftete Version des anderen. Dieses Verhältnis wird mit Hilfe folgender Formeln beschrieben. \\
-			Der MSE (``mittlere quadratische Fehler'' oder ``mean square error'') für RGB Pixel wird definiert als 
+			\item \name{PeakSignalNoiseRatio} Stellt das Verhältnis der Qualität zweier Videos dar. Hierbei ist eines der Videos in der Regel eine verlustbehaftete Version des anderen. Dieses Verhältnis wird mit Hilfe folgender Formeln beschrieben. \\
+			Der MSE (``mittlere quadratische Fehler'' oder ``mean square error'') für RGB Pixel wird definiert durch 
 			\[ \text{MSE} = \frac{1}{3mn} \sum_{i = 1}^{m - 1}{ \sum_{j = 0}^{n - 1}{[I(i, j) - K(i, j)]^2} } \]
 			wobei $ I $ und $ K $ zwei Bilder sind, von denen das eine die komprimierte Version des anderen ist. Die ``peak signal-to-noise ratio'' wird dann gegeben durch
 			\[ \text{PSNR} = 10 \cdot \log_{10}{\frac{\text{MAX}_I^2}{\text{MSE}}} \]
@@ -132,7 +132,7 @@ Das Interface \name{IGraphType} stellt den Diagrammtypen der Klasse \name{Diagra
 public class HistogramNode : OutputNode
 \end{verbatim}
 \paragraph{Beschreibung}~\\
-Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \name{HistogramViewModel} verwendet werden, um die Histogrammgrafiken darzustellen. Es werden für jeden der drei Farbkanäle sowie für den Farbwert V im HSV-Raum jeweils ein Histogramm unterstützt.
+Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \name{HistogramViewModel} verwendet werden, um die Histogrammgrafiken darzustellen. % Es werden pro Farbkanäle sowie für den Farbwert V\footnote{V steht hier für Value} im HSV-Raum jeweils ein Histogramm unterstützt.
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -142,7 +142,7 @@ Die Klasse \name{HistogramNode} stellt die Daten zur Verfügung, die von dem \na
 		[Browsable(false)]
 		public HistogramType Type { get; }
 	\end{verbatim}
-	Ruft den Histogrammtyp ab. Es werden vier Arten von Histogrammen unterstützt: jeweils eine pro Farbkanal sowie eine für den Farbwert im HSV-Raum.
+	Ruft den Histogrammtyp ab. Es werden pro Farbkanäle sowie für den Farbwert V\footnote{Value} im HSV-Raum jeweils ein Histogramm unterstützt.
 	
 \property{Data}
 	\begin{verbatim}

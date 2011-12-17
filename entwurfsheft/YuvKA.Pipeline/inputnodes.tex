@@ -118,7 +118,7 @@ public double PerlinNoise(int x, int y) {
   int xint = Math.floor(x);
   int yint = Math.floor(y);
   // Vorberechnete Vektoren an nächsten Gitterpunkten
-  // Nachschlagen und das Skalarprodukt mit dem 
+  // nachschlagen und das Skalarprodukt mit dem 
   // Abstandsvektor zu den Koordinaten bilden
   latticeVect0 = DotProduct(randVectors[xint, yint],
                             (x - xint, y - yint) );
