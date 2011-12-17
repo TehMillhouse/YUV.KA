@@ -12,7 +12,7 @@ Diese Klassen dienen der Darstellung der vom Benutzer veränderbaren Properties 
 public class PropertyEditorViewModel
 \end{verbatim}
 
-\paragraph{Beschreibung}~\\als
+\paragraph{Beschreibung}~\\
 Die Klasse \name{PropertyEditorViewModel} verwaltet eine Anzahl von Properties und ermöglicht mithilfe der View ihre Darstellung.
 
 \paragraph{Typmember}
@@ -42,7 +42,7 @@ public abstract class PropertyViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Abstrakte Oberklasse zu den einzelnen Property View Model Klassen.
+Abstrakte Oberklasse zu den einzelnen Property View Model Klassen
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -78,7 +78,7 @@ public abstract class PropertyViewModel<T> : PropertyViewModel
 \end{verbatim}
 
 \paragraph{Beschreibung}~\\
-Abstrakte Klasse zur Darstellung der benötigten Properties mithilfe der View dar.
+Typisierte Ableitung der \name{PropertyViewModel}-Klasse
 
 \paragraph{Typmember}
 \begin{itemize}
@@ -92,47 +92,46 @@ Abstrakte Klasse zur Darstellung der benötigten Properties mithilfe der View da
 
 
 
-\subsubsection{Weitere PropertyViewModels}
+\subsubsection{PropertyViewModel-Implementierungen}
 
 \begin{itemize}
 
-\item{\textbf{YuvKA.ViewModel.PropertyEditor.BooleanPropertyViewModel\\}}
+\item{\textbf{YuvKA.ViewModel.PropertyEditor.BooleanPropertyViewModel}}
 	\begin{verbatim}
-	public class BooleanPropertyViewModel : PropertyViewModel <bool>
+	public class BooleanPropertyViewModel : PropertyViewModel<bool>
 	\end{verbatim}
-	Stellt mithilfe der View eine Property vom Typ \name{bool}.
+	Stellt mithilfe der View eine Property vom Typ \name{bool} dar.
 
-\item{\textbf{VuvKA.ViewModel.PropertyEditor.PathPropertyViewModel\\}}
+\item{\textbf{VuvKA.ViewModel.PropertyEditor.PathPropertyViewModel}}
 	\begin{verbatim}
-	public class PathPropertyViewModel 
-	: PropertyViewModel<Pipeline.FilePath>
+	public class PathPropertyViewModel : PropertyViewModel<FilePath>
 	\end{verbatim}
 	Stellt mithilfe der View eine Property, welche einen Dateipfad darstellt, dar.\\
-	Die Klasse besitzt zudem die folgende Methode, welche einen Dialog zur Auswahl des Dateipfades öffnet.
+	Die Klasse besitzt zudem die folgende Methode, welche einen Dialog zur Auswahl des Dateipfades öffnet:
 	\begin{verbatim}
 	public void OpenDialog()
 	\end{verbatim}
 
-\item{\textbf{YuvKA.ViewModel.PropertyEditor.SizePropertyViewModel\\}}
+\item{\textbf{YuvKA.ViewModel.PropertyEditor.SizePropertyViewModel}}
 	\begin{verbatim}
 	public class SizePropertyViewModel : PropertyViewModel<Size>
 	\end{verbatim}
 	Stellt mithilfe der View eine Property vom Typ \name{Size} dar.\\
-	Die Klasse besitzt Folgende Properties, welche die Höhe und die Breite von \name {Size} repräsentieren.
+	Die Klasse besitzt folgende Properties, welche die Höhe und die Breite von \name {Size} repräsentieren:
 	\begin{verbatim}
 	public int Width { get; set; }
 	public int Height { get; set; } 
 	\end{verbatim}
 
-\item{\textbf{YuvKA.ViewModel.PropertyEditor.NumericalPropertyViewModel\\}}
+\item{\textbf{YuvKA.ViewModel.PropertyEditor.NumericalPropertyViewModel}}
 	\begin{verbatim}
 	public abstract class NumericalPropertyViewModel<T> 
 	: PropertyViewModel<T>
 	\end{verbatim}
-	Stellt mithilfe der View eine numerische Property dar. Die Klasse besitzt zudem die folgenden Properties, welche die obere und untere Grenze der darzustellenden Property darstellen.
+	Stellt mithilfe der View eine numerische Property dar. Die Klasse besitzt zudem die folgenden Properties, welche die obere und untere Grenze der darzustellenden Property darstellen:
 	\begin{verbatim}
-	public Nullable{double} Maximum { get; set; }
-	public Nullable{double} Minimum { get; set; }
+	public Nullable<double> Maximum { get; set; }
+	public Nullable<double> Minimum { get; set; }
 	\end{verbatim}
 	Von dieser Klasse erben die folgenden numerischen Property View Models, welche einen \name{int}-Wert bzw einen \name{double}-Wert darstellen:
 
@@ -144,19 +143,19 @@ Abstrakte Klasse zur Darstellung der benötigten Properties mithilfe der View da
 	: NumericalPropertyViewModel<double>
 	\end{verbatim}				
 
-\item{\textbf{YuvKA.ViewModel.PropertyEditor.ObservableCollectionOfDoublePropertyViewModel\\}}
+\item{\textbf{YuvKA.ViewModel.PropertyEditor.ObservableCollectionOfDoublePropertyViewModel}}
 	\begin{verbatim}
 	public class ObservableCollectionOfDoublePropertyViewModel 
-	: PropertyViewMode<ObservalbeCollection<double>>
+	: PropertyViewModel<ObservableCollection<double>>
 	\end{verbatim}
 	Stellt mithilfe der View eine \name{ObservableCollection} von \name{double}-Werten dar.
 
-\item{\textbf{YuvKA.ViewModel.PropertyEditor.RgbPropertyViewModel\\}}
+\item{\textbf{YuvKA.ViewModel.PropertyEditor.RgbPropertyViewModel}}
 	\begin{verbatim}
 	public class RgbPropertyViewModel : PropertyViewModel<VideoModel.Rgb>
-	\end{verbatim}	
+	\end{verbatim}
 	Stellt eine \name{Rgb}-Property mithilfe der View dar.\\
-	Die Klasse besitzt die folgende Methode, welche einen Dialog zur Auswahl des Farbkanals öffnet.
+	Die Klasse besitzt die folgende Methode, welche einen Dialog zur Farbauswahl öffnet:
 	\begin{verbatim}
 	public void OpenDialog()
 	\end{verbatim}
