@@ -1,0 +1,62 @@
+\documentclass[t]{beamer}
+\usetheme[deutsch]{KIT}
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\KITfoot{YUV.KA - Praxis der Softwareentwicklung WS 11/12}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
+\usenavigationsymbols
+
+\title{YUV.KA}
+\subtitle{Abschlusspräsentation Entwurfsphase}
+\author{Max Wagner $\cdot$ Patrick Gemander $\cdot$ Sebastian Ullrich $\cdot$ Michael Vollmer \\ Robert Hangu $\cdot$ Daniel Lebert}
+
+\institute[ITEC]{Institut für Technische Informatik}
+
+\TitleImage[trim = -20cm 0 0 0,height=\titleimageht]{../logo.png}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+ 
+\begin{frame}
+\frametitle{MVVM (Model-View-ViewModel)}
+\noindent
+\begin{minipage}{3.5cm}
+\includegraphics[width=3.5cm]{MVVM_thumb.png}
+
+\textit{http://reedcopsey.com}
+\end{minipage}
+\hfill
+\begin{minipage}{8cm}
+\begin{itemize}
+    \item Eigens für WPF entwickeltes Entwurfsmuster
+    \item Erzielt Modularität und Testbarkeit durch vollständige Entkopplung von UI-Elementen und UI-Logik
+\end{itemize}
+\end{minipage}
+\end{frame}
+
+\begin{frame}
+\frametitle{Umsetzung}
+\begin{center}
+\includegraphics[height=0.9\textheight]{../Diagrams/namespacedependencies.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Video Model}
+\end{frame}
+\begin{frame}
+\frametitle{Pipeline}
+\end{frame}
+\begin{frame}
+\frametitle{View Model}
+\end{frame}
+\begin{frame}
+\frametitle{Property Editor}
+\end{frame}
+
+\end{document}
