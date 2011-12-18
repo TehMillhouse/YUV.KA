@@ -16,10 +16,16 @@
 \renewcommand{\algorithmicensure}{\textbf{Ausgabe:}}
 %\renewcommand{\contentsname}{Inhaltsverzeichnis}
 \newcommand{\name}[1]{\textbf{\texttt{#1}}}
-\newcommand{\field}[1]{\item \name{#1}}
-\newcommand{\property}[1]{\item \name{#1}}
-\newcommand{\method}[1]{\item \name{#1}}
-%\renewcommand*\rmdefault{ppl}\normalfont\upshape
+\newcommand{\property}[1]{
+    \renewcommand{\labelitemi}{\includegraphics[trim=0 3px 0 0,height=10px]{vs-icons/property.png}}
+    \item \name{#1}
+    \renewcommand{\labelitemi}{•}
+}
+\newcommand{\method}[1]{
+    \renewcommand{\labelitemi}{\includegraphics[trim=0 3px 0 0,height=10px]{vs-icons/method.png}}
+    \item \name{#1}
+    \renewcommand{\labelitemi}{•}
+}
 
 \begin{document}
 \title{
