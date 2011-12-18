@@ -108,4 +108,16 @@
 \end{minipage}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Beispielablauf: Starten der Wiedergabe}
+\begin{itemize}[<+->]
+    \item View: \verb!<Button x:Name="PlayPause" ... />!
+    \item \verb!Button.Click!-WPF-Event wird von Caliburn auf \verb!ReplayStateViewModel.PlayPause! gemappt (Convention over Configuration aka Magie)
+    \item $\Rightarrow$ Model: \verb!PipelineState.Play! $\Rightarrow$ \verb!PipelineDriver.RenderTicks!
+    \item Ticks werden parallel in Hintergrundthreads berechnet, für jeden Tick wird möglichst parallel \verb!Node.RenderTick! auf den Knoten aufgerufen
+    \item Asynchrone Rückgabe gerenderter Frames an \verb!PipelineState! $\Rightarrow$ schickt eine \verb!TickRenderedMessage!
+    \item{[Mehr Caliburn-Feenstaub]}
+    \item View Model: Ausgabefenster fangen das Ergebnis durch Implementieren von \verb!IHandle<TickRenderedMessage>! ab
+\end{itemize}
+\end{frame}
 \end{document}
