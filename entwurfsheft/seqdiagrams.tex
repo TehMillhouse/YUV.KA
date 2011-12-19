@@ -29,7 +29,7 @@
 \caption{Veranschaulichung des Ablaufs anhand des Klassendiagramms}
 \end{figure}
 \begin{description}
-	\item[Vorraussetzung] Der Benutzer hat eine Pipeline gebaut, die einen Weichzeichnungsknoten enthält.
+	\item[Vorraussetzung] Der Benutzer hat eine Pipeline erstellt, die einen Weichzeichnungsknoten enthält.
 	\item[äußerer Ablauf] Der Benutzer ruft das Kontextmenü des Weichzeichnungsknotens auf und wählt die Option ``Video anzeigen".
 	\item[innerer Ablauf] Der Aufruf der Option wird vom NodeViewModel (1) verarbeitet. Dieses erstellt ein neues VideoOutput Fenster, verwaltet vom VideoOutputViewModel (2). Dieses Fenster wird vom MainViewModel (3) in dessen Liste aller geöffneten Fenster aufgenommen. Zum Abspielen ruft das MainViewModel die Klasse ReplayState (4) auf. Diese wiederum benutzt den PipelineDriver (5, siehe auch nächstes Diagramm) zum Verarbeiten des Videos.
 \end{description}
