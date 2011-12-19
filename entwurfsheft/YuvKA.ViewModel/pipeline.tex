@@ -23,11 +23,17 @@ Die \name{PipelineViewModel}-Klasse erzeugt aus dem Graphen des Models passende 
 	\end{verbatim}
 	Ruft die Menge der Knoten-ViewModels ab.
 
-\method{Edges}
+\property{Edges}
 	\begin{verbatim}
 	public IEnumerable<EdgeViewModel> Edges { get; }
 	\end{verbatim}
 	Ruft eine Auflistung von Kanten-ViewModels ab. Der Propertywert wird bei Abruf dynamisch aus der Knotenmenge erzeugt.
+
+\method{Drop}
+	\begin{verbatim}
+	public void Drop(DragEventArgs e)
+	\end{verbatim}
+	Erstellt einen Knoten des gedropten Knotentyps und fügt ihn zum Pipeline Graph hinzu.
 
 \end{itemize}
 

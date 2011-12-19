@@ -45,6 +45,13 @@ Die \name{MainViewModel}-Klasse hält das Programm-Model in Form einer \name{Pip
 	\end{verbatim}
 	Ersetzen das derzeitige Model durch eine neue leere bzw. aus einer Datei geladenen Pipeline, dabei wird jeweils ein neuer Rückgängig-Schritt erzeugt. Open öffnet zusätzlich einen \name{OpenFileDialog} zur Auswahl des Dateipfades.
 
+\method{OpenWindow}
+	
+	\begin{verbatim}
+	public void OpenWindow(OutputWindowViewModel window)
+	\end{verbatim}
+	Öffnet mithilfe der View ein Fenster und fügt es zu \name{OpenWindows} hinzu.
+
 \method{Save}
 	\begin{verbatim}
 	public void Save()

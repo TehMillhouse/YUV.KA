@@ -36,14 +36,14 @@ Die abstrakte Klasse \name{Node} stellt die gemeinsame Struktur aller Knoten zur
 \property{Inputs}
 	\begin{verbatim}
 [Browsable(false)]
-public ICollection<Input> Inputs { get; private set; }
+public IList<Input> Inputs { get; }
 	\end{verbatim}
 Stellt die Eingänge eines Knoten dar. Siehe innere Klasse \name{Input}.
 
 \property{Outputs}
 	\begin{verbatim}
 [Browsable(false)]
-public ICollection<Output> Outputs { get; private set; }
+public IList<Output> Outputs { get; }
 	\end{verbatim}
 Stellt die Ausgänge eines Knoten dar. Siehe innere Klasse \name{Output}.
 
