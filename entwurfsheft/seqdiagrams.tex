@@ -3,7 +3,7 @@
 \subsection{Hinzufügen eines Knotens}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[height=0.7\textheight]{Diagrams/drop.png}
+\includegraphics[width=0.8\textheight,angle=90]{Diagrams/drop.png}
 \end{center}
 \end{figure}
 \newpage
@@ -17,7 +17,7 @@
 \subsection{Hinzufügen eines Ausgabefensters}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[height=0.9\textheight]{Diagrams/shownodeoutput.png}
+\includegraphics[width=0.9\textheight,angle=90]{Diagrams/shownodeoutput.png}
 \end{center}
 \end{figure}
 \newpage
@@ -30,14 +30,14 @@
 \end{figure}
 \begin{description}
 	\item[Vorraussetzung] Der Benutzer hat eine Pipeline gebaut, die einen Weichzeichnungsknoten enthält.
-	\item[äußerer Ablauf] Der Benutzer ruft das Kontextmenü des Weichzeichnungsknoten auf und wählt die Option ``Video anzeigen".
+	\item[äußerer Ablauf] Der Benutzer ruft das Kontextmenü des Weichzeichnungsknotens auf und wählt die Option ``Video anzeigen".
 	\item[innerer Ablauf] Der Aufruf der Option wird vom NodeViewModel (1) verarbeitet. Dieses erstellt ein neues VideoOutput Fenster, verwaltet vom VideoOutputViewModel (2). Dieses Fenster wird vom MainViewModel (3) in dessen Liste aller geöffneten Fenster aufgenommen. Zum Abspielen ruft das MainViewModel die Klasse ReplayState (4) auf. Diese wiederum benutzt den PipelineDriver (5, siehe auch nächstes Diagramm) zum Verarbeiten des Videos.
 \end{description}
 \newpage
 \subsection{Abspielen der Pipeline}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[height=0.9\textheight]{Diagrams/play.png}
+\includegraphics[width=0.9\textheight,angle=90]{Diagrams/play.png}
 \end{center}
 \end{figure}
 \newpage
