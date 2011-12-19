@@ -112,7 +112,7 @@ Die Klasse \name{NoiseInputNode} stellt einen Knoten bereit, welcher eine von zw
 	Setzt den Typ des Videostreams fest, welcher generiert wird. Standardmäßig werden folgende Verfahren unterstützt:
 	\begin{description}
 		\item[Perlin-Noise]~\\
-		Bei Perlin-Noise werden pseudozufällige Signale dadurch generiert, dass die Koordinaten des angefragten Punktes anhand eines vorgerechneten Rasters mit zufälligen Vektoren nachgeschlagen werden. Der resultierende Wert ist das Resultat des Skalarproduktes aus Abstandsvektors (zum nächsten Rasterpunkt) mit dem im Raster gefundenen Vektor, kombiniert mit einfacher Interpolation, um das resultierende Bild stetig zu halten. PseudoCode der 2-dimensionalen Version:
+		Bei Perlin-Noise werden pseudozufällige Signale dadurch generiert, dass vorberechnete pseudozufällige Vektoren anhand eines Rasters nachgeschlagen werden und mithilfe der gegebenen Koordinaten manipuliert werden.  PseudoCode der 2-dimensionalen Version:
 \begin{verbatim}
 public double PerlinNoise(int x, int y) {
   int xint = Math.floor(x);
