@@ -49,7 +49,26 @@
 \caption{Veranschaulichung des Ablaufs anhand des Klassendiagramms}
 \end{figure}
 \begin{description}
-	\item[Vorraussetzung] Der Benutzer hat eine Pipeline gebaut, die einen Weichzeichnungsknoten enthält und dessen Ausgabefenster geöffnet.
+	\item[Vorraussetzung] Der Benutzer hat eine Pipeline erstellt, die einen Weichzeichnungsknoten enthält und dessen Ausgabefenster geöffnet.
 	\item[äußerer Ablauf] Der Benutzer drückt auf den Play-Knopf, um die Pipeline abzuspielen.
 	\item[innerer Ablauf] Der Aufruf der Option wird vom ReplayStateViewModel (1) verarbeitet. Zum Abspielen ruft es  über das MainViewModel die Klasse ReplayState (2) auf. Diese wiederum benutzt den PipelineDriver (3) zum Verarbeiten des Videos. Der PipelineDriver verarbeitet die Frames, indem er für jeden Knoten einen Thread erstellt und diese nacheinander das Video abarbeiten lässt.
+\end{description}
+\newpage
+\subsection{Pipeline speichern, löchen und laden}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=\textwidth]{Diagrams/SaveClearLoad.png}
+\end{center}
+\end{figure}
+\newpage
+
+\begin{description}
+	\item[Vorraussetzung] Der Benutzer hat eine beliebige Pipeline erstellt.
+	\item[äußerer Ablauf] Der Benutzer speichert durch die Option ``Save Pipeline" die aktuelle Pipeline aus (1), löscht sie danach mit  ``New Pipeline" (2) und lädt sie anschließend wieder mit ``Load Pipeline" (3).
+	\item[innerer Ablauf] ~\newline
+\begin{enumerate}
+	\item Der Aufruf der Option wird vom MainViewModel verarbeitet. Dieses erzeugt ein Dateiauswahlfenster und serialisiert dann das PipelineState-Objekt in die angegebene Datei.
+	\item Der Aufruf der Option wird vom MainViewModel verarbeitet. Dieses erzeugt ein neues PipelineState-Objekt, welches das aktuelle überschreibt, sodass die Pipeline gelöscht wird.
+	\item Der Aufruf der Option wird vom MainViewModel verarbeitet. Dieses erzeugt ein Dateiauswahlfenster und lädt aus der angegebenen Datei das PipelineState-Objekt aus, welches dann das aktuelle PipelineState-Objekt überschreibt. 
+\end{enumerate}
 \end{description}
