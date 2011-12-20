@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
-using YuvKA.VideoModel;
+﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -19,7 +15,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		public sealed override Frame[] Process(Frame[] inputs, int tick)
 		{
-			return new[] { OutputFrame(frameIndex) };
+			return new[] { OutputFrame(tick) };
 		}
 
 		public abstract Frame OutputFrame(int tick);

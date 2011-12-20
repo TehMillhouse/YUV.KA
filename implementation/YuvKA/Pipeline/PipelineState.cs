@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Caliburn.Micro;
-using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Runtime.Serialization;
+using Caliburn.Micro;
 
 namespace YuvKA.Pipeline
 {
@@ -55,7 +52,7 @@ namespace YuvKA.Pipeline
 
 		public void Start(IEnumerable<Node> outputNodes)
 		{
-			PipelineDriver.RenderTicks(outputNodes, CurrentTick, null);
+			//PipelineDriver.RenderTicks(outputNodes, CurrentTick, null);
 		}
 
 		public void Stop()
@@ -65,7 +62,7 @@ namespace YuvKA.Pipeline
 
 		public void RenderTick(IEnumerable<Node> outputNodes)
 		{
-			PipelineDriver.RenderTicks(outputNodes, CurrentTick, null);
+			//PipelineDriver.RenderTicks(outputNodes, CurrentTick, null);
 		}
 	}
 }

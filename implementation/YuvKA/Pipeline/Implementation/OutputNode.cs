@@ -10,7 +10,7 @@ namespace YuvKA.Pipeline.Implementation
 	{
 		public sealed override Frame[] Process(Frame[] inputs, int tick)
 		{
-			ProcessCore(inputs, frameIndex);
+			ProcessCore(inputs, tick);
 			return new Frame[] { };
 		}
 

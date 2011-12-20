@@ -19,7 +19,7 @@ namespace YuvKA.ViewModel
 
 		public void ShowNodeOutput(Node.Output output)
 		{
-			Parent.OpenWindow(new VideoOutputViewModel { Output = output });
+			//Parent.OpenWindow(new VideoOutputViewModel { Output = output });
 		}
 	}
 }

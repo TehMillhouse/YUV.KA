@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Media.Imaging;
 using System.ComponentModel;
-using System.IO;
-using YuvKA.VideoModel;
 using System.Runtime.Serialization;
+using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {

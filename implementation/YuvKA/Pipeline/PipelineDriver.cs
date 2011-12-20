@@ -10,31 +10,20 @@ namespace YuvKA.Pipeline
 {
 	public class PipelineDriver
 	{
-		Node videoInputNode = new YuvKA.Pipeline.Implementation.VideoInputNode();
-		Node blurNode = new YuvKA.Pipeline.Implementation.BlurNode();
-
 		public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(IEnumerable<Node> startNodes, int tick, CancellationToken token)
 		{
-			Task.Factory.StartNew(() => {
-				Frame[] frames = videoInputNode.Process(new Frame[0], tick);
-				frames = blurNode.Process(frames, tick);
-				return new Dictionary<Node.Output, Frame> { { blurNode.Outputs[0], frames[0] } };
-			});
+			//var tasks = new Dictionary<Node, Task>();
+			//IEnumerable<Task> startTasks = startNodes.Select(start => Visit(start, tasks, tick));
+			//Task.Factory.ContinueWhenAll(startTasks.ToArray(), _ => { });
+			throw new NotImplementedException();
 		}
-
-		//public static Task RenderFrame(IEnumerable<Node> startNodes, int tick)
-		//{
-		//    var tasks = new Dictionary<Node, Task>();
-		//    IEnumerable<Task> startTasks = startNodes.Select(start => Visit(start, tasks, frameIndex));
-		//    return Task.Factory.ContinueWhenAll(startTasks.ToArray(), _ => { });
-		//}
 
 		//private static Task Visit(Node node, Dictionary<Node, Task> tasks, int tick)
 		//{
 		//    Task result;
 		//    if (!tasks.TryGetValue(node, out result)) {
-		//        IEnumerable<Task> dependencies = node.Inputs.Select(i => Visit(i.Source.Node, tasks, frameIndex));
-		//        tasks.Add(node, result = Task.Factory.ContinueWhenAll(dependencies.ToArray(), _ => node.ProcessFrame(frameIndex)));
+		//        IEnumerable<Task> dependencies = node.Inputs.Select(i => Visit(i.Source.Node, tasks, tick));
+		//        tasks.Add(node, result = Task.Factory.ContinueWhenAll(dependencies.ToArray(), _ => node.Process(tick)));
 		//    }
 		//    return result;
 		//}

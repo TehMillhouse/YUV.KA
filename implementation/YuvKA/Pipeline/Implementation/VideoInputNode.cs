@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using YuvKA.VideoModel;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
 	[DataContract]
 	public class VideoInputNode : InputNode
 	{
-		[Browsable(false)]
-		YuvEncoder.Video input;
+		YuvEncoder.Video input = new YuvEncoder.Video(); // place holder
 
 		[DisplayName("Video File")]
 		[DataMember]
@@ -33,7 +29,8 @@ namespace YuvKA.Pipeline.Implementation
 		public override void Dispose()
 		{
 			base.Dispose();
-			if (input != null) input.Dispose();
+			if (input != null)
+				input.Dispose();
 		}
 	}
 }

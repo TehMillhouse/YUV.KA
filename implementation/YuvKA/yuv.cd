@@ -111,10 +111,6 @@
   </Class>
   <Class Name="YuvKA.Pipeline.PipelineDriver">
     <Position X="23" Y="2" Width="8.25" />
-    <Members>
-      <Field Name="blurNode" Hidden="true" />
-      <Field Name="videoInputNode" Hidden="true" />
-    </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAACAAAAAAEAAAA=</HashCode>
       <FileName>Pipeline\PipelineDriver.cs</FileName>
@@ -127,9 +123,6 @@
     </Compartments>
     <NestedTypes>
       <Class Name="YuvKA.VideoModel.YuvEncoder.Video">
-        <Members>
-          <Field Name="stream" Hidden="true" />
-        </Members>
         <TypeIdentifier>
           <NewMemberFileName>VideoModel\YuvEncoder.cs</NewMemberFileName>
         </TypeIdentifier>

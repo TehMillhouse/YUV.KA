@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.ObjectModel;
-using YuvKA.Pipeline.Implementation;
+﻿using System.Collections.Generic;
 using YuvKA.Pipeline;
+using YuvKA.Pipeline.Implementation;
 
 namespace YuvKA.ViewModel.Implementation
 {
 	public class DiagramViewModel : OutputWindowViewModel
 	{
-
 		public new DiagramNode NodeModel
 		{
 			get

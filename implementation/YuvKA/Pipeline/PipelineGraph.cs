@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace YuvKA.Pipeline
@@ -9,7 +6,6 @@ namespace YuvKA.Pipeline
 	[DataContract]
 	public class PipelineGraph
 	{
-
 		[DataMember]
 		public IList<Node> Nodes
 		{
@@ -36,9 +32,9 @@ namespace YuvKA.Pipeline
 			throw new System.NotImplementedException();
 		}
 
-        public IEnumerable<Node> DepthFirstSearch(Node startNode)
-        {
-            throw new System.NotImplementedException();
-        }
+		public IEnumerable<Node> DepthFirstSearch(Node startNode)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

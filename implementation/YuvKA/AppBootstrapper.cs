@@ -9,6 +9,7 @@
 	using Caliburn.Micro;
 	using YuvKA.ViewModel;
 
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "God class")]
 	public class AppBootstrapper : Bootstrapper<MainViewModel>
 	{
 		CompositionContainer container;
@@ -16,10 +17,12 @@
 		/// <summary>
 		/// By default, we are configured to use MEF
 		/// </summary>
-		protected override void Configure() {
-		    var catalog = new AggregateCatalog(
-		        AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()
-		        );
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "God class")]
+		protected override void Configure()
+		{
+			var catalog = new AggregateCatalog(
+				AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()
+			);
 
 			container = new CompositionContainer(catalog);
 
@@ -28,7 +31,7 @@
 			batch.AddExportedValue<IWindowManager>(new WindowManager());
 			batch.AddExportedValue<IEventAggregator>(new EventAggregator());
 			batch.AddExportedValue(container);
-		    batch.AddExportedValue(catalog);
+			batch.AddExportedValue(catalog);
 
 			container.Compose(batch);
 		}

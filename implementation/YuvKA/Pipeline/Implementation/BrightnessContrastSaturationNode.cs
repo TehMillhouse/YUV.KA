@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
-using System.ComponentModel.Composition;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
@@ -22,6 +18,7 @@ namespace YuvKA.Pipeline.Implementation
 			{
 				throw new System.NotImplementedException();
 			}
+
 			set
 			{
 			}
@@ -35,6 +32,7 @@ namespace YuvKA.Pipeline.Implementation
 			{
 				throw new System.NotImplementedException();
 			}
+
 			set
 			{
 			}
@@ -48,6 +46,7 @@ namespace YuvKA.Pipeline.Implementation
 			{
 				throw new System.NotImplementedException();
 			}
+
 			set
 			{
 			}

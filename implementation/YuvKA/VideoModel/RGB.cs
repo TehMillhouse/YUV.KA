@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace YuvKA.VideoModel
+﻿namespace YuvKA.VideoModel
 {
 	public struct Rgb
 	{
@@ -13,6 +8,7 @@ namespace YuvKA.VideoModel
 			{
 				throw new System.NotImplementedException();
 			}
+
 			set
 			{
 			}
@@ -24,6 +20,7 @@ namespace YuvKA.VideoModel
 			{
 				throw new System.NotImplementedException();
 			}
+
 			set
 			{
 			}
@@ -35,6 +32,7 @@ namespace YuvKA.VideoModel
 			{
 				throw new System.NotImplementedException();
 			}
+
 			set
 			{
 			}

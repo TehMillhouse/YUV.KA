@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using YuvKA.Pipeline;
-using System.ComponentModel.Composition;
-using Microsoft.Win32;
-using System.Runtime.Serialization;
 using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
+using Microsoft.Win32;
+using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
@@ -15,7 +13,7 @@ namespace YuvKA.ViewModel
 		Stack<PipelineState> undoStack = new Stack<PipelineState>();
 		Stack<PipelineState> redoStack = new Stack<PipelineState>();
 
-		public PipelineState Model { get { throw new NotImplementedException(); } }
+		public PipelineState Model { get; private set; }
 		public bool CanUndo { get { return undoStack.Any(); } }
 		public bool CanRedo { get { return redoStack.Any(); } }
 
@@ -69,7 +67,7 @@ namespace YuvKA.ViewModel
 		public void OpenWindow(OutputWindowViewModel window)
 		{
 			OpenWindows.Add(window);
-			Model.RenderTick(new[] { blurNode });
+			//Model.RenderTick(new[] { blurNode });
 		}
 	}
 }

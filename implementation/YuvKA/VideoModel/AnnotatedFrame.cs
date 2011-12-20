@@ -7,6 +7,11 @@ namespace YuvKA.VideoModel
 {
 	public class AnnotatedFrame : Frame
 	{
+		public AnnotatedFrame(Size size)
+			: base(size)
+		{
+		}
+
 		public MacroblockDecision[] Decisions
 		{
 			get
