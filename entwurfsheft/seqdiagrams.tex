@@ -54,7 +54,7 @@
 	\item[innerer Ablauf] Der Aufruf der Option wird vom ReplayStateViewModel (1) verarbeitet. Zum Abspielen ruft es  über das MainViewModel die Klasse ReplayState (2) auf. Diese wiederum benutzt den PipelineDriver (3) zum Verarbeiten des Videos. Der PipelineDriver verarbeitet die Frames, indem er für jeden Knoten einen Thread erstellt und diese nacheinander das Video abarbeiten lässt.
 \end{description}
 \newpage
-\subsection{Pipeline speichern, löchen und laden}
+\subsection{Pipeline speichern, löschen und laden}
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=\textwidth]{Diagrams/SaveClearLoad.png}
