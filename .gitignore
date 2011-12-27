@@ -10,6 +10,7 @@ _ReSharper.*
 *.sln.cache
 *.Publish.xml
 *.vs10x
+StyleCop.Cache
 
 # pdflatex output doesn't belong into git
 *.pdf

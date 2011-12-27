@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>YuvKA.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\YuvKA.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -70,45 +70,19 @@
     <Compile Include="NoiseType.cs" />
     <Compile Include="Pipeline\FilePath.cs" />
     <Compile Include="Pipeline\FrameRenderedMessage.cs" />
-    <Compile Include="Pipeline\Implementation\AveragedMergeNode.cs" />
-    <Compile Include="Pipeline\Implementation\AdditiveMergeNode.cs" />
-    <Compile Include="Pipeline\Implementation\BrightnessContrastSaturationNode.cs" />
-    <Compile Include="Pipeline\Implementation\DelayNode.cs" />
-    <Compile Include="Pipeline\Implementation\DifferenceNode.cs" />
-    <Compile Include="Pipeline\Implementation\InverterNode.cs" />
-    <Compile Include="Pipeline\Implementation\OutputNode.cs" />
-    <Compile Include="Pipeline\Implementation\RgbSplitNode.cs" />
     <Compile Include="TestCases.cs" />
     <Compile Include="VideoModel\Size.cs" />
     <Compile Include="VideoModel\AnnotatedFrame.cs" />
-    <Compile Include="Pipeline\Implementation\BlurNode.cs" />
-    <Compile Include="Pipeline\Implementation\BlurType.cs" />
-    <Compile Include="Pipeline\Implementation\ColorInputNode.cs" />
-    <Compile Include="Pipeline\Implementation\DiagramGraph.cs" />
-    <Compile Include="Pipeline\Implementation\DiagramNode.cs" />
-    <Compile Include="ViewModel\PropertyEditor\PropertyViewModels.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyEditorViewModel.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyViewModel.cs" />
-    <Compile Include="ViewModel\Implementation\DiagramViewModel.cs" />
     <Compile Include="ViewModel\EdgeViewModel.cs" />
-    <Compile Include="Pipeline\Implementation\GraphTypes.cs" />
-    <Compile Include="Pipeline\Implementation\HistogramNode.cs" />
-    <Compile Include="Pipeline\Implementation\HistogramType.cs" />
-    <Compile Include="ViewModel\Implementation\HistogramViewModel.cs" />
-    <Compile Include="Pipeline\Implementation\IGraphType.cs" />
-    <Compile Include="Pipeline\Implementation\ImageInputNode.cs" />
-    <Compile Include="Pipeline\Implementation\IOverlayType.cs" />
     <Compile Include="VideoModel\MacroblockDecision.cs" />
     <Compile Include="VideoModel\MacroblockPartitioning.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NodeType.cs" />
     <Compile Include="ViewModel\NodeViewModel.cs" />
-    <Compile Include="Pipeline\Implementation\NoiseInputNode.cs" />
     <Compile Include="ViewModel\VideoOutputViewModel.cs" />
     <Compile Include="ViewModel\OutputWindowViewModel.cs" />
-    <Compile Include="Pipeline\Implementation\OverlayNode.cs" />
-    <Compile Include="Pipeline\Implementation\OverlayTypes.cs" />
-    <Compile Include="ViewModel\Implementation\OverlayViewModel.cs" />
     <Compile Include="Pipeline\PipelineDriver.cs" />
     <Compile Include="Pipeline\PipelineGraph.cs" />
     <Compile Include="ViewModel\PipelineViewModel.cs" />
@@ -116,7 +90,6 @@
     <Compile Include="ViewModel\ReplayStateViewModel.cs" />
     <Compile Include="VideoModel\Rgb.cs" />
     <Compile Include="ViewModel\ToolboxViewModel.cs" />
-    <Compile Include="Pipeline\Implementation\VideoInputNode.cs" />
     <Compile Include="VideoModel\YuvEncoder.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -128,7 +101,6 @@
     </Compile>
     <Compile Include="VideoModel\Frame.cs" />
     <Compile Include="Pipeline\Node.cs" />
-    <Compile Include="Pipeline\Implementation\InputNode.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

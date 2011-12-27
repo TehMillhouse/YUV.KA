@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{077420AC-1B4C-410D-812B-D5EBDD41CB2A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YuvKA.Implementation</RootNamespace>
+    <AssemblyName>YuvKA.Implementation</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\YuvKA.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\packages\Caliburn.Micro.1.2.0\lib\Net40\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.1.2.0\lib\Net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ViewModel\DiagramViewModel.cs" />
+    <Compile Include="ViewModel\HistogramViewModel.cs" />
+    <Compile Include="ViewModel\OverlayViewModel.cs" />
+    <Compile Include="Pipeline\AdditiveMergeNode.cs" />
+    <Compile Include="Pipeline\AveragedMergeNode.cs" />
+    <Compile Include="Pipeline\BlurNode.cs" />
+    <Compile Include="Pipeline\BlurType.cs" />
+    <Compile Include="Pipeline\BrightnessContrastSaturationNode.cs" />
+    <Compile Include="Pipeline\ColorInputNode.cs" />
+    <Compile Include="Pipeline\DelayNode.cs" />
+    <Compile Include="Pipeline\DiagramGraph.cs" />
+    <Compile Include="Pipeline\DiagramNode.cs" />
+    <Compile Include="Pipeline\DifferenceNode.cs" />
+    <Compile Include="Pipeline\GraphTypes.cs" />
+    <Compile Include="Pipeline\HistogramNode.cs" />
+    <Compile Include="Pipeline\HistogramType.cs" />
+    <Compile Include="Pipeline\IGraphType.cs" />
+    <Compile Include="Pipeline\ImageInputNode.cs" />
+    <Compile Include="Pipeline\InputNode.cs" />
+    <Compile Include="Pipeline\InverterNode.cs" />
+    <Compile Include="Pipeline\IOverlayType.cs" />
+    <Compile Include="Pipeline\NoiseInputNode.cs" />
+    <Compile Include="Pipeline\OutputNode.cs" />
+    <Compile Include="Pipeline\OverlayNode.cs" />
+    <Compile Include="Pipeline\OverlayTypes.cs" />
+    <Compile Include="Pipeline\RgbSplitNode.cs" />
+    <Compile Include="Pipeline\VideoInputNode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\PropertyEditor\PropertyViewModels.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YuvKA\YuvKA.csproj">
+      <Project>{305C80DD-B4A3-41C9-9840-2AE68E13CF96}</Project>
+      <Name>YuvKA</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

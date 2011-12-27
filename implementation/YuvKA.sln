@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YuvKA", "YuvKA\YuvKA.csproj", "{305C80DD-B4A3-41C9-9840-2AE68E13CF96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YuvKA.Implementation", "YuvKA.Implementation\YuvKA.Implementation.csproj", "{077420AC-1B4C-410D-812B-D5EBDD41CB2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
