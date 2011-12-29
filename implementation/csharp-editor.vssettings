@@ -87,7 +87,7 @@
 				<PropertyValue name="SortUsings">1</PropertyValue>
 				<PropertyValue name="Rename_Strings">0</PropertyValue>
 				<PropertyValue name="NewLines_ObjectInitializer_EachMember">1</PropertyValue>
-				<PropertyValue name="NewLines_Keywords_Else">0</PropertyValue>
+				<PropertyValue name="NewLines_Keywords_Else">1</PropertyValue>
 				<PropertyValue name="TimeSliceForQuickSearchCaching">50</PropertyValue>
 				<PropertyValue name="EnableProgressDialogOnWaitForBackground">1</PropertyValue>
 				<PropertyValue name="Space_WithinMethodDeclarationParentheses">0</PropertyValue>
@@ -141,5 +141,6 @@
 			</ToolsOptionsSubCategory>
 		</ToolsOptionsCategory>
 	</ToolsOptions>
+	<Category name="Code Analysis" Category="{533A534C-AD06-4B18-BBBC-BFD7C74F58CE}" Package="{72391CE3-743A-4a55-8927-4217541F6517}" RegisteredName="Code Analysis" PackageName="StanPackage"/>
 	<Category name="Database Tools" RegisteredName="Database Tools"/>
 </UserSettings>
