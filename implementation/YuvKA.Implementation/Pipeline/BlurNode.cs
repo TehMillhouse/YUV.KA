@@ -28,51 +28,51 @@ namespace YuvKA.Pipeline.Implementation
 
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
+			Frame[] result = new Frame[1];
 			if (Type == BlurType.Gaussian)
 			{
-				Frame newFrame = new Frame(inputs[0].Size);
+				result[0] = new Frame(inputs[0].Size);
 				for (int x = 0; x < inputs[0].Size.Width; x++)
 				{
 					for (int y = 0; y < inputs[0].Size.Height; y++)
 					{
-						newFrame[x, y] = new Rgb(0, 0, 0);
+						result[0][x, y] = new Rgb(0, 0, 0);
 						for (int xi = x - (3 * Radius); xi <= x + (3 * Radius); xi++)
 						{
 							for (int yi = y - (3 * Radius); yi <= y + (3 * Radius); yi++)
 							{
-								int newR = Convert.ToInt32(newFrame[x, y].R + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).R);
-								int newG = Convert.ToInt32(newFrame[x, y].G + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).G);
-								int newB = Convert.ToInt32(newFrame[x, y].B + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).B);
-								newFrame[x, y] = new Rgb((byte)newR, (byte)newB, (byte)newG);
+								int newR = Convert.ToInt32(result[0][x, y].R + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).R);
+								int newG = Convert.ToInt32(result[0][x, y].G + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).G);
+								int newB = Convert.ToInt32(result[0][x, y].B + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).B);
+								result[0][x, y] = new Rgb((byte)newR, (byte)newB, (byte)newG);
 							}
 						}
 					}
 				}
-				inputs[0] = newFrame;
+				inputs[0] = result[0];
 			}
 			else if (Type == BlurType.Linear)
 			{
-				Frame newFrame = new Frame(inputs[0].Size);
+				result[0] = new Frame(inputs[0].Size);
 				for (int x = 0; x < inputs[0].Size.Width; x++)
 				{
 					for (int y = 0; y < inputs[0].Size.Height; y++)
 					{
-						newFrame[x, y] = new Rgb(0, 0, 0);
+						result[0][x, y] = new Rgb(0, 0, 0);
 						for (int xi = x - Radius; xi <= x + Radius; xi++)
 						{
 							for (int yi = y - Radius; yi <= y + Radius; yi++)
 							{
-								int newR = newFrame[x, y].R + (1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).R;
-								int newG = newFrame[x, y].G + (1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).G;
-								int newB = newFrame[x, y].B + (1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).B;
-								newFrame[x, y] = new Rgb((byte)newR, (byte)newB, (byte)newG);
+								int newR = result[0][x, y].R + (1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).R;
+								int newG = result[0][x, y].G + (1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).G;
+								int newB = result[0][x, y].B + (1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).B;
+								result[0][x, y] = new Rgb((byte)newR, (byte)newB, (byte)newG);
 							}
 						}
 					}
 				}
-				inputs[0] = newFrame;
 			}
-			return inputs;
+			return result;
 		}
 
 		#endregion
