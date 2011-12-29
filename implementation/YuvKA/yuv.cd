@@ -1,45 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="YuvKA.VideoModel.Frame">
-    <Position X="5.75" Y="6.25" Width="2.5" />
-    <Members>
-      <Field Name="data" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAACAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
-      <FileName>VideoModel\Frame.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="YuvKA.VideoModel.AnnotatedFrame">
-    <Position X="6.25" Y="8.25" Width="1.5" />
-    <AssociationLine Name="Decisions" Type="YuvKA.VideoModel.MacroblockDecision">
-      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.05" Y="-0.706" Height="0.182" Width="2.139" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
-      <FileName>VideoModel\AnnotatedFrame.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Decisions" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="YuvKA.VideoModel.MacroblockDecision">
-    <Position X="2" Y="8.25" Width="2.25" />
-    <AssociationLine Name="PartitioningDecision" Type="YuvKA.VideoModel.MacroblockPartitioning">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.007" Y="0.134" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>VideoModel\MacroblockDecision.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="PartitioningDecision" />
-    </ShowAsAssociation>
-  </Class>
   <Class Name="YuvKA.Pipeline.PipelineState">
     <Position X="28.5" Y="3.75" Width="2.75" />
     <TypeIdentifier>
@@ -55,24 +15,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Pipeline\PipelineDriver.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="YuvKA.VideoModel.YuvEncoder">
-    <Position X="2.75" Y="1.75" Width="4.75" />
-    <Compartments>
-      <Compartment Name="Nested Types" Collapsed="false" />
-    </Compartments>
-    <NestedTypes>
-      <Class Name="YuvKA.VideoModel.YuvEncoder.Video">
-        <TypeIdentifier>
-          <NewMemberFileName>VideoModel\YuvEncoder.cs</NewMemberFileName>
-        </TypeIdentifier>
-        <Lollipop Position="0.2" />
-      </Class>
-    </NestedTypes>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
-      <FileName>VideoModel\YuvEncoder.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="YuvKA.Pipeline.PipelineGraph">
@@ -322,11 +264,69 @@
       <FileName>Pipeline\FrameRenderedMessage.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="YuvKA.VideoModel.AnnotatedFrame">
+    <Position X="6.25" Y="8.25" Width="1.5" />
+    <AssociationLine Name="Decisions" Type="YuvKA.VideoModel.MacroblockDecision">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.05" Y="-0.706" Height="0.182" Width="2.139" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>VideoModel\AnnotatedFrame.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Decisions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YuvKA.VideoModel.Frame">
+    <Position X="5.75" Y="6.25" Width="2.5" />
+    <Members>
+      <Field Name="data" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAACAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>VideoModel\Frame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YuvKA.VideoModel.MacroblockDecision">
+    <Position X="2" Y="8.25" Width="2.25" />
+    <AssociationLine Name="PartitioningDecision" Type="YuvKA.VideoModel.MacroblockPartitioning">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.007" Y="0.134" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VideoModel\MacroblockDecision.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PartitioningDecision" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="YuvKA.VideoModel.YuvEncoder">
+    <Position X="2.75" Y="0.75" Width="4.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="YuvKA.VideoModel.YuvEncoder.Video">
+        <TypeIdentifier>
+          <NewMemberFileName>VideoModel\YuvEncoder.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAA=</HashCode>
+      <FileName>VideoModel\YuvEncoder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="YuvKA.VideoModel.Rgb">
     <Position X="2" Y="6.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAEAAQA=</HashCode>
-      <FileName>VideoModel\Rgb.cs</FileName>
+      <FileName>VideoModel\RGB.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Enum Name="YuvKA.VideoModel.MacroblockPartitioning" Collapsed="true">

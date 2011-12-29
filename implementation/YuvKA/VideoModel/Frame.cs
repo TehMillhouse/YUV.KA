@@ -2,11 +2,22 @@
 {
 	public class Frame
 	{
-		Rgb[] data;
+		private Rgb[] data;
 
 		public Frame(Size size)
 		{
 			data = new Rgb[size.Height * size.Width];
+			Size = size;
+		}
+
+		// Alternate constructor for saving the trouble of using the indexer for everything
+		public Frame(Size size, Rgb[] data)
+		{
+			if (data.Length != size.Height * size.Width)
+			{
+				throw new System.ArgumentException();
+			}
+			this.data = data;
 			Size = size;
 		}
 
