@@ -34,44 +34,39 @@ namespace YuvKA.Pipeline
 
 		public IEnumerable<Node> DepthFirstSearch(Node startNode)
 		{
-            LinkedList<Node> NodeList = new LinkedList<Node>();
-            HashSet<Node> Visited = new HashSet<Node>();
+			LinkedList<Node> nodeList = new LinkedList<Node>();
+			HashSet<Node> visited = new HashSet<Node>();
 
-            NodeList.AddLast(startNode);
-            Visited.Add(startNode);
+			nodeList.AddLast(startNode);
+			visited.Add(startNode);
 
-            foreach (Node.Input Input in startNode.Inputs)
-            {
-                Visit(Input.Source.Node, NodeList, Visited);
-            }
+			foreach (Node.Input input in startNode.Inputs) {
+				Visit(input.Source.Node, nodeList, visited);
+			}
 
-            return NodeList;
+			return nodeList;
 		}
 
-        private void Visit(Node node, LinkedList<Node> nodeList, HashSet<Node> visited) 
-        {
-
-            if (nodeList.Contains(node) && visited.Contains(node))
-            {
+		private void Visit(Node node, LinkedList<Node> nodeList, HashSet<Node> visited)
+		{
+			if (nodeList.Contains(node) && visited.Contains(node)) {
 				nodeList.AddLast(node);
-                return;
-            } 
-			else if (!nodeList.Contains(node)) 
-            {
-				nodeList.AddLast(node);
-				visited.Add(node);
+				return;
+			}
+			else {
+				if (!nodeList.Contains(node)) {
+					nodeList.AddLast(node);
+					visited.Add(node);
 
-                foreach (Node.Input Input in node.Inputs) 
-                {
-                    Visit(Input.Source.Node, nodeList, visited);
-                }
-            }
+					foreach (Node.Input input in node.Inputs) {
+						Visit(input.Source.Node, nodeList, visited);
+					}
+				}
+			}
 
-            visited.Remove(node);
+			visited.Remove(node);
 
 			return;
-        }
-
-
+		}
 	}
 }

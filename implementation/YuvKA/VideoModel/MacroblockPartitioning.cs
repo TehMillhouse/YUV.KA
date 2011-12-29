@@ -1,5 +1,4 @@
-﻿
-namespace YuvKA.VideoModel
+﻿namespace YuvKA.VideoModel
 {
 	public enum MacroblockPartitioning
 	{

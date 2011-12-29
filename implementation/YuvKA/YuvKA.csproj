@@ -70,13 +70,16 @@
     <Compile Include="Pipeline\FilePath.cs" />
     <Compile Include="Pipeline\FrameRenderedMessage.cs" />
     <Compile Include="TestCases.cs" />
-    <Compile Include="VideoModel\Size.cs" />
     <Compile Include="VideoModel\AnnotatedFrame.cs" />
+    <Compile Include="VideoModel\Frame.cs" />
+    <Compile Include="VideoModel\MacroblockDecision.cs" />
+    <Compile Include="VideoModel\MacroblockPartitioning.cs" />
+    <Compile Include="VideoModel\RGB.cs" />
+    <Compile Include="VideoModel\Size.cs" />
+    <Compile Include="VideoModel\YuvEncoder.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyEditorViewModel.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyViewModel.cs" />
     <Compile Include="ViewModel\EdgeViewModel.cs" />
-    <Compile Include="VideoModel\MacroblockDecision.cs" />
-    <Compile Include="VideoModel\MacroblockPartitioning.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NodeType.cs" />
     <Compile Include="ViewModel\NodeViewModel.cs" />
@@ -87,9 +90,7 @@
     <Compile Include="ViewModel\PipelineViewModel.cs" />
     <Compile Include="Pipeline\PipelineState.cs" />
     <Compile Include="ViewModel\ReplayStateViewModel.cs" />
-    <Compile Include="VideoModel\Rgb.cs" />
     <Compile Include="ViewModel\ToolboxViewModel.cs" />
-    <Compile Include="VideoModel\YuvEncoder.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -98,7 +99,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="VideoModel\Frame.cs" />
     <Compile Include="Pipeline\Node.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

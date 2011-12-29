@@ -22,10 +22,8 @@ namespace YuvKA.VideoModel
 			int quartSize = width * height / 4;
 			Rgb[] frameData = new Rgb[height * width];
 			int ypixel, upixel, vpixel;
-			for (int y = 0; y < height; y++)
-			{
-				for (int x = 0; x < width; x++)
-				{
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++) {
 					int coordOffset = y * width + x;
 					// Our data format it IYUV / YUV420:
 					// first all Y values, then all U value, and then all V values
@@ -58,8 +56,8 @@ namespace YuvKA.VideoModel
 		{
 			// Number of frames of original video to keep in memory
 			private const int MemFrames = 10;
-			private Size frameSize;
-			private Path fileName;
+			// private Size frameSize;
+			// private String fileName;
 			public int FrameCount { get; set; }
 
 			// Indexer so we can access the different video frames

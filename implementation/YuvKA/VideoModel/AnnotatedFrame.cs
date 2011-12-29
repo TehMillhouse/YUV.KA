@@ -1,5 +1,4 @@
-﻿
-namespace YuvKA.VideoModel
+﻿namespace YuvKA.VideoModel
 {
 	public class AnnotatedFrame : Frame
 	{
