@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace YuvKA.VideoModel
 {
 	public class AnnotatedFrame : Frame
@@ -10,9 +6,9 @@ namespace YuvKA.VideoModel
 		public AnnotatedFrame(Size size, MacroblockDecision[] decisions)
 			: base(size)
 		{
-            Decisions = decisions;
+			Decisions = decisions;
 		}
 
-        public MacroblockDecision[] Decisions { get; private set; }
+		public MacroblockDecision[] Decisions { get; private set; }
 	}
 }

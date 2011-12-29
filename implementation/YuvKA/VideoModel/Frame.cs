@@ -10,7 +10,7 @@
 			Size = size;
 		}
 
-        public Size Size { get; private set; }
+		public Size Size { get; private set; }
 
 		public Rgb this[int x, int y]
 		{
