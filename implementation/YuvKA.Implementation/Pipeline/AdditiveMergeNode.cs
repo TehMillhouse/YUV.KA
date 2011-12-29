@@ -8,7 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public class AdditiveMergeNode : Node
 	{
-		public AdditiveMergeNode() : base(2, 1)
+		public AdditiveMergeNode() : base(inputCount: null, outputCount: 1)
 		{
 		}
 

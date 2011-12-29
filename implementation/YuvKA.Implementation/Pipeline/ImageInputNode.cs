@@ -8,7 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class ImageInputNode : InputNode
 	{
-		public ImageInputNode() : base(1)
+		public ImageInputNode() : base(outputCount: 1)
 		{
 		}
 

@@ -10,7 +10,7 @@ namespace YuvKA.Pipeline.Implementation
 	{
 		YuvEncoder.Video input = new YuvEncoder.Video(); // place holder
 
-		public VideoInputNode() : base(1)
+		public VideoInputNode() : base(outputCount: 1)
 		{
 		}
 

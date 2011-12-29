@@ -8,7 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public abstract class OutputNode : Node
 	{
-		public OutputNode(int? inputCount) : base(inputCount, 0)
+		public OutputNode(int? inputCount) : base(inputCount: inputCount, outputCount: 0)
 		{
 		}
 

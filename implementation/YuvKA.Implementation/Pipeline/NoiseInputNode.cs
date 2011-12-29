@@ -7,7 +7,7 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class NoiseInputNode : InputNode
 	{
-		public NoiseInputNode() : base(1)
+		public NoiseInputNode() : base(outputCount: 1)
 		{
 		}
 

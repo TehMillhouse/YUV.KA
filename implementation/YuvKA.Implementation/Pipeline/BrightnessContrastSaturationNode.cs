@@ -10,7 +10,7 @@ namespace YuvKA.Pipeline.Implementation
 	[Description("Changes brightness, contrast, and/or saturation of the input")]
 	public class BrightnessContrastSaturationNode : Node
 	{
-		public BrightnessContrastSaturationNode() : base(1, 1)
+		public BrightnessContrastSaturationNode() : base(inputCount: 1, outputCount: 1)
 		{
 		}
 

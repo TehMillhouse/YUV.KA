@@ -8,7 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class BlurNode : Node
 	{
-		public BlurNode() : base(1, 1)
+		public BlurNode() : base(inputCount: 1, outputCount: 1)
 		{
 		}
 

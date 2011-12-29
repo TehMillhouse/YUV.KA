@@ -8,7 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class HistogramNode : OutputNode
 	{
-		public HistogramNode() : base(1)
+		public HistogramNode() : base(inputCount: 1)
 		{
 		}
 

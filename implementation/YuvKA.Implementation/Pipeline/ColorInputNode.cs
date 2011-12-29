@@ -7,8 +7,7 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class ColorInputNode : InputNode
 	{
-		public ColorInputNode()
-			: base(1)
+		public ColorInputNode() : base(outputCount: 1)
 		{
 		}
 

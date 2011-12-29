@@ -9,7 +9,7 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class DiagramNode : OutputNode
 	{
-		public DiagramNode() : base(0)
+		public DiagramNode() : base(inputCount: null)
 		{
 		}
 

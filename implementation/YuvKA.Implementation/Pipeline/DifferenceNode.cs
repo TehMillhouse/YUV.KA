@@ -5,7 +5,7 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public class DifferenceNode : Node
 	{
-		public DifferenceNode() : base(2, 1)
+		public DifferenceNode() : base(inputCount: 2, outputCount: 1)
 		{
 		}
 

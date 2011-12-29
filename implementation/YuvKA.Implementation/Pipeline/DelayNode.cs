@@ -11,7 +11,7 @@ namespace YuvKA.Pipeline.Implementation
 	{
 		Queue<Frame> queue = new Queue<Frame>();
 
-		public DelayNode() : base(1, 1)
+		public DelayNode() : base(inputCount: 1, outputCount: 1)
 		{
 		}
 

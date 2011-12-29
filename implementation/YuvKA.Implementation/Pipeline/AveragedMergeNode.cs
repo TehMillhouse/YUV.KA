@@ -11,8 +11,7 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class AveragedMergeNode : Node
 	{
-		public AveragedMergeNode()
-			: base(2, 1)
+		public AveragedMergeNode() : base(inputCount: null, outputCount: 1)
 		{
 		}
 

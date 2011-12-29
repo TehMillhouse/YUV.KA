@@ -8,7 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public class RgbSplitNode : Node
 	{
-		public RgbSplitNode() : base(1, 3)
+		public RgbSplitNode() : base(inputCount: 1, outputCount: 3)
 		{
 		}
 

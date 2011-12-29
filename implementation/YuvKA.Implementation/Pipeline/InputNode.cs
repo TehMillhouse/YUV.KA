@@ -7,7 +7,7 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public abstract class InputNode : Node
 	{
-		public InputNode(int? outputCount) : base(0, outputCount)
+		public InputNode(int? outputCount) : base(inputCount: 0, outputCount: outputCount)
 		{
 		}
 
