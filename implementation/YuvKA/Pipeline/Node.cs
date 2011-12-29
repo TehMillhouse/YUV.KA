@@ -26,7 +26,7 @@ namespace YuvKA.Pipeline
 				Inputs = new ObservableCollection<Input>();
 
 			if (outputCount.HasValue)
-				Outputs = Enumerable.Range(0, outputCount.Value).Select(i => new Output(i)).ToArray();
+				Outputs = Enumerable.Range(0, outputCount.Value).Select(i => new Output(this, i)).ToArray();
 			else
 				Outputs = new ObservableCollection<Output>();
 		}
@@ -61,7 +61,11 @@ namespace YuvKA.Pipeline
 
 		public class Output
 		{
-			public Output(int index) { Index = index; }
+			public Output(Node node, int index)
+			{
+				Node = node;
+				Index = index;
+			}
 
 			public Node Node { get; private set; }
 			public int Index { get; private set; }
