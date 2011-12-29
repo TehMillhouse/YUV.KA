@@ -37,9 +37,10 @@ namespace YuvKA.VideoModel
 					vpixel = data[(pixelNum + quartSize) + (width * y / 4 + x / 2)];
 
 					// Convert data to RGB values
-					frameData[coordOffset].R = (byte) Math.Min(ypixel + 1.14 * vpixel, 255);
-					frameData[coordOffset].G = (byte) Math.Max(ypixel - 0.394 * upixel - 0.581 * vpixel, 0);
-					frameData[coordOffset].B = (byte) Math.Min(ypixel + 2.032 * upixel, 255);
+					byte r = (byte) Math.Min(ypixel + 1.14 * vpixel, 255);
+					byte g = (byte) Math.Max(ypixel - 0.394 * upixel - 0.581 * vpixel, 0);
+					byte b = (byte) Math.Min(ypixel + 2.032 * upixel, 255);
+					frameData[coordOffset] = new Rgb(r, g, b);
 				}
 			}
 			return new Frame(new Size(width, height), frameData);
