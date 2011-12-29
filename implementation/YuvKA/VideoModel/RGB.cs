@@ -2,7 +2,7 @@
 {
 	public struct Rgb
 	{
-		public Rgb(byte r, byte g, byte b)
+		public Rgb(byte r, byte g, byte b) : this()
 		{
 			R = r;
 			G = g;

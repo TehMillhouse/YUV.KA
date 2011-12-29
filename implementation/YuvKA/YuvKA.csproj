@@ -74,7 +74,7 @@
     <Compile Include="VideoModel\Frame.cs" />
     <Compile Include="VideoModel\MacroblockDecision.cs" />
     <Compile Include="VideoModel\MacroblockPartitioning.cs" />
-    <Compile Include="VideoModel\RGB.cs" />
+    <Compile Include="VideoModel\Rgb.cs" />
     <Compile Include="VideoModel\Size.cs" />
     <Compile Include="VideoModel\YuvEncoder.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyEditorViewModel.cs" />
