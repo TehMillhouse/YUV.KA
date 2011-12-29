@@ -8,20 +8,14 @@ namespace YuvKA.VideoModel
 {
 	public class MacroblockDecision
 	{
-		public Vector Movement
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-		}
+        public MacroblockDecision(Vector movement, MacroblockPartitioning partitioningDecision)
+        {
+            Movement = movement;
+            PartitioningDecision = partitioningDecision;
+        }
 
-		public MacroblockPartitioning PartitioningDecision
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-		}
+        public Vector Movement { get; private set; }
+
+        public MacroblockPartitioning PartitioningDecision { get; private set; }
 	}
 }

@@ -2,40 +2,13 @@
 {
 	public struct Rgb
 	{
-		public byte R
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
+        byte r, g, b;
 
-			set
-			{
-			}
-		}
-
-		public byte G
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-
-			set
-			{
-			}
-		}
-
-		public byte B
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-
-			set
-			{
-			}
-		}
+        public Rgb(byte r, byte g, byte b)
+        {
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
 	}
 }
