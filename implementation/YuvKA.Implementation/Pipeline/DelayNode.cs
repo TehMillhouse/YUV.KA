@@ -11,6 +11,10 @@ namespace YuvKA.Pipeline.Implementation
 	{
 		Queue<Frame> queue = new Queue<Frame>();
 
+		public DelayNode() : base(1, 1)
+		{
+		}
+
 		[DataMember]
 		[Range(0, 10)]
 		public int Delay { get; set; }

@@ -7,6 +7,11 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class ColorInputNode : InputNode
 	{
+		public ColorInputNode()
+			: base(1)
+		{
+		}
+
 		[DataMember]
 		public Rgb Color
 		{
@@ -18,6 +23,7 @@ namespace YuvKA.Pipeline.Implementation
 			{
 			}
 		}
+
 		#region INode Members
 
 		public override Frame OutputFrame(int tick)

@@ -8,6 +8,10 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public class RgbSplitNode : Node
 	{
+		public RgbSplitNode() : base(1, 3)
+		{
+		}
+
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
 			throw new NotImplementedException();

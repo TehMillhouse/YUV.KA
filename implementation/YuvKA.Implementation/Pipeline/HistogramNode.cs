@@ -8,6 +8,10 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class HistogramNode : OutputNode
 	{
+		public HistogramNode() : base(1)
+		{
+		}
+
 		[DataMember]
 		[Browsable(false)]
 		public HistogramType Type

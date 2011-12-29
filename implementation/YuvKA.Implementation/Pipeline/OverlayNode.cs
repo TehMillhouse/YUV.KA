@@ -10,6 +10,10 @@ namespace YuvKA.Pipeline.Implementation
     [DataContract]
 	public class OverlayNode : OutputNode
 	{
+		public OverlayNode() : base(1)
+		{
+		}
+
         [DataMember]
 		public IOverlayType Type { get; set; }
 

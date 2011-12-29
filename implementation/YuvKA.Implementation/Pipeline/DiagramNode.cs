@@ -9,6 +9,10 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class DiagramNode : OutputNode
 	{
+		public DiagramNode() : base(0)
+		{
+		}
+
 		[DataMember]
 		[DisplayName("Enabled")]
 		public bool IsEnabled { get; set; }

@@ -7,6 +7,10 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public abstract class InputNode : Node
 	{
+		public InputNode(int? outputCount) : base(0, outputCount)
+		{
+		}
+
 		[DataMember]
 		public Size Size { get; set; }
 

@@ -8,6 +8,10 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class ImageInputNode : InputNode
 	{
+		public ImageInputNode() : base(1)
+		{
+		}
+
 		[DisplayName("File Name")]
 		[DataMember]
 		public FilePath FileName { get; set; }

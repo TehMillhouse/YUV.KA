@@ -8,6 +8,10 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public class InverterNode : Node
 	{
+		public InverterNode() : base(1, 1)
+		{
+		}
+
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
 			throw new NotImplementedException();

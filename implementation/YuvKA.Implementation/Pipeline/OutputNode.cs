@@ -8,6 +8,10 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public abstract class OutputNode : Node
 	{
+		public OutputNode(int? inputCount) : base(inputCount, 0)
+		{
+		}
+
 		public sealed override Frame[] Process(Frame[] inputs, int tick)
 		{
 			ProcessCore(inputs, tick);

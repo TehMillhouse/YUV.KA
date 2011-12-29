@@ -11,6 +11,11 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class AveragedMergeNode : Node
 	{
+		public AveragedMergeNode()
+			: base(2, 1)
+		{
+		}
+
 		[DataMember]
 		[Range(0.0, 1.0)]
 		[Description("Weights of inputs relative to each other")]

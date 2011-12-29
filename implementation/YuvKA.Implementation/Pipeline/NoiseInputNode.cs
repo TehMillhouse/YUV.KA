@@ -7,6 +7,10 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class NoiseInputNode : InputNode
 	{
+		public NoiseInputNode() : base(1)
+		{
+		}
+
 		[DataMember]
 		public NoiseType Type { get; set; }
 

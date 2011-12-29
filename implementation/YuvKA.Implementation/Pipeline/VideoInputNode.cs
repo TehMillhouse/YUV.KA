@@ -10,6 +10,10 @@ namespace YuvKA.Pipeline.Implementation
 	{
 		YuvEncoder.Video input = new YuvEncoder.Video(); // place holder
 
+		public VideoInputNode() : base(1)
+		{
+		}
+
 		[DisplayName("Video File")]
 		[DataMember]
 		public FilePath FileName { get; set; }
