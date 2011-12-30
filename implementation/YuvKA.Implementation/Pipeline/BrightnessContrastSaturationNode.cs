@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Runtime.Serialization;
@@ -15,7 +14,8 @@ namespace YuvKA.Pipeline.Implementation
 		/// Creates a new BCS Node with the default values for each property. These values
 		/// leave a frame unmodified.
 		/// </summary>
-		public BrightnessContrastSaturationNode() : base(inputCount: 1, outputCount: 1)
+		public BrightnessContrastSaturationNode()
+			: base(inputCount: 1, outputCount: 1)
 		{
 			Brightness = 0;
 			Contrast = 0;
@@ -42,7 +42,7 @@ namespace YuvKA.Pipeline.Implementation
 		[DataMember]
 		[Range(-1.0, 1.0)]
 		public double Saturation { get; set; }
-		
+
 		/// <summary>
 		/// Produces a new Frame array with one entry, which contains a new, modified copy of the original Frame.
 		/// 
@@ -61,10 +61,8 @@ namespace YuvKA.Pipeline.Implementation
 			// Shift contrast to work with given [-1, 1] interval
 			double contrast = Contrast + 1.0;
 
-			for (int y = 0; y < inputs[0].Size.Height; ++y)
-			{
-				for (int x = 0; x < inputs[0].Size.Width; ++x)
-				{
+			for (int y = 0; y < inputs[0].Size.Height; ++y) {
+				for (int x = 0; x < inputs[0].Size.Width; ++x) {
 					pixel = Color.FromArgb(inputs[0][x, y].R, inputs[0][x, y].G, inputs[0][x, y].B);
 
 					// Apply Saturation
@@ -117,19 +115,16 @@ namespace YuvKA.Pipeline.Implementation
 			if (l == 0)
 				return Color.FromName("black");
 
-			if (s == 0)
-			{
+			if (s == 0) {
 				r = g = b = l;
 			}
-			else
-			{
+			else {
 				double temp2 = l <= 0.5 ? l * (1.0 + s) : l + s - (l * s);
 				double temp1 = 2.0 * l - temp2;
 
 				double[] t3 = new double[] { h + 1.0 / 3.0, h, h - 1.0 / 3.0 };
 				double[] clr = new double[] { 0, 0, 0 };
-				for (int i = 0; i < 3; i++)
-				{
+				for (int i = 0; i < 3; i++) {
 					if (t3[i] < 0)
 						t3[i] += 1.0;
 					if (t3[i] > 1)
