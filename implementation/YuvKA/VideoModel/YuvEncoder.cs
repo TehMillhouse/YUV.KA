@@ -29,17 +29,18 @@ namespace YuvKA.VideoModel
 					// first all Y values, then all U value, and then all V values
 					// the Y 'frame' is twice as big as the U and V 'frames', as
 					// the human eye is better at recognizing luminance than it is at
-					// distinguishing different chromacities.
+					// distinguishing between different chromacities.
 
 					// Get YUV data from given dataset
 					ypixel = data[coordOffset];
-					upixel = data[pixelNum + (width * y / 4 + x / 2)];
-					vpixel = data[(pixelNum + quartSize) + (width * y / 4 + x / 2)];
+					upixel = data[pixelNum + ((width / 2)*(y / 2) + x / 2)];
+					vpixel = data[(pixelNum + quartSize) + ((width / 2)*(y / 2)  + x / 2)];
 
 					// Convert data to RGB values
-					byte r = (byte) Math.Min(ypixel + 1.14 * vpixel, 255);
-					byte g = (byte) Math.Max(ypixel - 0.394 * upixel - 0.581 * vpixel, 0);
-					byte b = (byte) Math.Min(ypixel + 2.032 * upixel, 255);
+					// YCrCb conversion as described by YuvTools
+					byte r = (byte)Math.Max(Math.Min(1.164 * (ypixel - 16) + 1.793 * (vpixel - 128), 255), 0);
+					byte g = (byte)Math.Min(Math.Max(1.164 * (ypixel - 16) - 0.391 * (upixel - 128) - 0.813 * (vpixel - 128), 0), 255);
+					byte b = (byte)Math.Max(Math.Min(1.164 * (ypixel - 16) + 2.018 * (upixel - 128), 255), 0);
 					frameData[coordOffset] = new Rgb(r, g, b);
 				}
 			}
