@@ -75,6 +75,7 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Pipeline\FilePath.cs" />
     <Compile Include="Pipeline\FrameRenderedMessage.cs" />
+    <Compile Include="Pipeline\InputNode.cs" />
     <Compile Include="TestCases.cs" />
     <Compile Include="VideoModel\AnnotatedFrame.cs" />
     <Compile Include="VideoModel\Frame.cs" />

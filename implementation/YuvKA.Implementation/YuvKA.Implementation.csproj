@@ -77,7 +77,6 @@
     <Compile Include="Pipeline\HistogramType.cs" />
     <Compile Include="Pipeline\IGraphType.cs" />
     <Compile Include="Pipeline\ImageInputNode.cs" />
-    <Compile Include="Pipeline\InputNode.cs" />
     <Compile Include="Pipeline\InverterNode.cs" />
     <Compile Include="Pipeline\IOverlayType.cs" />
     <Compile Include="Pipeline\NoiseInputNode.cs" />

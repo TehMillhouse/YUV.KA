@@ -2,12 +2,13 @@
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
-namespace YuvKA.Pipeline.Implementation
+namespace YuvKA.Pipeline
 {
 	[DataContract]
 	public abstract class InputNode : Node
 	{
-		public InputNode(int? outputCount) : base(inputCount: 0, outputCount: outputCount)
+		public InputNode(int? outputCount)
+			: base(inputCount: 0, outputCount: outputCount)
 		{
 		}
 
