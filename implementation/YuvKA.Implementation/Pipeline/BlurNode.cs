@@ -51,9 +51,9 @@ namespace YuvKA.Pipeline.Implementation
 						result[0][x, y] = new Rgb(0, 0, 0);
 						for (int xi = x - Radius; xi <= x + Radius; xi++) {
 							for (int yi = y - Radius; yi <= y + Radius; yi++) {
-								int newR = result[0][x, y].R + (1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).R;
-								int newG = result[0][x, y].G + (1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).G;
-								int newB = result[0][x, y].B + (1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).B;
+								int newR = result[0][x, y].R + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).R);
+								int newG = result[0][x, y].G + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).G);
+								int newB = result[0][x, y].B + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).B);
 								result[0][x, y] = new Rgb((byte)newR, (byte)newB, (byte)newG);
 							}
 						}
