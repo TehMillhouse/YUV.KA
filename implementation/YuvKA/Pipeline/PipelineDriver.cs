@@ -82,7 +82,7 @@ namespace YuvKA.Pipeline
 		{
 			// Start task for each start task, wait on their completion, zip together their outputs and the corresponding computed frames.
 			var tasks = new Dictionary<Node, NodeTask>();
-			var startTasks = startNodes.Select(start => new { Outputs = start.Outputs, Task = Visit(start, tasks, tick, token) });
+			var startTasks = startNodes.Select(start => new { Outputs = start.Outputs, Task = Visit(start, tasks, tick, token) }).ToArray();
 			return ContinueWhenAll(
 				startTasks.Select(t => t.Task).ToArray(),
 				_ => (FrameDic)startTasks.SelectMany(t => t.Outputs.Zip(t.Task.Result, Tuple.Create)).ToDictionary(tup => tup.Item1, tup => tup.Item2),
@@ -95,7 +95,7 @@ namespace YuvKA.Pipeline
 			// If there's no task associated with this node yet, create one by waiting on all tasks of its inputs and throwing their results into Process
 			NodeTask result;
 			if (!tasks.TryGetValue(node, out result)) {
-				var dependencies = node.Inputs.Select(i => new { Output = i.Source, Task = Visit(i.Source.Node, tasks, tick, token) });
+				var dependencies = node.Inputs.Select(i => new { Output = i.Source, Task = Visit(i.Source.Node, tasks, tick, token) }).ToArray();
 				result = ContinueWhenAll(
 					dependencies.Select(dep => dep.Task).ToArray(),
 					_ => node.Process(dependencies.Select(dep => dep.Task.Result[dep.Output.Index]).ToArray(), tick),

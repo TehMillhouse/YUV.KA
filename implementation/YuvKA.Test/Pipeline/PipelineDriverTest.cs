@@ -70,6 +70,13 @@ namespace YuvKA.Test.Pipeline
 		}
 
 		[Fact]
+		public void RenderTicksStressTest()
+		{
+			for (int i = 0; i < 100; i++)
+				RenderTicksProcessesLongGraph();
+		}
+
+		[Fact]
 		public void RenderTicksClosesObservable()
 		{
 			var cts = new CancellationTokenSource();
