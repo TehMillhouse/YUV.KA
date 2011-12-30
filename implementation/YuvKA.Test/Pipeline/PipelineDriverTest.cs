@@ -69,6 +69,25 @@ namespace YuvKA.Test.Pipeline
 			Assert.Equal(Enumerable.Range(100, 20).ToArray(), RenderTicksAnonIntNodes(new PipelineDriver(), graph, 0, new CancellationTokenSource()).Take(20).ToEnumerable().ToArray());
 		}
 
+		[Fact]
+		public void RenderTicksClosesObservable()
+		{
+			var cts = new CancellationTokenSource();
+			Node graph = new AnonymousNode(() => { cts.Cancel(); cts.Token.ThrowIfCancellationRequested(); });
+
+			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, 0, cts).Count().Last());
+		}
+
+		[Fact]
+		public void RenderTicksPropagatesExceptions()
+		{
+			var cts = new CancellationTokenSource();
+			Node graph = new AnonymousNode(() => { throw new InvalidOperationException(); });
+
+			var ex = Assert.Throws<AggregateException>(() => new PipelineDriver().RenderTicks(new[] { graph }, 0, new CancellationTokenSource()).Last());
+			Assert.IsType<InvalidOperationException>(ex.GetBaseException());
+		}
+
 		/// <summary>
 		/// Invoking RenderTicks on graph1 should wait for the completion of graph0.
 		/// </summary>
@@ -87,8 +106,8 @@ namespace YuvKA.Test.Pipeline
 				firstInvocationCompleted = true;
 			});
 
-			task.Wait();
 			driver.RenderTicks(new[] { graph0 }, 0, new CancellationTokenSource()).First();
+			task.Wait();
 		}
 
 		/// <summary>
@@ -98,20 +117,14 @@ namespace YuvKA.Test.Pipeline
 		public void RenderTicksEarlyCancellation()
 		{
 			var tokenSource = new CancellationTokenSource();
-			bool shouldThrow = false;
 
 			Node graph = new AnonymousNode(
 				() => { throw new InvalidOperationException(); },
-				new AnonymousNode(() => { if (shouldThrow) tokenSource.Cancel(); })
+				new AnonymousNode(() => tokenSource.Cancel())
 			);
 
-			// If the first node doesn't cancel, the second one should throw the exception
-			var ex = Assert.Throws<AggregateException>(() => new PipelineDriver().RenderTicks(new[] { graph }, 0, new CancellationTokenSource()).Last());
-			Assert.IsType<InvalidOperationException>(ex.GetBaseException());
-
-			// If the first node does cancel, the second one shouldn't be processed and no tick should be returned
-			shouldThrow = true;
 			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, 0, tokenSource).Count().Last());
+			// Looks like the InvalidOperationException hasn't been thrown. Yay!
 		}
 
 		// Render a graph of anonymous int-returning nodes
