@@ -8,7 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class VideoInputNode : InputNode
 	{
-		YuvEncoder.Video input = new YuvEncoder.Video(); // place holder
+		YuvEncoder.Video input;
 
 		public VideoInputNode() : base(outputCount: 1)
 		{
