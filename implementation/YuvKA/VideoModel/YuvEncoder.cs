@@ -18,6 +18,7 @@ namespace YuvKA.VideoModel
 		/// </summary>
 		public static Frame Yuv2Rgb(byte[] data, int width, int height)
 		{
+			// TODO make this private once testing is over
 			int pixelNum = width * height;
 			int quartSize = width * height / 4;
 			Rgb[] frameData = new Rgb[height * width];
@@ -33,8 +34,8 @@ namespace YuvKA.VideoModel
 
 					// Get YUV data from given dataset
 					ypixel = data[coordOffset];
-					upixel = data[pixelNum + ((width / 2)*(y / 2) + x / 2)];
-					vpixel = data[(pixelNum + quartSize) + ((width / 2)*(y / 2)  + x / 2)];
+					upixel = data[pixelNum + ((width / 2) * (y / 2) + x / 2)];
+					vpixel = data[(pixelNum + quartSize) + ((width / 2) * (y / 2)  + x / 2)];
 
 					// Convert data to RGB values
 					// YCrCb conversion as described by YuvTools
@@ -58,9 +59,16 @@ namespace YuvKA.VideoModel
 		{
 			// Number of frames of original video to keep in memory
 			private const int MemFrames = 10;
+			// private Frame[] frames;
 			// private Size frameSize;
-			// private String fileName;
-			public int FrameCount { get; set; }
+			// private string fileName;
+
+			public Video(string fileName, string logFileName, int width, int height)
+			{
+				throw new NotImplementedException();
+			}
+
+			public int FrameCount { get; private set; }
 
 			// Indexer so we can access the different video frames
 			// as if the Video were an array of frames
