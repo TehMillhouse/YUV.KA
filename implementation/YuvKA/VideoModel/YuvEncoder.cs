@@ -12,46 +12,6 @@ namespace YuvKA.VideoModel
 			return new Video(fileName, logFileName, new Size(width, height));
 		}
 
-		/// <summary>
-		/// Helper method for converting a bunch of data from YUV to a single RGB frame
-		/// The method supports the IYUV / YUV420 format, and assumes that data array
-		/// size, width and height make sense.
-		/// </summary>
-		public static Frame Yuv2Rgb(byte[] data, int width, int height)
-		{
-			// TODO make this private once testing is over
-			int pixelNum = width * height;
-			int quartSize = width * height / 4;
-			Rgb[] frameData = new Rgb[height * width];
-			int ypixel, upixel, vpixel;
-			for (int y = 0; y < height; y++) {
-				for (int x = 0; x < width; x++) {
-					int coordOffset = y * width + x;
-					// Our data format it IYUV / YUV420:
-					// first all Y values, then all U value, and then all V values
-					// the Y 'frame' is twice as big as the U and V 'frames', as
-					// the human eye is better at recognizing luminance than it is at
-					// distinguishing between different chromacities.
-
-					// Get YUV data from given dataset
-					ypixel = data[coordOffset];
-					upixel = data[pixelNum + ((width / 2) * (y / 2) + x / 2)];
-					vpixel = data[(pixelNum + quartSize) + ((width / 2) * (y / 2)  + x / 2)];
-
-					// Convert data to RGB values
-					// YCrCb conversion as described by YuvTools
-					// TODO These coefficients yield results different from those shown in
-					// our canonical examples. That ought to be fixed sooner or later.
-					// If I ever have the time, remind me to disassemble seqview
-					byte r = (byte)Math.Max(Math.Min(1.164 * (ypixel - 16) + 1.793 * (vpixel - 128), 255), 0);
-					byte g = (byte)Math.Min(Math.Max(1.164 * (ypixel - 16) - 0.391 * (upixel - 128) - 0.813 * (vpixel - 128), 0), 255);
-					byte b = (byte)Math.Max(Math.Min(1.164 * (ypixel - 16) + 2.018 * (upixel - 128), 255), 0);
-					frameData[coordOffset] = new Rgb(r, g, b);
-				}
-			}
-			return new Frame(new Size(width, height), frameData);
-		}
-
 		public static void Encode(string fileName, IEnumerable<Frame> frames)
 		{
 			throw new System.NotImplementedException();
@@ -84,6 +44,46 @@ namespace YuvKA.VideoModel
 				stream.Read(data, 0, yuvFrameSize * frameCount);
 			}
 			return data;
+		}
+
+		/// <summary>
+		/// Helper method for converting a bunch of data from YUV to a single RGB frame
+		/// The method supports the IYUV / YUV420 format, and assumes that data array
+		/// size, width and height make sense.
+		/// </summary>
+		private static Frame Yuv2Rgb(byte[] data, int width, int height)
+		{
+			// TODO make this private once testing is over
+			int pixelNum = width * height;
+			int quartSize = width * height / 4;
+			Rgb[] frameData = new Rgb[height * width];
+			int ypixel, upixel, vpixel;
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++) {
+					int coordOffset = y * width + x;
+					// Our data format it IYUV / YUV420:
+					// first all Y values, then all U value, and then all V values
+					// the Y 'frame' is twice as big as the U and V 'frames', as
+					// the human eye is better at recognizing luminance than it is at
+					// distinguishing between different chromacities.
+
+					// Get YUV data from given dataset
+					ypixel = data[coordOffset];
+					upixel = data[pixelNum + ((width / 2) * (y / 2) + x / 2)];
+					vpixel = data[(pixelNum + quartSize) + ((width / 2) * (y / 2)  + x / 2)];
+
+					// Convert data to RGB values
+					// YCrCb conversion as described by YuvTools
+					// TODO These coefficients yield results different from those shown in
+					// our canonical examples. That ought to be fixed sooner or later.
+					// If I ever have the time, remind me to disassemble seqview
+					byte r = (byte)Math.Max(Math.Min(1.164 * (ypixel - 16) + 1.793 * (vpixel - 128), 255), 0);
+					byte g = (byte)Math.Min(Math.Max(1.164 * (ypixel - 16) - 0.391 * (upixel - 128) - 0.813 * (vpixel - 128), 0), 255);
+					byte b = (byte)Math.Max(Math.Min(1.164 * (ypixel - 16) + 2.018 * (upixel - 128), 255), 0);
+					frameData[coordOffset] = new Rgb(r, g, b);
+				}
+			}
+			return new Frame(new Size(width, height), frameData);
 		}
 
 		#region Video class
@@ -149,9 +149,7 @@ namespace YuvKA.VideoModel
 					// If the requested frame is not in the cache, load it from file
 					int yuvFrameSize = (int)(frameSize.Height * frameSize.Width * 1.5);
 					// If the cache is larger than the remaining number of frames in the video, we can't fetch them all
-					int fetchFramesCount = (index >= FrameCount / frameCache.Length * frameCache.Length) ?
-						(FrameCount % frameCache.Length)
-						: (frameCache.Length);
+					int fetchFramesCount = Math.Min(frameCache.Length, FrameCount - index);
 
 					if ((cachedBaseTick == null) || (index >= cachedBaseTick + fetchFramesCount) || (index < cachedBaseTick)) {
 						// requested frame is not cached, so we read enough data from file
