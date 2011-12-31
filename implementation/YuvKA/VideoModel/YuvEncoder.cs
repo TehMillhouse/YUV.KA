@@ -8,7 +8,8 @@ namespace YuvKA.VideoModel
 	{
 		public static Video Decode(string fileName, string logFileName, int width, int height)
 		{
-			throw new System.NotImplementedException();
+			// Nothing to see here, move along.
+			return new Video(fileName, logFileName, new Size(width, height));
 		}
 
 		/// <summary>
@@ -53,19 +54,80 @@ namespace YuvKA.VideoModel
 			throw new System.NotImplementedException();
 		}
 
+		/// <summary>
+		/// Reads raw Yuv frames from the given file
+		/// </summary>
+		/// <param name="fileName">The file to read from</param>
+		/// <param name="startFrame">The frame index to start reading </param>
+		/// <param name="size">The frame size to expect</param>
+		/// <param name="frameCount">The number of frames to read</param>
+		/// <returns>A byte array with the requested data</returns>
+		private static byte[] ReadYuvFrames(string fileName, int startFrame, Size size, int frameCount)
+		{
+			int yuvFrameSize = (int)(size.Height * size.Height * 1.5);
+			FileInfo fi = new FileInfo(fileName);
+			if (!fi.Exists) {
+				throw new FileNotFoundException();
+			}
+			if (fi.Length < (yuvFrameSize * (startFrame + frameCount))) {
+				// Someone's trying to fetch a frame that isn't there
+				throw new IndexOutOfRangeException();
+			}
+			byte[] data = new byte[yuvFrameSize * frameCount];
+			using (FileStream stream = new FileStream(fileName, FileMode.Open)) {
+				stream.Seek(yuvFrameSize * startFrame, SeekOrigin.Begin);
+				stream.Read(data, 0, yuvFrameSize * frameCount);
+			}
+			return data;
+		}
+
 		#region Video class
 
 		public class Video : IDisposable
 		{
-			// Number of frames of original video to keep in memory
+			// Maximal number of frames of original video to keep in memory
 			private const int MemFrames = 10;
-			// private Frame[] frames;
-			// private Size frameSize;
-			// private string fileName;
+			private int? cachedBaseTick;
+			private Frame[] frameCache;
+			private Size frameSize;
+			private string fileName;
+			private string logFileName;
 
-			public Video(string fileName, string logFileName, int width, int height)
+			/// <summary>
+			/// Ctor for for the Video object. At this point, it is expected
+			/// that the resolution of the video be known
+			/// </summary>
+			/// <param name="fileName">
+			/// The name of the file to read. This has to be a valid
+			/// yuv file, otherwise things go wrong. Throws FileNotFoundException.
+			/// </param>
+			/// <param name="logFileName">
+			/// Optional. The log file to use for the yuv video
+			/// </param>
+			/// <param name="size">
+			/// The resolution at which to read the frames from the file.
+			/// Since the yuv format bears no metadata whatsoever, this has to be correct in order
+			/// for the video to be outputted correctly.
+			/// </param>
+			public Video(string fileName, string logFileName, Size size)
 			{
-				throw new NotImplementedException();
+				frameSize = size;
+				cachedBaseTick = null;
+				this.fileName = fileName;
+				FileInfo file = new FileInfo(fileName);
+				if (!file.Exists) {
+					throw new FileNotFoundException();
+				}
+				FileInfo log = new FileInfo(logFileName);
+				if (log.Exists) {
+					this.logFileName = logFileName;
+				}
+				// Calculate number of frames in the yuv file
+				FrameCount = (int)file.Length / (size.Width * size.Height + size.Width * size.Height / 2);
+				// We don't want to use an array bigger than the video in the first place
+				frameCache = new Frame[Math.Min(MemFrames, FrameCount)];
+				// Note that the array is not filled with meaningful data at this point.
+				// This happens when the first frame is requested from the object.
 			}
 
 			public int FrameCount { get; private set; }
@@ -74,9 +136,21 @@ namespace YuvKA.VideoModel
 			// as if the Video were an array of frames
 			public Frame this[int index]
 			{
-				get
-				{
-					throw new NotImplementedException();
+				get {
+					// If the requested frame is not in the cache, load it from file
+					int yuvFrameSize = (int)(frameSize.Height * frameSize.Width * 1.5);
+					if ((cachedBaseTick == null) || (index >= cachedBaseTick + frameCache.Length) || (index < cachedBaseTick)) {
+						// read enough data from file
+						byte[] yuvData = ReadYuvFrames(fileName, index, frameSize, frameCache.Length);
+						byte[] frameData = new byte[yuvFrameSize];
+						for (int i = 0; i < frameCache.Length; i++) {
+							// copy data for one frame into temporary array
+							Array.Copy(yuvData, yuvFrameSize * i, frameData, 0, yuvFrameSize);
+							frameCache[i] = Yuv2Rgb(frameData, frameSize.Width, frameSize.Height);
+						}
+						return frameCache[0];
+					}
+					return frameCache[index - (int) cachedBaseTick];
 				}
 			}
 
