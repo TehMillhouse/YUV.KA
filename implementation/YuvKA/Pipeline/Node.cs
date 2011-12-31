@@ -11,7 +11,7 @@ namespace YuvKA.Pipeline
 {
 	[InheritedExport]
 	[DataContract]
-	public abstract class Node : IDisposable
+	public abstract class Node
 	{
 		/// <summary>
 		/// Initializes the Node object. Parameters hold the number of inputs or outputs to add, respectively,
@@ -46,10 +46,6 @@ namespace YuvKA.Pipeline
 		public IList<Output> Outputs { get; private set; }
 
 		public abstract Frame[] Process(Frame[] inputs, int tick);
-
-		public virtual void Dispose()
-		{
-		}
 
 		public class Input
 		{
