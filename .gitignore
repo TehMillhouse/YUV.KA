@@ -1,5 +1,7 @@
 [Bb]in/
 obj/
+resources/
+output/
 *.designer.*
 *.swp
 
