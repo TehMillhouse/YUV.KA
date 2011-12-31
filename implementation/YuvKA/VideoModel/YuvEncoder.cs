@@ -51,6 +51,9 @@ namespace YuvKA.VideoModel
 		/// The method supports the IYUV / YUV420 format, and assumes that data array
 		/// size, width and height make sense.
 		/// </summary>
+		/// <param name="data">
+		/// The raw Yuv data that constitutes the frame
+		/// </param>
 		private static Frame Yuv2Rgb(byte[] data, int width, int height)
 		{
 			// TODO make this private once testing is over
@@ -77,13 +80,18 @@ namespace YuvKA.VideoModel
 					// TODO These coefficients yield results different from those shown in
 					// our canonical examples. That ought to be fixed sooner or later.
 					// If I ever have the time, remind me to disassemble seqview
-					byte r = (byte)Math.Max(Math.Min(1.164 * (ypixel - 16) + 1.793 * (vpixel - 128), 255), 0);
-					byte g = (byte)Math.Min(Math.Max(1.164 * (ypixel - 16) - 0.391 * (upixel - 128) - 0.813 * (vpixel - 128), 0), 255);
-					byte b = (byte)Math.Max(Math.Min(1.164 * (ypixel - 16) + 2.018 * (upixel - 128), 255), 0);
+					byte r = clampToByte(1.164 * (ypixel - 16) + 1.793 * (vpixel - 128));
+					byte g = clampToByte(1.164 * (ypixel - 16) - 0.391 * (upixel - 128) - 0.813 * (vpixel - 128));
+					byte b = clampToByte(1.164 * (ypixel - 16) + 2.018 * (upixel - 128));
 					frameData[coordOffset] = new Rgb(r, g, b);
 				}
 			}
 			return new Frame(new Size(width, height), frameData);
+		}
+
+		private static byte clampToByte(double value)
+		{
+			return (byte) Math.Max(Math.Min(value, 255), 0);
 		}
 
 		#region Video class
