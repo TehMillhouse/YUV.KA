@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -39,6 +40,18 @@ namespace YuvKA.Test.Pipeline
 			}
 		}
 
+		[Fact]
+		public void TestYuvEndoder()
+		{
+			int width = 352;
+			int height = 240;
+			string fileName = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv"; // be sure to adjust this beforehand
+			string saveName = "..\\..\\..\\..\\output\\output.yuv"; // warning, depending on the file, this produces a lot of images
+			YuvEncoder.Video video = new YuvEncoder.Video(fileName, null, new VideoModel.Size(width, height));
+			EnumerableVideo frameList = new EnumerableVideo(video);
+			YuvEncoder.Encode(saveName, frameList);
+		}
+
 		private static Bitmap Frame2Bitmap(Frame frame)
 		{
 			Bitmap bmp = new Bitmap(frame.Size.Width, frame.Size.Height);
@@ -46,6 +59,71 @@ namespace YuvKA.Test.Pipeline
 				for (int x = 0; x < frame.Size.Width; x++)
 					bmp.SetPixel(x, y, Color.FromArgb(frame[x, y].R, frame[x, y].G, frame[x, y].B));
 			return bmp;
+		}
+
+		/// <summary>
+		/// Implementation of IEnumerable needed to test the YuvEncoder on its own.
+		/// There's probably something only Sebastian knows that lets me convert this
+		/// custom data structure we have into an IEnumerable, but I can't find it, so there.
+		/// I would advise against using it beyond basic testing, as I didn't really know
+		/// what I was doing here. Please kill me now.
+		/// </summary>
+		private class EnumerableVideo : IEnumerable<Frame>
+		{
+			private YuvEncoder.Video video;
+
+			public EnumerableVideo(YuvEncoder.Video video)
+			{
+				this.video = video;
+			}
+
+			IEnumerator<Frame> IEnumerable<Frame>.GetEnumerator()
+			{
+				return (IEnumerator<Frame>)GetEnumerator();
+			}
+
+			public VideoEnumerator GetEnumerator()
+			{
+				return new VideoEnumerator(video);
+			}
+
+			IEnumerator IEnumerable.GetEnumerator()
+			{
+				throw new NotImplementedException();
+			}
+
+			public class VideoEnumerator : IEnumerator<Frame>
+			{
+				int position = -1;
+				private YuvEncoder.Video video;
+				public VideoEnumerator(YuvEncoder.Video video)
+				{
+					this.video = video;
+				}
+
+				public Frame Current
+				{
+					get
+					{
+						return video[position];
+					}
+				}
+
+				object IEnumerator.Current { get { return Current; } }
+
+				public bool MoveNext()
+				{
+					position++;
+					return (position < video.FrameCount);
+				}
+
+				public void Reset()
+				{
+					position = -1;
+				}
+
+				public void Dispose() { }
+			}
 		}
 	}
 }

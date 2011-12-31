@@ -14,8 +14,15 @@ namespace YuvKA.VideoModel
 
 		public static void Encode(string fileName, IEnumerable<Frame> frames)
 		{
-			throw new System.NotImplementedException();
+			using (FileStream outputFile = new FileStream(fileName, FileMode.Create)) {
+				foreach (Frame frame in frames) {
+					byte[] yuvData = Rgb2Yuv(frame);
+					outputFile.Write(yuvData, 0, yuvData.Length);
+				}
+			}
 		}
+
+		#region Helper methods
 
 		/// <summary>
 		/// Reads raw Yuv frames from the given file
@@ -56,7 +63,6 @@ namespace YuvKA.VideoModel
 		/// </param>
 		private static Frame Yuv2Rgb(byte[] data, int width, int height)
 		{
-			// TODO make this private once testing is over
 			int pixelNum = width * height;
 			int quartSize = width * height / 4;
 			Rgb[] frameData = new Rgb[height * width];
@@ -77,22 +83,67 @@ namespace YuvKA.VideoModel
 
 					// Convert data to RGB values
 					// YCrCb conversion as described by YuvTools
-					// TODO These coefficients yield results different from those shown in
+					// TODO adjust yuv2rgb conversion coefficients
+					// These coefficients yield results different from those shown in
 					// our canonical examples. That ought to be fixed sooner or later.
 					// If I ever have the time, remind me to disassemble seqview
-					byte r = clampToByte(1.164 * (ypixel - 16) + 1.793 * (vpixel - 128));
-					byte g = clampToByte(1.164 * (ypixel - 16) - 0.391 * (upixel - 128) - 0.813 * (vpixel - 128));
-					byte b = clampToByte(1.164 * (ypixel - 16) + 2.018 * (upixel - 128));
+					byte r = ClampToByte(1.164 * (ypixel - 16) + 1.793 * (vpixel - 128));
+					byte g = ClampToByte(1.164 * (ypixel - 16) - 0.391 * (upixel - 128) - 0.813 * (vpixel - 128));
+					byte b = ClampToByte(1.164 * (ypixel - 16) + 2.018 * (upixel - 128));
 					frameData[coordOffset] = new Rgb(r, g, b);
 				}
 			}
 			return new Frame(new Size(width, height), frameData);
 		}
 
-		private static byte clampToByte(double value)
+		private static byte ClampToByte(double value)
 		{
 			return (byte) Math.Max(Math.Min(value, 255), 0);
 		}
+
+		/// <summary>
+		/// Helper method for converting a Frame object into raw yuv data that can be saved to file
+		/// Operates under the assumption that the frame width and height are divisible by 2
+		/// This can be made a lot more efficient, currently uses (w*h * 1.5) steps, can be done in (w*h)
+		/// </summary>
+		private static byte[] Rgb2Yuv(Frame inputFrame)
+		{
+			int yuvDataSize = (int)(inputFrame.Size.Height * inputFrame.Size.Width * 1.5);
+			byte[] yuvData = new byte[yuvDataSize];
+
+			int y, x;
+			// fill Y data frame
+			for (y = 0; y < inputFrame.Size.Height; y++) {
+				for (x = 0; x < inputFrame.Size.Width; x++) {
+					// This formula is taken from the wikipedia article for YCbCr
+					// This is optimized for readability, not speed
+					int r = inputFrame[x, y].R;
+					int g = inputFrame[x, y].G;
+					int b = inputFrame[x, y].B;
+					yuvData[y * inputFrame.Size.Width + x] = ClampToByte(16 + (65.738 * r / 256) + (129.057 * g / 256) + (25.064 * b / 256));
+				}
+			}
+
+			// fill U and V data frames
+			int offset = inputFrame.Size.Width * inputFrame.Size.Height;
+			int smallOfset = offset / 4;
+			for (y = 0; y < inputFrame.Size.Height / 2; y++) {
+				for (x = 0; x < inputFrame.Size.Width / 2; x++) {
+					// since the U and V data frames are only a quarter the size of the RGB version, we need to average the
+					// 4 pixels that will be saved as one in order not to lose too much information
+					int r = (inputFrame[2 * x, 2 * y].R + inputFrame[2 * x + 1, 2 * y].R + inputFrame[2 * x, 2 * y + 1].R + inputFrame[2 * x + 1, 2 * y + 1].R) / 4;
+					int g = (inputFrame[2 * x, 2 * y].G + inputFrame[2 * x + 1, 2 * y].G + inputFrame[2 * x, 2 * y + 1].G + inputFrame[2 * x + 1, 2 * y + 1].G) / 4;
+					int b = (inputFrame[2 * x, 2 * y].B + inputFrame[2 * x + 1, 2 * y].B + inputFrame[2 * x, 2 * y + 1].B + inputFrame[2 * x + 1, 2 * y + 1].B) / 4;
+					byte value = ClampToByte(128 + (-37.945 * r / 256) - (74.494 * g / 256) + (112.439 * b / 256));
+					yuvData[offset + y * inputFrame.Size.Width / 2 + x] = value;
+					value = ClampToByte(128 + (112.439 * r / 256) - (94.154 * g / 256) - (18.285 * b / 256));
+					yuvData[offset + smallOfset + y * inputFrame.Size.Width / 2 + x] = value;
+				}
+			}
+			return yuvData;
+		}
+
+		#endregion Helper methods
 
 		#region Video class
 
@@ -118,6 +169,7 @@ namespace YuvKA.VideoModel
 			/// </param>
 			/// <param name="logFileName">
 			/// Optional. The log file to use for the yuv video
+			/// TODO implement use of log files
 			/// </param>
 			/// <param name="size">
 			/// The resolution at which to read the frames from the file.
@@ -154,6 +206,9 @@ namespace YuvKA.VideoModel
 			public Frame this[int index]
 			{
 				get {
+					if (index < 0 || index >= FrameCount) {
+						throw new IndexOutOfRangeException();
+					}
 					// If the requested frame is not in the cache, load it from file
 					int yuvFrameSize = (int)(frameSize.Height * frameSize.Width * 1.5);
 					// If the cache is larger than the remaining number of frames in the video, we can't fetch them all
