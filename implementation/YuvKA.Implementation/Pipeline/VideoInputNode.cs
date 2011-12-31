@@ -29,12 +29,5 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			throw new NotImplementedException();
 		}
-
-		public override void Dispose()
-		{
-			base.Dispose();
-			if (input != null)
-				input.Dispose();
-		}
 	}
 }

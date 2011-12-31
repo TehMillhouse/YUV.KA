@@ -88,7 +88,7 @@ namespace YuvKA.VideoModel
 
 		#region Video class
 
-		public class Video : IDisposable
+		public class Video
 		{
 			// Maximal number of frames of original video to keep in memory
 			// this is not necessarily equal to the actual size of the cache.
@@ -169,15 +169,6 @@ namespace YuvKA.VideoModel
 					return frameCache[index - (int) cachedBaseTick];
 				}
 			}
-
-			#region IDisposable Members
-
-			public void Dispose()
-			{
-				throw new NotImplementedException();
-			}
-
-			#endregion
 		}
 		#endregion
 	}
