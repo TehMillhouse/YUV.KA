@@ -22,23 +22,14 @@ namespace YuvKA.Pipeline.Implementation
 			Saturation = 0;
 		}
 
-		/// <summary>
-		/// The brightness this frame will be set to
-		/// </summary>
 		[DataMember]
 		[Range(-1.0, 1.0)]
 		public double Brightness { get; set; }
 
-		/// <summary>
-		/// The contrast this frame will be set to
-		/// </summary>
 		[DataMember]
 		[Range(-1.0, 1.0)]
 		public double Contrast { get; set; }
 
-		/// <summary>
-		/// The saturation this frame will be set to
-		/// </summary>
 		[DataMember]
 		[Range(-1.0, 1.0)]
 		public double Saturation { get; set; }
@@ -55,26 +46,24 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			Frame[] outputFrame = new Frame[1];
 			outputFrame[0] = new Frame(inputs[0].Size);
-			int red, green, blue;
-			double newSaturation;
-			Color pixel;
+
 			// Shift contrast to work with given [-1, 1] interval
 			double contrast = Contrast + 1.0;
 
 			for (int y = 0; y < inputs[0].Size.Height; ++y) {
 				for (int x = 0; x < inputs[0].Size.Width; ++x) {
-					pixel = Color.FromArgb(inputs[0][x, y].R, inputs[0][x, y].G, inputs[0][x, y].B);
+					Color pixel = Color.FromArgb(inputs[0][x, y].R, inputs[0][x, y].G, inputs[0][x, y].B);
 
 					// Apply Saturation
 					// For the pixel, get its HSL values, modify the Saturation and convert it back to RGB
-					newSaturation = (double)pixel.GetSaturation();
+					double newSaturation = (double)pixel.GetSaturation();
 					newSaturation += Saturation * newSaturation;
-					pixel = HSL_to_RGB((double)pixel.GetHue(), newSaturation, (double)pixel.GetBrightness());
+					pixel = HslToRgb((double)pixel.GetHue(), newSaturation, (double)pixel.GetBrightness());
 
 					// Apply Brightness
-					red = pixel.R;
-					green = pixel.G;
-					blue = pixel.B;
+					int red = pixel.R;
+					int green = pixel.G;
+					int blue = pixel.B;
 
 					red += (int)(255 * Brightness);
 					green += (int)(255 * Brightness);
@@ -105,8 +94,8 @@ namespace YuvKA.Pipeline.Implementation
 		/// <param name="h">The hue of the HSL color</param>
 		/// <param name="s">The saturation of the HSL color</param>
 		/// <param name="l">The lightness of the HSL color</param>
-		/// <returns>A RGB Color object transformed from the given HSL color space</returns>
-		private Color HSL_to_RGB(double h, double s, double l)
+		/// <returns>A RGB Color object transformed from the given color in the HSL space</returns>
+		private Color HslToRgb(double h, double s, double l)
 		{
 			h /= 360;
 
