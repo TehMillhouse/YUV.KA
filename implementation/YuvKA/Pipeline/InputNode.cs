@@ -7,13 +7,23 @@ namespace YuvKA.Pipeline
 	[DataContract]
 	public abstract class InputNode : Node
 	{
+		Size size;
+
 		public InputNode(int? outputCount)
 			: base(inputCount: 0, outputCount: outputCount)
 		{
 		}
 
 		[DataMember]
-		public Size Size { get; set; }
+		public Size Size
+		{
+			get { return size; }
+			set
+			{
+				size = value;
+				OnSizeChanged();
+			}
+		}
 
 		[Browsable(false)]
 		public virtual int TickCount { get { return 1; } }
@@ -24,5 +34,7 @@ namespace YuvKA.Pipeline
 		}
 
 		public abstract Frame OutputFrame(int tick);
+
+		protected virtual void OnSizeChanged() { }
 	}
 }
