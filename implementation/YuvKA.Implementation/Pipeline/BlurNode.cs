@@ -37,12 +37,11 @@ namespace YuvKA.Pipeline.Implementation
 								int newR = (int)(result[0][x, y].R + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).R);
 								int newG = (int)(result[0][x, y].G + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).G);
 								int newB = (int)(result[0][x, y].B + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).B);
-								result[0][x, y] = new Rgb((byte)newR, (byte)newB, (byte)newG);
+								result[0][x, y] = new Rgb((byte)newR, (byte)newG, (byte)newB);
 							}
 						}
 					}
 				}
-				inputs[0] = result[0];
 			}
 			else if (Type == BlurType.Linear) {
 				result[0] = new Frame(inputs[0].Size);
@@ -54,7 +53,7 @@ namespace YuvKA.Pipeline.Implementation
 								int newR = result[0][x, y].R + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).R);
 								int newG = result[0][x, y].G + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).G);
 								int newB = result[0][x, y].B + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).B);
-								result[0][x, y] = new Rgb((byte)newR, (byte)newB, (byte)newG);
+								result[0][x, y] = new Rgb((byte)newR, (byte)newG, (byte)newB);
 							}
 						}
 					}
