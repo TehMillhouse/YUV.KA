@@ -8,10 +8,19 @@ using System.Text;
 using Xunit;
 using YuvKA.VideoModel;
 
-namespace YuvKA.Test.Pipeline
+namespace YuvKA.Test.ViewModel
 {
 	public class YuvEncoderTest
 	{
+		public static Bitmap FrameToBitmap(Frame frame)
+		{
+			Bitmap bmp = new Bitmap(frame.Size.Width, frame.Size.Height);
+			for (int y = 0; y < frame.Size.Height; y++)
+				for (int x = 0; x < frame.Size.Width; x++)
+					bmp.SetPixel(x, y, Color.FromArgb(frame[x, y].R, frame[x, y].G, frame[x, y].B));
+			return bmp;
+		}
+
 		/// <summary>
 		/// Tests the Video object's ability to load videos from yuv files, convert them, and provide correct frame objects
 		/// </summary>
@@ -31,11 +40,11 @@ namespace YuvKA.Test.Pipeline
 			Bitmap bmp;
 			// I test the first and last three frames
 			for (int i = 0; i < 3; i++) {
-				bmp = Frame2Bitmap(video[i]);
+				bmp = FrameToBitmap(video[i]);
 				bmp.Save(saveName + i.ToString() + ".png");
 			}
 			for (int i = video.FrameCount - 4; i < video.FrameCount; i++) {
-				bmp = Frame2Bitmap(video[i]);
+				bmp = FrameToBitmap(video[i]);
 				bmp.Save(saveName + i.ToString() + ".png");
 			}
 		}
@@ -78,18 +87,8 @@ namespace YuvKA.Test.Pipeline
 			for (int i = 0; i < 20; i++) {
 				// herp = YuvEncoder.YuvToRgb(YuvEncoder.RgbToYuv(herp), width, height);
 			}
-			Bitmap bmp = Frame2Bitmap(frame);
+			Bitmap bmp = FrameToBitmap(frame);
 			bmp.Save(finalFile);
-		}
-
-
-		private static Bitmap Frame2Bitmap(Frame frame)
-		{
-			Bitmap bmp = new Bitmap(frame.Size.Width, frame.Size.Height);
-			for (int y = 0; y < frame.Size.Height; y++)
-				for (int x = 0; x < frame.Size.Width; x++)
-					bmp.SetPixel(x, y, Color.FromArgb(frame[x, y].R, frame[x, y].G, frame[x, y].B));
-			return bmp;
 		}
 	}
 }
