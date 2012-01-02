@@ -70,19 +70,15 @@ namespace YuvKA.Test.Pipeline
 			int width = 352;
 			int height = 240;
 			VideoModel.Size size = new VideoModel.Size(width, height);
-
 			string source = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv";
-			string interim = "..\\..\\..\\..\\output\\interim.yuv";
-			string finalFile = "..\\..\\..\\..\\output\\erroneous.png";
+			string finalFile = "..\\..\\..\\..\\output\\multipass.png";
 
-			string load = source;
-			string save = interim;
-			YuvEncoder.Video video = new YuvEncoder.Video(load, null, size);
-			Frame herp = video[79];
+			YuvEncoder.Video video = new YuvEncoder.Video(source, null, size);
+			Frame frame = video[79];
 			for (int i = 0; i < 20; i++) {
 				// herp = YuvEncoder.YuvToRgb(YuvEncoder.RgbToYuv(herp), width, height);
 			}
-			Bitmap bmp = Frame2Bitmap(herp);
+			Bitmap bmp = Frame2Bitmap(frame);
 			bmp.Save(finalFile);
 		}
 
