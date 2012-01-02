@@ -54,6 +54,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\YuvKA.Implementation\YuvKA.Implementation.csproj">
+      <Project>{077420AC-1B4C-410D-812B-D5EBDD41CB2A}</Project>
+      <Name>YuvKA.Implementation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YuvKA\YuvKA.csproj">
       <Project>{305C80DD-B4A3-41C9-9840-2AE68E13CF96}</Project>
       <Name>YuvKA</Name>
