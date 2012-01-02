@@ -67,13 +67,13 @@ namespace YuvKA.Pipeline.Implementation
 
 		private double G(int x, int y)
 		{
-			return (1 / (2 * Math.PI * Radius * Radius)) * Math.Pow(Math.E, -1 * ((x * x + y * y) / (2 * Radius * Radius)));
+			return (1 / (2 * Math.PI * Radius * Radius)) * Math.Pow(Math.E, -1 * (((double) x * x + y * y) / (2 * Radius * Radius)));
 		}
 
 		private Rgb GetCappedPixels(int x, int y, Frame frame)
 		{
-			int cappedX = Math.Min(255, Math.Max(0, x));
-			int cappedY = Math.Min(255, Math.Max(0, x));
+			int cappedX = Math.Min(frame.Size.Width - 1, Math.Max(0, x));
+			int cappedY = Math.Min(frame.Size.Height - 1, Math.Max(0, y));
 			return frame[cappedX, cappedY];
 		}
 	}
