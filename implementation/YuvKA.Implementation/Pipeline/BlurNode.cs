@@ -28,33 +28,29 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			Frame[] result = new Frame[1];
 			if (Type == BlurType.Gaussian) {
-				result[0] = new Frame(inputs[0].Size);
-				for (int x = 0; x < inputs[0].Size.Width; x++) {
-					for (int y = 0; y < inputs[0].Size.Height; y++) {
-						result[0][x, y] = new Rgb(0, 0, 0);
-						for (int xi = x - (3 * Radius); xi <= x + (3 * Radius); xi++) {
-							for (int yi = y - (3 * Radius); yi <= y + (3 * Radius); yi++) {
-								int newR = (int)(result[0][x, y].R + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).R);
-								int newG = (int)(result[0][x, y].G + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).G);
-								int newB = (int)(result[0][x, y].B + G(xi - x, yi - y) * GetCappedPixels(xi, yi, inputs[0]).B);
-								result[0][x, y] = new Rgb((byte)newR, (byte)newG, (byte)newB);
-							}
-						}
-					}
-				}
+				return new[] { GaussianBlur(inputs[0], tick) };
 			}
 			else if (Type == BlurType.Linear) {
-				result[0] = new Frame(inputs[0].Size);
-				for (int x = 0; x < inputs[0].Size.Width; x++) {
-					for (int y = 0; y < inputs[0].Size.Height; y++) {
-						result[0][x, y] = new Rgb(0, 0, 0);
-						for (int xi = x - Radius; xi <= x + Radius; xi++) {
-							for (int yi = y - Radius; yi <= y + Radius; yi++) {
-								int newR = result[0][x, y].R + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).R);
-								int newG = result[0][x, y].G + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).G);
-								int newB = result[0][x, y].B + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, inputs[0]).B);
-								result[0][x, y] = new Rgb((byte)newR, (byte)newG, (byte)newB);
-							}
+				return new[] { LinearBlur(inputs[0], tick) };
+			}
+			// this should never happen
+			return new Frame[] { null };
+		}
+
+		#endregion
+
+		private Frame LinearBlur(Frame input, int tick)
+		{
+			Frame result = new Frame(input.Size);
+			for (int x = 0; x < input.Size.Width; x++) {
+				for (int y = 0; y < input.Size.Height; y++) {
+					result[x, y] = new Rgb(0, 0, 0);
+					for (int xi = x - Radius; xi <= x + Radius; xi++) {
+						for (int yi = y - Radius; yi <= y + Radius; yi++) {
+							int newR = result[x, y].R + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, input).R);
+							int newG = result[x, y].G + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, input).G);
+							int newB = result[x, y].B + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, input).B);
+							result[x, y] = new Rgb((byte)newR, (byte)newG, (byte)newB);
 						}
 					}
 				}
@@ -62,7 +58,24 @@ namespace YuvKA.Pipeline.Implementation
 			return result;
 		}
 
-		#endregion
+		private Frame GaussianBlur(Frame input, int tick)
+		{
+			Frame result = new Frame(input.Size);
+			for (int x = 0; x < input.Size.Width; x++) {
+				for (int y = 0; y < input.Size.Height; y++) {
+					result[x, y] = new Rgb(0, 0, 0);
+					for (int xi = x - (3 * Radius); xi <= x + (3 * Radius); xi++) {
+						for (int yi = y - (3 * Radius); yi <= y + (3 * Radius); yi++) {
+							int newR = (int)(result[x, y].R + G(xi - x, yi - y) * GetCappedPixels(xi, yi, input).R);
+							int newG = (int)(result[x, y].G + G(xi - x, yi - y) * GetCappedPixels(xi, yi, input).G);
+							int newB = (int)(result[x, y].B + G(xi - x, yi - y) * GetCappedPixels(xi, yi, input).B);
+							result[x, y] = new Rgb((byte)newR, (byte)newG, (byte)newB);
+						}
+					}
+				}
+			}
+			return result;
+		}
 
 		private double G(int x, int y)
 		{
