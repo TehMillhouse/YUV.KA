@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
@@ -7,6 +8,9 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class VideoInputNode : InputNode
 	{
+		static readonly Size Cif = new Size(352, 288);
+		static readonly Size Sif = new Size(352, 240);
+
 		FilePath fileName = new FilePath(null);
 		FilePath logFileName = new FilePath(null);
 		YuvEncoder.Video input;
@@ -25,6 +29,15 @@ namespace YuvKA.Pipeline.Implementation
 			{
 				fileName = value;
 				input = null;
+
+				// Try and guess the video resolution
+				Match m = Regex.Match(fileName.Path, @"(\d+)x(\d+)");
+				if (m.Success)
+					Size = new Size(int.Parse(m.Groups[1].Value), int.Parse(m.Groups[2].Value));
+				else if (Regex.IsMatch(fileName.Path, @"[_.]cif[_.]"))
+					Size = Cif;
+				else if (Regex.IsMatch(fileName.Path, @"[_.]sif[_.]"))
+					Size = Sif;
 			}
 		}
 
