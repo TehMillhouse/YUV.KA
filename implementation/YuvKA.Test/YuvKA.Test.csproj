@@ -45,10 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pipeline\YuvEncoderTest.cs" />
     <Compile Include="Pipeline\AnonymousNode.cs" />
     <Compile Include="Pipeline\PipelineDriverTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VideoModel\YuvEncoderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -63,6 +63,7 @@
       <Name>YuvKA</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
