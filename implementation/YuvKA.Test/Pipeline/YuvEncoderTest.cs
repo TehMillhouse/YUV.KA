@@ -61,6 +61,7 @@ namespace YuvKA.Test.Pipeline
 		/// Does several passes of Decode/Encode over the same image.
 		/// The point of this is to see how much distortion comes in and
 		/// how much information is lost when en- or decoding.
+		/// Reuires YuvEncoder.YuvToRgb and YuvEncoder.RgbToYuv to be made public
 		/// </summary>
 		[Fact]
 		public void YuvEncoderStresstest()
@@ -72,21 +73,17 @@ namespace YuvKA.Test.Pipeline
 
 			string source = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv";
 			string interim = "..\\..\\..\\..\\output\\interim.yuv";
-			string finalFile = "..\\..\\..\\..\\output\\erroneous.yuv";
+			string finalFile = "..\\..\\..\\..\\output\\erroneous.png";
 
 			string load = source;
 			string save = interim;
-
-			for (int i = 0; i < 10; i++) {
-				YuvEncoder.Video video = new YuvEncoder.Video(load, null, size);
-				IEnumerable<Frame> frameList = Enumerable.Range(0, video.FrameCount).Select(n => video[n]);
-				YuvEncoder.Encode(save, frameList);
-
-				if (save == interim) {
-					save = finalFile;
-					load = interim;
-				}
+			YuvEncoder.Video video = new YuvEncoder.Video(load, null, size);
+			Frame herp = video[79];
+			for (int i = 0; i < 20; i++) {
+				// herp = YuvEncoder.YuvToRgb(YuvEncoder.RgbToYuv(herp), width, height);
 			}
+			Bitmap bmp = Frame2Bitmap(herp);
+			bmp.Save(finalFile);
 		}
 
 
