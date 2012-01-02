@@ -7,8 +7,8 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class VideoInputNode : InputNode
 	{
-		FilePath fileName;
-		FilePath logFileName;
+		FilePath fileName = new FilePath(null);
+		FilePath logFileName = new FilePath(null);
 		YuvEncoder.Video input;
 
 		public VideoInputNode()
