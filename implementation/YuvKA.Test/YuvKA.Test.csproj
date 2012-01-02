@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrationTests.cs" />
     <Compile Include="Pipeline\AnonymousNode.cs" />
     <Compile Include="Pipeline\PipelineDriverTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
