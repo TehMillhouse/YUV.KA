@@ -41,12 +41,18 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[Browsable(false)]
-		public override int TickCount { get { return input.FrameCount; } }
+		public override int TickCount
+		{
+			get
+			{
+				EnsureInputLoaded();
+				return input.FrameCount;
+			}
+		}
 
 		public override Frame OutputFrame(int tick)
 		{
-			if (input == null)
-				input = YuvEncoder.Decode(FileName.Path, LogFileName.Path, Size.Width, Size.Height);
+			EnsureInputLoaded();
 
 			if (tick < 0 || tick >= input.FrameCount)
 				return new Frame(Size);
@@ -58,6 +64,12 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			base.OnSizeChanged();
 			input = null;
+		}
+
+		private void EnsureInputLoaded()
+		{
+			if (input == null)
+				input = YuvEncoder.Decode(FileName.Path, LogFileName.Path, Size.Width, Size.Height);
 		}
 	}
 }
