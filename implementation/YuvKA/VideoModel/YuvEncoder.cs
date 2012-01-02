@@ -16,7 +16,7 @@ namespace YuvKA.VideoModel
 		{
 			using (FileStream outputFile = new FileStream(fileName, FileMode.Create)) {
 				foreach (Frame frame in frames) {
-					byte[] yuvData = Rgb2Yuv(frame);
+					byte[] yuvData = RgbToYuv(frame);
 					outputFile.Write(yuvData, 0, yuvData.Length);
 				}
 			}
@@ -61,7 +61,7 @@ namespace YuvKA.VideoModel
 		/// <param name="data">
 		/// The raw Yuv data that constitutes the frame
 		/// </param>
-		private static Frame Yuv2Rgb(byte[] data, int width, int height)
+		private static Frame YuvToRgb(byte[] data, int width, int height)
 		{
 			int pixelNum = width * height;
 			int quartSize = width * height / 4;
@@ -106,7 +106,7 @@ namespace YuvKA.VideoModel
 		/// Operates under the assumption that the frame width and height are divisible by 2
 		/// This can be made a lot more efficient, currently uses (w*h * 1.5) steps, can be done in (w*h)
 		/// </summary>
-		private static byte[] Rgb2Yuv(Frame inputFrame)
+		private static byte[] RgbToYuv(Frame inputFrame)
 		{
 			int yuvDataSize = (int)(inputFrame.Size.Height * inputFrame.Size.Width * 1.5);
 			byte[] yuvData = new byte[yuvDataSize];
@@ -222,7 +222,7 @@ namespace YuvKA.VideoModel
 							// copy data for one frame into temporary array
 							Array.Copy(yuvData, yuvFrameSize * i, frameData, 0, yuvFrameSize);
 							// commit the frame we can calculate from this to cache
-							frameCache[i] = Yuv2Rgb(frameData, frameSize.Width, frameSize.Height);
+							frameCache[i] = YuvToRgb(frameData, frameSize.Width, frameSize.Height);
 						}
 						cachedBaseTick = index;
 						return frameCache[0];
