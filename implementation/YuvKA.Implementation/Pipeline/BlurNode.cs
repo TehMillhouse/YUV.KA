@@ -41,15 +41,19 @@ namespace YuvKA.Pipeline.Implementation
 
 		private Frame LinearBlur(Frame input, int tick)
 		{
+			// only needs to be calculated once
+			double factor = 1.0 / ((2 * Radius + 1) * (2 * Radius + 1));
+
 			Frame result = new Frame(input.Size);
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
 					result[x, y] = new Rgb(0, 0, 0);
 					for (int xi = x - Radius; xi <= x + Radius; xi++) {
 						for (int yi = y - Radius; yi <= y + Radius; yi++) {
-							int newR = result[x, y].R + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, input).R);
-							int newG = result[x, y].G + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, input).G);
-							int newB = result[x, y].B + (int)(((double)1 / (Radius * Radius)) * GetCappedPixels(xi, yi, input).B);
+							Rgb imagePixel = GetCappedPixels(xi, yi, input);
+							int newR = result[x, y].R + (int)(factor * imagePixel.R);
+							int newG = result[x, y].G + (int)(factor * imagePixel.G);
+							int newB = result[x, y].B + (int)(factor * imagePixel.B);
 							result[x, y] = new Rgb((byte)newR, (byte)newG, (byte)newB);
 						}
 					}
@@ -66,9 +70,11 @@ namespace YuvKA.Pipeline.Implementation
 					result[x, y] = new Rgb(0, 0, 0);
 					for (int xi = x - (3 * Radius); xi <= x + (3 * Radius); xi++) {
 						for (int yi = y - (3 * Radius); yi <= y + (3 * Radius); yi++) {
-							int newR = (int)(result[x, y].R + G(xi - x, yi - y) * GetCappedPixels(xi, yi, input).R);
-							int newG = (int)(result[x, y].G + G(xi - x, yi - y) * GetCappedPixels(xi, yi, input).G);
-							int newB = (int)(result[x, y].B + G(xi - x, yi - y) * GetCappedPixels(xi, yi, input).B);
+							double curG = G(xi - x, yi - y);
+							Rgb imagePixel = GetCappedPixels(xi, yi, input);
+							int newR = (int)(result[x, y].R + curG * imagePixel.R);
+							int newG = (int)(result[x, y].G + curG * imagePixel.G);
+							int newB = (int)(result[x, y].B + curG * imagePixel.B);
 							result[x, y] = new Rgb((byte)newR, (byte)newG, (byte)newB);
 						}
 					}
