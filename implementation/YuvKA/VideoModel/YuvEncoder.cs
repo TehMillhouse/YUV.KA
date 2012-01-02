@@ -82,14 +82,10 @@ namespace YuvKA.VideoModel
 					vpixel = data[(pixelNum + quartSize) + ((width / 2) * (y / 2)  + x / 2)];
 
 					// Convert data to RGB values
-					// YCrCb conversion as described by YuvTools
-					// TODO adjust yuv2rgb conversion coefficients
-					// These coefficients yield results different from those shown in
-					// our canonical examples. That ought to be fixed sooner or later.
-					// If I ever have the time, remind me to disassemble seqview
-					byte r = ClampToByte(1.164 * (ypixel - 16) + 1.793 * (vpixel - 128));
-					byte g = ClampToByte(1.164 * (ypixel - 16) - 0.391 * (upixel - 128) - 0.813 * (vpixel - 128));
-					byte b = ClampToByte(1.164 * (ypixel - 16) + 2.018 * (upixel - 128));
+					// YCrCb conversion as described by ITU-R 601, with tweaked coefficients
+					byte r = ClampToByte(1.167 * (ypixel - 16) + 1.596 * (vpixel - 128));
+					byte g = ClampToByte(1.169 * (ypixel - 16) - 0.393 * (upixel - 128) - 0.816 * (vpixel - 128));
+					byte b = ClampToByte(1.167 * (ypixel - 16) + 2.018 * (upixel - 128));
 					frameData[coordOffset] = new Rgb(r, g, b);
 				}
 			}
@@ -116,11 +112,12 @@ namespace YuvKA.VideoModel
 			for (y = 0; y < inputFrame.Size.Height; y++) {
 				for (x = 0; x < inputFrame.Size.Width; x++) {
 					// This formula is taken from the wikipedia article for YCbCr
+					// It's the ITU-R 601 version, but hand-tweaked.
 					// This is optimized for readability, not speed
 					int r = inputFrame[x, y].R;
 					int g = inputFrame[x, y].G;
 					int b = inputFrame[x, y].B;
-					yuvData[y * inputFrame.Size.Width + x] = ClampToByte(16 + (65.738 * r / 256) + (129.057 * g / 256) + (25.064 * b / 256));
+					yuvData[y * inputFrame.Size.Width + x] = ClampToByte(16 + (65.738 * r / 256) + (129.657 * g / 256) + (25.064 * b / 256));
 				}
 			}
 
@@ -134,9 +131,9 @@ namespace YuvKA.VideoModel
 					int r = (inputFrame[2 * x, 2 * y].R + inputFrame[2 * x + 1, 2 * y].R + inputFrame[2 * x, 2 * y + 1].R + inputFrame[2 * x + 1, 2 * y + 1].R) / 4;
 					int g = (inputFrame[2 * x, 2 * y].G + inputFrame[2 * x + 1, 2 * y].G + inputFrame[2 * x, 2 * y + 1].G + inputFrame[2 * x + 1, 2 * y + 1].G) / 4;
 					int b = (inputFrame[2 * x, 2 * y].B + inputFrame[2 * x + 1, 2 * y].B + inputFrame[2 * x, 2 * y + 1].B + inputFrame[2 * x + 1, 2 * y + 1].B) / 4;
-					byte value = ClampToByte(128 + (-37.945 * r / 256) - (74.494 * g / 256) + (112.439 * b / 256));
+					byte value = ClampToByte(128 + (-37.945 * r / 256) - (74.394 * g / 256) + (112.439 * b / 256));
 					yuvData[offset + y * inputFrame.Size.Width / 2 + x] = value;
-					value = ClampToByte(128 + (112.439 * r / 256) - (94.154 * g / 256) - (18.285 * b / 256));
+					value = ClampToByte(128 + (112.439 * r / 256) - (94.074 * g / 256) - (18.285 * b / 256));
 					yuvData[offset + smallOfset + y * inputFrame.Size.Width / 2 + x] = value;
 				}
 			}
