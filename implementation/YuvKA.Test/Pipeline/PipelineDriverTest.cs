@@ -9,7 +9,7 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.Test.Pipeline
 {
-	public class PipelineDriverTest
+	public class PipelineDriverTest : IDisposable
 	{
 		/// <summary>
 		/// RenderTick should be able to correctly process the following graph:
@@ -83,7 +83,10 @@ namespace YuvKA.Test.Pipeline
 			Node graph = new AnonymousNode(() => { cts.Cancel(); cts.Token.ThrowIfCancellationRequested(); });
 
 			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, 0, cts).Count().Last());
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
 		}
+
 
 		[Fact]
 		public void RenderTicksPropagatesExceptions()
@@ -92,7 +95,7 @@ namespace YuvKA.Test.Pipeline
 			Node graph = new AnonymousNode(() => { throw new InvalidOperationException(); });
 
 			var ex = Assert.Throws<AggregateException>(() => new PipelineDriver().RenderTicks(new[] { graph }, 0, new CancellationTokenSource()).Last());
-			Assert.IsType<InvalidOperationException>(ex.GetBaseException());
+			Assert.IsType<InvalidOperationException>(ex.Flatten().InnerException);
 		}
 
 		/// <summary>
@@ -138,6 +141,13 @@ namespace YuvKA.Test.Pipeline
 		IObservable<int> RenderTicksAnonIntNodes(PipelineDriver driver, AnonIntNode startNode, int tick, CancellationTokenSource tokenSource)
 		{
 			return driver.RenderTicks(new[] { startNode }, tick, tokenSource).Select(dic => dic[startNode.Outputs[0]].Size.Width);
+		}
+
+		// Catch free-flying non-observed Tasks
+		public void Dispose()
+		{
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
 		}
 	}
 }

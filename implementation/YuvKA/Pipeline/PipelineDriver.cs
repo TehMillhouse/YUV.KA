@@ -44,17 +44,21 @@ namespace YuvKA.Pipeline
 		public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(IEnumerable<Node> startNodes, int tick, CancellationTokenSource tokenSource)
 		{
 			return Observable.Create<FrameDic>(observer => {
-				lastTask = lastTask.ContinueWith(_ => {
-					while (true) {
-						var task = RenderTickCore(startNodes, tick++, tokenSource.Token);
-						((IAsyncResult)task).AsyncWaitHandle.WaitOne(); // wait for the task without provoking any exceptions
-						tokenSource.Token.ThrowIfCancellationRequested();
-						observer.OnNext(task.Result);
-					}
-				}, tokenSource.Token);
+				lastTask = lastTask
+					.ContinueWith(_ => {
+						while (true)
+							observer.OnNext(RenderTickCore(startNodes, tick++, tokenSource.Token).Result);
+					}, tokenSource.Token)
 
-				lastTask.ContinueWith(_ => observer.OnCompleted(), TaskContinuationOptions.OnlyOnCanceled);
-				lastTask.ContinueWith(t => observer.OnError(t.Exception), TaskContinuationOptions.OnlyOnFaulted);
+					.ContinueWith(t => {
+						// Handle all OCEs. If there are no other exceptions, we're done.
+						try {
+							t.Exception.Flatten().Handle(e => e is OperationCanceledException);
+							observer.OnCompleted();
+						} catch (AggregateException e) {
+							observer.OnError(e);
+						}
+					});
 
 				// Cancel computation on observer disposal
 				return () => tokenSource.Cancel();
@@ -65,9 +69,9 @@ namespace YuvKA.Pipeline
 		static Task<TResult> ContinueWhenAll<TAntecedentResult, TResult>(Task<TAntecedentResult>[] tasks, Func<Task<TAntecedentResult>[], TResult> continuationFunction, CancellationToken cancellationToken)
 		{
 			if (!tasks.Any())
-				return Task.Factory.StartNew(() => continuationFunction(new Task<TAntecedentResult>[] { }));
+				return Task.Factory.StartNew(() => continuationFunction(new Task<TAntecedentResult>[] { }), cancellationToken, TaskCreationOptions.AttachedToParent, TaskScheduler.Current);
 			else
-				return Task.Factory.ContinueWhenAll(tasks, continuationFunction, cancellationToken);
+				return Task.Factory.ContinueWhenAll(tasks, continuationFunction, cancellationToken, TaskContinuationOptions.AttachedToParent, TaskScheduler.Current);
 		}
 
 		static Task CreateCompletedTask()
