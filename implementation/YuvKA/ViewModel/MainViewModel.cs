@@ -53,7 +53,6 @@ namespace YuvKA.ViewModel
 
 		public void Undo()
 		{
-			redoStack.Clear();
 			redoStack.Push(Serialize(Model));
 			Model = Deserialize(undoStack.Pop());
 		}
