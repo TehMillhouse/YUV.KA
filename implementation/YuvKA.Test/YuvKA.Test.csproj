@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="Pipeline\AnonymousNode.cs" />
+    <Compile Include="Pipeline\PipelineGraphTest.cs" />
     <Compile Include="Pipeline\PipelineDriverTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VideoModel\YuvEncoderTest.cs" />
