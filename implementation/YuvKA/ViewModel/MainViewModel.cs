@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -10,64 +9,86 @@ namespace YuvKA.ViewModel
 {
 	public class MainViewModel
 	{
-		Stack<PipelineState> undoStack = new Stack<PipelineState>();
-		Stack<PipelineState> redoStack = new Stack<PipelineState>();
+		Stack<byte[]> undoStack = new Stack<byte[]>();
+		Stack<byte[]> redoStack = new Stack<byte[]>();
+
+		public MainViewModel()
+		{
+			OpenWindows = new List<OutputWindowViewModel>();
+			Model = new PipelineState();
+		}
 
 		public PipelineState Model { get; private set; }
 		public bool CanUndo { get { return undoStack.Any(); } }
 		public bool CanRedo { get { return redoStack.Any(); } }
 
 		public ReplayStateViewModel ReplayStateViewModel { get; private set; }
-		public PipelineViewModel PipelineViewModel { get { throw new NotImplementedException(); } }
+		public PipelineViewModel PipelineViewModel { get; private set; }
 		public ToolboxViewModel ToolboxViewModel { get; private set; }
-		public IList<OutputWindowViewModel> OpenWindows { get { throw new NotImplementedException(); } }
+		public IList<OutputWindowViewModel> OpenWindows { get; private set; }
 
 		public void Save()
 		{
 			var dialog = new SaveFileDialog();
 			if (dialog.ShowDialog() == true) {
 				var serializer = new NetDataContractSerializer();
-				using (Stream stream = dialog.OpenFile())
-					serializer.WriteObject(stream, Model);
+				File.WriteAllBytes(dialog.FileName, Serialize(Model));
 			}
 		}
 
 		public void Open()
 		{
 			var dialog = new OpenFileDialog();
-			if (dialog.ShowDialog() == true) {
-				var serializer = new NetDataContractSerializer();
-				using (Stream stream = dialog.OpenFile())
-					Model = (PipelineState)serializer.ReadObject(stream);
-			}
+			if (dialog.ShowDialog() == true)
+				Model = Deserialize(File.ReadAllBytes(dialog.FileName));
 		}
 
 		public void Clear()
 		{
 			Model = new PipelineState();
+			OpenWindows.Clear();
+			undoStack.Clear();
+			redoStack.Clear();
 		}
 
 		public void Undo()
 		{
 			redoStack.Clear();
-			undoStack.Push(Model);
+			redoStack.Push(Serialize(Model));
+			Model = Deserialize(undoStack.Pop());
 		}
 
 		public void Redo()
 		{
-			undoStack.Push(Model);
-			Model = redoStack.Pop();
+			undoStack.Push(Serialize(Model));
+			Model = Deserialize(redoStack.Pop());
 		}
 
 		public void SaveSnapshot()
 		{
-			throw new System.NotImplementedException();
+			redoStack.Clear();
+			undoStack.Push(Serialize(Model));
 		}
 
 		public void OpenWindow(OutputWindowViewModel window)
 		{
 			OpenWindows.Add(window);
-			//Model.RenderTick(new[] { blurNode });
+			Model.RenderTick(new[] { window.NodeModel });
+		}
+
+		byte[] Serialize(PipelineState state)
+		{
+			using (var stream = new MemoryStream()) {
+				new NetDataContractSerializer().Serialize(stream, state);
+				return stream.ToArray();
+			}
+		}
+
+		PipelineState Deserialize(byte[] data)
+		{
+			OpenWindows.Clear(); // TODO: for now...
+			using (var stream = new MemoryStream(data))
+				return (PipelineState)new NetDataContractSerializer().Deserialize(stream);
 		}
 	}
 }
