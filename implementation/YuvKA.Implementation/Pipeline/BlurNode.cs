@@ -44,30 +44,32 @@ namespace YuvKA.Pipeline.Implementation
 			// only needs to be calculated once
 			float factor = 1F / (2 * Radius + 1);
 
-			/* Since this Array is sort of ugly now: workspace[BlurringDimension, x-coord, y-coord, colorchannel] */
-			float[, , ,] workspace = new float[2, input.Size.Width, input.Size.Height, 3];
+			/* Since this Arrays are sort of ugly now: Arrayname[x-coord, y-coord, colorchannel] */
+			float[,,] horizontalBlur = new float[input.Size.Width, input.Size.Height, 3];
+			float[,,] verticalBlur = new float[input.Size.Width, input.Size.Height, 3];
 
 			/* Blur horinzontal dimension */
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
-					workspace[0, x, y, 0] = workspace[0, x, y, 1] = workspace[0, x, y, 2] = 0F;
+					horizontalBlur[x, y, 0] = horizontalBlur[x, y, 1] = horizontalBlur[x, y, 2] = 0F;
 					for (int z = x - Radius; z <= x + Radius; z++) {
 						Rgb imagePixel = GetCappedPixels(z, y, input);
-						workspace[0, x, y, 0] += factor * imagePixel.R;
-						workspace[0, x, y, 1] += factor * imagePixel.G;
-						workspace[0, x, y, 2] += factor * imagePixel.B;
+						horizontalBlur[x, y, 0] += factor * imagePixel.R;
+						horizontalBlur[x, y, 1] += factor * imagePixel.G;
+						horizontalBlur[x, y, 2] += factor * imagePixel.B;
 					}
 				}
 			}
 			/* Blur vertical dimension */
+
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
-					workspace[1, x, y, 0] = workspace[1, x, y, 1] = workspace[1, x, y, 2] = 0F;
+					verticalBlur[x, y, 0] = verticalBlur[x, y, 1] = verticalBlur[x, y, 2] = 0F;
 					for (int z = y - Radius; z <= y + Radius; z++) {
 						int cappedY = Math.Min(input.Size.Height - 1, Math.Max(0, z));
-						workspace[1, x, y, 0] += factor * workspace[0, x, cappedY, 0];
-						workspace[1, x, y, 1] += factor * workspace[0, x, cappedY, 1];
-						workspace[1, x, y, 2] += factor * workspace[0, x, cappedY, 2];
+						verticalBlur[x, y, 0] += factor * horizontalBlur[x, cappedY, 0];
+						verticalBlur[x, y, 1] += factor * horizontalBlur[x, cappedY, 1];
+						verticalBlur[x, y, 2] += factor * horizontalBlur[x, cappedY, 2];
 					}
 				}
 			}
@@ -75,7 +77,7 @@ namespace YuvKA.Pipeline.Implementation
 			Frame result = new Frame(input.Size);
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
-					result[x, y] = new Rgb((byte)workspace[1, x, y, 0], (byte)workspace[1, x, y, 1], (byte)workspace[1, x, y, 2]);
+					result[x, y] = new Rgb((byte)verticalBlur[x, y, 0], (byte)verticalBlur[x, y, 1], (byte)verticalBlur[x, y, 2]);
 				}
 			}
 			return result;
@@ -83,32 +85,33 @@ namespace YuvKA.Pipeline.Implementation
 
 		private Frame GaussianBlur(Frame input, int tick)
 		{
-			/* Since this Array is sort of ugly now: workspace[BlurringDimension, x-coord, y-coord, colorchannel] */
-			float[, , ,] workspace = new float[2, input.Size.Width, input.Size.Height, 3];
+			/* Since this Arrays are sort of ugly now: Arrayname[x-coord, y-coord, colorchannel] */
+			float[,,] horizontalBlur = new float[input.Size.Width, input.Size.Height, 3];
+			float[,,] verticalBlur = new float[input.Size.Width, input.Size.Height, 3];
 
 			/* Blur horinzontal dimension */
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
-					workspace[0, x, y, 0] = workspace[0, x, y, 1] = workspace[0, x, y, 2] = 0F;
+					horizontalBlur[x, y, 0] = horizontalBlur[x, y, 1] = horizontalBlur[x, y, 2] = 0F;
 					for (int z = x - (3 * Radius); z <= x + (3 * Radius); z++) {
 						float factor = G(z - x);
 						Rgb imagePixel = GetCappedPixels(z, y, input);
-						workspace[0, x, y, 0] += factor * imagePixel.R;
-						workspace[0, x, y, 1] += factor * imagePixel.G;
-						workspace[0, x, y, 2] += factor * imagePixel.B;
+						horizontalBlur[x, y, 0] += factor * imagePixel.R;
+						horizontalBlur[x, y, 1] += factor * imagePixel.G;
+						horizontalBlur[x, y, 2] += factor * imagePixel.B;
 					}
 				}
 			}
 			/* Blur vertical dimension */
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
-					workspace[1, x, y, 0] = workspace[1, x, y, 1] = workspace[1, x, y, 2] = 0F;
+					verticalBlur[x, y, 0] = verticalBlur[x, y, 1] = verticalBlur[x, y, 2] = 0F;
 					for (int z = y - (3 * Radius); z <= y + (3 * Radius); z++) {
 						float factor = G(y - z);
 						int cappedY = Math.Min(input.Size.Height - 1, Math.Max(0, z));
-						workspace[1, x, y, 0] += factor * workspace[0, x, cappedY, 0];
-						workspace[1, x, y, 1] += factor * workspace[0, x, cappedY, 1];
-						workspace[1, x, y, 2] += factor * workspace[0, x, cappedY, 2];
+						verticalBlur[x, y, 0] += factor * horizontalBlur[x, cappedY, 0];
+						verticalBlur[x, y, 1] += factor * horizontalBlur[x, cappedY, 1];
+						verticalBlur[x, y, 2] += factor * horizontalBlur[x, cappedY, 2];
 					}
 				}
 			}
@@ -116,7 +119,7 @@ namespace YuvKA.Pipeline.Implementation
 			Frame result = new Frame(input.Size);
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
-					result[x, y] = new Rgb((byte)workspace[1, x, y, 0], (byte)workspace[1, x, y, 1], (byte)workspace[1, x, y, 2]);
+					result[x, y] = new Rgb((byte)verticalBlur[x, y, 0], (byte)verticalBlur[x, y, 1], (byte)verticalBlur[x, y, 2]);
 				}
 			}
 			return result;
