@@ -21,7 +21,7 @@ namespace YuvKA.Pipeline
 		public PipelineGraph Graph { get; private set; }
 
 		[Import(typeof(IEventAggregator))]
-		public IEventAggregator Events { get; set; }
+		public IEventAggregator Events { get; private set; }
 
 		public void Start(IEnumerable<Node> outputNodes)
 		{

@@ -1,10 +1,26 @@
-﻿using Xunit;
+﻿using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.Linq;
+using Caliburn.Micro;
+using Xunit;
 using YuvKA.ViewModel;
 
 namespace YuvKA.Test.ViewModel
 {
 	public class MainViewModelTest
 	{
+		MainViewModel vm;
+
+		public MainViewModelTest()
+		{
+			var catalog = new AggregateCatalog(new AssemblyCatalog("YuvKA.exe"), new AssemblyCatalog("YuvKA.Implementation.dll"));
+			var container = new CompositionContainer(catalog);
+			container.ComposeExportedValue(container);
+			container.ComposeExportedValue<IEventAggregator>(new EventAggregator());
+
+			vm = container.GetExportedValue<MainViewModel>();
+		}
+
 		/// <summary>
 		/// Make sure the following history actions are executed correctly:
 		/// (Current state is bracketed)
@@ -20,7 +36,7 @@ namespace YuvKA.Test.ViewModel
 		[Fact]
 		public void UndoRedoWorks()
 		{
-			var vm = new MainViewModel();
+			vm.Clear();
 			Assert.False(vm.CanUndo);
 			Assert.False(vm.CanRedo);
 
@@ -59,6 +75,12 @@ namespace YuvKA.Test.ViewModel
 			Assert.Equal(0, vm.Model.CurrentTick);
 			Assert.False(vm.CanUndo);
 			Assert.True(vm.CanRedo);
+		}
+
+		[Fact]
+		public void ToolboxCanHasBlurNode()
+		{
+			Assert.Equal(1, vm.ToolboxViewModel.NodeTypes.Count(t => t.Type == typeof(YuvKA.Pipeline.Implementation.BlurNode)));
 		}
 	}
 }

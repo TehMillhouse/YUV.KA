@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -7,8 +9,11 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
+	[Export]
 	public class MainViewModel
 	{
+		[Import]
+		CompositionContainer container;
 		Stack<byte[]> undoStack = new Stack<byte[]>();
 		Stack<byte[]> redoStack = new Stack<byte[]>();
 
@@ -24,6 +29,7 @@ namespace YuvKA.ViewModel
 
 		public ReplayStateViewModel ReplayStateViewModel { get; private set; }
 		public PipelineViewModel PipelineViewModel { get; private set; }
+		[Import]
 		public ToolboxViewModel ToolboxViewModel { get; private set; }
 		public IList<OutputWindowViewModel> OpenWindows { get; private set; }
 
@@ -46,6 +52,8 @@ namespace YuvKA.ViewModel
 		public void Clear()
 		{
 			Model = new PipelineState();
+			container.SatisfyImportsOnce(Model);
+
 			OpenWindows.Clear();
 			undoStack.Clear();
 			redoStack.Clear();
@@ -86,8 +94,11 @@ namespace YuvKA.ViewModel
 		PipelineState Deserialize(byte[] data)
 		{
 			OpenWindows.Clear(); // TODO: for now...
-			using (var stream = new MemoryStream(data))
-				return (PipelineState)new NetDataContractSerializer().Deserialize(stream);
+			using (var stream = new MemoryStream(data)) {
+				var state = (PipelineState)new NetDataContractSerializer().Deserialize(stream);
+				container.SatisfyImportsOnce(state);
+				return state;
+			}
 		}
 	}
 }
