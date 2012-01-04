@@ -12,8 +12,6 @@ namespace YuvKA.ViewModel
 	[Export]
 	public class MainViewModel
 	{
-		[Import]
-		CompositionContainer container;
 		Stack<byte[]> undoStack = new Stack<byte[]>();
 		Stack<byte[]> redoStack = new Stack<byte[]>();
 
@@ -34,6 +32,9 @@ namespace YuvKA.ViewModel
 		public ToolboxViewModel ToolboxViewModel { get; private set; }
 		public IList<OutputWindowViewModel> OpenWindows { get; private set; }
 
+		[Import]
+		CompositionContainer Container { get; set; }
+
 		public void Save()
 		{
 			var dialog = new SaveFileDialog();
@@ -53,7 +54,7 @@ namespace YuvKA.ViewModel
 		public void Clear()
 		{
 			Model = new PipelineState();
-			container.SatisfyImportsOnce(Model);
+			Container.SatisfyImportsOnce(Model);
 
 			OpenWindows.Clear();
 			undoStack.Clear();
@@ -97,7 +98,7 @@ namespace YuvKA.ViewModel
 			OpenWindows.Clear(); // TODO: for now...
 			using (var stream = new MemoryStream(data))
 				Model = (PipelineState)new NetDataContractSerializer().Deserialize(stream);
-			container.SatisfyImportsOnce(Model);
+			Container.SatisfyImportsOnce(Model);
 			ReplayStateViewModel.IsPlaying = false;
 		}
 	}
