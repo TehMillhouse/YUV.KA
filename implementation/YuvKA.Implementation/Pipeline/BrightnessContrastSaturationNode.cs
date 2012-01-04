@@ -82,7 +82,7 @@ namespace YuvKA.Pipeline.Implementation
 					green = (green > 255 ? 255 : (green < 0 ? 0 : green));
 					blue = (blue > 255 ? 255 : (blue < 0 ? 0 : blue));
 
-					outputFrame[0][x, y] = new Rgb((byte)red, (byte)blue, (byte)green);
+					outputFrame[0][x, y] = new Rgb((byte)red, (byte)green, (byte)blue);
 				}
 			}
 			return outputFrame;
