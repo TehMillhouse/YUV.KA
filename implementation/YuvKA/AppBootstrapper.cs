@@ -7,6 +7,7 @@
 	using System.ComponentModel.Composition.Primitives;
 	using System.Linq;
 	using Caliburn.Micro;
+	using Caliburn.Micro.Logging;
 	using YuvKA.ViewModel;
 
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "God class")]
@@ -20,6 +21,8 @@
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "God class")]
 		protected override void Configure()
 		{
+			LogManager.GetLog = t => new DebugLogger(t);
+
 			var catalog = new AggregateCatalog(
 				AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()
 			);
