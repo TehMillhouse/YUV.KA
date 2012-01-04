@@ -22,6 +22,7 @@
 		protected override void Configure()
 		{
 			LogManager.GetLog = t => new DebugLogger(t);
+			ViewLocator.NameTransformer.AddRule("ViewModel", "View");
 
 			var catalog = new AggregateCatalog(
 				AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()
