@@ -6,18 +6,13 @@ namespace YuvKA.Pipeline
 	[DataContract]
 	public class PipelineGraph
 	{
-		[DataMember]
-		public IList<Node> Nodes
+		public PipelineGraph()
 		{
-			get
-			{
-				return this.Nodes;
-			}
-			set
-			{
-				this.Nodes = value;
-			}
+			Nodes = new List<Node>();
 		}
+
+		[DataMember]
+		public IList<Node> Nodes { get; private set; }
 
 		[DataMember]
 		public int TickCount
