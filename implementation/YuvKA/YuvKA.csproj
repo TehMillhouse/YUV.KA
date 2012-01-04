@@ -103,7 +103,7 @@
     <Compile Include="Pipeline\PipelineState.cs" />
     <Compile Include="ViewModel\ReplayStateViewModel.cs" />
     <Compile Include="ViewModel\ToolboxViewModel.cs" />
-    <Page Include="View\MainWindow.xaml">
+    <Page Include="View\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -112,10 +112,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Pipeline\Node.cs" />
-    <Compile Include="View\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
