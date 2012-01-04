@@ -118,6 +118,7 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
+    <None Include="app.config" />
     <None Include="NamespaceDependencies.dgml" />
     <None Include="packages.config" />
     <None Include="TestCases\NodeViewModel_ShowNodeOutput.sequencediagram" />
