@@ -6,7 +6,7 @@ namespace YuvKA.ViewModel
 	[Export]
 	public class ReplayStateViewModel
 	{
-		public bool IsPlaying { get; private set; }
+		public bool IsPlaying { get; set; }
 		[Import]
 		public MainViewModel Parent { get; private set; }
 

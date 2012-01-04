@@ -47,7 +47,7 @@ namespace YuvKA.ViewModel
 		{
 			var dialog = new OpenFileDialog();
 			if (dialog.ShowDialog() == true)
-				Model = Deserialize(File.ReadAllBytes(dialog.FileName));
+				DeserializeModel(File.ReadAllBytes(dialog.FileName));
 		}
 
 		public void Clear()
@@ -63,13 +63,13 @@ namespace YuvKA.ViewModel
 		public void Undo()
 		{
 			redoStack.Push(Serialize(Model));
-			Model = Deserialize(undoStack.Pop());
+			DeserializeModel(undoStack.Pop());
 		}
 
 		public void Redo()
 		{
 			undoStack.Push(Serialize(Model));
-			Model = Deserialize(redoStack.Pop());
+			DeserializeModel(redoStack.Pop());
 		}
 
 		public void SaveSnapshot()
@@ -92,14 +92,13 @@ namespace YuvKA.ViewModel
 			}
 		}
 
-		PipelineState Deserialize(byte[] data)
+		void DeserializeModel(byte[] data)
 		{
 			OpenWindows.Clear(); // TODO: for now...
-			using (var stream = new MemoryStream(data)) {
-				var state = (PipelineState)new NetDataContractSerializer().Deserialize(stream);
-				container.SatisfyImportsOnce(state);
-				return state;
-			}
+			using (var stream = new MemoryStream(data))
+				Model = (PipelineState)new NetDataContractSerializer().Deserialize(stream);
+			container.SatisfyImportsOnce(Model);
+			ReplayStateViewModel.IsPlaying = false;
 		}
 	}
 }
