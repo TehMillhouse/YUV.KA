@@ -39,10 +39,7 @@ namespace YuvKA.Pipeline
 		public bool AddEdge(Node.Output source, Node.Input sink)
 		{
 			bool added = true;
-			if (source == null || sink == null) {
-				added = false;
-			}
-			else if (ContainsCycle(source.Node)) {
+			if (source == null || sink == null || ContainsCycle(source.Node)) {
 				added = false;
 			}
 			else {
@@ -101,11 +98,12 @@ namespace YuvKA.Pipeline
 		//Returns true, if a cycle that includes the specified Node exists.
 		private bool ContainsCycle(Node startNode)
 		{
-			IEnumerator<Node> enumerator = DepthFirstSearch(startNode).GetEnumerator();
+			IEnumerable<Node> nodeList = DepthFirstSearch(startNode);
+			IEnumerator<Node> enumerator = nodeList.GetEnumerator();
 			bool containsCycle = false;
 
 			while (enumerator.MoveNext()) {
-				IEnumerator<Node> comparator = enumerator;
+				IEnumerator<Node> comparator = nodeList.GetEnumerator();
 				while (comparator.MoveNext()) {
 					if (enumerator == comparator) {
 						containsCycle = true;
