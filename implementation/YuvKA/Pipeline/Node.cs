@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -21,12 +20,12 @@ namespace YuvKA.Pipeline
 		public Node(int? inputCount, int? outputCount)
 		{
 			if (inputCount.HasValue)
-				Inputs = Enumerable.Range(0, inputCount.Value).Select(i => new Input(i)).ToArray();
+				Inputs = Enumerable.Range(0, inputCount.Value).Select(_ => new Input()).ToArray();
 			else
 				Inputs = new ObservableCollection<Input>();
 
 			if (outputCount.HasValue)
-				Outputs = Enumerable.Range(0, outputCount.Value).Select(i => new Output(this, i)).ToArray();
+				Outputs = Enumerable.Range(0, outputCount.Value).Select(_ => new Output(this)).ToArray();
 			else
 				Outputs = new ObservableCollection<Output>();
 		}
@@ -49,22 +48,17 @@ namespace YuvKA.Pipeline
 
 		public class Input
 		{
-			public Input(int index) { Index = index; }
-
 			public Output Source { get; set; }
-			public int Index { get; private set; }
 		}
 
 		public class Output
 		{
-			public Output(Node node, int index)
+			public Output(Node node)
 			{
 				Node = node;
-				Index = index;
 			}
 
 			public Node Node { get; private set; }
-			public int Index { get; private set; }
 		}
 	}
 }
