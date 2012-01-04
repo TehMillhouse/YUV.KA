@@ -1,15 +1,13 @@
-﻿using System.Linq;
+﻿using System.ComponentModel.Composition;
+using System.Linq;
 
 namespace YuvKA.ViewModel
 {
+	[Export]
 	public class ReplayStateViewModel
 	{
-		public ReplayStateViewModel(MainViewModel parent)
-		{
-			Parent = parent;
-		}
-
 		public bool IsPlaying { get; private set; }
+		[Import]
 		public MainViewModel Parent { get; private set; }
 
 		public void Slower()

@@ -27,6 +27,7 @@ namespace YuvKA.ViewModel
 		public bool CanUndo { get { return undoStack.Any(); } }
 		public bool CanRedo { get { return redoStack.Any(); } }
 
+		[Import]
 		public ReplayStateViewModel ReplayStateViewModel { get; private set; }
 		public PipelineViewModel PipelineViewModel { get; private set; }
 		[Import]
