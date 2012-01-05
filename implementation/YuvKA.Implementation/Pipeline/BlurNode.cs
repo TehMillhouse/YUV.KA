@@ -127,6 +127,9 @@ namespace YuvKA.Pipeline.Implementation
 
 		private float G(int x)
 		{
+			if (Radius == 0) {
+				return (x == 0) ? 1F : 0F;
+			}
 			return (float)((1 / Math.Sqrt(2 * Math.PI * Radius * Radius)) * Math.Pow(Math.E, -1 * (((double)x * x) / (2 * Radius * Radius))));
 		}
 
