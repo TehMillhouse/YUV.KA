@@ -119,7 +119,11 @@ namespace YuvKA.Pipeline.Implementation
 			Frame result = new Frame(input.Size);
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
-					result[x, y] = new Rgb((byte)verticalBlur[x, y, 0], (byte)verticalBlur[x, y, 1], (byte)verticalBlur[x, y, 2]);
+					/* Compensate the loss due to disregarding the pixels from 3 * Radius to infinity (for -x, -y, +x, +y) */
+					byte newR = (verticalBlur[x, y, 0] == 0 || Radius == 0) ? (byte)verticalBlur[x, y, 0] : (byte)(verticalBlur[x, y, 0] + 1);
+					byte newG = (verticalBlur[x, y, 1] == 0 || Radius == 0) ? (byte)verticalBlur[x, y, 1] : (byte)(verticalBlur[x, y, 1] + 1);
+					byte newB = (verticalBlur[x, y, 2] == 0 || Radius == 0) ? (byte)verticalBlur[x, y, 2] : (byte)(verticalBlur[x, y, 2] + 1);
+					result[x, y] = new Rgb(newR, newG, newB);
 				}
 			}
 			return result;
@@ -128,7 +132,7 @@ namespace YuvKA.Pipeline.Implementation
 		private float G(int x)
 		{
 			if (Radius == 0) {
-				return (x == 0) ? 1F : 0F;
+				return 1F;
 			}
 			return (float)((1 / Math.Sqrt(2 * Math.PI * Radius * Radius)) * Math.Pow(Math.E, -1 * (((double)x * x) / (2 * Radius * Radius))));
 		}
