@@ -26,6 +26,8 @@ namespace YuvKA.Pipeline.Implementation
 
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
+			if (Radius == 0)
+				return inputs;
 			Frame[] result = new Frame[1];
 			if (Type == BlurType.Gaussian) {
 				return new[] { GaussianBlur(inputs[0], tick) };
@@ -120,9 +122,9 @@ namespace YuvKA.Pipeline.Implementation
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
 					/* Compensate the loss due to disregarding the pixels from 3 * Radius to infinity (for -x, -y, +x, +y) */
-					byte newR = (verticalBlur[x, y, 0] == 0 || Radius == 0) ? (byte)verticalBlur[x, y, 0] : (byte)(verticalBlur[x, y, 0] + 1);
-					byte newG = (verticalBlur[x, y, 1] == 0 || Radius == 0) ? (byte)verticalBlur[x, y, 1] : (byte)(verticalBlur[x, y, 1] + 1);
-					byte newB = (verticalBlur[x, y, 2] == 0 || Radius == 0) ? (byte)verticalBlur[x, y, 2] : (byte)(verticalBlur[x, y, 2] + 1);
+					byte newR = (verticalBlur[x, y, 0] == 0) ? (byte)verticalBlur[x, y, 0] : (byte)(verticalBlur[x, y, 0] + 1);
+					byte newG = (verticalBlur[x, y, 1] == 0) ? (byte)verticalBlur[x, y, 1] : (byte)(verticalBlur[x, y, 1] + 1);
+					byte newB = (verticalBlur[x, y, 2] == 0) ? (byte)verticalBlur[x, y, 2] : (byte)(verticalBlur[x, y, 2] + 1);
 					result[x, y] = new Rgb(newR, newG, newB);
 				}
 			}
@@ -131,9 +133,6 @@ namespace YuvKA.Pipeline.Implementation
 
 		private float G(int x)
 		{
-			if (Radius == 0) {
-				return 1F;
-			}
 			return (float)((1 / Math.Sqrt(2 * Math.PI * Radius * Radius)) * Math.Pow(Math.E, -1 * (((double)x * x) / (2 * Radius * Radius))));
 		}
 
