@@ -14,7 +14,16 @@ namespace YuvKA.Pipeline.Implementation
 
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
-			throw new NotImplementedException();
+			Size size = inputs[0].Size;
+			Frame[] outputs = { new Frame(size), new Frame(size), new Frame(size) };
+			for (int x = 0; x < size.Width; x++) {
+				for (int y = 0; y < size.Height; y++) {
+					outputs[0][x, y] = new Rgb(inputs[0][x, y].R, 0, 0);
+					outputs[1][x, y] = new Rgb(0, inputs[0][x, y].G, 0);
+					outputs[2][x, y] = new Rgb(0, 0, inputs[0][x, y].B);
+				}
+			}
+			return outputs;
 		}
 	}
 }
