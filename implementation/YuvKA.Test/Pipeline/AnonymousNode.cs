@@ -28,6 +28,9 @@ namespace YuvKA.Test.Pipeline
 		public AnonymousNode(Action process, params AnonymousNode[] inputs)
 			: this((frames, tick) => { process(); return new[] { new Frame(new Size(0, 0)) }; }, 1, inputs.Select(n => n.Outputs[0]).ToArray()) { }
 
+		public AnonymousNode(params AnonymousNode[] inputs)
+			: this(() => { throw new NotImplementedException(); }, inputs) { }
+
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
 			return process(inputs, tick);

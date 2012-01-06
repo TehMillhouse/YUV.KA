@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using YuvKA.Pipeline;
+﻿using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
 	public class NodeViewModel
 	{
-		public NodeType NodeType { get { throw new NotImplementedException(); } }
-		public Node NodeModel { get { throw new NotImplementedException(); } }
-		public MainViewModel Parent { get { throw new NotImplementedException(); } }
+		public NodeViewModel(Node nodeModel, MainViewModel parent)
+		{
+			NodeModel = nodeModel;
+			NodeType = new NodeType { Type = nodeModel.GetType() };
+			Parent = parent;
+		}
+
+		public NodeType NodeType { get; private set; }
+		public Node NodeModel { get; private set; }
+		public MainViewModel Parent { get; private set; }
 
 		public void SaveNodeOutput(Node.Output output)
 		{
@@ -19,7 +22,7 @@ namespace YuvKA.ViewModel
 
 		public void ShowNodeOutput(Node.Output output)
 		{
-			//Parent.OpenWindow(new VideoOutputViewModel { Output = output });
+			Parent.OpenWindow(new VideoOutputViewModel(output));
 		}
 	}
 }

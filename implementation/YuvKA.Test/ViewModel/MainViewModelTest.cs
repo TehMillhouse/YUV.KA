@@ -3,6 +3,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using Caliburn.Micro;
 using Xunit;
+using YuvKA.Test.Pipeline;
 using YuvKA.ViewModel;
 
 namespace YuvKA.Test.ViewModel
@@ -81,6 +82,17 @@ namespace YuvKA.Test.ViewModel
 		public void ToolboxCanHasBlurNode()
 		{
 			Assert.Equal(1, vm.ToolboxViewModel.NodeTypes.Count(t => t.Type == typeof(YuvKA.Pipeline.Implementation.BlurNode)));
+		}
+
+		[Fact]
+		public void NodeViewModelsCreatedFromModel()
+		{
+			Assert.Equal(0, vm.PipelineViewModel.Nodes.Count);
+			vm.Model.Graph.Nodes.Add(new AnonymousNode());
+			vm.SaveSnapshot();
+			vm.Undo(); // Force reload of PipelineViewModel
+
+			Assert.Equal(1, vm.PipelineViewModel.Nodes.Count);
 		}
 	}
 }
