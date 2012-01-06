@@ -77,7 +77,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
-    <Compile Include="Caliburn\Micro\Logging\DebugLogger.cs" />
+      <Compile Include="Caliburn\Micro\Logging\DebugLogger.cs">
+          <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      </Compile>
     <Compile Include="Pipeline\FilePath.cs" />
     <Compile Include="Pipeline\FrameRenderedMessage.cs" />
     <Compile Include="Pipeline\InputNode.cs" />
