@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	[DataContract]
 	public class InverterNode : Node
 	{
-		public InverterNode() : base(inputCount: 1, outputCount: 1)
+		public InverterNode()
+			: base(inputCount: 1, outputCount: 1)
 		{
 		}
 

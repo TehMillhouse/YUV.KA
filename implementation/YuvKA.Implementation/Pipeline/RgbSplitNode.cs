@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	[DataContract]
 	public class RgbSplitNode : Node
 	{
-		public RgbSplitNode() : base(inputCount: 1, outputCount: 3)
+		public RgbSplitNode()
+			: base(inputCount: 1, outputCount: 3)
 		{
 		}
 

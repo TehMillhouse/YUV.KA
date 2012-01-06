@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	[DataContract]
 	public class AdditiveMergeNode : Node
 	{
-		public AdditiveMergeNode() : base(inputCount: null, outputCount: 1)
+		public AdditiveMergeNode()
+			: base(inputCount: null, outputCount: 1)
 		{
 		}
 

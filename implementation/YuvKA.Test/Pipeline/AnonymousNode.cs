@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 using YuvKA.Pipeline;
 using YuvKA.VideoModel;
 
@@ -8,6 +9,7 @@ namespace YuvKA.Test.Pipeline
 	/// <summary>
 	/// A simple Node subclass to quickly define Node stubs using anonymous methods.
 	/// </summary>
+	[DataContract]
 	class AnonymousNode : Node
 	{
 		Func<Frame[], int, Frame[]> process;
