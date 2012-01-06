@@ -8,6 +8,11 @@ namespace YuvKA.Pipeline
 	[DataContract]
 	public class PipelineState
 	{
+		public PipelineState()
+		{
+			Graph = new PipelineGraph();
+		}
+
 		[DataMember]
 		public int CurrentTick { get; set; }
 
@@ -20,7 +25,7 @@ namespace YuvKA.Pipeline
 		[DataMember]
 		public PipelineGraph Graph { get; private set; }
 
-		[Import(typeof(IEventAggregator))]
+		[Import]
 		public IEventAggregator Events { get; private set; }
 
 		public void Start(IEnumerable<Node> outputNodes)

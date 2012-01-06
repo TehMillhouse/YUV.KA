@@ -14,7 +14,6 @@ namespace YuvKA.Pipeline
 		[DataMember]
 		public IList<Node> Nodes { get; private set; }
 
-		[DataMember]
 		public int TickCount
 		{
 			get
