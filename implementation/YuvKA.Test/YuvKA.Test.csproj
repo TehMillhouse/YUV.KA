@@ -52,6 +52,7 @@
     <Compile Include="Pipeline\AnonymousNode.cs" />
     <Compile Include="Pipeline\BlurTestNode.cs" />
     <Compile Include="Pipeline\AdditiveMergeNodeTests.cs" />
+    <Compile Include="Pipeline\RgbSplitNodeTests.cs" />
     <Compile Include="Pipeline\PipelineGraphTest.cs" />
     <Compile Include="Pipeline\PipelineDriverTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
