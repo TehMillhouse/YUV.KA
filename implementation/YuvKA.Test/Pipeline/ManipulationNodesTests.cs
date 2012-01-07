@@ -144,5 +144,26 @@
 				}
 			}
 		}
+
+		[Fact]
+		public void TestInverter()
+		{
+			Size testSize = new Size(5, 5);
+			Frame[] inputs = { new Frame(testSize) };
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					inputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
+				}
+			}
+			InverterNode inverter = new InverterNode();
+			Frame[] result = inverter.Process(inputs, 0);
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					Assert.Equal(result[0][x, y].R, 255 - inputs[0][x, y].R);
+					Assert.Equal(result[0][x, y].G, 255 - inputs[0][x, y].G);
+					Assert.Equal(result[0][x, y].B, 255 - inputs[0][x, y].B);
+				}
+			}
+		}
 	}
 }
