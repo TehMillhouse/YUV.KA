@@ -8,7 +8,7 @@
 	using YuvKA.Pipeline.Implementation;
 	using YuvKA.VideoModel;
 
-	public class BlurTestNode
+	public class ManipulationNodesTests
 	{
 		/// <summary>
 		/// Blurring a monocolored Frame should not have any effect
@@ -98,6 +98,49 @@
 			for (int x = 0; x < testFrame[0].Size.Width; x++) {
 				for (int y = 0; y < testFrame[0].Size.Height; y++) {
 					Assert.Equal(testFrame[0][x, y], result[0][x, y]);
+				}
+			}
+		}
+
+		[Fact]
+		public void TestRgbSplit()
+		{
+			Size testSize = new Size(5, 5);
+			Frame[] inputs = { new Frame(testSize) };
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					inputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x * y), (byte)(x ^ y));
+				}
+			}
+			RgbSplitNode rgbSplit = new RgbSplitNode();
+			Frame[] result = rgbSplit.Process(inputs, 0);
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					Assert.Equal(result[0][x, y], new Rgb((byte)(x + y), 0, 0));
+					Assert.Equal(result[1][x, y], new Rgb(0, (byte)(x * y), 0));
+					Assert.Equal(result[2][x, y], new Rgb(0, 0, (byte)(x ^ y)));
+				}
+			}
+		}
+
+		[Fact]
+		public void TestAdditiveMerge()
+		{
+			Size testSize = new Size(5, 5);
+			Frame[] inputs = { new Frame(testSize), new Frame(testSize) };
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					inputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
+					inputs[1][x, y] = new Rgb((byte)(x * y), (byte)(x * y), (byte)(x * y));
+				}
+			}
+			AdditiveMergeNode addMerNode = new AdditiveMergeNode();
+			Frame[] result = addMerNode.Process(inputs, 0);
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					Assert.Equal(result[0][x, y].R, inputs[0][x, y].R + inputs[1][x, y].R);
+					Assert.Equal(result[0][x, y].G, inputs[0][x, y].G + inputs[1][x, y].G);
+					Assert.Equal(result[0][x, y].B, inputs[0][x, y].B + inputs[1][x, y].B);
 				}
 			}
 		}
