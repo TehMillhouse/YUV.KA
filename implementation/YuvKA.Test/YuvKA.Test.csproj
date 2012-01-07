@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="Pipeline\AnonymousNode.cs" />
+    <Compile Include="Pipeline\InputNodesTest.cs" />
     <Compile Include="Pipeline\ManipulationNodesTests.cs" />
     <Compile Include="Pipeline\PipelineGraphTest.cs" />
     <Compile Include="Pipeline\PipelineDriverTest.cs" />
