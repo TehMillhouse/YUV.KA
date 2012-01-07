@@ -2,7 +2,8 @@
 {
 	public struct Rgb
 	{
-		public Rgb(byte r, byte g, byte b) : this()
+		public Rgb(byte r, byte g, byte b)
+			: this()
 		{
 			R = r;
 			G = g;
@@ -45,6 +46,11 @@
 				return false;
 			Rgb pixel = (Rgb)obj;
 			return (R == pixel.R && G == pixel.G && B == pixel.B);
+		}
+
+		public override string ToString()
+		{
+			return string.Format("(R {0} G {1} B {2})", R, G, B);
 		}
 	}
 }
