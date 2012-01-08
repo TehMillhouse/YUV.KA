@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using Xunit;
+using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
 using YuvKA.VideoModel;
 
@@ -44,13 +45,42 @@ namespace YuvKA.Test.Pipeline
 							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
 		}
 
-		private static void CopyFrameToOutputImage(ImageInputNode inputNode, out Frame outputFrame, out Bitmap outputImage)
+		// Output a color and write it to a file
+		// Test the order of resize and color change operations
+		[Fact]
+		public void ColorInputTest()
+		{
+			Frame outputFrame;
+			Bitmap outputImage;
+			ColorInputNode colorInput = new ColorInputNode();
+
+			colorInput.Size = new VideoModel.Size(200, 200);
+			colorInput.Color = new Rgb(50, 92, 177);
+			CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage);
+			outputImage.Save("..\\..\\..\\..\\output\\color-50-92-177-200x200.png");
+
+			// Change the size
+			colorInput.Size = new VideoModel.Size(100, 50);
+			CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage);
+			outputImage.Save("..\\..\\..\\..\\output\\color-50-92-177-100x50.png");
+
+			// Change the color
+			Color c = Color.Crimson;
+			byte r = c.R, g = c.G, b = c.B;
+			colorInput.Color = new Rgb(r, g, b);
+			CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage);
+			outputImage.Save("..\\..\\..\\..\\output\\color-" + r + "-" + g + "-" + b + "177-100x50.png");
+		}
+
+		private static void CopyFrameToOutputImage(InputNode inputNode, out Frame outputFrame, out Bitmap outputImage)
 		{
 			outputFrame = inputNode.OutputFrame(0);
 			outputImage = new Bitmap(inputNode.Size.Width, inputNode.Size.Height);
 			for (int y = 0; y < outputFrame.Size.Height; ++y) {
 				for (int x = 0; x < outputFrame.Size.Width; ++x) {
-					outputImage.SetPixel(x, y, Color.FromArgb(outputFrame[x, y].R, outputFrame[x, y].G, outputFrame[x, y].B));
+					outputImage.SetPixel(x, y, Color.FromArgb(outputFrame[x, y].R,
+															  outputFrame[x, y].G,
+															  outputFrame[x, y].B));
 				}
 			}
 		}
