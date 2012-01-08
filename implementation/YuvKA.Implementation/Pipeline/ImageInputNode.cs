@@ -9,7 +9,9 @@ namespace YuvKA.Pipeline.Implementation
 	public class ImageInputNode : InputNode
 	{
 		Bitmap inputImage;
+		Bitmap resizedInputImage;
 		FilePath fileName;
+		Frame resizedFrame;
 
 		public ImageInputNode()
 			: base(outputCount: 1)
@@ -24,7 +26,10 @@ namespace YuvKA.Pipeline.Implementation
 			set
 			{
 				fileName = value;
+				// If the path was changed, the image will have to be loaded again
 				inputImage = null;
+				// and the resized image recreated
+				resizedInputImage = null;
 			}
 		}
 
@@ -36,32 +41,44 @@ namespace YuvKA.Pipeline.Implementation
 		public override Frame OutputFrame(int tick)
 		{
 			EnsureInputLoaded();
-			Frame outputFrame = new Frame(new YuvKA.VideoModel.Size(inputImage.Width, inputImage.Height));
-
-			for (int y = 0; y < outputFrame.Size.Height; ++y) {
-				for (int x = 0; x < outputFrame.Size.Width; ++x) {
-					outputFrame[x, y] = new Rgb(inputImage.GetPixel(x, y).R, inputImage.GetPixel(x, y).G, inputImage.GetPixel(x, y).B);
-				}
-			}
-
-			return outputFrame;
+			return resizedFrame;
 		}
 
 		protected override void OnSizeChanged()
 		{
 			base.OnSizeChanged();
-			if (inputImage != null) {
-				inputImage = new Bitmap(inputImage, new System.Drawing.Size(Size.Width, Size.Height));
-			}
+			// If the size was changed, the resized image will have to be created
+			// from the original with the new dimensions.
+			resizedInputImage = null;
 		}
 
 		private void EnsureInputLoaded()
 		{
+			// If the path was changed, we have to load the new image
 			if (inputImage == null) {
 				inputImage = new Bitmap(FileName.Path);
+			}
 
-				if (inputImage.Height != Size.Height || inputImage.Width != Size.Width) {
-					OnSizeChanged();
+			// If the size was changed
+			if (resizedInputImage == null) {
+				// If the size of the output frame differs from that of the input image, 
+				// make a resized copy of the original
+				if (inputImage.Width != Size.Width || inputImage.Height != Size.Height) {
+					resizedInputImage = new Bitmap(inputImage, new System.Drawing.Size(Size.Width, Size.Height));
+				}
+				else {
+					// Otherwise keep a reference to the original
+					resizedInputImage = inputImage;
+				}
+			}
+
+			// Create output frame
+			resizedFrame = new Frame(new VideoModel.Size(Size.Width, Size.Height));
+			for (int y = 0; y < Size.Height; ++y) {
+				for (int x = 0; x < Size.Width; ++x) {
+					resizedFrame[x, y] = new Rgb(resizedInputImage.GetPixel(x, y).R,
+												 resizedInputImage.GetPixel(x, y).G,
+												 resizedInputImage.GetPixel(x, y).B);
 				}
 			}
 		}

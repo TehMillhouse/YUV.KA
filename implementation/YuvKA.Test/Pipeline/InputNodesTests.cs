@@ -13,21 +13,39 @@ namespace YuvKA.Test.Pipeline
 		public void ImageInputTest()
 		{
 			ImageInputNode inputNode = new ImageInputNode();
-			inputNode.Size = new YuvKA.VideoModel.Size(100, 80);
-			inputNode.FileName = new YuvKA.Pipeline.FilePath("..\\..\\..\\..\\resources\\bmp.png");
-			Frame outputFrame = inputNode.OutputFrame(0);
+			Frame outputFrame;
+			Bitmap outputImage;
 
-			Bitmap outputImage = new Bitmap(inputNode.Size.Width, inputNode.Size.Height);
-			for (int y = 0; y < outputFrame.Size.Height; ++y) {
-				for (int x = 0; x < outputFrame.Size.Width; ++x) {
-					outputImage.SetPixel(x, y, Color.FromArgb(outputFrame[x, y].R, outputFrame[x, y].G, outputFrame[x, y].B));
-				}
-			}
+			inputNode.FileName = new YuvKA.Pipeline.FilePath("..\\..\\..\\..\\resources\\bmp.png");
+
+			// Reduce the image
+			inputNode.Size = new YuvKA.VideoModel.Size(100, 80);
+			CopyFrameToOutputImage(inputNode, out outputFrame, out outputImage);
 			outputImage.Save("..\\..\\..\\..\\output\\bmp-resized-" +
 							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
 
 			// Enlarge the image
 			inputNode.Size = new YuvKA.VideoModel.Size(200, 400);
+			CopyFrameToOutputImage(inputNode, out outputFrame, out outputImage);
+			outputImage.Save("..\\..\\..\\..\\output\\bmp-resized-" +
+							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
+
+			// Change path and size
+			inputNode.Size = new VideoModel.Size(400, 50);
+			inputNode.FileName = new YuvKA.Pipeline.FilePath("..\\..\\..\\..\\resources\\sample.png");
+			CopyFrameToOutputImage(inputNode, out outputFrame, out outputImage);
+			outputImage.Save("..\\..\\..\\..\\output\\sample-resized-" +
+							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
+
+			// Change only size
+			inputNode.Size = new VideoModel.Size(50, 400);
+			CopyFrameToOutputImage(inputNode, out outputFrame, out outputImage);
+			outputImage.Save("..\\..\\..\\..\\output\\sample-resized-" +
+							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
+		}
+
+		private static void CopyFrameToOutputImage(ImageInputNode inputNode, out Frame outputFrame, out Bitmap outputImage)
+		{
 			outputFrame = inputNode.OutputFrame(0);
 			outputImage = new Bitmap(inputNode.Size.Width, inputNode.Size.Height);
 			for (int y = 0; y < outputFrame.Size.Height; ++y) {
@@ -35,10 +53,6 @@ namespace YuvKA.Test.Pipeline
 					outputImage.SetPixel(x, y, Color.FromArgb(outputFrame[x, y].R, outputFrame[x, y].G, outputFrame[x, y].B));
 				}
 			}
-			outputImage.Save("..\\..\\..\\..\\output\\bmp-resized-" +
-							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
-
-			Assert.True(true);
 		}
 	}
 }
