@@ -1,4 +1,7 @@
-﻿namespace YuvKA.Test.Pipeline
+﻿using YuvKA.Pipeline;
+using System;
+
+namespace YuvKA.Test.Pipeline
 {
 	using System.Drawing;
 	using Xunit;
@@ -10,26 +13,57 @@
 		[Fact]
 		public void TestDiagramNode()
 		{
-			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
-			Frame[] inputs = { new Frame(testSize), new Frame(testSize) };
-			for (int x = 0; x < testSize.Width; x++) {
-				for (int y = 0; y < testSize.Height; y++) {
-					inputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
-					inputs[1][x, y] = new Rgb((byte)(x * y), (byte)(x * y), (byte)(x * y));
-				}
-			}
-			DiagramNode diaNode = new DiagramNode(0);
-			diaNode.RefIndex = 0;
-			DiagramGraph pixDiff = new DiagramGraph(1, new PixelDiff());
-			DiagramGraph pSNR = new DiagramGraph(1, new PeakSignalNoiseRatio());
+			
+            AnonymousNode Source = new AnonymousNode(sourceNode, 2, null);
+		    Frame[] inputs = Source.Process(null, 0);
+		    YuvKA.Pipeline.Node.Input reference = new Node.Input();
+		    reference.Source = Source.Outputs[0];
+		    DiagramNode diaNode = new DiagramNode(reference);
+            YuvKA.Pipeline.Node.Input video = new Node.Input();
+            video.Source = Source.Outputs[1];
+            diaNode.Inputs.Add(video);
+			DiagramGraph pixDiff = new DiagramGraph(video, new PixelDiff());
+			DiagramGraph pSNR = new DiagramGraph(video, new PeakSignalNoiseRatio());
 			diaNode.Graphs.Add(pixDiff);
 			diaNode.Graphs.Add(pSNR);
 			diaNode.ProcessCore(inputs, 0);
-			Assert.Equal(diaNode.Graphs[0].Data[0], 93);
-			Assert.Equal(diaNode.Graphs[1].Data[0], 87.5979796069714);
+            double MSE = 0.0;
+            double difference = 0.0;
+            for (int x = 0; x < inputs[1].Size.Width; x++)
+            {
+                for (int y = 0; y < inputs[1].Size.Height; y++)
+                {
+                    difference += Math.Abs(inputs[1][x, y].R - inputs[0][x, y].R) + Math.Abs(inputs[0][x, y].G - inputs[0][x, y].G) +
+                        Math.Abs(inputs[1][x, y].B - inputs[0][x, y].B);
+                    MSE += Math.Pow(((inputs[1][x, y].R + inputs[1][x, y].G + inputs[1][x, y].B) - (inputs[0][x, y].R + inputs[0][x, y].G + inputs[0][x, y].B)), 2);
+                }
+            }
+            difference = (double)difference / 3;
+            MSE *= (double)1 / (3 * inputs[1].Size.Height * inputs[1].Size.Width);
+		    double PSNR;
+            if (MSE == 0.0)
+                PSNR = 0.0;
+            PSNR = 10 * Math.Log10((Math.Pow((Math.Pow(2, 24) - 1), 2)) / MSE);
+			Assert.Equal(diaNode.Graphs[0].Data[0], difference);
+			Assert.Equal(diaNode.Graphs[1].Data[0], PSNR);
 		}
 
-		public void TestHistogramNodeRGB()
+        private Frame[] sourceNode(Frame[] inputs, int tick)
+        {
+            YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
+            Frame[] outputs = { new Frame(testSize), new Frame(testSize) };
+            for (int x = 0; x < testSize.Width; x++)
+            {
+                for (int y = 0; y < testSize.Height; y++)
+                {
+                    outputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
+                    outputs[1][x, y] = new Rgb((byte)(x * y), (byte)(x * y), (byte)(x * y));
+                }
+            }
+            return outputs;
+        }
+
+	    public void TestHistogramNodeRGB()
 		{
 			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
 			Frame[] inputs = { new Frame(testSize) };

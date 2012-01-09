@@ -8,11 +8,12 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class DiagramNode : OutputNode
 	{
-		public DiagramNode(int refIndex)
+		public DiagramNode(Input reference)
 			: base(inputCount: null)
 		{
+		    Inputs.Add(reference);
 			IsEnabled = true;
-			RefIndex = refIndex;
+			ReferenceVideo = reference;
 			Graphs = new List<DiagramGraph>();
 		}
 
@@ -20,17 +21,14 @@ namespace YuvKA.Pipeline.Implementation
 		[DisplayName("Enabled")]
 		public bool IsEnabled { get; set; }
 
-		/*
+
 		[DataMember]
 		[Browsable(false)]
 		public Input ReferenceVideo { get; set; }
-		*/
-		[DataMember]
-		[Browsable(false)]
-		public int RefIndex
+
+		private int RefIndex
 		{
-			get; /*{ return Inputs.IndexOf(ReferenceVideo); }*/
-			set;
+			get { return Inputs.IndexOf(ReferenceVideo); }
 		}
 
 		[DataMember]
@@ -40,7 +38,7 @@ namespace YuvKA.Pipeline.Implementation
 		public override void ProcessCore(Frame[] inputs, int tick)
 		{
 			foreach (DiagramGraph g in Graphs) {
-				g.Data.Add(g.Type.Process(inputs[g.Video], inputs[RefIndex]));
+				g.Data.Add(g.Type.Process(inputs[Inputs.IndexOf(g.Video)], inputs[RefIndex]));
 			}
 		}
 	}
