@@ -48,7 +48,7 @@ namespace Caliburn.Micro.Logging
     /// <param name="format">A formatted message.</param><param name="args">Parameters to be injected into the formatted message.</param>
     public void Info(string format, params object[] args)
     {
-      Debug.WriteLine(CreateLogMessage(format, args), InfoText);
+      // Debug.WriteLine(CreateLogMessage(format, args), InfoText);
     }
     /// <summary>
     /// Logs the message as a warning.
