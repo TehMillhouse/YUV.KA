@@ -1,6 +1,5 @@
 ﻿using Xunit;
 using YuvKA.Pipeline;
-using YuvKA.Pipeline.Implementation;
 
 namespace YuvKA.Test.Pipeline
 {
@@ -10,93 +9,87 @@ namespace YuvKA.Test.Pipeline
 		/// Creates a simple graph and then runs DFS on it, afterwards testing 
 		/// whether the returned list contains the right nodes.
 		/// graph:
-		///         [firstblur]
-		///        /
-		/// [input]              [bcs]
-		///        \            /
-		///         [secondblur]
+		///             [node2]
+		///            /
+		///     [node0]         [node4]
+		///            \       /
+		///             [node3]
+		///            /
+		///     [node1]
 		/// </summary>
 		[Fact]
 		public void DfsFindsCorrectNodes()
 		{
-			// create nodes
-			VideoInputNode input = new VideoInputNode();
-			BlurNode firstblur = new BlurNode();
-			BlurNode secondblur = new BlurNode();
-			BrightnessContrastSaturationNode bcs = new BrightnessContrastSaturationNode();
-
-			// set up edges
-			firstblur.Inputs[0].Source = input.Outputs[0];
-			secondblur.Inputs[0].Source = input.Outputs[0];
-			bcs.Inputs[0].Source = secondblur.Outputs[0];
+			// create graph
+			AnonymousNode node0 = new AnonymousNode() { Name = "node0" };
+			AnonymousNode node1 = new AnonymousNode() { Name = "node1" };
+			AnonymousNode node2 = new AnonymousNode(node0) { Name = "node2" };
+			AnonymousNode node3 = new AnonymousNode(node0, node1) { Name = "node3" };
+			AnonymousNode node4 = new AnonymousNode(node3) { Name = "node4" };
 
 			PipelineGraph graph = new PipelineGraph {
-				Nodes = { firstblur, secondblur, bcs, input }
+				Nodes = { node0, node1, node2, node3, node4 }
 			};
 
-			Assert.Contains<Node>(input, graph.DepthFirstSearch(bcs));
-			Assert.DoesNotContain<Node>(firstblur, graph.DepthFirstSearch(bcs));
-			Assert.DoesNotContain<Node>(bcs, graph.DepthFirstSearch(secondblur));
+			Assert.Contains<Node>(node0, graph.DepthFirstSearch(node4));
+			Assert.Contains<Node>(node1, graph.DepthFirstSearch(node4));
+			Assert.DoesNotContain<Node>(node2, graph.DepthFirstSearch(node4));
+			Assert.DoesNotContain<Node>(node4, graph.DepthFirstSearch(node3));
 		}
 
 		/// <summary>
 		/// Creates a valid graph, then tries to add an illegal edge and
 		/// checks whether PipelineGraph detects the invalidity of the resulting graph
 		/// graph: (the doubly-drawn arrow is the one that's being added)
-		///     ===========================
-		///   //                            \\
-		///    ==>[firstblur]--->[secondblur]------>[bcs]
+		///
+		///                     ===================
+		///                   //                   \\
+		///                  ||                     ||
+		///                  \/                     ||
+		///     [node0]--->[node1]--->[node2]--->[node3]
 		/// </summary>
 		[Fact]
 		public void PipelineGraphCanDetectCycles()
 		{
-			// create nodes
-			BlurNode firstblur = new BlurNode();
-			BlurNode secondblur = new BlurNode();
-			BrightnessContrastSaturationNode bcs = new BrightnessContrastSaturationNode();
+			// create graph
+			AnonymousNode node0 = new AnonymousNode( ) { Name = "node0"};
+			AnonymousNode node1 = new AnonymousNode(node0) { Name = "node1" };
+			AnonymousNode node2 = new AnonymousNode(node1) { Name = "node2" };
+			AnonymousNode node3 = new AnonymousNode(node2) { Name = "node3" };
 
-			// set up edges
-			secondblur.Inputs[0].Source = firstblur.Outputs[0];
-			bcs.Inputs[0].Source = secondblur.Outputs[0];
+			PipelineGraph graph = new PipelineGraph { Nodes = { node0, node1, node2, node3} };
 
-			PipelineGraph graph = new PipelineGraph { Nodes = { firstblur, bcs, secondblur } };
-
-			Assert.Equal(false, graph.AddEdge(secondblur.Outputs[0], firstblur.Inputs[0]));
+			Assert.Equal(false, graph.AddEdge(node3.Outputs[0], node1.Inputs[0]));
 		}
 
 		/// <summary>
 		/// Creates a small graph with a split pipeline and checks the Pipelinegraph's
 		/// bahavior. graph:
-		///         [firstblur]
-		///        /            \
-		/// [input]              [mergeNode]----[bcs]
-		///        \            /
-		///         [secondblur]
+		///         [node1]
+		///        /       \
+		/// [node0]         [node3]---[node4]
+		///        \       /
+		///         [node2]
 		/// </summary>
 		[Fact]
 		public void PipelineGraphCanHandleSplits()
 		{
-			// create nodes
-			VideoInputNode input = new VideoInputNode();
-			BlurNode firstblur = new BlurNode();
-			BlurNode secondblur = new BlurNode();
-			BrightnessContrastSaturationNode bcs = new BrightnessContrastSaturationNode();
-			AnonymousNode mergeNode = new AnonymousNode((herp, derp) => { return null; }, new Node.Output[] { firstblur.Outputs[0], bcs.Outputs[0] });
-
-			// set up edges
-			firstblur.Inputs[0].Source = input.Outputs[0];
-			secondblur.Inputs[0].Source = input.Outputs[0];
-			bcs.Inputs[0].Source = mergeNode.Outputs[0];
+			// create graph
+			AnonymousNode node0 = new AnonymousNode() { Name = "node0" };
+			AnonymousNode node1 = new AnonymousNode(node0) { Name = "node1" };
+			AnonymousNode node2 = new AnonymousNode(node0) { Name = "node2" };
+			AnonymousNode node3 = new AnonymousNode(node1, node2) { Name = "node3" };
+			AnonymousNode node4 = new AnonymousNode(node3) { Name = "node4" };
 
 			PipelineGraph graph = new PipelineGraph {
-				Nodes = { firstblur, secondblur, bcs, input, mergeNode }
+				Nodes = { node0, node1, node2, node3, node4 }
 			};
 
-			Assert.Contains<Node>(input, graph.DepthFirstSearch(mergeNode));
-			Assert.Contains<Node>(firstblur, graph.DepthFirstSearch(bcs));
-			Assert.Contains<Node>(secondblur, graph.DepthFirstSearch(bcs));
-			Assert.DoesNotContain<Node>(bcs, graph.DepthFirstSearch(secondblur));
-			Assert.DoesNotContain<Node>(firstblur, graph.DepthFirstSearch(secondblur));
+			Assert.Contains<Node>(node0, graph.DepthFirstSearch(node3));
+			Assert.Contains<Node>(node1, graph.DepthFirstSearch(node4));
+			Assert.Contains<Node>(node2, graph.DepthFirstSearch(node4));
+			Assert.DoesNotContain<Node>(node3, graph.DepthFirstSearch(node1));
+			Assert.DoesNotContain<Node>(node1, graph.DepthFirstSearch(node2));
 		}
 	}
 }

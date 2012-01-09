@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Linq;
 
 namespace YuvKA.Pipeline
 {
@@ -30,22 +31,22 @@ namespace YuvKA.Pipeline
 
 
 		/// <summary>
-		/// Returns true if the specified edge doesnt lead to a cycle. Else the method returns false.
+		/// Returns true if the specified edge does not lead to a cycle and can be added. Else the method returns false.
 		/// </summary>
 		/// <param name="source"> The start of the new edge. </param>
 		/// <param name="sink"> The end of the new edge. </param>
-		/// <returns> True if the new edge has been added, else </returns>
+		/// <returns> True if the new edge has been added, else it returns false.</returns>
 		public bool AddEdge(Node.Output source, Node.Input sink)
 		{
-			bool added = true;
-			if (source == null || sink == null || ContainsCycle(source.Node)) {
-				added = false;
+			IEnumerable<Node> nodeList = DepthFirstSearch(source.Node);
+			if (nodeList.Any( node => node.Inputs.Contains(sink))) {
+				return false;
 			}
 			else {
 				sink.Source = source;
+				return true;
 			}
 
-			return added;
 		}
 
 		/// <summary>
@@ -60,12 +61,10 @@ namespace YuvKA.Pipeline
 			LinkedList<Node> nodeList = new LinkedList<Node>();
 			HashSet<Node> visited = new HashSet<Node>();
 
-			nodeList.AddLast(startNode);
+			nodeList.AddFirst(startNode);
 			visited.Add(startNode);
 
-			foreach (Node.Input input in startNode.Inputs) {
-				Visit(input.Source.Node, nodeList, visited);
-			}
+			Visit(startNode, nodeList, visited);
 
 			return nodeList;
 		}
@@ -75,42 +74,24 @@ namespace YuvKA.Pipeline
 		 */
 		private void Visit(Node node, LinkedList<Node> nodeList, HashSet<Node> visited)
 		{
-			if (nodeList.Contains(node) && visited.Contains(node)) {
-				nodeList.AddLast(node);
-				//Cancel further search here, since a cycle has been found
-				return;
-			}
-			else if (!nodeList.Contains(node)) {
-				nodeList.AddLast(node);
-				visited.Add(node);
-
+			if (node.Inputs != null) {
 				foreach (Node.Input input in node.Inputs) {
-					Visit(input.Source.Node, nodeList, visited);
-				}
-			}
-
-			visited.Remove(node);
-
-			return;
-		}
-
-		//Returns true, if a cycle that includes the specified Node exists.
-		private bool ContainsCycle(Node startNode)
-		{
-			IEnumerable<Node> nodeList = DepthFirstSearch(startNode);
-			IEnumerator<Node> enumerator = nodeList.GetEnumerator();
-			bool containsCycle = false;
-
-			while (enumerator.MoveNext()) {
-				IEnumerator<Node> comparator = nodeList.GetEnumerator();
-				while (comparator.MoveNext()) {
-					if (enumerator == comparator) {
-						containsCycle = true;
+					Node child = input.Source.Node;
+					if (nodeList.Contains(child) && visited.Contains(child)) {
+						nodeList.AddLast(child);
+						//Cancel further search here, since a cycle has been found
+						return;
+					}
+					else if (!nodeList.Contains(child)) {
+						nodeList.AddLast(child);
+						visited.Add(child);
+						if (child.Inputs != null) {
+							Visit(child, nodeList, visited);
+						}
 					}
 				}
 			}
-
-			return containsCycle;
+			visited.Remove(node);
 		}
 	}
 }
