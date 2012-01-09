@@ -5,7 +5,9 @@
 	using System.ComponentModel.Composition;
 	using System.ComponentModel.Composition.Hosting;
 	using System.ComponentModel.Composition.Primitives;
+	using System.IO;
 	using System.Linq;
+	using System.Reflection;
 	using Caliburn.Micro;
 	using Caliburn.Micro.Logging;
 	using YuvKA.ViewModel;
@@ -38,6 +40,14 @@
 			batch.AddExportedValue(catalog);
 
 			container.Compose(batch);
+		}
+
+		// Return exe and all dlls in Plugins folder.
+		protected override IEnumerable<System.Reflection.Assembly> SelectAssemblies()
+		{
+			var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+			var pluginDir = Path.Combine(exeDir, "Plugins");
+			return base.SelectAssemblies().Concat(Directory.EnumerateFiles(pluginDir, "*.dll").Select(Assembly.LoadFile));
 		}
 
 		protected override object GetInstance(Type serviceType, string key)
