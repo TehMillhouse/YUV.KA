@@ -14,6 +14,8 @@ namespace YuvKA.Test.Pipeline
 	{
 		Func<Frame[], int, Frame[]> process;
 
+		public string Name { get; set; }
+
 		public AnonymousNode(Func<Frame[], int, Frame[]> process, int outputCount, params Output[] inputs)
 			: base(inputs.Length, outputCount)
 		{
@@ -34,6 +36,11 @@ namespace YuvKA.Test.Pipeline
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
 			return process(inputs, tick);
+		}
+
+		public override string ToString()
+		{
+			return Name;
 		}
 	}
 
