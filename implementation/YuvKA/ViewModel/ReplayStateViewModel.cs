@@ -21,7 +21,7 @@ namespace YuvKA.ViewModel
 			if (Parent.Model.CurrentTick == Parent.Model.Graph.TickCount - 1)
 				Stop();
 
-			if (IsPlaying)
+			if (!IsPlaying)
 				Parent.Model.Start(Parent.OpenWindows.Select(w => w.NodeModel));
 			else
 				Parent.Model.Stop();
