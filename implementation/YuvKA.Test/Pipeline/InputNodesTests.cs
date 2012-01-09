@@ -112,12 +112,6 @@ namespace YuvKA.Test.Pipeline
 			tick = 7;
 			CopyFrameToOutputImage(noiseInput, out outputFrame, out outputImage, tick);
 			outputImage.Save("..\\..\\..\\..\\output\\noise-" + noiseInput.Type + "-tick-" + tick + "-200x200.png");
-
-			for (tick = 1; tick <= 20; ++tick) {
-				CopyFrameToOutputImage(noiseInput, out outputFrame, out outputImage, tick);
-				outputImage.Save("..\\..\\..\\..\\output\\multi-test-noise-tick-" + tick + ".png");
-			}
-
 		}
 
 		// A helper method to save the frame to a PNG image file

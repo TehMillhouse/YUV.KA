@@ -61,7 +61,7 @@ namespace YuvKA.Pipeline.Implementation
 					for (int x = 0; x < outputFrame.Size.Width; ++x) {
 						double scalar = 0.05;
 						// Generate a noise function value, which is also tick-dependent
-						double randomNumber = (Noise(x * scalar, y * scalar, 0.1 * tick) + 1) / 2;
+						double randomNumber = (Noise(x * scalar, y * scalar, 0.05 * tick) + 1) / 2;
 						randomNumber = Math.Min(1, Math.Max(0, randomNumber));
 						byte randomColor = (byte)(randomNumber * 255);
 						outputFrame[x, y] = new Rgb(randomColor, randomColor, randomColor);
