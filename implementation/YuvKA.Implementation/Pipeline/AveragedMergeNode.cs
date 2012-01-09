@@ -32,19 +32,14 @@ namespace YuvKA.Pipeline.Implementation
 			for (int i = 0; i < inputs.Length; i++) {
 				for (int x = 0; x < maxX; x++) {
 					for (int y = 0; y < maxY; y++) {
-						byte newR = (byte)Math.Min(255, output[0][x, y].R + Weights[i] * GetPixel(x, y, inputs[i]).R);
-						byte newG = (byte)Math.Min(255, output[0][x, y].G + Weights[i] * GetPixel(x, y, inputs[i]).G);
-						byte newB = (byte)Math.Min(255, output[0][x, y].B + Weights[i] * GetPixel(x, y, inputs[i]).B);
+						byte newR = (byte)Math.Min(255, output[0][x, y].R + Weights[i] * inputs[i].GetPixelOrBlack(x, y).R);
+						byte newG = (byte)Math.Min(255, output[0][x, y].G + Weights[i] * inputs[i].GetPixelOrBlack(x, y).G);
+						byte newB = (byte)Math.Min(255, output[0][x, y].B + Weights[i] * inputs[i].GetPixelOrBlack(x, y).B);
 						output[0][x, y] = new Rgb(newR, newG, newB);
 					}
 				}
 			}
 			return output;
-		}
-
-		private Rgb GetPixel(int x, int y, Frame input)
-		{
-			return (x > input.Size.Width || y > input.Size.Height || x < 0 || y < 0) ? new Rgb(0, 0, 0) : input[x, y];
 		}
 	}
 }

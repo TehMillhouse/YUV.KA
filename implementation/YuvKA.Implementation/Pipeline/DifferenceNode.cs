@@ -19,18 +19,13 @@ namespace YuvKA.Pipeline.Implementation
 			Frame[] output = { new Frame(new Size(maxX, maxY)) };
 			for (int x = 0; x < maxX; x++) {
 				for (int y = 0; y < maxY; y++) {
-					byte newR = (byte)(127 + (((int)output[0][x, y].R - output[1][x, y].R) / 2));
-					byte newG = (byte)(127 + (((int)output[0][x, y].G - output[1][x, y].G) / 2));
-					byte newB = (byte)(127 + (((int)output[0][x, y].B - output[1][x, y].B) / 2));
+					byte newR = (byte)(127 + (((int)inputs[0].GetPixelOrBlack(x, y).R - inputs[1].GetPixelOrBlack(x, y).R) / 2));
+					byte newG = (byte)(127 + (((int)inputs[0].GetPixelOrBlack(x, y).G - inputs[1].GetPixelOrBlack(x, y).G) / 2));
+					byte newB = (byte)(127 + (((int)inputs[0].GetPixelOrBlack(x, y).B - inputs[1].GetPixelOrBlack(x, y).B) / 2));
 					output[0][x, y] = new Rgb(newR, newG, newB);
 				}
 			}
 			return output;
-		}
-
-		private Rgb GetPixel(int x, int y, Frame input)
-		{
-			return (x > input.Size.Width || y > input.Size.Height || x < 0 || y < 0) ? new Rgb(0, 0, 0) : input[x, y];
 		}
 	}
 }

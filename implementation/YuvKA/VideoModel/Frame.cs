@@ -28,5 +28,10 @@
 			get { return data[y * Size.Width + x]; }
 			set { data[y * Size.Width + x] = value; }
 		}
+
+		public Rgb GetPixelOrBlack(int x, int y)
+		{
+			return (x < Size.Width && y < Size.Height) ? this[x, y] : new Rgb(0, 0, 0);
+		}
 	}
 }
