@@ -18,6 +18,7 @@ namespace YuvKA.ViewModel
 		PipelineState model;
 		PipelineViewModel pipelineViewModel;
 
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Non-critical; refers to invocation of NotifyOfPropertyChange in PipelineViewModel.set")]
 		[ImportingConstructor]
 		public MainViewModel(CompositionContainer container)
 		{

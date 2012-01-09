@@ -5,6 +5,7 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Rarely instantiated, long-living class")]
 	[DataContract]
 	public class ImageInputNode : InputNode
 	{
