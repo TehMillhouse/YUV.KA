@@ -6,10 +6,8 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class DiagramGraph
 	{
-		public DiagramGraph(Node.Input video, IGraphType type)
+		public DiagramGraph()
 		{
-			Video = video;
-			Type = type;
 			Data = new List<double>();
 		}
 

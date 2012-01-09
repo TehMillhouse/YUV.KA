@@ -8,10 +8,9 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class HistogramNode : OutputNode
 	{
-		public HistogramNode(HistogramType type)
+		public HistogramNode()
 			: base(inputCount: 1)
 		{
-			Type = type;
 			Data = new double[256];
 		}
 

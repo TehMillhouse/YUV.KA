@@ -18,12 +18,18 @@ namespace YuvKA.Test.Pipeline
 		    Frame[] inputs = Source.Process(null, 0);
 		    YuvKA.Pipeline.Node.Input reference = new Node.Input();
 		    reference.Source = Source.Outputs[0];
-		    DiagramNode diaNode = new DiagramNode(reference);
+		    DiagramNode diaNode = new DiagramNode();
+		    diaNode.ReferenceVideo = reference;
+            diaNode.Inputs.Add(reference);
             YuvKA.Pipeline.Node.Input video = new Node.Input();
             video.Source = Source.Outputs[1];
             diaNode.Inputs.Add(video);
-			DiagramGraph pixDiff = new DiagramGraph(video, new PixelDiff());
-			DiagramGraph pSNR = new DiagramGraph(video, new PeakSignalNoiseRatio());
+			DiagramGraph pixDiff = new DiagramGraph();
+		    pixDiff.Video = video;
+		    pixDiff.Type = new PixelDiff();
+			DiagramGraph pSNR = new DiagramGraph();
+		    pSNR.Video = video;
+		    pSNR.Type = new PeakSignalNoiseRatio();
 			diaNode.Graphs.Add(pixDiff);
 			diaNode.Graphs.Add(pSNR);
 			diaNode.ProcessCore(inputs, 0);
@@ -62,7 +68,7 @@ namespace YuvKA.Test.Pipeline
             }
             return outputs;
         }
-
+        [Fact]
 	    public void TestHistogramNodeRGB()
 		{
 			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
@@ -72,9 +78,12 @@ namespace YuvKA.Test.Pipeline
 					inputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
 				}
 			}
-			HistogramNode histNodeR = new HistogramNode(HistogramType.R);
-			HistogramNode histNodeG = new HistogramNode(HistogramType.G);
-			HistogramNode histNodeB = new HistogramNode(HistogramType.B);
+			HistogramNode histNodeR = new HistogramNode();
+	        histNodeR.Type = HistogramType.R;
+			HistogramNode histNodeG = new HistogramNode();
+	        histNodeG.Type = HistogramType.G;
+			HistogramNode histNodeB = new HistogramNode();
+	        histNodeB.Type = HistogramType.B;
 			histNodeR.Process(inputs, 0);
 			histNodeG.Process(inputs, 0);
 			histNodeB.Process(inputs, 0);
@@ -97,7 +106,7 @@ namespace YuvKA.Test.Pipeline
 				Assert.Equal(histNodeB.Data[i], (double)(intData[i, 2] / numberOfPixels));
 			}
 		}
-
+        [Fact]
 		public void TestHistogramNodeValue()
 		{
 			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
@@ -107,7 +116,8 @@ namespace YuvKA.Test.Pipeline
 					inputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
 				}
 			}
-			HistogramNode histNodeValue = new HistogramNode(HistogramType.Value);
+			HistogramNode histNodeValue = new HistogramNode();
+            histNodeValue.Type = HistogramType.Value;
 			histNodeValue.Process(inputs, 0);
 			Color rgbValue;
 			int value;

@@ -8,12 +8,10 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class DiagramNode : OutputNode
 	{
-		public DiagramNode(Input reference)
+		public DiagramNode()
 			: base(inputCount: null)
 		{
-		    Inputs.Add(reference);
 			IsEnabled = true;
-			ReferenceVideo = reference;
 			Graphs = new List<DiagramGraph>();
 		}
 
