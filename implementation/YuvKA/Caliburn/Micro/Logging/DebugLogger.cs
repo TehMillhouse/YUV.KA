@@ -7,7 +7,7 @@ namespace Caliburn.Micro.Logging
   /// Implementation of the ILog and ILogExtended interfaces using
   /// <see cref="Debug"/>.
   /// </summary>
-  public class DebugLogger : ILog, ILogExtended
+  public class DebugLogger : ILog
   {
     #region Constants
     private const string ErrorText = "ERROR";
@@ -57,28 +57,6 @@ namespace Caliburn.Micro.Logging
     public void Warn(string format, params object[] args)
     {
       Debug.WriteLine(CreateLogMessage(format, args), WarnText);
-    }
-    #endregion
-
-    #region Implementation of ILogExtended
-    /// <summary>
-    /// Logs the message as error.
-    /// </summary>
-    /// <param name="format">A formatted message.</param>
-    /// <param name="args">Parameters to be injected into the formatted message.</param>
-    public void Error(string format, params object[] args)
-    {
-      Debug.WriteLine(CreateLogMessage(format, args), ErrorText);
-    }
-    /// <summary>
-    /// Logs the exception.
-    /// </summary>
-    /// <param name="exception">The exception.</param>
-    /// <param name="format">A formatted message.</param>
-    /// <param name="args">Parameters to be injected into the formatted message.</param>
-    public void Error(Exception exception, string format, params object[] args)
-    {
-      Debug.WriteLine(CreateLogMessage(format + " - Exception = " + exception.ToString(), args), ErrorText);
     }
     #endregion
   }

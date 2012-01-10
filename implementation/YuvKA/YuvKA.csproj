@@ -41,10 +41,6 @@
     <Reference Include="Caliburn.Micro">
       <HintPath>..\packages\Caliburn.Micro.1.2.0\lib\Net40\Caliburn.Micro.dll</HintPath>
     </Reference>
-    <Reference Include="Caliburn.Micro.Logging, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Caliburn.Micro.Logging.1.2.1\lib\net40\Caliburn.Micro.Logging.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -77,9 +73,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
-      <Compile Include="Caliburn\Micro\Logging\DebugLogger.cs">
-          <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-      </Compile>
+    <Compile Include="Caliburn\Micro\Logging\DebugLogger.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Pipeline\FilePath.cs" />
     <Compile Include="Pipeline\FrameRenderedMessage.cs" />
     <Compile Include="Pipeline\InputNode.cs" />
@@ -115,7 +111,6 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
-    <None Include="app.config" />
     <None Include="NamespaceDependencies.dgml" />
     <None Include="packages.config" />
     <None Include="TestCases\NodeViewModel_ShowNodeOutput.sequencediagram" />
