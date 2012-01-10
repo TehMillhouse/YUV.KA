@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline
 {
-    public class TickRenderedMessage
-    {
-        public Frame this[Node.Output output]
-        {
-            get { throw new NotImplementedException(); }
-        }
-    }
+	public class TickRenderedMessage
+	{
+		IDictionary<Node.Output, Frame> dic;
+
+		public TickRenderedMessage(IDictionary<Node.Output, Frame> dic)
+		{
+			this.dic = dic;
+		}
+
+		public Frame this[Node.Output output] { get { return dic[output]; } }
+	}
 }
