@@ -26,14 +26,6 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
-		protected override void OnSizeChanged()
-		{
-			base.OnSizeChanged();
-			outputFrame = null;
-			// Have to fill the new frame with color
-			colorChanged = true;
-		}
-
 		#region INode Members
 
 		public override Frame OutputFrame(int tick)
@@ -43,6 +35,14 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		#endregion
+
+		protected override void OnSizeChanged()
+		{
+			base.OnSizeChanged();
+			outputFrame = null;
+			// Have to fill the new frame with color
+			colorChanged = true;
+		}
 
 		private void EnsureInputLoaded()
 		{
