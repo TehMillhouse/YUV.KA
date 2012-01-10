@@ -18,42 +18,32 @@ namespace YuvKA.Pipeline
 		Task lastTask = CreateCompletedTask();
 
 		/// <summary>
-		/// Renders a tick for the given set of nodes by processing the relevant parts of the pipeline.
-		/// </summary>
-		/// <param name="startNodes">A set of nodes whose outputs will be computed. The reflexive transitive hull of this set will be processed.</param>
-		/// <param name="tick">The pipeline tick to render</param>
-		/// <param name="token">A CancellationToken to observe while processing the pipeline</param>
-		/// <returns>A task returning a dictionary that maps each output of a start node to its rendered Frame.</returns>
-		public Task<IDictionary<Node.Output, Frame>> RenderTick(IEnumerable<Node> startNodes, int tick, CancellationToken token)
-		{
-			var task = lastTask.ContinueWith(_ => {
-				return RenderTickCore(startNodes, tick, token);
-			}, token).Unwrap();
-			lastTask = task;
-			return task;
-		}
-
-		/// <summary>
 		/// Renders consecutive ticks for the given set of nodes by processing the relevant parts of the pipeline.
 		/// </summary>
 		/// <param name="startNodes">A set of nodes whose outputs will be computed. The reflexive transitive hull of this set will be processed.</param>
-		/// <param name="tick">The first pipeline tick to render</param>
+		/// <param name="startTick">The first pipeline tick to render</param>
+		/// <param name="tickCount">The number of ticks to render (if the computation isn't cancelled earlier) or null if the computation should only be completed
+		/// by cancellation</param>
 		/// <param name="tokenSource">A CancellationTokenSource whose token to observe while processing the pipeline. Signalling the token will complete the observable.</param>
 		/// <returns>A (possibly infinite) cold observable of dictionaries that map each output of a start node to its rendered Frame.
 		/// The dictionaries are returned in consecutive tick order.</returns>
-		public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(IEnumerable<Node> startNodes, int tick, CancellationTokenSource tokenSource)
+		public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(IEnumerable<Node> startNodes, int startTick = 0, int? tickCount = null, CancellationTokenSource tokenSource = null)
 		{
+			if (tokenSource == null)
+				tokenSource = new CancellationTokenSource();
+
 			return Observable.Create<FrameDic>(observer => {
 				lastTask = lastTask
 					.ContinueWith(_ => {
-						while (true)
-							observer.OnNext(RenderTickCore(startNodes, tick++, tokenSource.Token).Result);
+						for (int tick = startTick; tickCount == null || tick < tickCount; tick++)
+							observer.OnNext(RenderTickCore(startNodes, tick, tokenSource.Token).Result);
 					}, tokenSource.Token)
 
 					.ContinueWith(t => {
 						// Handle all OCEs. If there are no other exceptions, we're done.
 						try {
-							t.Exception.Flatten().Handle(e => e is OperationCanceledException);
+							if (t.Exception != null)
+								t.Exception.Flatten().Handle(e => e is OperationCanceledException);
 							observer.OnCompleted();
 						} catch (AggregateException e) {
 							observer.OnError(e);

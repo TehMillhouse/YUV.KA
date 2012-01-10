@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reactive.Linq;
-using System.Threading;
 using Xunit;
 using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
@@ -22,7 +21,8 @@ namespace YuvKA.Test
 			};
 			Node graph = new BrightnessContrastSaturationNode { Contrast = 10 }; //new BlurNode { Radius = 3 };
 			graph.Inputs[0].Source = input.Outputs[0];
-			IObservable<Frame> frames = new PipelineDriver().RenderTicks(new[] { graph }, 0, new CancellationTokenSource()).Take(3).Select(dic => dic[graph.Outputs[0]]);
+			IObservable<Frame> frames = new PipelineDriver().RenderTicks(new[] { graph }, tickCount: input.TickCount)
+				.Select(dic => dic[graph.Outputs[0]]);
 			YuvEncoder.Encode(
 				@"..\..\..\..\output\ViewlessPipeline_sif.yuv",
 				frames.ToEnumerable()

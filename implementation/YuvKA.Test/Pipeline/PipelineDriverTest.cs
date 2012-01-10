@@ -12,28 +12,6 @@ namespace YuvKA.Test.Pipeline
 	public class PipelineDriverTest : IDisposable
 	{
 		/// <summary>
-		/// RenderTick should be able to correctly process the following graph:
-		///     [id]
-		///    /    \
-		/// [1]      [(x,y) => x+y] (hint: result is 2)
-		///    \    /
-		///     [id]
-		/// </summary>
-		[Fact]
-		public void RenderTickProcessesDiamondGraph()
-		{
-			AnonIntNode start = new AnonIntNode(_ => 1);
-			Node graph = new AnonIntNode(inputs => inputs[0] + inputs[1],
-				new AnonIntNode(inputs => inputs[0], start),
-				new AnonIntNode(inputs => inputs[0], start)
-			);
-
-			Assert.Equal(2, new PipelineDriver().RenderTick(new[] { graph }, 0, new CancellationToken()).Result[graph.Outputs[0]].Size.Width);
-		}
-
-		// From here on I'll limit the tests to RenderTicks because RenderTick is really not that interesting.
-
-		/// <summary>
 		/// RenderTicks should be able to correctly process the following graph:
 		///         [id]
 		///        /    \
@@ -82,7 +60,7 @@ namespace YuvKA.Test.Pipeline
 			var cts = new CancellationTokenSource();
 			Node graph = new AnonymousNode(() => { cts.Cancel(); cts.Token.ThrowIfCancellationRequested(); });
 
-			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, 0, cts).Count().Last());
+			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, tokenSource: cts).Count().Last());
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
 		}
@@ -91,10 +69,9 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void RenderTicksPropagatesExceptions()
 		{
-			var cts = new CancellationTokenSource();
 			Node graph = new AnonymousNode(() => { throw new InvalidOperationException(); });
 
-			var ex = Assert.Throws<AggregateException>(() => new PipelineDriver().RenderTicks(new[] { graph }, 0, new CancellationTokenSource()).Last());
+			var ex = Assert.Throws<AggregateException>(() => new PipelineDriver().RenderTicks(new[] { graph }).Last());
 			Assert.IsType<InvalidOperationException>(ex.Flatten().InnerException);
 		}
 
@@ -111,12 +88,12 @@ namespace YuvKA.Test.Pipeline
 
 			Task task = null;
 			Node graph0 = new AnonymousNode(() => {
-				task = driver.RenderTicks(new[] { graph1 }, 0, new CancellationTokenSource()).Take(1).ToTask();
+				task = driver.RenderTicks(new[] { graph1 }, tickCount: 1).ToTask();
 				Thread.Sleep(1000);
 				firstInvocationCompleted = true;
 			});
 
-			driver.RenderTicks(new[] { graph0 }, 0, new CancellationTokenSource()).First();
+			driver.RenderTicks(new[] { graph0 }).First();
 			task.Wait();
 		}
 
@@ -133,14 +110,14 @@ namespace YuvKA.Test.Pipeline
 				new AnonymousNode(() => tokenSource.Cancel())
 			);
 
-			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, 0, tokenSource).Count().Last());
+			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, tokenSource: tokenSource).Count().Last());
 			// Looks like the InvalidOperationException hasn't been thrown. Yay!
 		}
 
 		// Render a graph of anonymous int-returning nodes
 		IObservable<int> RenderTicksAnonIntNodes(PipelineDriver driver, AnonIntNode startNode, int tick, CancellationTokenSource tokenSource)
 		{
-			return driver.RenderTicks(new[] { startNode }, tick, tokenSource).Select(dic => dic[startNode.Outputs[0]].Size.Width);
+			return driver.RenderTicks(new[] { startNode }, tokenSource: tokenSource).Select(dic => dic[startNode.Outputs[0]].Size.Width);
 		}
 
 		// Catch free-flying non-observed Tasks
