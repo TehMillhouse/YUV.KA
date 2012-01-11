@@ -26,7 +26,6 @@ namespace YuvKA.Test.Pipeline
 			AnonymousNode node2 = new AnonymousNode(node0) { Name = "node2" };
 			AnonymousNode node3 = new AnonymousNode(node0, node1) { Name = "node3" };
 			AnonymousNode node4 = new AnonymousNode(node3) { Name = "node4" };
-
 			PipelineGraph graph = new PipelineGraph {
 				Nodes = { node0, node1, node2, node3, node4 }
 			};
@@ -56,7 +55,6 @@ namespace YuvKA.Test.Pipeline
 			AnonymousNode node1 = new AnonymousNode(node0) { Name = "node1" };
 			AnonymousNode node2 = new AnonymousNode(node1) { Name = "node2" };
 			AnonymousNode node3 = new AnonymousNode(node2) { Name = "node3" };
-
 			PipelineGraph graph = new PipelineGraph { Nodes = { node0, node1, node2, node3} };
 
 			Assert.Equal(false, graph.AddEdge(node3.Outputs[0], node1.Inputs[0]));
@@ -80,7 +78,6 @@ namespace YuvKA.Test.Pipeline
 			AnonymousNode node2 = new AnonymousNode(node0) { Name = "node2" };
 			AnonymousNode node3 = new AnonymousNode(node1, node2) { Name = "node3" };
 			AnonymousNode node4 = new AnonymousNode(node3) { Name = "node4" };
-
 			PipelineGraph graph = new PipelineGraph {
 				Nodes = { node0, node1, node2, node3, node4 }
 			};
@@ -91,5 +88,50 @@ namespace YuvKA.Test.Pipeline
 			Assert.DoesNotContain<Node>(node3, graph.DepthFirstSearch(node1));
 			Assert.DoesNotContain<Node>(node1, graph.DepthFirstSearch(node2));
 		}
+
+
+
+
+
+		/// <summary>
+		/// Creates a small graph and checks ReturnNumberOfFramesToPrecompute's behavior.
+		/// graph:
+		///             [node2]
+		///            /
+		///     [node0]         [node4]
+		///            \       /
+		///             [node3]
+		///            /
+		///     [node1]
+		/// </summary>
+		[Fact]
+		public void TestReturnNumberOfFramesToPrecompute()
+		{
+			// create graph
+			AnonymousNode node0 = new AnonymousNode() { Name = "node0" };
+			AnonymousNode node1 = new AnonymousNode() { Name = "node1" };
+			AnonymousNode node2 = new AnonymousNode(node0) { Name = "node2" };
+			AnonymousNode node3 = new AnonymousNode(node0, node1) { Name = "node3" };
+			AnonymousNode node4 = new AnonymousNode(node3) { Name = "node4" };
+			PipelineGraph graph = new PipelineGraph {
+				Nodes = { node0, node1, node2, node3, node4 }
+			};
+			//set number of frames to precompute in the graph's nodes
+			node0.SettableNumberOfFramesToPrecompute = 0;
+			node1.SettableNumberOfFramesToPrecompute = 1;
+			node2.SettableNumberOfFramesToPrecompute = 2;
+			node3.SettableNumberOfFramesToPrecompute = 4;
+			node4.SettableNumberOfFramesToPrecompute = 8;
+
+			Assert.Equal(0, graph.NumberOfFramesToPrecompute(node0));
+			Assert.Equal(1, graph.NumberOfFramesToPrecompute(node1));
+			Assert.Equal(2, graph.NumberOfFramesToPrecompute(node2));
+			Assert.Equal(5, graph.NumberOfFramesToPrecompute(node3));
+			Assert.Equal(13, graph.NumberOfFramesToPrecompute(node4));
+
+		}
+
+
 	}
+
 }

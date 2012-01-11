@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Linq;
+using System;
 
 namespace YuvKA.Pipeline
 {
@@ -31,6 +32,23 @@ namespace YuvKA.Pipeline
 
 
 		/// <summary>
+		/// Returns the number of frames to precompute, so the specified node can process the next frame. The method assumes, that the graph does not contain any cycles.
+		/// </summary>
+		/// <param name="startNode">The specified node.</param>
+		/// <returns>The number of frames to precompute.</returns>
+		public int NumberOfFramesToPrecompute(Node startNode)
+		{
+			int framesToPrecompute = 0;
+			if (startNode.Inputs != null) {
+				foreach (Node.Input input in startNode.Inputs) {
+					framesToPrecompute = Math.Max(framesToPrecompute, NumberOfFramesToPrecompute(input.Source.Node));
+				}
+			}
+			framesToPrecompute += startNode.NumberOfFramesToPrecompute;
+			return framesToPrecompute;
+		}
+
+		/// <summary>
 		/// Returns true if the specified edge does not lead to a cycle and can be added. Else the method returns false.
 		/// </summary>
 		/// <param name="source"> The start of the new edge. </param>
@@ -39,7 +57,7 @@ namespace YuvKA.Pipeline
 		public bool AddEdge(Node.Output source, Node.Input sink)
 		{
 			IEnumerable<Node> nodeList = DepthFirstSearch(source.Node);
-			if (nodeList.Any( node => node.Inputs.Contains(sink))) {
+			if (nodeList.Any(node => node.Inputs.Contains(sink))) {
 				return false;
 			}
 			else {
