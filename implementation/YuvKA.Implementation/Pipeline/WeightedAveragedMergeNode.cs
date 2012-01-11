@@ -24,18 +24,12 @@ namespace YuvKA.Pipeline.Implementation
 
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
-			int maxX = 0;
-			int maxY = 0;
-			for (int i = 0; i < inputs.Length; i++) {
-				maxX = Math.Max(maxX, inputs[i].Size.Width);
-				maxY = Math.Max(maxY, inputs[i].Size.Height);
-			}
-
+			Size maxSize = Frame.MaxBoundaries(inputs);
 			double sumOfWeights = Weights.Sum();
+			Frame[] output = { new Frame(new Size(maxSize.Width, maxSize.Height)) };
 
-			Frame[] output = { new Frame(new Size(maxX, maxY)) };
-			for (int x = 0; x < maxX; x++) {
-				for (int y = 0; y < maxY; y++) {
+			for (int x = 0; x < maxSize.Width; x++) {
+				for (int y = 0; y < maxSize.Height; y++) {
 					double newR = 0, newG = 0, newB = 0;
 					for (int i = 0; i < inputs.Length; i++) {
 						newR += Weights[i] * inputs[i].GetPixelOrBlack(x, y).R;
