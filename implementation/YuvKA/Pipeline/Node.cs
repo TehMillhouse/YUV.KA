@@ -38,6 +38,15 @@ namespace YuvKA.Pipeline
 		[DataMember]
 		public double Y { get; set; }
 
+		/// <summary>
+		/// Represents the number of frames the node needs to precompute before he can process the frame of the current tick.
+		/// </summary>
+		[Browsable(false)]
+		public int NumberOfFramesToPrecompute
+		{
+			get { return 0; }
+		}
+
 		[Browsable(false)]
 		public IList<Input> Inputs { get; private set; }
 
