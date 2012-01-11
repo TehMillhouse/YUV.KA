@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="YuvKA.View.ToolboxView"
+			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+			mc:Ignorable="d"
+			d:DesignHeight="200" d:DesignWidth="600">
+	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+		<ItemsControl ItemsSource="{Binding NodeTypes}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Border CornerRadius="2" BorderBrush="CornflowerBlue" Padding="10" Margin="3" BorderThickness="3">
+						<TextBlock Text="{Binding Type.Name}"/>
+					</Border>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Orientation="Horizontal"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+		</ItemsControl>
+	</ScrollViewer>
+</UserControl>
