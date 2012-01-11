@@ -10,11 +10,12 @@ namespace YuvKA.Pipeline
 {
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Long-living, rarely instantiated class")]
 	[DataContract]
-	public class PipelineState
+	public class PipelineState : PropertyChangedBase
 	{
 		PipelineDriver driver = new PipelineDriver();
 		CancellationTokenSource cts;
 		DateTimeOffset? lastTick;
+		int currentTick;
 
 		public PipelineState()
 		{
@@ -22,7 +23,17 @@ namespace YuvKA.Pipeline
 		}
 
 		[DataMember]
-		public int CurrentTick { get; set; }
+		public int CurrentTick
+		{
+			get { return currentTick; }
+			set
+			{
+				if (value != currentTick) {
+					currentTick = value;
+					NotifyOfPropertyChange(() => CurrentTick);
+				}
+			}
+		}
 
 		/// <summary>
 		/// Replay speed in frames per second
