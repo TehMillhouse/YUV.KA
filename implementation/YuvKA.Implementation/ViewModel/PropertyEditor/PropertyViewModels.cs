@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -85,6 +86,18 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		public ObservableCollectionOfDoublePropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
 		{
 			throw new NotImplementedException();
+		}
+	}
+
+	public class EnumerationPropertyViewModel : PropertyViewModel<ObservableCollection<double>>
+	{
+		public EnumerationPropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
+		{
+		}
+
+		public ICollection<string> Choices {
+			get { return Enum.GetNames(Property.GetValue(Source).GetType()); }
+			private set { }
 		}
 	}
 }

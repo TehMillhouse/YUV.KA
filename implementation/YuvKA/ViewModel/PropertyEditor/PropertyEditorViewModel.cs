@@ -28,7 +28,7 @@ namespace YuvKA.ViewModel.PropertyEditor
 				List<PropertyViewModel>pvmList = new List<PropertyViewModel>();
 				foreach (PropertyDescriptor pd in properties) {
 					if (pd.IsBrowsable) {
-						System.Type fittingPVM = viewModels.Single(pvm => pvm.BaseType.GetGenericArguments()[0] == pd.PropertyType);
+						System.Type fittingPVM = viewModels.Single(pvm => (pd.PropertyType.IsAssignableFrom(pvm.BaseType.GetGenericArguments()[0])));
 						object[] parameters = { Source, pd };
 						pvmList.Add((PropertyViewModel)(fittingPVM.GetConstructors()[0].Invoke(parameters)));
 					}
