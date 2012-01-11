@@ -18,18 +18,18 @@ namespace YuvKA.Test.Pipeline
 			Frame outputFrame;
 			Bitmap outputImage;
 
-			inputNode.FileName = new YuvKA.Pipeline.FilePath("..\\..\\..\\..\\resources\\bmp.png");
+			inputNode.FileName = new YuvKA.Pipeline.FilePath("..\\..\\..\\..\\resources\\papagei.png");
 
 			// Reduce the image
 			inputNode.Size = new YuvKA.VideoModel.Size(100, 80);
 			CopyFrameToOutputImage(inputNode, out outputFrame, out outputImage, 0);
-			outputImage.Save("..\\..\\..\\..\\output\\bmp-resized-" +
+			outputImage.Save("..\\..\\..\\..\\output\\papagei-resized-" +
 							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
 
 			// Enlarge the image
 			inputNode.Size = new YuvKA.VideoModel.Size(200, 400);
 			CopyFrameToOutputImage(inputNode, out outputFrame, out outputImage, 0);
-			outputImage.Save("..\\..\\..\\..\\output\\bmp-resized-" +
+			outputImage.Save("..\\..\\..\\..\\output\\papagei-resized-" +
 							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
 
 			// Change path and size

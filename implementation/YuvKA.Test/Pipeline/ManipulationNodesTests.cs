@@ -2,10 +2,7 @@
 
 namespace YuvKA.Test.Pipeline
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
+	using System.Drawing;
 	using Xunit;
 	using YuvKA.Pipeline.Implementation;
 	using YuvKA.VideoModel;
@@ -18,7 +15,7 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void TestLinearBlurMonocolor()
 		{
-			Frame[] testFrame = { new Frame(new Size(5, 5)) };
+			Frame[] testFrame = { new Frame(new YuvKA.VideoModel.Size(5, 5)) };
 			for (int i = 0; i < 256; i++) {
 				for (int x = 0; x < testFrame[0].Size.Width; x++) {
 					for (int y = 0; y < testFrame[0].Size.Height; y++) {
@@ -41,7 +38,7 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void TestGaussianBlurMonocolor()
 		{
-			Frame[] testFrame = { new Frame(new Size(5, 5)) };
+			Frame[] testFrame = { new Frame(new YuvKA.VideoModel.Size(5, 5)) };
 			for (int i = 0; i < 256; i++) {
 				for (int x = 0; x < testFrame[0].Size.Width; x++) {
 					for (int y = 0; y < testFrame[0].Size.Height; y++) {
@@ -65,7 +62,7 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void TestLinearZeroBlur()
 		{
-			Frame[] testFrame = { new Frame(new Size(5, 5)) };
+			Frame[] testFrame = { new Frame(new YuvKA.VideoModel.Size(5, 5)) };
 			for (int x = 0; x < testFrame[0].Size.Width; x++) {
 				for (int y = 0; y < testFrame[0].Size.Height; y++) {
 					testFrame[0][x, y] = new Rgb((byte)(10 * x * y), (byte)(10 * x * y), (byte)(10 * x * y));
@@ -87,7 +84,7 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void TestGaussianZeroBlur()
 		{
-			Frame[] testFrame = { new Frame(new Size(5, 5)) };
+			Frame[] testFrame = { new Frame(new YuvKA.VideoModel.Size(5, 5)) };
 			for (int x = 0; x < testFrame[0].Size.Width; x++) {
 				for (int y = 0; y < testFrame[0].Size.Height; y++) {
 					testFrame[0][x, y] = new Rgb((byte)(10 * x * y), (byte)(10 * x * y), (byte)(10 * x * y));
@@ -107,7 +104,7 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void TestRgbSplit()
 		{
-			Size testSize = new Size(5, 5);
+			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
 			Frame[] inputs = { new Frame(testSize) };
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
@@ -128,7 +125,7 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void TestAdditiveMerge()
 		{
-			Size testSize = new Size(5, 5);
+			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
 			Frame[] inputs = { new Frame(testSize), new Frame(testSize) };
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
@@ -191,7 +188,7 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void TestInverter()
 		{
-			Size testSize = new Size(5, 5);
+			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
 			Frame[] inputs = { new Frame(testSize) };
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
@@ -207,6 +204,40 @@ namespace YuvKA.Test.Pipeline
 					Assert.Equal(255 - inputs[0][x, y].B, result[0][x, y].B);
 				}
 			}
+		}
+
+		[Fact]
+		public void TestBrightnessContrastSaturation()
+		{
+			Bitmap image = new Bitmap("..\\..\\..\\..\\output\\papagei.png");
+			YuvKA.VideoModel.Size size = new VideoModel.Size(image.Width, image.Height);
+			Frame[] inputFrames = { new Frame(size) };
+			BrightnessContrastSaturationNode bcsNode = new BrightnessContrastSaturationNode();
+
+			// Copy RGB content to the input frame
+			for (int y = 0; y < size.Height; y++) {
+				for (int x = 0; x < size.Width; ++x) {
+					inputFrames[0][x, y] = new Rgb(image.GetPixel(x, y).R,
+											  image.GetPixel(x, y).G,
+											  image.GetPixel(x, y).B);
+				}
+			}
+
+			bcsNode.Contrast = 2.0;
+			// Process the input frame. Reuse the frames object by writing back to it
+			Frame[] outputFrames = bcsNode.Process(inputFrames, 0);
+
+			// Copy RGB content of the processed frame to the output image
+			for (int y = 0; y < size.Height; y++) {
+				for (int x = 0; x < size.Width; ++x) {
+					// Reuse the created image object
+					image.SetPixel(x, y, Color.FromArgb(outputFrames[0][x, y].R,
+														outputFrames[0][x, y].G,
+														outputFrames[0][x, y].B));
+				}
+			}
+
+			image.Save("..\\..\\..\\..\\output\\papagei-bcs-" + (int)(bcsNode.Contrast * 10) + ".png");
 		}
 	}
 }
