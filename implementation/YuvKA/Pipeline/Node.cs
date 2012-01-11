@@ -42,7 +42,7 @@ namespace YuvKA.Pipeline
 		/// Represents the number of frames the node needs to precompute before he can process the frame of the current tick.
 		/// </summary>
 		[Browsable(false)]
-		public int NumberOfFramesToPrecompute
+		public virtual int NumberOfFramesToPrecompute
 		{
 			get { return 0; }
 		}
