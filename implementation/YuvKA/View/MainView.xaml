@@ -1,10 +1,11 @@
 ﻿<Window x:Class="YuvKA.View.MainView"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 		Title="MainWindow" Height="350" Width="525">
 	<DockPanel>
-		<ContentControl x:Name="ReplayStateViewModel" DockPanel.Dock="Top"/>
-		<ContentControl x:Name="ToolboxViewModel" DockPanel.Dock="Bottom"/>
-		<ContentControl x:Name="PipelineViewModel"/>
+		<ContentControl cal:View.Model="{Binding ReplayStateViewModel}" DockPanel.Dock="Top"/>
+		<ContentControl cal:View.Model="{Binding ToolboxViewModel}" DockPanel.Dock="Bottom"/>
+		<ContentControl cal:View.Model="{Binding PipelineViewModel}"/>
 	</DockPanel>
 </Window>
