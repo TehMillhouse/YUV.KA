@@ -89,14 +89,14 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 	}
 
-	public class EnumerationPropertyViewModel : PropertyViewModel<ObservableCollection<double>>
+	public class EnumerationPropertyViewModel : PropertyViewModel<Enum>
 	{
 		public EnumerationPropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
 		{
 		}
 
-		public ICollection<string> Choices {
-			get { return Enum.GetNames(Property.GetValue(Source).GetType()); }
+		public System.Array Choices {
+			get { return Enum.GetValues(Property.GetType()); }
 			private set { }
 		}
 	}
