@@ -1,4 +1,6 @@
-﻿namespace YuvKA.Test.Pipeline
+﻿using System.Collections.ObjectModel;
+
+namespace YuvKA.Test.Pipeline
 {
 	using System;
 	using System.Collections.Generic;
@@ -116,9 +118,9 @@
 			Frame[] result = rgbSplit.Process(inputs, 0);
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
-					Assert.Equal(result[0][x, y], new Rgb((byte)(x + y), 0, 0));
-					Assert.Equal(result[1][x, y], new Rgb(0, (byte)(x * y), 0));
-					Assert.Equal(result[2][x, y], new Rgb(0, 0, (byte)(x ^ y)));
+					Assert.Equal(new Rgb((byte)(x + y), 0, 0), result[0][x, y]);
+					Assert.Equal(new Rgb(0, (byte)(x * y), 0), result[1][x, y]);
+					Assert.Equal(new Rgb(0, 0, (byte)(x ^ y)), result[2][x, y]);
 				}
 			}
 		}
@@ -138,11 +140,52 @@
 			Frame[] result = addMerNode.Process(inputs, 0);
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
-					Assert.Equal(result[0][x, y].R, inputs[0][x, y].R + inputs[1][x, y].R);
-					Assert.Equal(result[0][x, y].G, inputs[0][x, y].G + inputs[1][x, y].G);
-					Assert.Equal(result[0][x, y].B, inputs[0][x, y].B + inputs[1][x, y].B);
+					Assert.Equal(inputs[0][x, y].R + inputs[1][x, y].R, result[0][x, y].R);
+					Assert.Equal(inputs[0][x, y].G + inputs[1][x, y].G, result[0][x, y].G);
+					Assert.Equal(inputs[0][x, y].B + inputs[1][x, y].B, result[0][x, y].B);
 				}
 			}
+		}
+
+
+		[Fact]
+		public void TestWeightedAverageMerge()
+		{
+			Size testSize = new Size(5, 5);
+			Frame[] inputs = {new Frame(testSize), new Frame(testSize), new Frame(testSize) };
+			for (int x = 0; x < testSize.Width; x++ ) {
+				for (int y = 0; y < testSize.Height; y++) {
+					inputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
+					inputs[1][x, y] = new Rgb((byte)(x * y), (byte)(x * y), (byte)(x * y));
+					inputs[2][x, y] = new Rgb((byte)(x ^ y), (byte)(x ^ y), (byte)(x ^ y));
+				}
+			}
+
+			WeightedAveragedMergeNode node = new WeightedAveragedMergeNode();
+			node.Weights = new ObservableCollection<double> { 0, 0.25, 1 };
+			Frame[] result = node.Process(inputs, 0);
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					Assert.Equal((byte) ((0.25 * inputs[1][x, y].R + inputs[2][x, y].R) / 1.25), result[0][x, y].R);
+					Assert.Equal((byte) ((0.25 * inputs[1][x, y].G + inputs[2][x, y].G) / 1.25), result[0][x, y].G);
+					Assert.Equal((byte) ((0.25 * inputs[1][x, y].B + inputs[2][x, y].B) / 1.25), result[0][x, y].B);
+				}
+			}
+
+			WeightedAveragedMergeNode secondNode = new WeightedAveragedMergeNode();
+			node.Weights = new ObservableCollection<double> {0.5, 0.5, 0.5};
+			secondNode.Weights = new ObservableCollection<double> {0.75, 0.75, 0.75};
+			result = node.Process(inputs, 0);
+			Frame[] secondResult = secondNode.Process(inputs, 0);
+
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					Assert.Equal(result[0][x, y].R, secondResult[0][x, y].R);
+					Assert.Equal(result[0][x, y].G, secondResult[0][x, y].G);
+					Assert.Equal(result[0][x, y].B, secondResult[0][x, y].B);
+				}
+			}
+
 		}
 
 		[Fact]
@@ -159,9 +202,9 @@
 			Frame[] result = inverter.Process(inputs, 0);
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
-					Assert.Equal(result[0][x, y].R, 255 - inputs[0][x, y].R);
-					Assert.Equal(result[0][x, y].G, 255 - inputs[0][x, y].G);
-					Assert.Equal(result[0][x, y].B, 255 - inputs[0][x, y].B);
+					Assert.Equal(255 - inputs[0][x, y].R, result[0][x, y].R);
+					Assert.Equal(255 - inputs[0][x, y].G, result[0][x, y].G);
+					Assert.Equal(255 - inputs[0][x, y].B, result[0][x, y].B);
 				}
 			}
 		}
