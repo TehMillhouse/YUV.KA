@@ -63,7 +63,7 @@
     <Compile Include="ViewModel\HistogramViewModel.cs" />
     <Compile Include="ViewModel\OverlayViewModel.cs" />
     <Compile Include="Pipeline\AdditiveMergeNode.cs" />
-    <Compile Include="Pipeline\AveragedMergeNode.cs" />
+    <Compile Include="Pipeline\WeightedAveragedMergeNode.cs" />
     <Compile Include="Pipeline\BlurNode.cs" />
     <Compile Include="Pipeline\BlurType.cs" />
     <Compile Include="Pipeline\BrightnessContrastSaturationNode.cs" />
