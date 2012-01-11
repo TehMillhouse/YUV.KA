@@ -2,7 +2,6 @@
 
 namespace YuvKA.Test.Pipeline
 {
-	using System.Drawing;
 	using Xunit;
 	using YuvKA.Pipeline.Implementation;
 	using YuvKA.VideoModel;
@@ -125,7 +124,7 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void TestAdditiveMerge()
 		{
-			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
+			Size testSize = new Size(5, 5);
 			Frame[] inputs = { new Frame(testSize), new Frame(testSize) };
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
@@ -148,7 +147,7 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void TestWeightedAverageMerge()
 		{
-			Size testSize = new Size(5, 5);
+			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
 			Frame[] inputs = {new Frame(testSize), new Frame(testSize), new Frame(testSize) };
 			for (int x = 0; x < testSize.Width; x++ ) {
 				for (int y = 0; y < testSize.Height; y++) {
@@ -182,7 +181,6 @@ namespace YuvKA.Test.Pipeline
 					Assert.Equal(result[0][x, y].B, secondResult[0][x, y].B);
 				}
 			}
-
 		}
 
 		[Fact]
@@ -209,7 +207,7 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void TestBrightnessContrastSaturation()
 		{
-			Bitmap image = new Bitmap("..\\..\\..\\..\\output\\papagei.png");
+			System.Drawing.Bitmap image = new System.Drawing.Bitmap("..\\..\\..\\..\\output\\papagei.png");
 			YuvKA.VideoModel.Size size = new VideoModel.Size(image.Width, image.Height);
 			Frame[] inputFrames = { new Frame(size) };
 			BrightnessContrastSaturationNode bcsNode = new BrightnessContrastSaturationNode();
@@ -231,7 +229,7 @@ namespace YuvKA.Test.Pipeline
 			for (int y = 0; y < size.Height; y++) {
 				for (int x = 0; x < size.Width; ++x) {
 					// Reuse the created image object
-					image.SetPixel(x, y, Color.FromArgb(outputFrames[0][x, y].R,
+					image.SetPixel(x, y, System.Drawing.Color.FromArgb(outputFrames[0][x, y].R,
 														outputFrames[0][x, y].G,
 														outputFrames[0][x, y].B));
 				}
