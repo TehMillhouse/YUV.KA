@@ -14,39 +14,42 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void TestDiagramNode()
 	    {
+            // Add Input Node for DiagramNode with 3 Outputs.
             AnonymousNode SourceNode = new AnonymousNode(sourceNode, 3);
             Frame[] inputs = SourceNode.Process(null, 0);
-
+            
+            // Generate DiagramNode and add referencevideo.
             Node.Input reference = new Node.Input();
             reference.Source = SourceNode.Outputs[0];
             DiagramNode diaNode = new DiagramNode();
             diaNode.ReferenceVideo = reference;
             diaNode.Inputs.Add(reference);
-
+           
+            // Add other Outputs as Inputs to DiagramNode.
             Node.Input video = new Node.Input();
             video.Source = SourceNode.Outputs[1];
             diaNode.Inputs.Add(video);
-
 		    Node.Input annVid = new Node.Input();
 		    annVid.Source = SourceNode.Outputs[2];
             diaNode.Inputs.Add(annVid);
 
+            // Generate and add all GraphTypes to DiagramGraph once.
             DiagramGraph pixDiff = new DiagramGraph();
             pixDiff.Video = video;
             pixDiff.Type = new PixelDiff();
-
             DiagramGraph pSNR = new DiagramGraph();
             pSNR.Video = video;
             pSNR.Type = new PeakSignalNoiseRatio();
-
             DiagramGraph inBlFreq = new DiagramGraph();
             inBlFreq.Video = annVid;
             inBlFreq.Type = new IntraBlockFrequency();
-
             diaNode.Graphs.Add(pixDiff);
             diaNode.Graphs.Add(pSNR);
             diaNode.Graphs.Add(inBlFreq);
+
             diaNode.Process(inputs, 0);
+
+            // Calculate expected results independently from DiagramGraph methods.
             double MSE = 0.0;
             double difference = 0.0;
             for (int x = 0; x < inputs[0].Size.Width; x++)
@@ -71,6 +74,8 @@ namespace YuvKA.Test.Pipeline
             Assert.Equal(diaNode.Graphs[2].Data[0], 2);
 		}
 
+        /* A Process method to be used by AnonymousNodes.
+         * Generates an array of 2 Frames and 1 AnnotatedFrame with randomly filled Data */
         private Frame[] sourceNode(Frame[] inputs, int tick)
         {
             VideoModel.Size testSize = new VideoModel.Size(5, 5);
@@ -86,6 +91,7 @@ namespace YuvKA.Test.Pipeline
             return outputs;
         }
 
+        /* Generates an AnnotatedFrame with randomly filled Data */
         private AnnotatedFrame generateAnnFrame()
         {
             VideoModel.Size testSize = new VideoModel.Size(8, 8);
@@ -111,6 +117,7 @@ namespace YuvKA.Test.Pipeline
         [Fact]
 	    public void TestHistogramNodeRGB()
 		{
+            // Generates an array of 1 Frame with randomly filled Data
 			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
 			Frame[] inputs = { new Frame(testSize) };
 			for (int x = 0; x < testSize.Width; x++) {
@@ -118,15 +125,20 @@ namespace YuvKA.Test.Pipeline
 					inputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
 				}
 			}
+
+            // Generate all RGB HistogramNode once
 			HistogramNode histNodeR = new HistogramNode();
 	        histNodeR.Type = HistogramType.R;
 			HistogramNode histNodeG = new HistogramNode();
 	        histNodeG.Type = HistogramType.G;
 			HistogramNode histNodeB = new HistogramNode();
 	        histNodeB.Type = HistogramType.B;
+
 			histNodeR.Process(inputs, 0);
 			histNodeG.Process(inputs, 0);
 			histNodeB.Process(inputs, 0);
+
+            // Calculate expected results independently from Histogram methods.
 			int[] value = new int[3];
 			int[,] intData = new int[256, 3];
 			for (int x = 0; x < inputs[0].Size.Width; x++) {
@@ -149,6 +161,7 @@ namespace YuvKA.Test.Pipeline
         [Fact]
 		public void TestHistogramNodeValue()
 		{
+            // Generates an array of 1 Frame with randomly filled Data
 			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
 			Frame[] inputs = { new Frame(testSize) };
 			for (int x = 0; x < testSize.Width; x++) {
@@ -156,9 +169,14 @@ namespace YuvKA.Test.Pipeline
 					inputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
 				}
 			}
+
+            // Generate Value HistogramNode once
 			HistogramNode histNodeValue = new HistogramNode();
             histNodeValue.Type = HistogramType.Value;
+
 			histNodeValue.Process(inputs, 0);
+
+            // Calculate expected results independently from Histogram method.
 			Color rgbValue;
 			int value;
 			int[] intData = new int[256];
