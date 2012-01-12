@@ -10,7 +10,7 @@
 		<ItemsControl ItemsSource="{Binding NodeTypes}">
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-					<Border CornerRadius="2" BorderBrush="CornflowerBlue" Padding="10" Margin="3" BorderThickness="3" cal:Message.Attach="[Event MouseDown] = [Action BeginDrag($this)]">
+					<Border CornerRadius="2" BorderBrush="CornflowerBlue" Padding="10" Background="Transparent" Margin="3" BorderThickness="3" cal:Message.Attach="[Event MouseDown] = [Action BeginDrag($dataContext)]">
 						<TextBlock Text="{Binding Type.Name}"/>
 					</Border>
 				</DataTemplate>
