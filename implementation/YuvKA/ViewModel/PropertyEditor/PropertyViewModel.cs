@@ -10,7 +10,6 @@ namespace YuvKA.ViewModel.PropertyEditor
 		{
 			Source = source;
 			Property = pd;
-			Value = pd.GetValue(Source);
 		}
 
 		public object Source { get; private set; }
