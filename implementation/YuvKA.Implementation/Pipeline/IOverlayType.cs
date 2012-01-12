@@ -8,10 +8,9 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public interface IOverlayType
 	{
-		bool DependsOnReference
-		{
-			get;
-		}
+		bool DependsOnReference { get; }
+		bool DependsOnLogfiles { get; }
+		bool DependsOnVectors { get; }
 	
 		Frame Process(Frame frame, Frame reference);
 	}

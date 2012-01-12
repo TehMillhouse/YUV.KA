@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -7,19 +8,23 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
-    [DataContract]
+	[DataContract]
 	public class OverlayNode : OutputNode
 	{
-		public OverlayNode() : base(inputCount: 1)
+		public OverlayNode() : base(inputCount: 2)
 		{
 		}
 
-        [DataMember]
+		[DataMember]
 		public IOverlayType Type { get; set; }
+
+		[DataMember]
+		[Browsable(false)]
+		public Frame Data { get; private set; }
 
 		public override void ProcessCore(Frame[] inputs, int tick)
 		{
-			throw new NotImplementedException();
+			Data = Type.Process(inputs[0], (Type.DependsOnReference) ? inputs[1] : null);
 		}
 	}
 }
