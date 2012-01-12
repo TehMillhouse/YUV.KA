@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using YuvKA.Pipeline;
+using System.Collections.ObjectModel;
 
 namespace YuvKA.ViewModel
 {
@@ -11,7 +12,7 @@ namespace YuvKA.ViewModel
 		public PipelineViewModel(MainViewModel parent)
 		{
 			Parent = parent;
-			Nodes = Parent.Model.Graph.Nodes.Select(n => new NodeViewModel(n, Parent)).ToList();
+			Nodes = new ObservableCollection<NodeViewModel>(Parent.Model.Graph.Nodes.Select(n => new NodeViewModel(n, Parent)));
 		}
 
 		public MainViewModel Parent { get; private set; }
@@ -23,6 +24,7 @@ namespace YuvKA.ViewModel
 			var type = (NodeType)e.Data.GetData(typeof(NodeType));
 			var node = (Node)Activator.CreateInstance(type.Type);
 			Parent.Model.Graph.Nodes.Add(node);
+			Nodes.Add(new NodeViewModel(node, Parent));
 		}
 	}
 }
