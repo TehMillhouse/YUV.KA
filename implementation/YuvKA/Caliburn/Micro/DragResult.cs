@@ -19,6 +19,7 @@ namespace Caliburn.Micro
 		public void Execute(ActionExecutionContext context)
 		{
 			DragDrop.DoDragDrop(context.Source, data, allowedEffects);
+			Completed(this, new ResultCompletionEventArgs());
 		}
 	}
 }
