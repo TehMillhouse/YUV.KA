@@ -2,12 +2,18 @@
 {
 	public class AnnotatedFrame : Frame
 	{
-		public AnnotatedFrame(Size size, MacroblockDecision[] decisions)
+		public AnnotatedFrame(Size size, MacroblockDecision[,] decisions)
 			: base(size)
 		{
 			Decisions = decisions;
 		}
 
-		public MacroblockDecision[] Decisions { get; private set; }
+		public AnnotatedFrame(Frame frame, MacroblockDecision[,] decisions)
+			: base(frame.Size)
+		{
+			
+		}
+
+		public MacroblockDecision[,] Decisions { get; private set; }
 	}
 }
