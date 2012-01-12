@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using YuvKA.VideoModel;
+using System.IO;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -58,8 +59,19 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			get
 			{
-				EnsureInputLoaded();
-				return input.FrameCount;
+				if (InputIsValid) {
+					EnsureInputLoaded();
+					return input.FrameCount;
+				}
+				return 0;
+			}
+		}
+
+		public override bool InputIsValid
+		{
+			get
+			{
+				return File.Exists(fileName.Path) && (logFileName == null || File.Exists(logFileName.Path));
 			}
 		}
 

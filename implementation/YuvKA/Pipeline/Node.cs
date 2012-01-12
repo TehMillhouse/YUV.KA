@@ -38,6 +38,14 @@ namespace YuvKA.Pipeline
 		[DataMember]
 		public double Y { get; set; }
 
+		virtual public bool InputIsValid
+		{
+			get
+			{
+				return Inputs.All(input => input.Source != null && !input.Source.Node.InputIsValid);
+			}
+		}
+
 		/// <summary>
 		/// Represents the number of frames the node needs to precompute before he can process the frame of the current tick.
 		/// </summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
@@ -47,9 +48,9 @@ namespace YuvKA.Pipeline
 		[Import]
 		IEventAggregator Events { get; set; }
 
-		public void Start(IEnumerable<Node> outputNodes)
+		public bool Start(IEnumerable<Node> outputNodes)
 		{
-			RenderTicks(outputNodes, Graph.TickCount);
+			return RenderTicks(outputNodes, Graph.TickCount);
 		}
 
 		public void Stop()
@@ -63,8 +64,10 @@ namespace YuvKA.Pipeline
 			RenderTicks(outputNodes, tickCount: 1);
 		}
 
-		private void RenderTicks(IEnumerable<Node> outputNodes, int tickCount)
+		private bool RenderTicks(IEnumerable<Node> outputNodes, int tickCount)
 		{
+			if (!outputNodes.All(node => node.InputIsValid))
+				return false;
 			cts = new CancellationTokenSource();
 			driver.RenderTicks(outputNodes, CurrentTick, tickCount, cts).ForEach(dic => {
 				if (lastTick.HasValue) {
@@ -76,6 +79,7 @@ namespace YuvKA.Pipeline
 				Events.Publish(new TickRenderedMessage(dic));
 				CurrentTick++;
 			});
+			return true;
 		}
 	}
 }
