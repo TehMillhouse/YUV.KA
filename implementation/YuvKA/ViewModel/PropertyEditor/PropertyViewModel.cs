@@ -6,14 +6,29 @@ namespace YuvKA.ViewModel.PropertyEditor
 {
 	public abstract class PropertyViewModel
 	{
-		public object Source { get { throw new NotImplementedException(); } }
-		public PropertyDescriptor Property { get { throw new NotImplementedException(); } }
-		public object Value { get { throw new NotImplementedException(); } set { } }
+		public PropertyViewModel(object source, PropertyDescriptor pd)
+		{
+			Source = source;
+			Property = pd;
+			Value = pd.GetValue(Source);
+		}
+
+		public object Source { get; private set; }
+		public PropertyDescriptor Property { get; private set; }
+		public object Value
+		{
+			get { return Property.GetValue(Source); }
+			set { Property.SetValue(Source, value); }
+		}
 	}
 
 	[InheritedExport]
 	public abstract class PropertyViewModel<T> : PropertyViewModel
 	{
-		public new T Value { get { throw new NotImplementedException(); } set { } }
+		public PropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
+		{
+		}
+
+		public new T Value { get { return (T)Value; } set { this.Value = (T)value; } }
 	}
 }
