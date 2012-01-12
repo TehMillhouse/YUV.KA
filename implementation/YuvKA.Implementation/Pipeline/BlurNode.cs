@@ -19,7 +19,7 @@ namespace YuvKA.Pipeline.Implementation
 		public BlurType Type { get; set; }
 
 		[DataMember]
-		[Range(0.0, double.PositiveInfinity)]
+		[Range(0.0, 42.0)]
 		public int Radius { get; set; }
 
 		#region INode Members

@@ -45,12 +45,12 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 
 		public int Width {
-			get { return ((Size)Property.GetValue(Source)).Width; }
-			set { Property.SetValue(Source, new Size(value, ((Size)Property.GetValue(Source)).Height)); }
+			get { return Value.Width; }
+			set { Value = new Size(value, Height); }
 		}
 		public int Height {
-			get { return ((Size)Property.GetValue(Source)).Height; }
-			set { Property.SetValue(Source, new Size(((Size)Property.GetValue(Source)).Width, value)); }
+			get { return Value.Height; }
+			set { Value = new Size(Width, value); }
 		}
 	}
 
@@ -60,12 +60,12 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		{
 		}
 
-		public double? Minimum {
-			get { return (double?)(Property.Attributes.OfType<RangeAttribute>().First().Minimum); }
+		public double Minimum {
+			get { return (double)(Property.Attributes.OfType<RangeAttribute>().First().Minimum); }
 			private set { }
 		}
-		public double? Maximum {
-			get { return (double?)(Property.Attributes.OfType<RangeAttribute>().First().Maximum); }
+		public double Maximum {
+			get { return (double)(Property.Attributes.OfType<RangeAttribute>().First().Maximum); }
 			private set { }
 		}
 	}
