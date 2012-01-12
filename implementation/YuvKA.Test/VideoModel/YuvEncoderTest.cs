@@ -29,7 +29,7 @@ namespace YuvKA.Test.ViewModel
 			string fileName = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv"; // be sure to adjust this beforehand
 			string saveName = "..\\..\\..\\..\\output\\"; // warning, depending on the file, this produces a lot of images
 			// leave the file extension away
-			YuvEncoder.Video video = new YuvEncoder.Video(fileName, null, new VideoModel.Size(width, height));
+			YuvEncoder.Video video = new YuvEncoder.Video(new VideoModel.Size(width, height), fileName, null, null);
 			// Don't expect this to work if the filename doesn't happen to be formatted
 			// just the right way
 			Assert.Equal(video.FrameCount, int.Parse(fileName.Substring(fileName.Length - 7, 3)));
@@ -58,7 +58,7 @@ namespace YuvKA.Test.ViewModel
 			int height = 240;
 			string fileName = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv"; // be sure to adjust this beforehand
 			string saveName = "..\\..\\..\\..\\output\\output.yuv"; // warning, depending on the file, this produces a lot of images
-			YuvEncoder.Video video = new YuvEncoder.Video(fileName, null, new VideoModel.Size(width, height));
+			YuvEncoder.Video video = new YuvEncoder.Video(new VideoModel.Size(width, height), fileName, null, null);
 			IEnumerable<Frame> frameList = Enumerable.Range(0, video.FrameCount).Select(i => video[i]);
 			YuvEncoder.Encode(saveName, frameList);
 		}
@@ -79,7 +79,7 @@ namespace YuvKA.Test.ViewModel
 			string source = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv";
 			string finalFile = "..\\..\\..\\..\\output\\multipass.png";
 
-			YuvEncoder.Video video = new YuvEncoder.Video(source, null, size);
+			YuvEncoder.Video video = new YuvEncoder.Video(size, source, null, null);
 			Frame frame = video[79];
 			for (int i = 0; i < 20; i++) {
 				// herp = YuvEncoder.YuvToRgb(YuvEncoder.RgbToYuv(herp), width, height);

@@ -54,6 +54,18 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
+		[DisplayName("Optional Motion Vector File")]
+		[DataMember]
+		public FilePath MotionVectorFileName
+		{
+			get { return MotionVectorFileName; }
+			set
+			{
+				MotionVectorFileName = value;
+				input = null;
+			}
+		}
+
 		[Browsable(false)]
 		public override int TickCount
 		{
@@ -94,7 +106,7 @@ namespace YuvKA.Pipeline.Implementation
 		private void EnsureInputLoaded()
 		{
 			if (input == null)
-				input = YuvEncoder.Decode(FileName.Path, LogFileName.Path, Size.Width, Size.Height);
+				input = YuvEncoder.Decode(Size.Width, Size.Height, FileName.Path, LogFileName.Path, MotionVectorFileName.Path);
 		}
 	}
 }

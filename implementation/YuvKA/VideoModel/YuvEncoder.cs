@@ -6,10 +6,10 @@ namespace YuvKA.VideoModel
 {
 	public static class YuvEncoder
 	{
-		public static Video Decode(string fileName, string logFileName, int width, int height)
+		public static Video Decode(int width, int height, string fileName, string logFileName = null, string motionVectorFileName = null)
 		{
 			// Nothing to see here, move along.
-			return new Video(fileName, logFileName, new Size(width, height));
+			return new Video(new Size(width, height), fileName, logFileName, motionVectorFileName);
 		}
 
 		public static void Encode(string fileName, IEnumerable<Frame> frames)
@@ -37,11 +37,11 @@ namespace YuvKA.VideoModel
 			// Since a Yuv frame in our format has both U and V frames with only 1/4 the size
 			// of the Y frame, the total frame size in bytes is Ysize + 2( 1/4 Ysize )
 			int yuvFrameSize = (int)(imageSize.Height * imageSize.Width * 1.5);
-			FileInfo fi = new FileInfo(fileName);
-			if (!fi.Exists) {
+			FileInfo file = new FileInfo(fileName);
+			if (!file.Exists) {
 				throw new FileNotFoundException();
 			}
-			if (fi.Length < (yuvFrameSize * (startFrame + frameCount))) {
+			if (file.Length < (yuvFrameSize * (startFrame + frameCount))) {
 				// Someone's trying to fetch a frame that isn't there
 				throw new IndexOutOfRangeException();
 			}
@@ -79,7 +79,7 @@ namespace YuvKA.VideoModel
 					// Get YUV data from given dataset
 					ypixel = data[coordOffset];
 					upixel = data[pixelNum + ((width / 2) * (y / 2) + x / 2)];
-					vpixel = data[(pixelNum + quartSize) + ((width / 2) * (y / 2)  + x / 2)];
+					vpixel = data[(pixelNum + quartSize) + ((width / 2) * (y / 2) + x / 2)];
 
 					// Convert data to RGB values
 					// YCrCb conversion as described by ITU-R 601, with tweaked coefficients
@@ -94,7 +94,7 @@ namespace YuvKA.VideoModel
 
 		private static byte ClampToByte(double value)
 		{
-			return (byte) Math.Max(Math.Min(value, 255), 0);
+			return (byte)Math.Max(Math.Min(value, 255), 0);
 		}
 
 		/// <summary>
@@ -140,6 +140,36 @@ namespace YuvKA.VideoModel
 			return yuvData;
 		}
 
+		private static byte[] ReadLogData(string logFileName, int startFrame, Size imageSize, int frameCount)
+		{
+			//The logfile contains one byte for every 16x16 macroblock per frame
+			int logFrameSize = (int)(imageSize.Height / 16 * imageSize.Width / 16);
+			FileInfo logFile = new FileInfo(logFileName);
+			if (!logFile.Exists) {
+				throw new FileNotFoundException();
+			}
+			if (logFile.Length < (logFrameSize * (startFrame + frameCount))) {
+				// Someone's trying to fetch a macroblockdecisions that isn't there
+				throw new IndexOutOfRangeException();
+			}
+			byte[] data = new byte[logFrameSize * frameCount];
+			using (FileStream stream = new FileStream(logFileName, FileMode.Open)) {
+				stream.Seek(logFrameSize * startFrame, SeekOrigin.Begin);
+				stream.Read(data, 0, logFrameSize * frameCount);
+			}
+			return data;
+		}
+
+		private static AnnotatedFrame AddMacroblockDecisions(Frame frame, byte[] bytes)
+		{
+			MacroblockDecision[] decisions = new MacroblockDecision[frame.Size.Width / 16 * frame.Size.Height / 16];
+			for (int i = 0; i < decisions.Length && i < bytes.Length; i++) {
+				decisions[i] = new MacroblockDecision();
+				decisions[i].PartitioningDecision = (MacroblockPartitioning)bytes[i];
+			}
+			return new AnnotatedFrame(frame, decisions);
+		}
+
 		#endregion Helper methods
 
 		#region Video class
@@ -155,25 +185,30 @@ namespace YuvKA.VideoModel
 			private Size frameSize;
 			private string fileName;
 			private string logFileName;
+			private string motionVectorFileName;
 
 			/// <summary>
 			/// Ctor for for the Video object. At this point, it is expected
 			/// that the resolution of the video be known
 			/// </summary>
+			/// <param name="size">
+			/// The resolution at which to read the frames from the file.
+			/// Since the yuv format bears no metadata whatsoever, this has to be correct in order
+			/// for the video to be outputted correctly.
+			/// </param>
 			/// <param name="fileName">
 			/// The name of the file to read. This has to be a valid
 			/// yuv file, otherwise things go wrong. Throws FileNotFoundException.
 			/// </param>
 			/// <param name="logFileName">
 			/// Optional. The log file to use for the yuv video
-			/// TODO implement use of log files
+			/// TODO implement tests of log files
 			/// </param>
-			/// <param name="size">
-			/// The resolution at which to read the frames from the file.
-			/// Since the yuv format bears no metadata whatsoever, this has to be correct in order
-			/// for the video to be outputted correctly.
+			/// <param name="motionVectorFileName">
+			/// Optional. The motion vector file to use for the yuv video
+			/// TODO implement use of motion vector files
 			/// </param>
-			public Video(string fileName, string logFileName, Size size)
+			public Video(Size size, string fileName, string logFileName, string motionVectorFileName)
 			{
 				frameSize = size;
 				cachedBaseTick = null;
@@ -182,11 +217,11 @@ namespace YuvKA.VideoModel
 				if (!file.Exists) {
 					throw new FileNotFoundException();
 				}
-				if (logFileName != null) {
-					FileInfo log = new FileInfo(logFileName);
-					if (log.Exists) {
-						this.logFileName = logFileName;
-					}
+				if (logFileName != null && File.Exists(logFileName)) {
+					this.logFileName = logFileName;
+				}
+				if (motionVectorFileName != null && File.Exists(motionVectorFileName)) {
+					this.motionVectorFileName = motionVectorFileName;
 				}
 				// Calculate number of frames in the yuv file
 				FrameCount = (int)file.Length / (size.Width * size.Height + size.Width * size.Height / 2);
@@ -202,29 +237,44 @@ namespace YuvKA.VideoModel
 			// as if the Video were an array of frames
 			public Frame this[int index]
 			{
-				get {
+				get
+				{
 					if (index < 0 || index >= FrameCount) {
 						throw new IndexOutOfRangeException();
 					}
 					// If the requested frame is not in the cache, load it from file
 					int yuvFrameSize = (int)(frameSize.Height * frameSize.Width * 1.5);
-					// If the cache is larger than the remaining number of frames in the video, we can't fetch them all
+					// If the cache is larger than the remaining number of frames in the video, we can't fill the whole cache
 					int fetchFramesCount = Math.Min(frameCache.Length, FrameCount - index);
 
 					if ((cachedBaseTick == null) || (index >= cachedBaseTick + fetchFramesCount) || (index < cachedBaseTick)) {
 						// requested frame is not cached, so we read enough data from file
 						byte[] yuvData = ReadYuvFrames(fileName, index, frameSize, fetchFramesCount);
 						byte[] frameData = new byte[yuvFrameSize];
+
 						for (int i = 0; i < fetchFramesCount; i++) {
 							// copy data for one frame into temporary array
 							Array.Copy(yuvData, yuvFrameSize * i, frameData, 0, yuvFrameSize);
 							// commit the frame we can calculate from this to cache
 							frameCache[i] = YuvToRgb(frameData, frameSize.Width, frameSize.Height);
 						}
+
+						// fetch and add log data if available
+						if (logFileName != null) {
+							int logFrameSize = (int)(frameSize.Height / 16 * frameSize.Width / 16);
+							byte[] logData = ReadLogData(logFileName, index, frameSize, fetchFramesCount);
+							byte[] logFrameData = new byte[logFrameSize];
+							for (int i = 0; i < fetchFramesCount; i++) {
+								Array.Copy(logData, logFrameSize * i, logFrameData, 0, logFrameSize);
+								frameCache[i] = AddMacroblockDecisions(frameCache[i], logFrameData);
+							}
+						}
+
+						//TODO implement fetch and add motion vector data if available
+
 						cachedBaseTick = index;
-						return frameCache[0];
 					}
-					return frameCache[index - (int) cachedBaseTick];
+					return frameCache[index - (int)cachedBaseTick];
 				}
 			}
 		}

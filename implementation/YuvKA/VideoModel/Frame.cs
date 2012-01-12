@@ -12,6 +12,12 @@ namespace YuvKA.VideoModel
 			Size = size;
 		}
 
+		public Frame(Frame frame)
+		{
+			data = frame.data;
+			Size = frame.Size;
+		}
+
 		// Alternate constructor for saving the trouble of using the indexer for everything
 		public Frame(Size size, Rgb[] data)
 		{

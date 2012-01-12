@@ -92,9 +92,9 @@ namespace YuvKA.Test.Pipeline
 		{
 			VideoModel.Size testSize = new VideoModel.Size(8, 8);
 			MacroblockDecision[,] decisions = {{
-				new MacroblockDecision(new Vector(0.0, 0.0), MacroblockPartitioning.Intra4x4),
-				new MacroblockDecision(new Vector(0.0, 0.0), MacroblockPartitioning.Intra4x4),
-				new MacroblockDecision(new Vector(0.0, 0.0), MacroblockPartitioning.Inter8x4)
+				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4},
+				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4},
+				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision =  MacroblockPartitioning.Inter8x4}
 			}};
 			AnnotatedFrame output = new AnnotatedFrame(testSize, decisions);
 			for (int x = 0; x < testSize.Width; x++) {
