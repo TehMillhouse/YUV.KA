@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
 using Xunit;
 using YuvKA.VideoModel;
 
@@ -51,7 +48,7 @@ namespace YuvKA.Test.ViewModel
 
 		/// <summary>
 		/// Tests the YuvEncoder's ability to decode and encode videos.
-		/// If sucessfull, this test should procude a correct yuv file
+		/// If sucessfull, this test should produce a correct yuv file
 		/// identical (or very close) to the one read from file
 		/// </summary>
 		[Fact]

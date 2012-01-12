@@ -148,8 +148,8 @@ namespace YuvKA.Test.Pipeline
 		public void TestWeightedAverageMerge()
 		{
 			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
-			Frame[] inputs = {new Frame(testSize), new Frame(testSize), new Frame(testSize) };
-			for (int x = 0; x < testSize.Width; x++ ) {
+			Frame[] inputs = { new Frame(testSize), new Frame(testSize), new Frame(testSize) };
+			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
 					inputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
 					inputs[1][x, y] = new Rgb((byte)(x * y), (byte)(x * y), (byte)(x * y));
@@ -162,15 +162,15 @@ namespace YuvKA.Test.Pipeline
 			Frame[] result = node.Process(inputs, 0);
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
-					Assert.Equal((byte) ((0.25 * inputs[1][x, y].R + inputs[2][x, y].R) / 1.25), result[0][x, y].R);
-					Assert.Equal((byte) ((0.25 * inputs[1][x, y].G + inputs[2][x, y].G) / 1.25), result[0][x, y].G);
-					Assert.Equal((byte) ((0.25 * inputs[1][x, y].B + inputs[2][x, y].B) / 1.25), result[0][x, y].B);
+					Assert.Equal((byte)((0.25 * inputs[1][x, y].R + inputs[2][x, y].R) / 1.25), result[0][x, y].R);
+					Assert.Equal((byte)((0.25 * inputs[1][x, y].G + inputs[2][x, y].G) / 1.25), result[0][x, y].G);
+					Assert.Equal((byte)((0.25 * inputs[1][x, y].B + inputs[2][x, y].B) / 1.25), result[0][x, y].B);
 				}
 			}
 
 			WeightedAveragedMergeNode secondNode = new WeightedAveragedMergeNode();
-			node.Weights = new ObservableCollection<double> {0.5, 0.5, 0.5};
-			secondNode.Weights = new ObservableCollection<double> {0.75, 0.75, 0.75};
+			node.Weights = new ObservableCollection<double> { 0.5, 0.5, 0.5 };
+			secondNode.Weights = new ObservableCollection<double> { 0.75, 0.75, 0.75 };
 			result = node.Process(inputs, 0);
 			Frame[] secondResult = secondNode.Process(inputs, 0);
 
@@ -204,6 +204,7 @@ namespace YuvKA.Test.Pipeline
 			}
 		}
 
+		// Reads an image and applies the contrast effect of the BCS-Node to it, then saves it back to file
 		[Fact]
 		public void TestBrightnessContrastSaturation()
 		{

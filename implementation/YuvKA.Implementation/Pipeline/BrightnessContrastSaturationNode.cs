@@ -73,7 +73,7 @@ namespace YuvKA.Pipeline.Implementation
 					blue = (blue > 255 ? 255 : (blue < 0 ? 0 : blue));
 
 					// Apply Contrast
-					double contrast; //= Contrast + 1.0;//((100.0 + 100.0 * Contrast) / 100.0);
+					double contrast;
 					if (Contrast <= 0) {
 						contrast = Contrast + 1;
 					}
@@ -82,17 +82,9 @@ namespace YuvKA.Pipeline.Implementation
 					}
 					contrast *= contrast;
 
-					//contrast += 1.0;
-
 					red = (int)(((((double)red) / 255.0 - 0.5) * contrast + 0.5) * 255.0);
 					green = (int)(((((double)green) / 255.0 - 0.5) * contrast + 0.5) * 255.0);
 					blue = (int)(((((double)blue) / 255.0 - 0.5) * contrast + 0.5) * 255.0);
-
-					//double contrast = Contrast + 1.0;
-
-					//red = (int)((red - 127) * contrast) + 127;
-					//green = (int)((green - 127) * contrast) + 127;
-					//blue = (int)((blue - 127) * contrast) + 127;
 
 					red = (red > 255 ? 255 : (red < 0 ? 0 : red));
 					green = (green > 255 ? 255 : (green < 0 ? 0 : green));
