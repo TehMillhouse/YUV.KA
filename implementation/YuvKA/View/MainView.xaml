@@ -4,7 +4,13 @@
 		xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 		Title="MainWindow" Height="350" Width="525">
 	<DockPanel>
-		<ContentControl cal:View.Model="{Binding ReplayStateViewModel}" DockPanel.Dock="Top"/>
+		<DockPanel DockPanel.Dock="Top">
+			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+				<Button x:Name="Open">Open</Button>
+				<Button x:Name="Save">Save</Button>
+			</StackPanel>
+			<ContentControl cal:View.Model="{Binding ReplayStateViewModel}"/>
+		</DockPanel>
 		<ContentControl cal:View.Model="{Binding ToolboxViewModel}" DockPanel.Dock="Bottom"/>
 		<ContentControl cal:View.Model="{Binding PipelineViewModel}"/>
 	</DockPanel>

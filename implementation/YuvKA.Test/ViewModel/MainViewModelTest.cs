@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using System.Linq;
 using Caliburn.Micro;
 using Xunit;
@@ -85,12 +86,28 @@ namespace YuvKA.Test.ViewModel
 		}
 
 		[Fact]
-		public void NodeViewModelsCreatedFromModel()
+		public void OpenCreatesNodeViewModelsFromModel()
 		{
+			vm.Clear();
 			Assert.Equal(0, vm.PipelineViewModel.Nodes.Count);
 			vm.Model.Graph.Nodes.Add(new AnonymousNode());
-			vm.SaveSnapshot();
-			vm.Undo(); // Force reload of PipelineViewModel
+
+			byte[] serialized;
+
+			using (var enumerator = vm.Save().GetEnumerator()) {
+				enumerator.MoveNext();
+				var stream = new MemoryStream();
+				((ChooseFileResult)enumerator.Current).Stream = stream;
+				Assert.False(enumerator.MoveNext());
+				serialized = stream.ToArray();
+			}
+
+			vm.Clear();
+			using (var enumerator = vm.Open().GetEnumerator()) {
+				enumerator.MoveNext();
+				((ChooseFileResult)enumerator.Current).Stream = new MemoryStream(serialized);
+				Assert.False(enumerator.MoveNext());
+			}
 
 			Assert.Equal(1, vm.PipelineViewModel.Nodes.Count);
 		}

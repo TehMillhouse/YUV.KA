@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using Caliburn.Micro;
-using Microsoft.Win32;
 using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
@@ -13,6 +12,7 @@ namespace YuvKA.ViewModel
 	[Export]
 	public class MainViewModel : PropertyChangedBase
 	{
+		const string pipelineFilter = "YUV.KA Pipeline|*.yuvka";
 		Stack<byte[]> undoStack = new Stack<byte[]>();
 		Stack<byte[]> redoStack = new Stack<byte[]>();
 		PipelineState model;
@@ -63,20 +63,21 @@ namespace YuvKA.ViewModel
 
 		CompositionContainer Container { get; set; }
 
-		public void Save()
+		public IEnumerable<IResult> Save()
 		{
-			var dialog = new SaveFileDialog();
-			if (dialog.ShowDialog() == true) {
-				var serializer = new NetDataContractSerializer();
-				File.WriteAllBytes(dialog.FileName, Serialize(Model));
-			}
+			var file = new ChooseFileResult { OpenReadOnly = false, Filter = pipelineFilter };
+			yield return file; // Let user/test code choose a file, then continue
+			var serializer = new NetDataContractSerializer();
+			using (file.Stream)
+				Serialize(file.Stream, Model);
 		}
 
-		public void Open()
+		public IEnumerable<IResult> Open()
 		{
-			var dialog = new OpenFileDialog();
-			if (dialog.ShowDialog() == true)
-				Model = Deserialize(File.ReadAllBytes(dialog.FileName));
+			var file = new ChooseFileResult { Filter = pipelineFilter };
+			yield return file; // Let user/test code choose a file, then continue
+			using (file.Stream)
+				Model = Deserialize(file.Stream);
 		}
 
 		public void Clear()
@@ -112,19 +113,29 @@ namespace YuvKA.ViewModel
 			Model.RenderTick(new[] { window.NodeModel });
 		}
 
+		void Serialize(Stream stream, PipelineState state)
+		{
+			new NetDataContractSerializer().Serialize(stream, state);
+		}
+
 		byte[] Serialize(PipelineState state)
 		{
 			using (var stream = new MemoryStream()) {
-				new NetDataContractSerializer().Serialize(stream, state);
+				Serialize(stream, state);
 				return stream.ToArray();
 			}
+		}
+
+		PipelineState Deserialize(Stream stream)
+		{
+			return (PipelineState)new NetDataContractSerializer().Deserialize(stream);
 		}
 
 		PipelineState Deserialize(byte[] data)
 		{
 			OpenWindows.Clear(); // TODO: for now...
 			using (var stream = new MemoryStream(data))
-				return (PipelineState)new NetDataContractSerializer().Deserialize(stream);
+				return Deserialize(stream);
 		}
 	}
 }

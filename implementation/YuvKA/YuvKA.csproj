@@ -73,6 +73,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Caliburn\Micro\ChooseFileResult.cs" />
     <Compile Include="Caliburn\Micro\DragResult.cs" />
     <Compile Include="Caliburn\Micro\Logging\DebugLogger.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
