@@ -8,6 +8,7 @@
 			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
 				<Button x:Name="Open">Open</Button>
 				<Button x:Name="Save">Save</Button>
+				<Button x:Name="Clear">Clear</Button>
 			</StackPanel>
 			<ContentControl cal:View.Model="{Binding ReplayStateViewModel}"/>
 		</DockPanel>
