@@ -55,19 +55,24 @@ namespace YuvKA.Pipeline
 			get { return 0; }
 		}
 
+		[DataMember]
 		[Browsable(false)]
 		public IList<Input> Inputs { get; private set; }
 
+		[DataMember]
 		[Browsable(false)]
 		public IList<Output> Outputs { get; private set; }
 
 		public abstract Frame[] Process(Frame[] inputs, int tick);
 
+		[DataContract]
 		public class Input
 		{
+			[DataMember]
 			public Output Source { get; set; }
 		}
 
+		[DataContract]
 		public class Output
 		{
 			public Output(Node node)
@@ -75,6 +80,7 @@ namespace YuvKA.Pipeline
 				Node = node;
 			}
 
+			[DataMember]
 			public Node Node { get; private set; }
 		}
 	}
