@@ -14,11 +14,15 @@ namespace YuvKA.VideoModel
 
 		public static void Encode(string fileName, IEnumerable<Frame> frames)
 		{
-			using (FileStream outputFile = new FileStream(fileName, FileMode.Create)) {
-				foreach (Frame frame in frames) {
-					byte[] yuvData = RgbToYuv(frame);
-					outputFile.Write(yuvData, 0, yuvData.Length);
-				}
+			using (var stream = new FileStream(fileName, FileMode.Create))
+				Encode(stream, frames);
+		}
+
+		public static void Encode(Stream stream, IEnumerable<Frame> frames)
+		{
+			foreach (Frame frame in frames) {
+				byte[] yuvData = RgbToYuv(frame);
+				stream.Write(yuvData, 0, yuvData.Length);
 			}
 		}
 
