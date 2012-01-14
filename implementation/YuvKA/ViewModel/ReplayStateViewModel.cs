@@ -37,6 +37,7 @@ namespace YuvKA.ViewModel
 		{
 			Parent.Model.CurrentTick = 0;
 			IsPlaying = false;
+			NotifyOfPropertyChange(() => IsPlaying);
 		}
 
 		public void Faster()
