@@ -5,16 +5,18 @@
 	using System.ComponentModel.Composition;
 	using System.ComponentModel.Composition.Hosting;
 	using System.ComponentModel.Composition.Primitives;
+	using System.Diagnostics;
 	using System.IO;
 	using System.Linq;
 	using System.Reflection;
 	using Caliburn.Micro;
-	using Caliburn.Micro.Logging;
 	using YuvKA.ViewModel;
 
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "God class")]
 	public class AppBootstrapper : Bootstrapper<MainViewModel>
 	{
+		static readonly string exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
 		CompositionContainer container;
 
 		/// <summary>
@@ -23,7 +25,7 @@
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "God class")]
 		protected override void Configure()
 		{
-			LogManager.GetLog = t => new DebugLogger(t);
+			LogManager.GetLog = _ => new Logger();
 			ViewLocator.NameTransformer.AddRule("ViewModel", "View");
 
 			var catalog = new AggregateCatalog(
@@ -45,7 +47,6 @@
 		// Return exe and all dlls in Plugins folder.
 		protected override IEnumerable<System.Reflection.Assembly> SelectAssemblies()
 		{
-			var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 			var pluginDir = Path.Combine(exeDir, "Plugins");
 			return base.SelectAssemblies().Concat(Directory.EnumerateFiles(pluginDir, "*.dll").Select(Assembly.LoadFile));
 		}
@@ -69,6 +70,36 @@
 		protected override void BuildUp(object instance)
 		{
 			container.SatisfyImportsOnce(instance);
+		}
+
+		class Logger : ILog
+		{
+			static readonly string logFile = Path.Combine(exeDir, "Caliburn.log");
+			public Logger()
+			{
+				File.Delete(logFile);
+			}
+
+			public void Error(Exception exception)
+			{
+				Debug.WriteLine(CreateLogMessage(exception.ToString()), "ERROR");
+				throw exception;
+			}
+
+			public void Info(string format, params object[] args)
+			{
+				File.AppendAllText(logFile, "\r\nINFO: " + CreateLogMessage(format, args));
+			}
+
+			public void Warn(string format, params object[] args)
+			{
+				Debug.WriteLine(CreateLogMessage(format, args), "WARN");
+			}
+
+			string CreateLogMessage(string format, params object[] args)
+			{
+				return string.Format("[{0}] {1}", DateTime.Now.ToString("o"), string.Format(format, args));
+			}
 		}
 	}
 }
