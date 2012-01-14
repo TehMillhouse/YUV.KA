@@ -84,7 +84,7 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			get
 			{
-				return File.Exists(fileName.Path) && (logFileName == null || File.Exists(logFileName.Path));
+				return File.Exists(fileName.Path) && (logFileName.Path == null || File.Exists(logFileName.Path));
 			}
 		}
 
