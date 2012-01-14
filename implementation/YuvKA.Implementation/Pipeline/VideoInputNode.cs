@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using YuvKA.VideoModel;
-using System.IO;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -14,6 +14,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		FilePath fileName = new FilePath(null);
 		FilePath logFileName = new FilePath(null);
+		FilePath motionVectorFileName = new FilePath(null);
 		YuvEncoder.Video input;
 
 		public VideoInputNode()
@@ -58,10 +59,10 @@ namespace YuvKA.Pipeline.Implementation
 		[DataMember]
 		public FilePath MotionVectorFileName
 		{
-			get { return MotionVectorFileName; }
+			get { return motionVectorFileName; }
 			set
 			{
-				MotionVectorFileName = value;
+				motionVectorFileName = value;
 				input = null;
 			}
 		}
