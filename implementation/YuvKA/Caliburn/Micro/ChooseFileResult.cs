@@ -11,11 +11,11 @@ namespace Caliburn.Micro
 			OpenReadOnly = true;
 		}
 
+		public event EventHandler<ResultCompletionEventArgs> Completed;
+
 		public bool OpenReadOnly { get; set; }
 		public string Filter { get; set; }
 		public Stream Stream { get; set; }
-
-		public event EventHandler<ResultCompletionEventArgs> Completed;
 
 		public void Execute(ActionExecutionContext context)
 		{

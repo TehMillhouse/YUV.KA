@@ -12,7 +12,7 @@ namespace YuvKA.ViewModel
 	[Export]
 	public class MainViewModel : PropertyChangedBase
 	{
-		const string pipelineFilter = "YUV.KA Pipeline|*.yuvka";
+		const string PipelineFilter = "YUV.KA Pipeline|*.yuvka";
 		Stack<byte[]> undoStack = new Stack<byte[]>();
 		Stack<byte[]> redoStack = new Stack<byte[]>();
 		PipelineState model;
@@ -66,7 +66,7 @@ namespace YuvKA.ViewModel
 
 		public IEnumerable<IResult> Save()
 		{
-			var file = new ChooseFileResult { OpenReadOnly = false, Filter = pipelineFilter };
+			var file = new ChooseFileResult { OpenReadOnly = false, Filter = PipelineFilter };
 			yield return file; // Let user/test code choose a file, then continue
 			var serializer = new NetDataContractSerializer();
 			using (file.Stream)
@@ -75,7 +75,7 @@ namespace YuvKA.ViewModel
 
 		public IEnumerable<IResult> Open()
 		{
-			var file = new ChooseFileResult { Filter = pipelineFilter };
+			var file = new ChooseFileResult { Filter = PipelineFilter };
 			yield return file; // Let user/test code choose a file, then continue
 			using (file.Stream)
 				Model = Deserialize(file.Stream);
