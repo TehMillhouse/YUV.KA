@@ -37,6 +37,7 @@ namespace YuvKA.ViewModel
 				if (ReplayStateViewModel != null)
 					ReplayStateViewModel.IsPlaying = false;
 				PipelineViewModel = new PipelineViewModel(this);
+				NotifyOfPropertyChange(() => Model);
 			}
 		}
 
