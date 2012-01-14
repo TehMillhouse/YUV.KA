@@ -1,4 +1,6 @@
-﻿using YuvKA.Pipeline;
+﻿using System.Collections.Generic;
+using Caliburn.Micro;
+using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
@@ -15,9 +17,11 @@ namespace YuvKA.ViewModel
 		public Node NodeModel { get; private set; }
 		public MainViewModel Parent { get; private set; }
 
-		public void SaveNodeOutput(Node.Output output)
+		public IEnumerable<IResult> SaveNodeOutput(Node.Output output)
 		{
-			throw new System.NotImplementedException();
+			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv", OpenReadOnly = false };
+			yield return file;
+			IoC.Get<IWindowManager>().ShowDialog(new SaveNodeOutputViewModel(output, file.Stream, Parent.Model));
 		}
 
 		public void ShowNodeOutput(Node.Output output)

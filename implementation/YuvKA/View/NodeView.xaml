@@ -3,8 +3,20 @@
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			mc:Ignorable="d"
 			d:DesignHeight="190" d:DesignWidth="190" >
+	<UserControl.ContextMenu>
+		<!-- Must set Target because ContextMenu creates its own Visual Tree -->
+		<ContextMenu cal:Action.Target="{Binding}" ItemsSource="{Binding NodeModel.Outputs}">
+			<ContextMenu.ItemTemplate>
+				<DataTemplate>
+					<!-- TODO: Show output index and disable menu item when !Node.InputIsValid. We'll need an OutputViewModel for that. -->
+					<MenuItem Header="Save output" cal:Message.Attach="[Event Click] = [Action SaveNodeOutput($dataContext)]"/>
+				</DataTemplate>
+			</ContextMenu.ItemTemplate>
+		</ContextMenu>
+	</UserControl.ContextMenu>
 	<Border Background="LightBlue"  CornerRadius="5" MinHeight="80" MinWidth="80" Margin="10, 10, 10, 10" BorderThickness="3" BorderBrush="LightSkyBlue">
 		<TextBlock Text="{Binding NodeModel}"/>
 	</Border>
