@@ -13,7 +13,6 @@ namespace YuvKA.Pipeline
 	[DataContract]
 	public class PipelineState : PropertyChangedBase
 	{
-		PipelineDriver driver = new PipelineDriver();
 		CancellationTokenSource cts;
 		DateTimeOffset? lastTick;
 		int currentTick;
@@ -21,6 +20,7 @@ namespace YuvKA.Pipeline
 		public PipelineState()
 		{
 			Graph = new PipelineGraph();
+			Driver = new PipelineDriver();
 		}
 
 		[DataMember]
@@ -35,6 +35,8 @@ namespace YuvKA.Pipeline
 				}
 			}
 		}
+
+		public PipelineDriver Driver { get; private set; }
 
 		/// <summary>
 		/// Replay speed in frames per second
@@ -64,12 +66,18 @@ namespace YuvKA.Pipeline
 			RenderTicks(outputNodes, tickCount: 1);
 		}
 
+		[OnDeserialized]
+		void OnDeserialized(StreamingContext context)
+		{
+			Driver = new PipelineDriver();
+		}
+
 		private bool RenderTicks(IEnumerable<Node> outputNodes, int tickCount)
 		{
 			if (!outputNodes.All(node => node.InputIsValid))
 				return false;
 			cts = new CancellationTokenSource();
-			driver.RenderTicks(outputNodes, CurrentTick, tickCount, cts).ForEach(dic => {
+			Driver.RenderTicks(outputNodes, CurrentTick, tickCount, cts).ForEach(dic => {
 				if (lastTick.HasValue) {
 					DateTimeOffset nextTick = lastTick.Value + TimeSpan.FromSeconds(1.0 / Speed);
 					if (DateTimeOffset.Now < nextTick)
