@@ -18,7 +18,7 @@
 						AlignmentX="Left"
 						AlignmentY="Top"/>
 		</ScrollViewer.Background>
-		<Grid FlowDirection="LeftToRight" VerticalAlignment="Bottom">
+		<Grid VerticalAlignment="Top" HorizontalAlignment="Left">
 			<ItemsControl Name="Nodes"/>
 		</Grid>
 	</ScrollViewer>

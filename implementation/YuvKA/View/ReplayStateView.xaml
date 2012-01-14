@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:YuvKA_ViewModel="clr-namespace:YuvKA.ViewModel" x:Class="YuvKA.View.ReplayStateView" 
+      xmlns:kent="http://schemas.kent.boogaart.com/converters"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="100    " d:DesignWidth="300"
 	Name="RSV">
@@ -29,21 +31,62 @@
 		</Style>
 	</UserControl.Resources>
 
-    <Grid Background="#FF9B9B9B">
-    	<Border>
-    		<Grid>
-    			<Button x:Name="PlayPause" Content="Button" HorizontalAlignment="Left" Margin="51,30.25,0,0" Style="{DynamicResource ButtonStyle1}" Width="35" MaxWidth="35" MaxHeight="35" VerticalAlignment="Top" Height="35"/>
-    			<Canvas Margin="47.75,30,0,35" HorizontalAlignment="Left" Width="34">
-    				<Canvas x:Name="PlayTriangle" Height="23.059" Canvas.Left="15.292" Canvas.Top="6.125" Width="13.666">
-    					<Path Data="M9.9166667,6.0833333 L9.9166667,27.016594" Fill="#FFF4F4F5" Height="23.059" Stretch="Fill" Stroke="Black" Width="1" StrokeStartLineCap="Triangle" StrokeEndLineCap="Triangle"/>
-    					<Path Data="M10.917,27 L22.25,16" Fill="#FFF4F4F5" Height="12.375" Stretch="Fill" Stroke="Black" Canvas.Top="10.684" Width="13.666" StrokeStartLineCap="Triangle" StrokeEndLineCap="Triangle" RenderTransformOrigin="0.493,0.624"/>
-    					<Path Data="M22.583333,16.75 L9.917,6.083" Fill="#FFF4F4F5" Height="11.667" Stretch="Fill" Stroke="Black" Width="13.666" StrokeStartLineCap="Triangle" StrokeEndLineCap="Triangle"/>
-    				</Canvas>
-    			</Canvas>
-    		</Grid>
-    	</Border>
-    	<Slider x:Name="tickSlider" Margin="99,38,8,35" Value="{Binding Parent.Model.CurrentTick}" Minimum="0" Maximum="100"/>
-    	<TextBlock x:Name="tickLabel" Text="{Binding Parent.Model.CurrentTick}" Margin="99,0,0,15" Width="50" Height="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:LayoutOverrides="Width, Height"/>
-        
-    </Grid>
+	<Grid Background="#FF9B9B9B">
+		<Border>
+			<Grid>
+				<Button x:Name="PlayPause" HorizontalAlignment="Left" Margin="51,30.25,0,0" Style="{DynamicResource ButtonStyle1}" Width="35" MaxWidth="35" MaxHeight="35" VerticalAlignment="Top" Height="35">
+					<Canvas x:Name="ButtonContent"/>
+				</Button>
+				<Canvas x:Name="PlayTriangle" Height="23.059" Width="13.666" Margin="63, 36, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left">
+					<Canvas.Visibility>
+						<Binding Path="IsPlaying">
+							<Binding.Converter>
+								<kent:MapConverter>
+									<kent:Mapping To="{x:Static Member=Visibility.Hidden}">
+										<kent:Mapping.From>
+											<sys:Boolean>True</sys:Boolean>
+										</kent:Mapping.From>
+									</kent:Mapping>
+									<kent:Mapping To="{x:Static Member=Visibility.Visible}">
+										<kent:Mapping.From>
+											<sys:Boolean>False</sys:Boolean>
+										</kent:Mapping.From>
+									</kent:Mapping>
+								</kent:MapConverter>
+							</Binding.Converter>
+						</Binding>
+					</Canvas.Visibility>
+					<Path Data="M9.9166667,6.0833333 L9.9166667,27.016594" Height="23.059" Stretch="Fill" Stroke="Black" Width="1" StrokeStartLineCap="Triangle" StrokeEndLineCap="Triangle" Canvas.Top="0.25"/>
+					<Path Data="M10.917,27 L22.25,16" Height="12.375" Stretch="Fill" Stroke="Black" Canvas.Top="10.684" Width="13.666" StrokeStartLineCap="Triangle" StrokeEndLineCap="Triangle" RenderTransformOrigin="0.493,0.624"/>
+					<Path Data="M22.583333,16.75 L9.917,6.083" Height="11.667" Stretch="Fill" Stroke="Black" Width="13.666" StrokeStartLineCap="Triangle" StrokeEndLineCap="Triangle"/>
+				</Canvas>
+				<Canvas x:Name="PauseBars" HorizontalAlignment="Left" Margin="61.291,37.875,0,42.875">
+					<!-- 15.5-->
+					<Canvas.Visibility>
+						<Binding Path="IsPlaying">
+							<Binding.Converter>
+								<kent:MapConverter>
+									<kent:Mapping To="{x:Static Member=Visibility.Hidden}">
+										<kent:Mapping.From>
+											<sys:Boolean>False</sys:Boolean>
+										</kent:Mapping.From>
+									</kent:Mapping>
+									<kent:Mapping To="{x:Static Member=Visibility.Visible}">
+										<kent:Mapping.From>
+											<sys:Boolean>True</sys:Boolean>
+										</kent:Mapping.From>
+									</kent:Mapping>
+								</kent:MapConverter>
+							</Binding.Converter>
+						</Binding>
+					</Canvas.Visibility>
+					<Rectangle StrokeStartLineCap="Triangle" StrokeEndLineCap="Triangle" Stroke="Black" Width="5.75" Height="19.25"/>
+					<Rectangle StrokeStartLineCap="Triangle" StrokeEndLineCap="Triangle" Stroke="Black" Width="5.75" Height="19.25" Canvas.Left="9.75"/>
+				</Canvas>
+			</Grid>
+		</Border>
+		<Slider x:Name="tickSlider" Margin="99,38,8,35" Value="{Binding Parent.Model.CurrentTick}" Minimum="0" Maximum="100"/>
+		<TextBlock x:Name="tickLabel" Text="{Binding Parent.Model.CurrentTick}" Margin="99,0,0,15" Width="50" Height="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:LayoutOverrides="Width, Height"/>
+
+	</Grid>
 </UserControl>

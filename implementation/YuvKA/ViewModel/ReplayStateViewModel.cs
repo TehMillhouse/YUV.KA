@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.Composition;
 using System.Linq;
+using Caliburn.Micro;
 
 namespace YuvKA.ViewModel
 {
 	[Export]
-	public class ReplayStateViewModel
+	public class ReplayStateViewModel : PropertyChangedBase
 	{
 		public bool IsPlaying { get; set; }
 		[Import]
@@ -29,6 +30,7 @@ namespace YuvKA.ViewModel
 				Parent.Model.Stop();
 				IsPlaying = !IsPlaying;
 			}
+			NotifyOfPropertyChange(() => IsPlaying);
 		}
 
 		public void Stop()
