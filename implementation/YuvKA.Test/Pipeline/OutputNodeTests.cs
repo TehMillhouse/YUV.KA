@@ -8,6 +8,7 @@ namespace YuvKA.Test.Pipeline
 	using Xunit;
 	using YuvKA.Pipeline.Implementation;
 	using VideoModel;
+	using System.Collections.Generic;
 
 	public class OutputNodeTests
 	{
@@ -182,6 +183,53 @@ namespace YuvKA.Test.Pipeline
 			for (int i = 0; i < 256; i++) {
 				Assert.Equal(histNodeValue.Data[i], (double)(intData[i] / numberOfPixels));
 			}
+		}
+
+		/// <summary>
+		/// Construct an AnnotatedFrame and use the BlockOverlay on top of it
+		/// The Frame is completely gray and its MacroblockDecsions are ordered like this:
+		///
+		/// |-------------------------------|
+		/// | Skip  | 16x16 | 16x8  |  8x16 |
+		/// | Inter | Inter | Inter | Inter |
+		/// |-------------------------------|
+		/// |  8x8  |  4x8  |  8x4  |  4x4  |
+		/// | Inter | Inter | Inter | Inter |
+		/// |-------------------------------|
+		/// | 16x16 |  8x8  |  4x4  |  Un-  |
+		/// | Intra | Intra | Intra | known |
+		/// |-------------------------------|
+		///
+		/// The Result has to be inspected manually
+		/// </summary>
+		[Fact]
+		public void TestMacroBlockOverlay()
+		{
+			Frame testFrame = new Frame(new YuvKA.VideoModel.Size(64, 48));
+			for (int x = 0; x < testFrame.Size.Width; x++) {
+				for (int y = 0; y < testFrame.Size.Height; y++) {
+					testFrame[x, y] = new Rgb(111, 111, 111);
+				}
+			}
+			MacroblockDecision[] decisions = new MacroblockDecision[12];
+			decisions[0] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.InterSkip };
+			decisions[1] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Inter16x16 };
+			decisions[2] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Inter16x8 };
+			decisions[3] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Inter8x16 };
+			decisions[4] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Inter8x8 };
+			decisions[5] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Inter4x8 };
+			decisions[6] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Inter8x4 };
+			decisions[7] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Inter4x4 };
+			decisions[8] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Intra16x16 };
+			decisions[9] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Intra8x8 };
+			decisions[10] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Intra4x4 };
+			decisions[11] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Unknown };
+			Frame[] input = { new AnnotatedFrame(testFrame, decisions) };
+			OverlayNode Node = new OverlayNode { Type = new BlocksOverlay() };
+			Node.ProcessCore(input, 0);
+			List<Frame> output = new List<Frame>();
+			output.Add(Node.Data);
+			YuvEncoder.Encode(@"..\..\..\..\output\BlockOverlayTest_64x48.yuv", output);
 		}
 	}
 }
