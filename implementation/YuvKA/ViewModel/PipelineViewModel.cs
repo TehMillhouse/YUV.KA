@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
-using System.Windows.Input;
 
 namespace YuvKA.ViewModel
 {

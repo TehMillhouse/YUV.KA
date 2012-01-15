@@ -9,7 +9,7 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.ViewModel
 {
-	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification="CancellationTokenSource should generally not be disposed")]
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "CancellationTokenSource should generally not be disposed")]
 	public class SaveNodeOutputViewModel : Screen
 	{
 		PipelineState model;
