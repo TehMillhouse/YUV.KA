@@ -19,7 +19,7 @@ namespace YuvKA.Pipeline.Implementation
 					int difference = Math.Abs(frame[x, y].R - reference[x, y].R);
 					difference += Math.Abs(frame[x, y].G - reference[x, y].G);
 					difference += Math.Abs(frame[x, y].B - reference[x, y].B);
-					result[x, y] = (difference >= 50) ? new Rgb(255, 0, 0) : frame[x, y];
+					result[x, y] = (difference >= 20) ? new Rgb(255, 0, 0) : frame[x, y];
 				}
 			}
 			return result;

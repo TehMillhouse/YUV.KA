@@ -280,5 +280,34 @@ namespace YuvKA.Test.Pipeline
 			output.Add(Node.Data);
 			YuvEncoder.Encode(@"..\..\..\..\output\VectorOverlayTest_64x48.yuv", output);
 		}
+
+		/// <summary>
+		/// Create one monocolored gray Frame and make an altered Frame.
+		/// Put both Frames into the ArtifactOverlay and choose the monocolored
+		/// Frame as reference.
+		/// The result has to be inspected manually.
+		/// </summary>
+		[Fact]
+		public void ArtifactOverlay()
+		{
+			Frame testFrame = new Frame(new YuvKA.VideoModel.Size(80, 80));
+			for (int x = 0; x < testFrame.Size.Width; x++) {
+				for (int y = 0; y < testFrame.Size.Height; y++) {
+					testFrame[x, y] = new Rgb(111, 111, 111);
+				}
+			}
+			Frame alteredTestFrame = new Frame(testFrame.Size);
+			for (int x = 0; x < testFrame.Size.Width; x++) {
+				for (int y = 0; y < testFrame.Size.Height; y++) {
+					alteredTestFrame[x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
+				}
+			}
+			Frame[] input = { alteredTestFrame, testFrame };
+			OverlayNode Node = new OverlayNode { Type = new ArtifactsOverlay() };
+			Node.ProcessCore(input, 0);
+			List<Frame> output = new List<Frame>();
+			output.Add(Node.Data);
+			YuvEncoder.Encode(@"..\..\..\..\output\ArtifactOverlayTest_80x80.yuv", output);
+		}
 	}
 }
