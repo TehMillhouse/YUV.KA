@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using Caliburn.Micro;
 using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
-	public class PipelineViewModel
+	public class PipelineViewModel : ViewAware
 	{
 		public PipelineViewModel(MainViewModel parent)
 		{
@@ -23,6 +24,10 @@ namespace YuvKA.ViewModel
 		{
 			var type = (NodeType)e.Data.GetData(typeof(NodeType));
 			var node = (Node)Activator.CreateInstance(type.Type);
+			Point mouse = IoC.Get<IGetPosition>().GetDropPosition(e, this);
+			node.X = mouse.X;
+			node.Y = mouse.Y;
+
 			Parent.Model.Graph.Nodes.Add(node);
 			Nodes.Add(new NodeViewModel(node, Parent));
 		}

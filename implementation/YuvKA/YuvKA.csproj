@@ -81,6 +81,7 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Caliburn\Micro\ChooseFileResult.cs" />
     <Compile Include="Caliburn\Micro\DragResult.cs" />
+    <Compile Include="Caliburn\Micro\IGetPosition.cs" />
     <Compile Include="Pipeline\FilePath.cs" />
     <Compile Include="Pipeline\FrameRenderedMessage.cs" />
     <Compile Include="Pipeline\InputNode.cs" />

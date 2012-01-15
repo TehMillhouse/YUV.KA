@@ -9,6 +9,8 @@
 	using System.IO;
 	using System.Linq;
 	using System.Reflection;
+	using System.Windows;
+	using System.Windows.Input;
 	using Caliburn.Micro;
 	using YuvKA.ViewModel;
 
@@ -38,6 +40,7 @@
 
 			batch.AddExportedValue<IWindowManager>(new WindowManager());
 			batch.AddExportedValue<IEventAggregator>(new EventAggregator());
+			batch.AddExportedValue<IGetPosition>(new WpfGetPosition());
 			batch.AddExportedValue(container);
 			batch.AddExportedValue(catalog);
 
@@ -99,6 +102,19 @@
 			string CreateLogMessage(string format, params object[] args)
 			{
 				return string.Format("[{0}] {1}", DateTime.Now.ToString("o"), string.Format(format, args));
+			}
+		}
+
+		class WpfGetPosition : IGetPosition
+		{
+			public Point GetMousePosition(MouseEventArgs e, IViewAware relativeTo)
+			{
+				return e.GetPosition((IInputElement)relativeTo.GetView());
+			}
+
+			public Point GetDropPosition(DragEventArgs e, IViewAware relativeTo)
+			{
+				return e.GetPosition((IInputElement)relativeTo.GetView());
 			}
 		}
 	}

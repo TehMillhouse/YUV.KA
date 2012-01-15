@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
 
@@ -16,6 +17,8 @@ namespace YuvKA.ViewModel
 		public NodeType NodeType { get; private set; }
 		public Node NodeModel { get; private set; }
 		public MainViewModel Parent { get; private set; }
+
+		public Thickness Margin { get { return new Thickness(NodeModel.X, NodeModel.Y, 0, 0); } }
 
 		public IEnumerable<IResult> SaveNodeOutput(Node.Output output)
 		{

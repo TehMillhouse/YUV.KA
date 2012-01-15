@@ -5,7 +5,7 @@
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			mc:Ignorable="d"
-			d:DesignHeight="190" d:DesignWidth="190" >
+			d:DesignHeight="190" d:DesignWidth="190" Margin="{Binding Margin}">
 	<UserControl.ContextMenu>
 		<!-- Must set Target because ContextMenu creates its own Visual Tree -->
 		<ContextMenu cal:Action.Target="{Binding}" ItemsSource="{Binding NodeModel.Outputs}">
@@ -17,7 +17,7 @@
 			</ContextMenu.ItemTemplate>
 		</ContextMenu>
 	</UserControl.ContextMenu>
-	<Border Background="LightBlue"  CornerRadius="5" MinHeight="80" MinWidth="80" Margin="10, 10, 10, 10" BorderThickness="3" BorderBrush="LightSkyBlue">
-		<TextBlock Text="{Binding NodeModel}"/>
+	<Border Background="LightBlue"  CornerRadius="5" MinHeight="80" MinWidth="80" BorderThickness="3" BorderBrush="LightSkyBlue">
+		<TextBlock Text="{Binding NodeType.Type.Name}"/>
 	</Border>
 </UserControl>
