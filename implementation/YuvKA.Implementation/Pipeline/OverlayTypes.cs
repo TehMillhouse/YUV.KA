@@ -35,7 +35,7 @@ namespace YuvKA.Pipeline.Implementation
 		public Frame Process(Frame frame, Frame reference)
 		{
 			AnnotatedFrame frameWithLogs = (AnnotatedFrame)frame;
-			Frame result = new Frame(frame.Size);
+			Frame result = new Frame(frame);
 			for (int x = 0; x < (frame.Size.Width / 16); x++) {
 				for (int y = 0; y < (frame.Size.Height / 16); y++) {
 					DrawVector(result, x * 16, y * 16, frameWithLogs.Decisions[x, y].Movement);
@@ -47,6 +47,7 @@ namespace YuvKA.Pipeline.Implementation
 		private void DrawVector(Frame result, int xOffset, int yOffset, Vector movement)
 		{
 			if (movement != null) {
+				/* Create Bitmap image */
 				Bitmap macroblock = new Bitmap(16, 16);
 				for (int x = 0; x < 16; x++) {
 					for (int y = 0; y < 16; y++) {
@@ -54,13 +55,26 @@ namespace YuvKA.Pipeline.Implementation
 						macroblock.SetPixel(x, y, Color.FromArgb(pixel.R, pixel.G, pixel.B));
 					}
 				}
+				/* Draw Arrowshaft */
 				Graphics drawableMacroblock = Graphics.FromImage(macroblock);
 				Pen newPen = new Pen(Color.White, 1.0F);
-				float halfXDiff = (float)0.5 * Math.Max(16, (float)movement.X);
-				float halfYDiff = (float)0.5 * Math.Max(16, (float)movement.Y);
-				drawableMacroblock.DrawLine(newPen, 8 - halfXDiff, 8 - halfYDiff, 8 + halfXDiff, 8 + halfYDiff);
-				//TODO draw arrowhead
-				macroblock = new Bitmap(16, 16, drawableMacroblock);
+				float halfXDiff = (float)0.5 * Math.Min(12, (float)movement.X);
+				float halfYDiff = (float)0.5 * Math.Min(12, (float)movement.Y);
+				float headX = 7 + halfXDiff;
+				float headY = 7 - halfYDiff;
+				drawableMacroblock.DrawLine(newPen, 7 - halfXDiff, 7 + halfYDiff, headX, headY);
+				/* Draw Arrowhead */
+				double headLength = Math.Sqrt(movement.X * movement.X + movement.Y * movement.Y) / 3.0;
+				double alpha = Math.Atan(movement.Y / Math.Abs(movement.X));
+				double alphaH1 = alpha + 45;
+				float headX1 = (float)(headX - Math.Cos(alphaH1) * headLength * ((movement.X < 0) ? -1 : 1));
+				float headY1 = (float)(headY + Math.Sin(alphaH1) * headLength);
+				drawableMacroblock.DrawLine(newPen, headX1, headY1, headX, headY);
+				double alphaH2 = alpha - 45;
+				float headX2 = (float)(headX - Math.Cos(alphaH2) * headLength * ((movement.X < 0) ? -1 : 1));
+				float headY2 = (float)(headY + Math.Sin(alphaH2) * headLength);
+				drawableMacroblock.DrawLine(newPen, headX2, headY2, headX, headY);
+				/* Print Arrow onto the Frame */
 				for (int x = 0; x < 16; x++) {
 					for (int y = 0; y < 16; y++) {
 						Rgb pixel = new Rgb(macroblock.GetPixel(x, y).R, macroblock.GetPixel(x, y).G, macroblock.GetPixel(x, y).B);
