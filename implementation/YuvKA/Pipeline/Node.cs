@@ -38,7 +38,7 @@ namespace YuvKA.Pipeline
 		[DataMember]
 		public double Y { get; set; }
 
-		virtual public bool InputIsValid
+		public virtual bool InputIsValid
 		{
 			get
 			{
