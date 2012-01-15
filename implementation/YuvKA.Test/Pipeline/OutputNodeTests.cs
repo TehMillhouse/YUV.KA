@@ -231,5 +231,54 @@ namespace YuvKA.Test.Pipeline
 			output.Add(Node.Data);
 			YuvEncoder.Encode(@"..\..\..\..\output\BlockOverlayTest_64x48.yuv", output);
 		}
+
+		/// <summary>
+		/// Construct an AnnotatedFrame and use VectorOverlay on it
+		/// The Frame is completely gray and the Vectors
+		/// should look somewhatlike this
+		/// |---------------|
+		/// | | |  /|   |\  |
+		/// | | | / |---| \ |
+		/// | | |/  |   |  \|
+		/// |---------------|
+		/// | | |  /|   |\  |
+		/// | | | / |---| \ |
+		/// | | |/  |   |  \|
+		/// |---------------|
+		/// |   |   |   |   |
+		/// | - | | | / |   |
+		/// |   |   |   |   |
+		/// |---------------|
+		/// The result has to be inspected manually
+		/// </summary>
+		[Fact]
+		public void TestVecorOverlay()
+		{
+			Frame testFrame = new Frame(new YuvKA.VideoModel.Size(64, 48));
+			for (int x = 0; x < testFrame.Size.Width; x++) {
+				for (int y = 0; y < testFrame.Size.Height; y++) {
+					testFrame[x, y] = new Rgb(111, 111, 111);
+				}
+			}
+			MacroblockDecision[] decisions = new MacroblockDecision[12];
+			decisions[0] = new MacroblockDecision { Movement = new Vector(0.0, 12.0) };
+			decisions[1] = new MacroblockDecision { Movement = new Vector(12.0, 12.0) };
+			decisions[2] = new MacroblockDecision { Movement = new Vector(12.0, 0.0) };
+			decisions[3] = new MacroblockDecision { Movement = new Vector(12.0, -12.0) };
+			decisions[4] = new MacroblockDecision { Movement = new Vector(0.0, -12.0) };
+			decisions[5] = new MacroblockDecision { Movement = new Vector(-12.0, -12.0) };
+			decisions[6] = new MacroblockDecision { Movement = new Vector(-12.0, 0.0) };
+			decisions[7] = new MacroblockDecision { Movement = new Vector(-12.0, 12.0) };
+			decisions[8] = new MacroblockDecision { Movement = new Vector(4.0, 0.0) };
+			decisions[9] = new MacroblockDecision { Movement = new Vector(0.0, 4.0) };
+			decisions[10] = new MacroblockDecision { Movement = new Vector(4.0, 4.0) };
+			decisions[11] = new MacroblockDecision { Movement = new Vector(-4.0, 0.0) };
+			Frame[] input = { new AnnotatedFrame(testFrame, decisions) };
+			OverlayNode Node = new OverlayNode { Type = new MoveVectorsOverlay() };
+			Node.ProcessCore(input, 0);
+			List<Frame> output = new List<Frame>();
+			output.Add(Node.Data);
+			YuvEncoder.Encode(@"..\..\..\..\output\VectorOverlayTest_64x48.yuv", output);
+		}
 	}
 }
