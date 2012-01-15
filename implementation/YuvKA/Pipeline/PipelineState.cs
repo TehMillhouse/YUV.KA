@@ -77,7 +77,7 @@ namespace YuvKA.Pipeline
 			if (!outputNodes.All(node => node.InputIsValid))
 				return false;
 			cts = new CancellationTokenSource();
-			Driver.RenderTicks(outputNodes, CurrentTick, tickCount, cts).ForEach(dic => {
+			Driver.RenderTicks(outputNodes, CurrentTick, tickCount, cts).Subscribe(dic => {
 				if (lastTick.HasValue) {
 					DateTimeOffset nextTick = lastTick.Value + TimeSpan.FromSeconds(1.0 / Speed);
 					if (DateTimeOffset.Now < nextTick)
