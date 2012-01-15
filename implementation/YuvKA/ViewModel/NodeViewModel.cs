@@ -5,7 +5,7 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
-	public class NodeViewModel
+	public class NodeViewModel : PropertyChangedBase
 	{
 		public NodeViewModel(Node nodeModel, MainViewModel parent)
 		{
@@ -17,6 +17,17 @@ namespace YuvKA.ViewModel
 		public NodeType NodeType { get; private set; }
 		public Node NodeModel { get; private set; }
 		public MainViewModel Parent { get; private set; }
+
+		public Point Position
+		{
+			get { return new Point(NodeModel.X, NodeModel.Y); }
+			set
+			{
+				NodeModel.X = value.X;
+				NodeModel.Y = value.Y;
+				NotifyOfPropertyChange(() => Margin);
+			}
+		}
 
 		public Thickness Margin { get { return new Thickness(NodeModel.X, NodeModel.Y, 0, 0); } }
 

@@ -5,11 +5,15 @@ using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
+using System.Windows.Input;
 
 namespace YuvKA.ViewModel
 {
 	public class PipelineViewModel : ViewAware
 	{
+		NodeViewModel draggedNode;
+		Vector dragMouseOffset;
+
 		public PipelineViewModel(MainViewModel parent)
 		{
 			Parent = parent;
@@ -24,12 +28,26 @@ namespace YuvKA.ViewModel
 		{
 			var type = (NodeType)e.Data.GetData(typeof(NodeType));
 			var node = (Node)Activator.CreateInstance(type.Type);
-			Point mouse = IoC.Get<IGetPosition>().GetDropPosition(e, this);
-			node.X = mouse.X;
-			node.Y = mouse.Y;
+			var nodeModel = new NodeViewModel(node, Parent);
+			nodeModel.Position = IoC.Get<IGetPosition>().GetDropPosition(e, this);
 
 			Parent.Model.Graph.Nodes.Add(node);
-			Nodes.Add(new NodeViewModel(node, Parent));
+			Nodes.Add(nodeModel);
+		}
+
+		public void NodeMouseDown(NodeViewModel node, MouseEventArgs e)
+		{
+			draggedNode = node;
+			dragMouseOffset = IoC.Get<IGetPosition>().GetMousePosition(e, this) - draggedNode.Position;
+		}
+
+		public void MouseMove(MouseEventArgs e)
+		{
+			if (draggedNode == null || e.LeftButton != MouseButtonState.Pressed) {
+				draggedNode = null;
+				return;
+			}
+			draggedNode.Position = IoC.Get<IGetPosition>().GetMousePosition(e, this) - dragMouseOffset;
 		}
 	}
 }
