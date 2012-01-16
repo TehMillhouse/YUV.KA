@@ -40,6 +40,7 @@ namespace YuvKA.Pipeline
 		[DataMember]
 		public double Y { get; set; }
 
+		[Browsable(false)]
 		public virtual bool InputIsValid
 		{
 			get

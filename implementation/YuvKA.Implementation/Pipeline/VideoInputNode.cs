@@ -80,6 +80,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
+		[Browsable(false)]
 		public override bool InputIsValid
 		{
 			get
