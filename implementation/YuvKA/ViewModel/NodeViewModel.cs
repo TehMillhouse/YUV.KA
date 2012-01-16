@@ -1,23 +1,32 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
+using System.Linq;
 
 namespace YuvKA.ViewModel
 {
 	public class NodeViewModel : PropertyChangedBase
 	{
+		InOutputViewModel fake = new InOutputViewModel(model: null);
+		IList<InOutputViewModel> inputs;
+
 		public NodeViewModel(Node model, MainViewModel parent)
 		{
 			Model = model;
 			NodeType = new NodeType { Type = model.GetType() };
 			Parent = parent;
 
+			inputs = Model.Inputs.Select(i => new InOutputViewModel(i)).ToList();
+			Outputs = Model.Outputs.Select(i => new InOutputViewModel(i)).ToList();
+
 			if (Model.Outputs is INotifyCollectionChanged)
-				((INotifyCollectionChanged)Model.Outputs).CollectionChanged +=
-					(sender, e) => NotifyOfPropertyChange(() => Outputs);
+				((INotifyCollectionChanged)Model.Outputs).CollectionChanged += delegate
+				{
+					Outputs = Model.Outputs.Select(i => new InOutputViewModel(i)).ToList();
+					NotifyOfPropertyChange(() => Outputs);
+				};
 		}
 
 		public NodeType NodeType { get; private set; }
@@ -28,14 +37,11 @@ namespace YuvKA.ViewModel
 		{
 			get
 			{
-				var inputs = Model.Inputs.Select(i => new InOutputViewModel(i));
-				if (Model.UserCanAddInputs)
-					inputs = inputs.Concat(new[] { new InOutputViewModel(null) });
-				return inputs;
+				return Model.UserCanAddInputs ? inputs.Concat(new[] { fake }) : inputs;
 			}
 		}
 
-		public IEnumerable<InOutputViewModel> Outputs { get { return Model.Outputs.Select(i => new InOutputViewModel(i)); } }
+		public IEnumerable<InOutputViewModel> Outputs { get; private set; }
 
 		public Point Position
 		{
@@ -68,15 +74,5 @@ namespace YuvKA.ViewModel
 			Parent.OpenWindow(new VideoOutputViewModel(output));
 		}
 
-		public class InOutputViewModel
-		{
-			public InOutputViewModel(object model)
-			{
-				Model = model;
-			}
-
-			public object Model { get; private set; }
-			public bool IsFake { get { return Model == null; } }
-		}
 	}
 }

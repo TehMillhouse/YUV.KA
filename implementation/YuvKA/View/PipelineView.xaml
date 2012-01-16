@@ -19,6 +19,7 @@
 						AlignmentY="Top"/>
 		</ScrollViewer.Background>
 		<Grid VerticalAlignment="Top" HorizontalAlignment="Left">
+			<ItemsControl x:Name="Edges"/>
 			<ItemsControl Name="Nodes">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>

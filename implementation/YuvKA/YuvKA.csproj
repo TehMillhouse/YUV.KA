@@ -92,6 +92,7 @@
     <Compile Include="VideoModel\Rgb.cs" />
     <Compile Include="VideoModel\Size.cs" />
     <Compile Include="VideoModel\YuvEncoder.cs" />
+    <Compile Include="ViewModel\InOutputViewModel.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyEditorViewModel.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyViewModel.cs" />
     <Compile Include="ViewModel\EdgeViewModel.cs" />
@@ -107,6 +108,14 @@
     <Compile Include="Pipeline\PipelineState.cs" />
     <Compile Include="ViewModel\ReplayStateViewModel.cs" />
     <Compile Include="ViewModel\ToolboxViewModel.cs" />
+    <Page Include="View\EdgeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\InOutputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

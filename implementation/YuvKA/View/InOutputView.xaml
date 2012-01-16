@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="YuvKA.View.InOutputView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="boolConv"/>
+	</UserControl.Resources>
+	<Grid Margin="0,0,0,10" cal:Bind.Model="{Binding}">
+		<Ellipse Width="11" Height="11" Stroke="Black" Fill="White"/>
+		<Path Data="M 0,3 l 6,0 M 3,0 l 0,6" Visibility="{Binding IsFake, Converter={StaticResource boolConv}}" Stroke="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	</Grid>
+</UserControl>

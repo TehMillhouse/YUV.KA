@@ -116,6 +116,16 @@
 			{
 				return e.GetPosition((IInputElement)relativeTo.GetView());
 			}
+
+			public Point GetElementPosition(IViewAware element, IViewAware relativeTo)
+			{
+				return ((UIElement)element.GetView()).TranslatePoint(new Point(), (UIElement)relativeTo.GetView());
+			}
+
+			public Size GetElementSize(IViewAware element)
+			{
+				return ((UIElement)element.GetView()).RenderSize;
+			}
 		}
 	}
 }

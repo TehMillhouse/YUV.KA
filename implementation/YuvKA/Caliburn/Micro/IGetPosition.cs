@@ -10,5 +10,7 @@ namespace Caliburn.Micro
 	{
 		Point GetMousePosition(MouseEventArgs e, IViewAware relativeTo);
 		Point GetDropPosition(DragEventArgs e, IViewAware relativeTo);
+		Point GetElementPosition(IViewAware element, IViewAware relativeTo);
+		Size GetElementSize(IViewAware element);
 	}
 }

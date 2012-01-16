@@ -22,7 +22,22 @@ namespace YuvKA.ViewModel
 
 		public MainViewModel Parent { get; private set; }
 		public IList<NodeViewModel> Nodes { get; private set; }
-		public IEnumerable<EdgeViewModel> Edges { get; private set; }
+		public IEnumerable<EdgeViewModel> Edges
+		{
+			get
+			{
+				// Linq query... OF DEATH
+				return
+					from node in Nodes
+					from input in node.Inputs
+					let iModel = ((Node.Input)input.Model)
+					where iModel.Source != null
+					from node2 in Nodes
+					from output in node2.Outputs
+					where iModel.Source == ((Node.Output)output.Model)
+					select new EdgeViewModel(this, input, output);
+			}
+		}
 
 		public void Drop(DragEventArgs e)
 		{
@@ -48,6 +63,7 @@ namespace YuvKA.ViewModel
 				return;
 			}
 			draggedNode.Position = IoC.Get<IGetPosition>().GetMousePosition(e, this) - dragMouseOffset;
+			NotifyOfPropertyChange(() => Edges);
 		}
 	}
 }

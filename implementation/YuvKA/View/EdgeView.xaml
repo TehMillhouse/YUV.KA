@@ -1,0 +1,6 @@
+﻿<UserControl x:Class="YuvKA.View.EdgeView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
+	<Path Data="{Binding Geometry}" Stroke="Black"/>
+</UserControl>
