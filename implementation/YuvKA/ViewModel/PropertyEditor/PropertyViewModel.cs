@@ -5,16 +5,11 @@ using System.Linq;
 
 namespace YuvKA.ViewModel.PropertyEditor
 {
+	[InheritedExport]
 	public abstract class PropertyViewModel
 	{
-		public PropertyViewModel(object source, PropertyDescriptor pd)
-		{
-			Source = source;
-			Property = pd;
-		}
-
-		public object Source { get; private set; }
-		public PropertyDescriptor Property { get; private set; }
+		public object Source { get; set; }
+		public PropertyDescriptor Property { get; set; }
 		public object Value
 		{
 			get { return Property.GetValue(Source); }
@@ -31,13 +26,8 @@ namespace YuvKA.ViewModel.PropertyEditor
 		}
 	}
 
-	[InheritedExport]
 	public abstract class PropertyViewModel<T> : PropertyViewModel
 	{
-		public PropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
-		{
-		}
-
-		public new T Value { get { return (T)Value; } set { this.Value = (T)value; } }
+		public new T Value { get { return (T)base.Value; } set { base.Value = (T)value; } }
 	}
 }

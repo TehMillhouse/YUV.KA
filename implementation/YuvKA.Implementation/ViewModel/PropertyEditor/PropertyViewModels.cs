@@ -5,33 +5,24 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using YuvKA.VideoModel;
+using Caliburn.Micro;
 
 namespace YuvKA.ViewModel.PropertyEditor.Implementation
 {
 	public class BooleanPropertyViewModel : PropertyViewModel<bool> {
-		public BooleanPropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
-		{
-		}
 	}
 
 	public class PathPropertyViewModel : PropertyViewModel<Pipeline.FilePath>
 	{
-		public PathPropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
+		public IEnumerable<IResult> OpenDialog()
 		{
-		}
-
-		public void OpenDialog()
-		{
-			throw new NotImplementedException();
+			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv", OpenReadOnly = false };
+			yield return file;
 		}
 	}
 
 	public class RgbPropertyViewModel : PropertyViewModel<VideoModel.Rgb>
 	{
-		public RgbPropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
-		{
-		}
-
 		public void OpenDialog()
 		{
 			throw new NotImplementedException();
@@ -40,10 +31,6 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public class SizePropertyViewModel : PropertyViewModel<Size>
 	{
-		public SizePropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
-		{
-		}
-
 		public int Width {
 			get { return Value.Width; }
 			set { Value = new Size(value, Height); }
@@ -56,10 +43,6 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public abstract class NumericalPropertyViewModel<T> : PropertyViewModel<T>
 	{
-		public NumericalPropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
-		{
-		}
-
 		public double Minimum {
 			get { return (double)(Property.Attributes.OfType<RangeAttribute>().First().Minimum); }
 			private set { }
@@ -71,30 +54,16 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 	}
 
 	public class IntPropertyViewModel : NumericalPropertyViewModel<int> {
-		public IntPropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
-		{
-		}
 	}
 
 	public class DoublePropertyViewModel : NumericalPropertyViewModel<double> {
-		public DoublePropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
-		{
-		}
 	}
 
 	public class ObservableCollectionOfDoublePropertyViewModel : PropertyViewModel<ObservableCollection<double>> {
-		public ObservableCollectionOfDoublePropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
-		{
-			throw new NotImplementedException();
-		}
 	}
 
 	public class EnumerationPropertyViewModel : PropertyViewModel<Enum>
 	{
-		public EnumerationPropertyViewModel(object source, PropertyDescriptor pd) : base(source, pd)
-		{
-		}
-
 		public System.Array Choices {
 			get { return Enum.GetValues(Property.GetType()); }
 			private set { }
