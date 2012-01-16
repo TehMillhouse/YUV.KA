@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using YuvKA.VideoModel;
 using Caliburn.Micro;
+using YuvKA.VideoModel;
 
 namespace YuvKA.ViewModel.PropertyEditor.Implementation
 {
@@ -16,7 +16,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 	{
 		public IEnumerable<IResult> OpenDialog()
 		{
-			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv", OpenReadOnly = false };
+			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv" };
 			yield return file;
 		}
 	}
