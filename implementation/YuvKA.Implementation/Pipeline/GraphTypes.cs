@@ -14,16 +14,16 @@ namespace YuvKA.Pipeline.Implementation
 
 		public double Process(Frame frame, Frame reference)
 		{
-			double IntraBlocks = 0.0;
+			double intraBlocks = 0.0;
 			if (frame is AnnotatedFrame) {
-				AnnotatedFrame AnnFrame = (AnnotatedFrame)frame;
-				foreach (MacroblockDecision d in AnnFrame.Decisions) {
+				AnnotatedFrame annFrame = (AnnotatedFrame)frame;
+				foreach (MacroblockDecision d in annFrame.Decisions) {
 					if (d.PartitioningDecision == MacroblockPartitioning.Intra16x16 | d.PartitioningDecision == MacroblockPartitioning.Intra4x4 | d.PartitioningDecision == MacroblockPartitioning.Intra8x8 | d.PartitioningDecision == MacroblockPartitioning.IntraPCM) {
-						IntraBlocks++;
+						intraBlocks++;
 					}
 				}
 			}
-			return IntraBlocks;
+			return intraBlocks;
 		}
 	}
 
@@ -38,17 +38,17 @@ namespace YuvKA.Pipeline.Implementation
 
 		public double Process(Frame frame, Frame reference)
 		{
-			double MSE = 0.0;
+			double mse = 0.0;
 			for (int i = 0; i < frame.Size.Height; i++) {
 				for (int j = 0; j < frame.Size.Width; j++) {
-					MSE += Math.Pow(((frame[i, j].R + frame[i, j].G + frame[i, j].B) - (reference[i, j].R + reference[i, j].G + reference[i, j].B)), 2);
+					mse += Math.Pow(((frame[i, j].R + frame[i, j].G + frame[i, j].B) - (reference[i, j].R + reference[i, j].G + reference[i, j].B)), 2);
 				}
 			}
-			MSE *= (double)1 / (3 * frame.Size.Height * frame.Size.Width);
-			if (MSE == 0.0)
+			mse *= (double)1 / (3 * frame.Size.Height * frame.Size.Width);
+			if (mse == 0.0)
 				return 0.0;
-			double PSNR = 10 * Math.Log10((Math.Pow((Math.Pow(2, 24) - 1), 2)) / MSE);
-			return PSNR;
+			double psnr = 10 * Math.Log10((Math.Pow((Math.Pow(2, 24) - 1), 2)) / mse);
+			return psnr;
 		}
 	}
 

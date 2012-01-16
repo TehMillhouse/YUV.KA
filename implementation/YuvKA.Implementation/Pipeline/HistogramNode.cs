@@ -26,11 +26,14 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			if (Type == HistogramType.R) {
 				CalculateR(inputs[0], tick);
-			} else if (Type == HistogramType.G) {
+			}
+			else if (Type == HistogramType.G) {
 				CalculateG(inputs[0], tick);
-			} else if (Type == HistogramType.B) {
+			}
+			else if (Type == HistogramType.B) {
 				CalculateB(inputs[0], tick);
-			} else if (Type == HistogramType.Value) {
+			}
+			else if (Type == HistogramType.Value) {
 				CalculateValue(inputs[0], tick);
 			}
 		}

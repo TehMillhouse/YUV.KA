@@ -9,15 +9,15 @@ namespace YuvKA.Pipeline.Implementation
 		public HistogramNodeData(double[] data)
 		{
 			histogramNodeData = this;
-			init(data);
+			Init(data);
 		}
 
-		public static HistogramNodeData getModel()
+		public static HistogramNodeData GetModel()
 		{
 			return histogramNodeData;
 		}
 
-		public void init(double[] data)
+		public void Init(double[] data)
 		{
 			int i = 0;
 			foreach (double d in data) {
@@ -25,7 +25,7 @@ namespace YuvKA.Pipeline.Implementation
 				i++;
 			}
 		}
-		public ObservableCollection<KeyValuePair<int, double>> getData()
+		public ObservableCollection<KeyValuePair<int, double>> GetData()
 		{
 			return this;
 		}

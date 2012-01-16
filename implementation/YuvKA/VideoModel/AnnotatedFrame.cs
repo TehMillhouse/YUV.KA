@@ -11,10 +11,10 @@
 		public AnnotatedFrame(Frame frame, MacroblockDecision[] decisions)
 			: base(frame)
 		{
-			Decisions = new MacroblockDecision[frame.Size.Width/16, frame.Size.Height/16];
+			Decisions = new MacroblockDecision[frame.Size.Width / 16, frame.Size.Height / 16];
 			for (int i = 0; i < decisions.Length; i++ )
 			{
-				Decisions[i%(frame.Size.Width/16), i/(frame.Size.Width/16)] = decisions[i];
+				Decisions[i % (frame.Size.Width / 16), i / (frame.Size.Width / 16)] = decisions[i];
 			}
 		}
 

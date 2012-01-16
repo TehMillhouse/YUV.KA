@@ -20,6 +20,5 @@ namespace YuvKA.Pipeline.Implementation
 
 		[DataMember]
 		public IList<double> Data { get; set; }
-
 	}
 }

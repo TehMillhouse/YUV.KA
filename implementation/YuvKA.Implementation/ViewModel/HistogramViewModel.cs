@@ -6,8 +6,10 @@ namespace YuvKA.ViewModel.Implementation
 {
 	public class HistogramViewModel : OutputWindowViewModel
 	{
-
 		private HistogramNodeData model;
+
+		private ObservableCollection<KeyValuePair<int, double>> data;
+
 		public HistogramViewModel()
 		{
 			Node = new HistogramNode();
@@ -16,8 +18,6 @@ namespace YuvKA.ViewModel.Implementation
 		}
 
 		public HistogramNode Node { get; set; }
-
-		private ObservableCollection<KeyValuePair<int, double>> data;
 
 		public ObservableCollection<KeyValuePair<int, double>> Data
 		{
@@ -28,7 +28,6 @@ namespace YuvKA.ViewModel.Implementation
 
 		public override void Handle(Pipeline.TickRenderedMessage message)
 		{
-
 		}
 	}
 }

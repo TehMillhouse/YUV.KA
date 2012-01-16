@@ -36,11 +36,6 @@ namespace YuvKA.VideoModel
 			set { data[y * Size.Width + x] = value; }
 		}
 
-		public Rgb GetPixelOrBlack(int x, int y)
-		{
-			return (x < Size.Width && y < Size.Height) ? this[x, y] : new Rgb(0, 0, 0);
-		}
-
 		/// <summary>
 		/// Returns the largest boundaries found in the specified frame array, so all frame sizes are smaller than the returned one.
 		/// </summary>
@@ -55,6 +50,11 @@ namespace YuvKA.VideoModel
 				maxY = Math.Max(maxY, frame.Size.Height);
 			}
 			return new Size(maxX, maxY);
+		}
+
+		public Rgb GetPixelOrBlack(int x, int y)
+		{
+			return (x < Size.Width && y < Size.Height) ? this[x, y] : new Rgb(0, 0, 0);
 		}
 	}
 }

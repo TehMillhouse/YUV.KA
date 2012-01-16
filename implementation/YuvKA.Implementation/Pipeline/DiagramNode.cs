@@ -24,14 +24,14 @@ namespace YuvKA.Pipeline.Implementation
 		[Browsable(false)]
 		public Input ReferenceVideo { get; set; }
 
+		[DataMember]
+		[Browsable(false)]
+		public List<DiagramGraph> Graphs { get; set; }
+
 		private int RefIndex
 		{
 			get { return Inputs.IndexOf(ReferenceVideo); }
 		}
-
-		[DataMember]
-		[Browsable(false)]
-		public List<DiagramGraph> Graphs { get; set; }
 
 		public override void ProcessCore(Frame[] inputs, int tick)
 		{
