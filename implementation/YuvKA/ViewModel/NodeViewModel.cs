@@ -53,7 +53,7 @@ namespace YuvKA.ViewModel
 		public void RemoveNode()
 		{
 			Parent.PipelineViewModel.Nodes.Remove(this);
-			Parent.Model.Graph.Nodes.Remove(this.NodeModel);
+			Parent.Model.Graph.Nodes.Remove(this.Model);
 		}
 
 		public IEnumerable<IResult> SaveNodeOutput(Node.Output output)
