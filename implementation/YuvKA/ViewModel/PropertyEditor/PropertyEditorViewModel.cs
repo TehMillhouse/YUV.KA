@@ -9,14 +9,18 @@ namespace YuvKA.ViewModel.PropertyEditor
 {
 	public class PropertyEditorViewModel
 	{
+		private object source;
+
 		public PropertyEditorViewModel()
 		{
 		}
 
-		public object Source {
-			get { return Source; }
-			set {
-				this.Source = value;
+		public object Source
+		{
+			get { return source; }
+			set
+			{
+				this.source = value;
 				/* Get all available PropertyViewModelTypes */
 				ICollection<System.Type> viewModels = new List<System.Type>();
 				foreach (PropertyViewModel pvm in IoC.GetAllInstances(typeof(PropertyViewModel))) {
@@ -25,11 +29,11 @@ namespace YuvKA.ViewModel.PropertyEditor
 				/* Get all propertydescriptors of source */
 				PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(value.GetType());
 				/* Create a list of PropertyViewModels bound to the properties of source */
-				List<PropertyViewModel>pvmList = new List<PropertyViewModel>();
+				List<PropertyViewModel> pvmList = new List<PropertyViewModel>();
 				foreach (PropertyDescriptor pd in properties) {
 					if (pd.IsBrowsable) {
 						System.Type fittingPVM = viewModels.Single(pvm => (pd.PropertyType.IsAssignableFrom(pvm.BaseType.GetGenericArguments()[0])));
-						object[] parameters = { Source, pd };
+						object[] parameters = { source, pd };
 						pvmList.Add((PropertyViewModel)(fittingPVM.GetConstructors()[0].Invoke(parameters)));
 					}
 				}
