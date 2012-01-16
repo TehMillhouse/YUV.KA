@@ -265,10 +265,10 @@ namespace YuvKA.Test.Pipeline
 			decisions[1] = new MacroblockDecision { Movement = new Vector(12.0, 12.0) };
 			decisions[2] = new MacroblockDecision { Movement = new Vector(12.0, 0.0) };
 			decisions[3] = new MacroblockDecision { Movement = new Vector(12.0, -12.0) };
-			decisions[4] = new MacroblockDecision { Movement = new Vector(0.0, -12.0) };
-			decisions[5] = new MacroblockDecision { Movement = new Vector(-12.0, -12.0) };
-			decisions[6] = new MacroblockDecision { Movement = new Vector(-12.0, 0.0) };
-			decisions[7] = new MacroblockDecision { Movement = new Vector(-12.0, 12.0) };
+			decisions[4] = new MacroblockDecision { Movement = new Vector(3.0, -12.0) };
+			decisions[5] = new MacroblockDecision { Movement = new Vector(-38.0, -15.0) };
+			decisions[6] = new MacroblockDecision { Movement = new Vector(-120.0, 0.0) };
+			decisions[7] = new MacroblockDecision { Movement = new Vector(-20.0, 20.0) };
 			decisions[8] = new MacroblockDecision { Movement = new Vector(4.0, 0.0) };
 			decisions[9] = new MacroblockDecision { Movement = new Vector(0.0, 4.0) };
 			decisions[10] = new MacroblockDecision { Movement = new Vector(4.0, 4.0) };
