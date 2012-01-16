@@ -30,6 +30,7 @@ namespace YuvKA.ViewModel
 				return
 					from node in Nodes
 					from input in node.Inputs
+					where !input.IsFake
 					let iModel = ((Node.Input)input.Model)
 					where iModel.Source != null
 					from node2 in Nodes
