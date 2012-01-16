@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Linq;
 
 namespace YuvKA.ViewModel.PropertyEditor
 {
@@ -18,6 +19,15 @@ namespace YuvKA.ViewModel.PropertyEditor
 		{
 			get { return Property.GetValue(Source); }
 			set { Property.SetValue(Source, value); }
+		}
+
+		public string DisplayName
+		{
+			get
+			{
+				DisplayNameAttribute attr = Property.Attributes.OfType<DisplayNameAttribute>().FirstOrDefault();
+				return attr != null ? attr.DisplayName : Property.Name;
+			}
 		}
 	}
 
