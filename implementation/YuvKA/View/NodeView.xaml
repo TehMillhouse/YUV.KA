@@ -14,16 +14,18 @@
 				<Path Data="M 0,3 l 6,0 M 3,0 l 0,6" Visibility="{Binding IsFake, Converter={StaticResource boolConv}}" Stroke="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 			</Grid>
 		</DataTemplate>
+		<DataTemplate x:Key="SaveOutputTemplate">
+			<!-- TODO: Show output index and disable menu item when !Node.InputIsValid. We'll need an OutputViewModel for that. -->
+			<MenuItem cal:Action.TargetWithoutContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Header="Save output" cal:Message.Attach="[Event Click] = [Action SaveNodeOutput($dataContext)]"/>
+		</DataTemplate>
 	</UserControl.Resources>
 	<UserControl.ContextMenu>
 		<!-- Must set Target because ContextMenu creates its own Visual Tree -->
-		<ContextMenu cal:Action.Target="{Binding}" ItemsSource="{Binding Model.Outputs}">
-			<ContextMenu.ItemTemplate>
-				<DataTemplate>
-					<!-- TODO: Show output index and disable menu item when !Node.InputIsValid. We'll need an OutputViewModel for that. -->
-					<MenuItem Header="Save output" cal:Message.Attach="[Event Click] = [Action SaveNodeOutput($dataContext)]"/>
-				</DataTemplate>
-			</ContextMenu.ItemTemplate>
+		<ContextMenu>
+			<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]" />
+			<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource SaveOutputTemplate}" />
+			<!-- TODO: Implement this when OutputWindow is implemented -->
+			<MenuItem Header="Display output" />
 		</ContextMenu>
 	</UserControl.ContextMenu>
 	<Grid>
@@ -38,15 +40,8 @@
 						<MenuItem.Header>
 							<Image Width="10" Height="10" Source="context.png" />
 						</MenuItem.Header>
-						<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]"/>
-						<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}">
-							<MenuItem.ItemTemplate>
-								<DataTemplate>
-									<!-- TODO: Show output index and disable menu item when !Node.InputIsValid. We'll need an OutputViewModel for that. -->
-									<MenuItem cal:Action.TargetWithoutContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Header="Save output" cal:Message.Attach="[Event Click] = [Action SaveNodeOutput($dataContext)]"/>
-								</DataTemplate>
-							</MenuItem.ItemTemplate>
-						</MenuItem>
+						<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]" />
+						<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource SaveOutputTemplate}" />
 						<!-- TODO: Implement this when OutputWindow is implemented -->
 						<MenuItem Header="Display output" />
 					</MenuItem>
