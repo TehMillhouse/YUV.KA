@@ -97,7 +97,7 @@ namespace YuvKA.Test.ViewModel
 			using (var enumerator = vm.Save().GetEnumerator()) {
 				enumerator.MoveNext();
 				var stream = new MemoryStream();
-				((ChooseFileResult)enumerator.Current).Stream = stream;
+				((ChooseFileResult)enumerator.Current).Stream = () => stream;
 				Assert.False(enumerator.MoveNext());
 				serialized = stream.ToArray();
 			}
@@ -105,7 +105,7 @@ namespace YuvKA.Test.ViewModel
 			vm.Clear();
 			using (var enumerator = vm.Open().GetEnumerator()) {
 				enumerator.MoveNext();
-				((ChooseFileResult)enumerator.Current).Stream = new MemoryStream(serialized);
+				((ChooseFileResult)enumerator.Current).Stream = () => new MemoryStream(serialized);
 				Assert.False(enumerator.MoveNext());
 			}
 

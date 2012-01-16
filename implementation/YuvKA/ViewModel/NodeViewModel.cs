@@ -69,13 +69,12 @@ namespace YuvKA.ViewModel
 		{
 			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv", OpenReadOnly = false };
 			yield return file;
-			IoC.Get<IWindowManager>().ShowDialog(new SaveNodeOutputViewModel(output, file.Stream, Parent.Parent.Model));
+			IoC.Get<IWindowManager>().ShowDialog(new SaveNodeOutputViewModel(output, file.Stream(), Parent.Parent.Model));
 		}
 
 		public void ShowNodeOutput(Node.Output output)
 		{
 			Parent.Parent.OpenWindow(new VideoOutputViewModel(output));
 		}
-
 	}
 }

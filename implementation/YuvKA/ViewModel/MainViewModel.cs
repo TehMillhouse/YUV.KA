@@ -69,16 +69,16 @@ namespace YuvKA.ViewModel
 			var file = new ChooseFileResult { OpenReadOnly = false, Filter = PipelineFilter };
 			yield return file; // Let user/test code choose a file, then continue
 			var serializer = new NetDataContractSerializer();
-			using (file.Stream)
-				Serialize(file.Stream, Model);
+			using (var stream = file.Stream())
+				Serialize(stream, Model);
 		}
 
 		public IEnumerable<IResult> Open()
 		{
 			var file = new ChooseFileResult { Filter = PipelineFilter };
 			yield return file; // Let user/test code choose a file, then continue
-			using (file.Stream)
-				Model = Deserialize(file.Stream);
+			using (var car = file.Stream())
+				Model = Deserialize(car);
 		}
 
 		public void Clear()

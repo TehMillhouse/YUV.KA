@@ -15,7 +15,8 @@ namespace Caliburn.Micro
 
 		public bool OpenReadOnly { get; set; }
 		public string Filter { get; set; }
-		public Stream Stream { get; set; }
+		public Func<Stream> Stream { get; set; }
+		public string FileName { get; set; }
 
 		public void Execute(ActionExecutionContext context)
 		{
@@ -24,7 +25,8 @@ namespace Caliburn.Micro
 
 			if (dialog.ShowDialog() == true) {
 				// Screw you WPF, I know that method is there
-				Stream = ((dynamic)dialog).OpenFile();
+				Stream = () => ((dynamic)dialog).OpenFile();
+				FileName = dialog.FileName;
 				Completed(this, new ResultCompletionEventArgs());
 			}
 		}
