@@ -246,7 +246,7 @@ namespace YuvKA.Test.Pipeline
 		/// | | |/  |   |  \|
 		/// |---------------|
 		/// |   |   |   |   |
-		/// | - | | | / |   |
+		/// | - | | | / | - |
 		/// |   |   |   |   |
 		/// |---------------|
 		/// The result has to be inspected manually

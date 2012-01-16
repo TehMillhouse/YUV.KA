@@ -57,7 +57,7 @@ namespace YuvKA.Pipeline.Implementation
 				}
 				/* Draw Arrowshaft */
 				Graphics drawableMacroblock = Graphics.FromImage(macroblock);
-				Pen newPen = new Pen(Color.White, 1.0F);
+				Pen newPen = new Pen(Color.White, 1.5F);
 				float halfXDiff = (float)0.5 * Math.Min(12, (float)movement.X);
 				float halfYDiff = (float)0.5 * Math.Min(12, (float)movement.Y);
 				float headX = 7 + halfXDiff;
@@ -66,11 +66,11 @@ namespace YuvKA.Pipeline.Implementation
 				/* Draw Arrowhead */
 				double headLength = Math.Sqrt(movement.X * movement.X + movement.Y * movement.Y) / 3.0;
 				double alpha = Math.Atan(movement.Y / Math.Abs(movement.X));
-				double alphaH1 = alpha + 45;
+				double alphaH1 = alpha + (Math.PI / 4);
 				float headX1 = (float)(headX - Math.Cos(alphaH1) * headLength * ((movement.X < 0) ? -1 : 1));
 				float headY1 = (float)(headY + Math.Sin(alphaH1) * headLength);
 				drawableMacroblock.DrawLine(newPen, headX1, headY1, headX, headY);
-				double alphaH2 = alpha - 45;
+				double alphaH2 = alpha - (Math.PI / 4);
 				float headX2 = (float)(headX - Math.Cos(alphaH2) * headLength * ((movement.X < 0) ? -1 : 1));
 				float headY2 = (float)(headY + Math.Sin(alphaH2) * headLength);
 				drawableMacroblock.DrawLine(newPen, headX2, headY2, headX, headY);
