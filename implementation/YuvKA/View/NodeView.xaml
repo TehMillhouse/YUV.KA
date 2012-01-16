@@ -28,6 +28,10 @@
 	</UserControl.ContextMenu>
 	<Grid>
 		<Border Background="LightBlue"  CornerRadius="5" MinHeight="80" MinWidth="80" BorderThickness="3" BorderBrush="LightSkyBlue" cal:Message.Attach="[Event MouseDown] = [Action NodeMouseDown($dataContext, $eventArgs)]">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="3" Opacity="10"/>
+			</Border.Effect>
+			<StackPanel Orientation="Vertical">
 			<DockPanel LastChildFill="True" Height="20" Background="LightBlue" VerticalAlignment="Top">
 				<Menu DockPanel.Dock="Right" Background="LightBlue">
 					<MenuItem>
