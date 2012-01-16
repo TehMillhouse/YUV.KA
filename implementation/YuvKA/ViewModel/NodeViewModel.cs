@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
-using System.Linq;
 
 namespace YuvKA.ViewModel
 {
@@ -12,7 +12,7 @@ namespace YuvKA.ViewModel
 		InOutputViewModel fake = new InOutputViewModel(model: null);
 		IList<InOutputViewModel> inputs;
 
-		public NodeViewModel(Node model, MainViewModel parent)
+		public NodeViewModel(Node model, PipelineViewModel parent)
 		{
 			Model = model;
 			NodeType = new NodeType { Type = model.GetType() };
@@ -26,12 +26,13 @@ namespace YuvKA.ViewModel
 				{
 					Outputs = Model.Outputs.Select(i => new InOutputViewModel(i)).ToList();
 					NotifyOfPropertyChange(() => Outputs);
+					Parent.NotifyOfPropertyChange(() => Parent.Edges);
 				};
 		}
 
 		public NodeType NodeType { get; private set; }
 		public Node Model { get; private set; }
-		public MainViewModel Parent { get; private set; }
+		public PipelineViewModel Parent { get; private set; }
 
 		public IEnumerable<InOutputViewModel> Inputs
 		{
@@ -51,6 +52,7 @@ namespace YuvKA.ViewModel
 				Model.X = value.X;
 				Model.Y = value.Y;
 				NotifyOfPropertyChange(() => Margin);
+				Parent.NotifyOfPropertyChange(() => Parent.Edges);
 			}
 		}
 
@@ -58,20 +60,21 @@ namespace YuvKA.ViewModel
 
 		public void RemoveNode()
 		{
-			Parent.PipelineViewModel.Nodes.Remove(this);
-			Parent.Model.Graph.Nodes.Remove(this.Model);
+			Parent.Nodes.Remove(this);
+			Parent.Parent.Model.Graph.Nodes.Remove(this.Model);
+			Parent.NotifyOfPropertyChange(() => Parent.Edges);
 		}
 
 		public IEnumerable<IResult> SaveNodeOutput(Node.Output output)
 		{
 			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv", OpenReadOnly = false };
 			yield return file;
-			IoC.Get<IWindowManager>().ShowDialog(new SaveNodeOutputViewModel(output, file.Stream, Parent.Model));
+			IoC.Get<IWindowManager>().ShowDialog(new SaveNodeOutputViewModel(output, file.Stream, Parent.Parent.Model));
 		}
 
 		public void ShowNodeOutput(Node.Output output)
 		{
-			Parent.OpenWindow(new VideoOutputViewModel(output));
+			Parent.Parent.OpenWindow(new VideoOutputViewModel(output));
 		}
 
 	}

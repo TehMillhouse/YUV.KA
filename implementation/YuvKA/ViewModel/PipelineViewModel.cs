@@ -17,7 +17,7 @@ namespace YuvKA.ViewModel
 		public PipelineViewModel(MainViewModel parent)
 		{
 			Parent = parent;
-			Nodes = new ObservableCollection<NodeViewModel>(Parent.Model.Graph.Nodes.Select(n => new NodeViewModel(n, Parent)));
+			Nodes = new ObservableCollection<NodeViewModel>(Parent.Model.Graph.Nodes.Select(n => new NodeViewModel(n, this)));
 		}
 
 		public MainViewModel Parent { get; private set; }
@@ -43,7 +43,7 @@ namespace YuvKA.ViewModel
 		{
 			var type = (NodeType)e.Data.GetData(typeof(NodeType));
 			var node = (Node)Activator.CreateInstance(type.Type);
-			var nodeModel = new NodeViewModel(node, Parent);
+			var nodeModel = new NodeViewModel(node, this);
 			nodeModel.Position = IoC.Get<IGetPosition>().GetDropPosition(e, this);
 
 			Parent.Model.Graph.Nodes.Add(node);
@@ -63,7 +63,6 @@ namespace YuvKA.ViewModel
 				return;
 			}
 			draggedNode.Position = IoC.Get<IGetPosition>().GetMousePosition(e, this) - dragMouseOffset;
-			NotifyOfPropertyChange(() => Edges);
 		}
 	}
 }
