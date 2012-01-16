@@ -57,7 +57,7 @@ namespace YuvKA.Test.ViewModel
 			int width = 352;
 			int height = 240;
 			string fileName = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv"; // be sure to adjust this beforehand
-			string saveName = "..\\..\\..\\..\\output\\output.yuv"; // warning, depending on the file, this produces a lot of images
+			string saveName = "..\\..\\..\\..\\output\\yuvencoder-output_352x240_125.yuv"; // warning, depending on the file, this produces a lot of images
 			YuvEncoder.Video video = new YuvEncoder.Video(new VideoModel.Size(width, height), fileName, null, null);
 			IEnumerable<Frame> frameList = Enumerable.Range(0, video.FrameCount).Select(i => video[i]);
 			YuvEncoder.Encode(saveName, frameList);
