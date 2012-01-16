@@ -49,6 +49,7 @@
 				<TextBlock DockPanel.Dock="Left" Text="{Binding NodeType.Type.Name}"/>
 
 			</DockPanel>
+			</StackPanel>
 		</Border>
 		<ItemsControl x:Name="Inputs" HorizontalAlignment="Left" Margin="-5,20,0,0" ItemTemplate="{StaticResource InOutTemplate}"/>
 		<ItemsControl x:Name="Outputs" HorizontalAlignment="Right" Margin="0,20,-5,0" ItemTemplate="{StaticResource InOutTemplate}"/>
