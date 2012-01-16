@@ -50,6 +50,12 @@ namespace YuvKA.ViewModel
 
 		public Thickness Margin { get { return new Thickness(Model.X, Model.Y, 0, 0); } }
 
+		public void RemoveNode()
+		{
+			Parent.PipelineViewModel.Nodes.Remove(this);
+			Parent.Model.Graph.Nodes.Remove(this.NodeModel);
+		}
+
 		public IEnumerable<IResult> SaveNodeOutput(Node.Output output)
 		{
 			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv", OpenReadOnly = false };
