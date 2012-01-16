@@ -21,8 +21,10 @@ namespace YuvKA.Pipeline
 		{
 			if (inputCount.HasValue)
 				Inputs = Enumerable.Range(0, inputCount.Value).Select(_ => new Input()).ToArray();
-			else
+			else {
 				Inputs = new ObservableCollection<Input>();
+				UserCanAddInputs = true;
+			}
 
 			if (outputCount.HasValue)
 				Outputs = Enumerable.Range(0, outputCount.Value).Select(_ => new Output(this)).ToArray();
@@ -58,6 +60,10 @@ namespace YuvKA.Pipeline
 		[DataMember]
 		[Browsable(false)]
 		public IList<Input> Inputs { get; private set; }
+
+		[DataMember]
+		[Browsable(false)]
+		public bool UserCanAddInputs { get; private set; }
 
 		[DataMember]
 		[Browsable(false)]

@@ -6,6 +6,15 @@
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			mc:Ignorable="d"
 			d:DesignHeight="190" d:DesignWidth="190" Margin="{Binding Margin}" HorizontalAlignment="Left" VerticalAlignment="Top">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="boolConv"/>
+		<DataTemplate x:Key="InOutTemplate">
+			<Grid Margin="0,0,0,10">
+				<Ellipse Width="11" Height="11" Stroke="Black" Fill="White"/>
+				<Path Data="M 0,3 l 6,0 M 3,0 l 0,6" Visibility="{Binding IsFake, Converter={StaticResource boolConv}}" Stroke="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			</Grid>
+		</DataTemplate>
+	</UserControl.Resources>
 	<UserControl.ContextMenu>
 		<!-- Must set Target because ContextMenu creates its own Visual Tree -->
 		<ContextMenu cal:Action.Target="{Binding}" ItemsSource="{Binding NodeModel.Outputs}">
@@ -17,7 +26,11 @@
 			</ContextMenu.ItemTemplate>
 		</ContextMenu>
 	</UserControl.ContextMenu>
-	<Border Background="LightBlue"  CornerRadius="5" MinHeight="80" MinWidth="80" BorderThickness="3" BorderBrush="LightSkyBlue" cal:Message.Attach="[Event MouseDown] = [Action NodeMouseDown($dataContext, $eventArgs)]">
-		<TextBlock Text="{Binding NodeType.Type.Name}"/>
-	</Border>
+	<Grid>
+		<Border Background="LightBlue"  CornerRadius="5" MinHeight="80" MinWidth="80" BorderThickness="3" BorderBrush="LightSkyBlue" cal:Message.Attach="[Event MouseDown] = [Action NodeMouseDown($dataContext, $eventArgs)]">
+			<TextBlock Text="{Binding NodeType.Type.Name}"/>
+		</Border>
+		<ItemsControl x:Name="Inputs" HorizontalAlignment="Left" Margin="-5,20,0,0" ItemTemplate="{StaticResource InOutTemplate}"/>
+		<ItemsControl x:Name="Outputs" HorizontalAlignment="Right" Margin="0,20,-5,0" ItemTemplate="{StaticResource InOutTemplate}"/>
+	</Grid>
 </UserControl>
