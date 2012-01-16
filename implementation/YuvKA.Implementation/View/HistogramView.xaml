@@ -1,0 +1,32 @@
+﻿<Window x:Class="YuvKA.Implementation.View.HistogramView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+             xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:local="clr-namespace:YuvKA.ViewModel.Implementation" WindowStyle="ToolWindow" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <local:HistogramViewModel x:Key="VM"></local:HistogramViewModel>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource VM}">
+        <DVC:Chart Canvas.Top="80" Canvas.Left="10" Name="mcChart" Height="250" Background="White" HorizontalAlignment="Left" Width="400" VerticalAlignment="Top">
+            <DVC:Chart.LegendStyle>
+                <Style TargetType="DV:Legend">
+                    <Setter Property="Width" Value="0" />
+                </Style>
+            </DVC:Chart.LegendStyle>
+            <DVC:Chart.Series>
+                <DVC:LineSeries ItemsSource="{Binding Data}" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}">
+                    <DVC:LineSeries.DataPointStyle>
+                        <Style TargetType="DVC:LineDataPoint">
+                            <Setter Property="Opacity" Value="0" />
+                            <Setter Property="Background" Value="LightSteelBlue" />
+                        </Style>
+                    </DVC:LineSeries.DataPointStyle>
+                </DVC:LineSeries>
+            </DVC:Chart.Series>
+        </DVC:Chart>
+    </Grid>
+</Window>

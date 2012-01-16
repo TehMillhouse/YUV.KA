@@ -1,23 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
-	class HistogramNodeData : ObservableCollection<KeyValuePair<int, double>>
+	class HistogramNodeData : ObservableCollection<KeyValuePair<int, double>>, INotifyPropertyChanged
 	{
-		private static HistogramNodeData histogramNodeData;
-		public HistogramNodeData(double[] data)
-		{
-			histogramNodeData = this;
-			Init(data);
-		}
-
-		public static HistogramNodeData GetModel()
-		{
-			return histogramNodeData;
-		}
-
-		public void Init(double[] data)
+		
+		public void setData(double[] data)
 		{
 			int i = 0;
 			foreach (double d in data) {
@@ -25,9 +16,15 @@ namespace YuvKA.Pipeline.Implementation
 				i++;
 			}
 		}
-		public ObservableCollection<KeyValuePair<int, double>> GetData()
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		private void OnPropertyChanged(String info)
 		{
-			return this;
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null) {
+				handler(this, new PropertyChangedEventArgs(info));
+			}
 		}
 	}
 }

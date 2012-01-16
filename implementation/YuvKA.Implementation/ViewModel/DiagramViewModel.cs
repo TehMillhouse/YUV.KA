@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
 
@@ -6,13 +7,7 @@ namespace YuvKA.ViewModel.Implementation
 {
 	public class DiagramViewModel : OutputWindowViewModel
 	{
-		public new DiagramNode NodeModel
-		{
-			get
-			{
-				throw new System.NotImplementedException();
-			}
-		}
+		public new DiagramNode NodeModel { get; set; }
 
 
 		public IList<IGraphType> Types
@@ -23,14 +18,27 @@ namespace YuvKA.ViewModel.Implementation
 			}
 		}
 
+		public ObservableCollection<Node.Input> Videos
+		{
+			get { ObservableCollection<Node.Input> videos = new ObservableCollection<Node.Input>();
+				foreach (Node.Input i in NodeModel.Inputs)
+				{
+					videos.Add(i);
+				}
+				return videos;
+			}
+		}
+
 		public void DeleteGraph(DiagramGraph graph)
 		{
-			throw new System.NotImplementedException();
+			NodeModel.Graphs.Remove(graph);
 		}
 
 		public void AddGraph(Node.Input video)
 		{
-			throw new System.NotImplementedException();
+			DiagramGraph newGraph = new DiagramGraph();
+			newGraph.Video = video;
+			NodeModel.Graphs.Add(newGraph);
 		}
 	}
 }
