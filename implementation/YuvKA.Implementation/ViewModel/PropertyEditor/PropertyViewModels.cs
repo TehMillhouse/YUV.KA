@@ -31,10 +31,6 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 	}
 
-	public class BlurTypePropertyViewModel : PropertyViewModel<YuvKA.Pipeline.Implementation.BlurType>
-	{
-	}
-
 	public class SizePropertyViewModel : PropertyViewModel<Size>
 	{
 		public int Width
@@ -47,10 +43,6 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 			get { return Value.Height; }
 			set { Value = new Size(Width, value); }
 		}
-	}
-
-	public class NoiseTypePropertyViewModel : PropertyViewModel<YuvKA.Pipeline.Implementation.NoiseType>
-	{
 	}
 
 	public abstract class NumericalPropertyViewModel<T> : PropertyViewModel<T>
@@ -83,7 +75,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 	{
 		public System.Array Choices
 		{
-			get { return Enum.GetValues(Property.GetType()); }
+			get { return Enum.GetValues(Property.PropertyType); }
 			private set { }
 		}
 	}
