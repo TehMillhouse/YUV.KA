@@ -39,6 +39,7 @@ namespace YuvKA.Pipeline.Implementation
 		public NoiseInputNode()
 			: base(outputCount: 1)
 		{
+			Size = new Size(0, 0);
 		}
 
 		[DataMember]

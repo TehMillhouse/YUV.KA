@@ -13,6 +13,7 @@ namespace YuvKA.Pipeline.Implementation
 		public ColorInputNode()
 			: base(outputCount: 1)
 		{
+			Size = new Size(0, 0);
 		}
 
 		[DataMember]

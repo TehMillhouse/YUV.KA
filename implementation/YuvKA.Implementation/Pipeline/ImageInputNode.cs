@@ -17,6 +17,7 @@ namespace YuvKA.Pipeline.Implementation
 		public ImageInputNode()
 			: base(outputCount: 1)
 		{
+			Size = new YuvKA.VideoModel.Size(0, 0);
 		}
 
 		[DisplayName("File Name")]
