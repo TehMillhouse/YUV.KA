@@ -6,7 +6,7 @@
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			xmlns:pe="clr-namespace:YuvKA.View.PropertyEditor"
 			mc:Ignorable="d"
-			d:DesignHeight="190" d:DesignWidth="190" Margin="{Binding Margin}" HorizontalAlignment="Left" VerticalAlignment="Top">
+			d:DesignHeight="190" d:DesignWidth="190" Margin="{Binding Margin}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.92">
 	<UserControl.Resources>
 		<DataTemplate x:Key="SaveOutputTemplate">
 			<!-- TODO: Show output index and disable menu item when !Node.InputIsValid. We'll need an OutputViewModel for that. -->
@@ -23,9 +23,9 @@
 		</ContextMenu>
 	</UserControl.ContextMenu>
 	<Grid>
-		<Border Background="LightBlue"  CornerRadius="5" MinHeight="80" MinWidth="80" BorderThickness="3" BorderBrush="LightSkyBlue" cal:Message.Attach="[Event MouseDown] = [Action NodeMouseDown($dataContext, $eventArgs)]">
+		<Border Background="#A799DBFF" CornerRadius="5" MinHeight="80" MinWidth="80" BorderThickness="3" BorderBrush="LightSkyBlue" cal:Message.Attach="[Event MouseDown] = [Action NodeMouseDown($dataContext, $eventArgs)]">
 			<Border.Effect>
-				<DropShadowEffect BlurRadius="3" Opacity="10"/>
+				<DropShadowEffect BlurRadius="13" Opacity="0.8" ShadowDepth="4"/>
 			</Border.Effect>
 			<StackPanel Orientation="Vertical">
 			<DockPanel LastChildFill="True" Height="20" Background="LightBlue" VerticalAlignment="Top">
@@ -43,7 +43,7 @@
 				<TextBlock DockPanel.Dock="Left" Text="{Binding NodeType.Type.Name}"/>
 
 			</DockPanel>
-				<pe:PropertyEditor Source="{Binding Model}"/>
+				<pe:PropertyEditor Source="{Binding Model}" Opacity="1.0"/>
 			</StackPanel>
 		</Border>
 		<ItemsControl x:Name="Inputs" HorizontalAlignment="Left" Margin="-5,20,0,0"/>
