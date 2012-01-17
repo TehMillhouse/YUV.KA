@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.Collections.Generic;
+using Xunit;
 using YuvKA.Pipeline;
 
 namespace YuvKA.Test.Pipeline
@@ -123,11 +124,17 @@ namespace YuvKA.Test.Pipeline
 			node3.SettableNumberOfFramesToPrecompute = 4;
 			node4.SettableNumberOfFramesToPrecompute = 8;
 
-			Assert.Equal(0, graph.NumberOfFramesToPrecompute(node0));
-			Assert.Equal(1, graph.NumberOfFramesToPrecompute(node1));
-			Assert.Equal(2, graph.NumberOfFramesToPrecompute(node2));
-			Assert.Equal(5, graph.NumberOfFramesToPrecompute(node3));
-			Assert.Equal(13, graph.NumberOfFramesToPrecompute(node4));
+			List<AnonymousNode> nodeList = new List<AnonymousNode>();
+			nodeList.Add(node0);
+			Assert.Equal(0, graph.NumberOfFramesToPrecompute(nodeList));
+			nodeList.Add(node1);
+			Assert.Equal(1, graph.NumberOfFramesToPrecompute(nodeList));
+			nodeList.Add(node2);
+			Assert.Equal(2, graph.NumberOfFramesToPrecompute(nodeList));
+			nodeList.Add(node3);
+			Assert.Equal(5, graph.NumberOfFramesToPrecompute(nodeList));
+			nodeList.Add(node4);
+			Assert.Equal(13, graph.NumberOfFramesToPrecompute(nodeList));
 
 		}
 

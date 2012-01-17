@@ -32,11 +32,22 @@ namespace YuvKA.Pipeline
 
 
 		/// <summary>
-		/// Returns the number of frames to precompute, so the specified node can process the next frame. The method assumes, that the graph does not contain any cycles.
+		/// Returns the number of frames to precompute, so the specified nodes can process the next frame. The method assumes, that the graph does not contain any cycles.
 		/// </summary>
-		/// <param name="startNode">The specified node.</param>
+		/// <param name="startNode">The specified nodes.</param>
 		/// <returns>The number of frames to precompute.</returns>
-		public int NumberOfFramesToPrecompute(Node startNode)
+		public int NumberOfFramesToPrecompute(IEnumerable<Node> outputNodes)
+		{
+			int precomputeCount = 0;
+			foreach(Node node in outputNodes)
+			{
+				precomputeCount = Math.Max(precomputeCount, NumberOfFramesToPrecompute(node));
+			}
+			return precomputeCount;
+		}
+
+
+		private int NumberOfFramesToPrecompute(Node startNode)
 		{
 			int framesToPrecompute = 0;
 			if (startNode.Inputs != null) {

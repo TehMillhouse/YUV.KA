@@ -52,7 +52,7 @@ namespace YuvKA.Pipeline
 
 		public bool Start(IEnumerable<Node> outputNodes)
 		{
-			return RenderTicks(outputNodes, Graph.TickCount);
+			return RenderTicks(outputNodes, Graph.TickCount - CurrentTick);
 		}
 
 		public void Stop()
@@ -77,7 +77,8 @@ namespace YuvKA.Pipeline
 			if (!outputNodes.All(node => node.InputIsValid))
 				return false;
 			cts = new CancellationTokenSource();
-			Driver.RenderTicks(outputNodes, CurrentTick, tickCount, cts).Subscribe(dic => {
+			int precomputeCount = Graph.NumberOfFramesToPrecompute(outputNodes);
+			Driver.RenderTicks(outputNodes, CurrentTick - precomputeCount, tickCount + precomputeCount, cts).Subscribe(dic => {
 				if (lastTick.HasValue) {
 					DateTimeOffset nextTick = lastTick.Value + TimeSpan.FromSeconds(1.0 / Speed);
 					if (DateTimeOffset.Now < nextTick)
