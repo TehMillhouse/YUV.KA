@@ -1,12 +1,12 @@
 ﻿<UserControl
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:YuvKA_ViewModel="clr-namespace:YuvKA.ViewModel" x:Class="YuvKA.View.ReplayStateView" 
-      xmlns:kent="http://schemas.kent.boogaart.com/converters"
-      xmlns:sys="clr-namespace:System;assembly=mscorlib"
-      mc:Ignorable="d" d:DesignWidth="300"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:YuvKA_ViewModel="clr-namespace:YuvKA.ViewModel" x:Class="YuvKA.View.ReplayStateView"
+	xmlns:kent="http://schemas.kent.boogaart.com/converters"
+	xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	mc:Ignorable="d" d:DesignWidth="300"
 	Name="RSV" Height="52">
 	<UserControl.Resources>
 		<Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">

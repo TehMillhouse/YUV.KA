@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="YuvKA.View.NodeView"
 			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-			xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			xmlns:pe="clr-namespace:YuvKA.View.PropertyEditor"
 			mc:Ignorable="d"
@@ -16,8 +16,8 @@
 	</UserControl.Resources>
 	<UserControl.ContextMenu>
 		<ContextMenu>
-			<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]" />
-			<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource SaveOutputTemplate}" />
+			<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]"/>
+			<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource SaveOutputTemplate}"/>
 			<!-- TODO: Implement this when OutputWindow is implemented -->
 			<MenuItem Header="Display output" />
 		</ContextMenu>
@@ -34,10 +34,10 @@
 						<MenuItem.Header>
 							<Image Width="10" Height="10" Source="context.png" />
 						</MenuItem.Header>
-						<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]" />
-						<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource SaveOutputTemplate}" />
+						<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]"/>
+						<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource SaveOutputTemplate}"/>
 						<!-- TODO: Implement this when OutputWindow is implemented -->
-						<MenuItem Header="Display output" />
+						<MenuItem Header="Display output"/>
 					</MenuItem>
 				</Menu>
 				<TextBlock DockPanel.Dock="Left" Text="{Binding NodeType.Type.Name}"/>
