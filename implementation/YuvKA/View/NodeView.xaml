@@ -37,7 +37,7 @@
 						<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]"/>
 						<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource SaveOutputTemplate}"/>
 						<!-- TODO: Implement this when OutputWindow is implemented -->
-						<MenuItem Header="Display output"/>
+						<MenuItem Header="Display output" cal:Message.Attach="[Event Click] = [Action ShowNodeOutput(Model.Outputs[0])]"/>
 					</MenuItem>
 				</Menu>
 				<TextBlock DockPanel.Dock="Left" Text="{Binding NodeType.Type.Name}"/>
