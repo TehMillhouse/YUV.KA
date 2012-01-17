@@ -108,6 +108,9 @@
     <Compile Include="Pipeline\PipelineState.cs" />
     <Compile Include="ViewModel\ReplayStateViewModel.cs" />
     <Compile Include="ViewModel\ToolboxViewModel.cs" />
+    <Compile Include="View\PropertyEditor\PropertyEditor.xaml.cs">
+      <DependentUpon>PropertyEditor.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\EdgeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -126,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PipelineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PropertyEditor\PropertyEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

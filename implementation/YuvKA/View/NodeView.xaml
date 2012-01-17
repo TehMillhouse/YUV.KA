@@ -4,6 +4,7 @@
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+			xmlns:pe="clr-namespace:YuvKA.View.PropertyEditor"
 			mc:Ignorable="d"
 			d:DesignHeight="190" d:DesignWidth="190" Margin="{Binding Margin}" HorizontalAlignment="Left" VerticalAlignment="Top">
 	<UserControl.Resources>
@@ -42,6 +43,7 @@
 				<TextBlock DockPanel.Dock="Left" Text="{Binding NodeType.Type.Name}"/>
 
 			</DockPanel>
+				<pe:PropertyEditor Source="{Binding Model}"/>
 			</StackPanel>
 		</Border>
 		<ItemsControl x:Name="Inputs" HorizontalAlignment="Left" Margin="-5,20,0,0"/>

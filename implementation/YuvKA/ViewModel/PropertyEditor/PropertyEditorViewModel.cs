@@ -7,7 +7,7 @@ using Caliburn.Micro;
 
 namespace YuvKA.ViewModel.PropertyEditor
 {
-	public class PropertyEditorViewModel
+	public class PropertyEditorViewModel : PropertyChangedBase
 	{
 		private object source;
 
@@ -33,10 +33,14 @@ namespace YuvKA.ViewModel.PropertyEditor
 				foreach (PropertyDescriptor pd in properties) {
 					if (pd.IsBrowsable) {
 						System.Type fittingPVM = viewModels.Single(pvm => (pd.PropertyType.IsAssignableFrom(pvm.BaseType.GetGenericArguments()[0])));
-						pvmList.Add((PropertyViewModel)Activator.CreateInstance(fittingPVM));
+						PropertyViewModel vm = (PropertyViewModel) Activator.CreateInstance(fittingPVM);
+						vm.Source = source;
+						vm.Property = pd;
+						pvmList.Add(vm);
 					}
 				}
 				Properties = pvmList;
+				NotifyOfPropertyChange(() => Properties);
 			}
 		}
 		public IEnumerable<PropertyViewModel> Properties { get; private set; }
