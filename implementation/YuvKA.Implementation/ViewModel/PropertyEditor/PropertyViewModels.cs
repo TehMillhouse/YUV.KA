@@ -18,6 +18,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		{
 			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv" };
 			yield return file;
+			Property.SetValue(Source, new YuvKA.Pipeline.FilePath(file.FileName));
 		}
 	}
 
