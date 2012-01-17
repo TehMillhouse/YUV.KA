@@ -9,5 +9,6 @@ namespace YuvKA.Pipeline.Implementation
 	{
 		Perlin,
 		Coherent,
+		ColoredPerlin,
 	}
 }

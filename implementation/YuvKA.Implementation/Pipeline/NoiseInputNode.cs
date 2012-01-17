@@ -51,26 +51,17 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			EnsureInputLoaded();
 
-			if (Type == NoiseType.Perlin) {
-				for (int y = 0; y < outputFrame.Size.Height; ++y) {
-					for (int x = 0; x < outputFrame.Size.Width; ++x) {
-						double scalar = 0.05;
-						// Generate a noise function value, which is also tick-dependent
-						double randomNumber = (Noise(x * scalar, y * scalar, 0.05 * tick) + 1) / 2;
-						randomNumber = Math.Min(1, Math.Max(0, randomNumber));
-						byte randomColor = (byte)(randomNumber * 255);
-						outputFrame[x, y] = new Rgb(randomColor, randomColor, randomColor);
-					}
-				}
+			if (Type == NoiseType.Perlin)
+			{
+				outputFrame = ProcessPerlinNoise(outputFrame, tick);
 			}
-			else {
-				Random rnd = new Random();
-				for (int y = 0; y < outputFrame.Size.Height; ++y) {
-					for (int x = 0; x < outputFrame.Size.Width; ++x) {
-						byte color = (byte)rnd.Next(265);
-						outputFrame[x, y] = new Rgb(color, color, color);
-					}
-				}
+			else if (Type == NoiseType.Coherent)
+			{
+				outputFrame = ProcessCoherentNoise(outputFrame, tick);
+			}
+			else
+			{
+				outputFrame = ProcessColoredPerlinNoise(outputFrame, tick);
 			}
 			return outputFrame;
 		}
@@ -81,6 +72,50 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			base.OnSizeChanged();
 			outputFrame = null;
+		}
+
+		private static Frame ProcessPerlinNoise(Frame frame, int tick)
+		{
+			for (int y = 0; y < frame.Size.Height; ++y) {
+				for (int x = 0; x < frame.Size.Width; ++x) {
+					double scalar = 0.05;
+					// Generate a noise function value, which is also tick-dependent
+					double randomNumber = (Noise(x * scalar, y * scalar, 0.05 * tick) + 1) / 2;
+					byte randomColor = (byte)(randomNumber * 255);
+					frame[x, y] = new Rgb(randomColor, randomColor, randomColor);
+				}
+			}
+			return frame;
+		}
+
+		private static Frame ProcessCoherentNoise(Frame frame, int tick)
+		{
+			Random rnd = new Random();
+			for (int y = 0; y < frame.Size.Height; ++y) {
+				for (int x = 0; x < frame.Size.Width; ++x) {
+					byte color = (byte)rnd.Next(265);
+					frame[x, y] = new Rgb(color, color, color);
+				}
+			}
+			return frame;
+		}
+
+		private static Frame ProcessColoredPerlinNoise(Frame frame, int tick)
+		{
+			for (int y = 0; y < frame.Size.Height; ++y) {
+				for (int x = 0; x < frame.Size.Width; ++x) {
+					double scalar = 0.05;
+					// Generate noise function values, which is also tick-dependent
+					double randomNumberR = (Noise(x * scalar, y * scalar, 0.05 * tick) + 1) / 2;
+					double randomNumberG = (Noise((x + 50) * scalar, (y - 50) * scalar, 0.05 * (tick + 50)) + 1) / 2;
+					double randomNumberB = (Noise((x - 50) * scalar, (y + 50) * scalar, 0.05 * (tick - 50)) + 1) / 2;
+					byte randomRed = (byte)(randomNumberR * 255);
+					byte randomGreen = (byte)(randomNumberG * 255);
+					byte randomBlue = (byte)(randomNumberB * 255);
+					frame[x, y] = new Rgb(randomRed, randomGreen, randomBlue);
+				}
+			}
+			return frame;
 		}
 
 		private static double Grad(int hash, double x, double y, double z)
