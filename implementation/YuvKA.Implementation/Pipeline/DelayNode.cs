@@ -16,7 +16,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DataMember]
-		[Range(0, 10)]
+		[Range(0.0, 10.0)]
 		public int Delay { get; set; }
 
 		public override Frame[] Process(Frame[] inputs, int tick)

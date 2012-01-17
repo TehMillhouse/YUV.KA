@@ -46,7 +46,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
-		[DisplayName("Optional Log File")]
+		[DisplayName("(Log File)")]
 		[DataMember]
 		public FilePath LogFileName
 		{
@@ -58,7 +58,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
-		[DisplayName("Optional Motion Vector File")]
+		[DisplayName("(Motion Vector File)")]
 		[DataMember]
 		public FilePath MotionVectorFileName
 		{
