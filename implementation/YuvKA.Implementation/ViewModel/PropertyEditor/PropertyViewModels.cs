@@ -9,7 +9,8 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.ViewModel.PropertyEditor.Implementation
 {
-	public class BooleanPropertyViewModel : PropertyViewModel<bool> {
+	public class BooleanPropertyViewModel : PropertyViewModel<bool>
+	{
 	}
 
 	public class PathPropertyViewModel : PropertyViewModel<Pipeline.FilePath>
@@ -30,42 +31,58 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 	}
 
+	public class BlurTypePropertyViewModel : PropertyViewModel<YuvKA.Pipeline.Implementation.BlurType>
+	{
+	}
+
 	public class SizePropertyViewModel : PropertyViewModel<Size>
 	{
-		public int Width {
+		public int Width
+		{
 			get { return Value.Width; }
 			set { Value = new Size(value, Height); }
 		}
-		public int Height {
+		public int Height
+		{
 			get { return Value.Height; }
 			set { Value = new Size(Width, value); }
 		}
 	}
 
+	public class NoiseTypePropertyViewModel : PropertyViewModel<YuvKA.Pipeline.Implementation.NoiseType>
+	{
+	}
+
 	public abstract class NumericalPropertyViewModel<T> : PropertyViewModel<T>
 	{
-		public double Minimum {
+		public double Minimum
+		{
 			get { return (double)(Property.Attributes.OfType<RangeAttribute>().First().Minimum); }
 			private set { }
 		}
-		public double Maximum {
+		public double Maximum
+		{
 			get { return (double)(Property.Attributes.OfType<RangeAttribute>().First().Maximum); }
 			private set { }
 		}
 	}
 
-	public class IntPropertyViewModel : NumericalPropertyViewModel<int> {
+	public class IntPropertyViewModel : NumericalPropertyViewModel<int>
+	{
 	}
 
-	public class DoublePropertyViewModel : NumericalPropertyViewModel<double> {
+	public class DoublePropertyViewModel : NumericalPropertyViewModel<double>
+	{
 	}
 
-	public class ObservableCollectionOfDoublePropertyViewModel : PropertyViewModel<ObservableCollection<double>> {
+	public class ObservableCollectionOfDoublePropertyViewModel : PropertyViewModel<ObservableCollection<double>>
+	{
 	}
 
 	public class EnumerationPropertyViewModel : PropertyViewModel<Enum>
 	{
-		public System.Array Choices {
+		public System.Array Choices
+		{
 			get { return Enum.GetValues(Property.GetType()); }
 			private set { }
 		}

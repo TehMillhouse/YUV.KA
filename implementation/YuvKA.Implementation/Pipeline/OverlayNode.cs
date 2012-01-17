@@ -16,9 +16,9 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DataMember]
+		[Browsable(false)]
 		public IOverlayType Type { get; set; }
 
-		[DataMember]
 		[Browsable(false)]
 		public Frame Data { get; private set; }
 
