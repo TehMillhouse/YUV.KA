@@ -155,7 +155,6 @@
     </Compile>
     <AppDesigner Include="Properties\" />
     <None Include="app.config" />
-    <None Include="NamespaceDependencies.dgml" />
     <None Include="packages.config" />
     <None Include="TestCases\NodeViewModel_ShowNodeOutput.sequencediagram" />
     <None Include="TestCases\PipelineViewModel_Drop.sequencediagram" />
