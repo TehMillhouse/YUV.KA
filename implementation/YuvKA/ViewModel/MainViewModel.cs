@@ -111,6 +111,7 @@ namespace YuvKA.ViewModel
 		public void OpenWindow(OutputWindowViewModel window)
 		{
 			OpenWindows.Add(window);
+			IoC.Get<IWindowManager>().ShowWindow(window);
 			Model.RenderTick(new[] { window.NodeModel });
 		}
 
