@@ -12,6 +12,7 @@ namespace YuvKA.ViewModel
 	public class PipelineViewModel : ViewAware
 	{
 		NodeViewModel draggedNode;
+		EdgeViewModel draggedEdge;
 		Vector dragMouseOffset;
 
 		public PipelineViewModel(MainViewModel parent)
@@ -33,10 +34,18 @@ namespace YuvKA.ViewModel
 					where !input.IsFake
 					let iModel = ((Node.Input)input.Model)
 					where iModel.Source != null
-					from node2 in Nodes
-					from output in node2.Outputs
-					where iModel.Source == ((Node.Output)output.Model)
-					select new EdgeViewModel(this, input, output);
+					let output = GetOutputViewModel(iModel.Source)
+					select new EdgeViewModel(this) { StartViewModel = input, EndViewModel = output };
+			}
+		}
+
+		public EdgeViewModel DraggedEdge
+		{
+			get { return draggedEdge; }
+			set
+			{
+				draggedEdge = value;
+				NotifyOfPropertyChange(() => DraggedEdge);
 			}
 		}
 
@@ -57,13 +66,64 @@ namespace YuvKA.ViewModel
 			dragMouseOffset = IoC.Get<IGetPosition>().GetMousePosition(e, this) - draggedNode.Position;
 		}
 
+		public void InOutputMouseDown(InOutputViewModel inOut)
+		{
+			InOutputViewModel start = inOut;
+			// If the input is already connected, drag the existing edge
+			if (inOut.Model is Node.Input) {
+				start = GetOutputViewModel(((Node.Input)inOut.Model).Source) ?? start;
+				((Node.Input)inOut.Model).Source = null;
+				NotifyOfPropertyChange(() => Edges);
+			}
+			DraggedEdge = new EdgeViewModel(this) { StartViewModel = start, EndViewModel = inOut };
+		}
+
 		public void MouseMove(MouseEventArgs e)
 		{
-			if (draggedNode == null || e.LeftButton != MouseButtonState.Pressed) {
+			if (e.LeftButton != MouseButtonState.Pressed) {
 				draggedNode = null;
+				DraggedEdge = null;
 				return;
 			}
-			draggedNode.Position = IoC.Get<IGetPosition>().GetMousePosition(e, this) - dragMouseOffset;
+
+			IGetPosition getPos = IoC.Get<IGetPosition>();
+			if (draggedNode != null)
+				draggedNode.Position = getPos.GetMousePosition(e, this) - dragMouseOffset;
+			else if (DraggedEdge != null)
+				DraggedEdge.EndPoint = getPos.GetMousePosition(e, this);
+		}
+
+		public void MouseUp()
+		{
+			draggedNode = null;
+			DraggedEdge = null;
+		}
+
+		public void InOutputMouseUp(InOutputViewModel inOut)
+		{
+			Node.Input input;
+			Node.Output output;
+			if (DraggedEdge.StartViewModel.Model is Node.Input && inOut.Model is Node.Output) {
+				input = (Node.Input)DraggedEdge.StartViewModel.Model;
+				output = (Node.Output)inOut.Model;
+			}
+			else if (DraggedEdge.StartViewModel.Model is Node.Output && inOut.Model is Node.Input) {
+				output = (Node.Output)DraggedEdge.StartViewModel.Model;
+				input = (Node.Input)inOut.Model;
+			}
+			else {
+				DraggedEdge = null;
+				return;
+			}
+
+			if (Parent.Model.Graph.AddEdge(output, input))
+				NotifyOfPropertyChange(() => Edges);
+			DraggedEdge = null;
+		}
+
+		InOutputViewModel GetOutputViewModel(Node.Output output)
+		{
+			return output == null ? null : Nodes.SelectMany(n => n.Outputs).Single(o => o.Model == output);
 		}
 	}
 }

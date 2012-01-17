@@ -23,7 +23,7 @@
 		</ContextMenu>
 	</UserControl.ContextMenu>
 	<Grid>
-		<Border Background="#A799DBFF" CornerRadius="5" MinHeight="80" MinWidth="80" BorderThickness="3" BorderBrush="LightSkyBlue" cal:Message.Attach="[Event MouseDown] = [Action NodeMouseDown($dataContext, $eventArgs)]">
+		<Border Background="#A799DBFF" CornerRadius="5" MinHeight="80" MinWidth="80" BorderThickness="3" BorderBrush="LightSkyBlue" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action NodeMouseDown($dataContext, $eventArgs)]">
 			<Border.Effect>
 				<DropShadowEffect BlurRadius="13" Opacity="0.8" ShadowDepth="4"/>
 			</Border.Effect>
