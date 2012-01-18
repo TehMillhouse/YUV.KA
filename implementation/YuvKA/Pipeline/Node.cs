@@ -45,7 +45,7 @@ namespace YuvKA.Pipeline
 		{
 			get
 			{
-				return Inputs.All(input => input.Source != null && !input.Source.Node.InputIsValid);
+				return Inputs.All(input => input.Source != null && input.Source.Node.InputIsValid);
 			}
 		}
 
