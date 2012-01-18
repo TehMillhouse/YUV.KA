@@ -9,22 +9,23 @@ namespace YuvKA.ViewModel
 {
 	public class NodeViewModel : PropertyChangedBase
 	{
-		InOutputViewModel fake = new InOutputViewModel(model: null);
+		InOutputViewModel fake;
 		IList<InOutputViewModel> inputs;
 
 		public NodeViewModel(Node model, PipelineViewModel parent)
 		{
+			fake = new InOutputViewModel(model: null, parent: this);
 			Model = model;
 			NodeType = new NodeType { Type = model.GetType() };
 			Parent = parent;
 
-			inputs = Model.Inputs.Select(i => new InOutputViewModel(i)).ToList();
-			Outputs = Model.Outputs.Select(i => new InOutputViewModel(i)).ToList();
+			inputs = Model.Inputs.Select(i => new InOutputViewModel(i, this)).ToList();
+			Outputs = Model.Outputs.Select(i => new InOutputViewModel(i, this)).ToList();
 
 			if (Model.Outputs is INotifyCollectionChanged)
 				((INotifyCollectionChanged)Model.Outputs).CollectionChanged += delegate
 				{
-					Outputs = Model.Outputs.Select(i => new InOutputViewModel(i)).ToList();
+					Outputs = Model.Outputs.Select(i => new InOutputViewModel(i, this)).ToList();
 					NotifyOfPropertyChange(() => Outputs);
 					Parent.NotifyOfPropertyChange(() => Parent.Edges);
 				};
@@ -75,6 +76,15 @@ namespace YuvKA.ViewModel
 		public void ShowNodeOutput(Node.Output output)
 		{
 			Parent.Parent.OpenWindow(new VideoOutputViewModel(output));
+		}
+
+		public Node.Input AddInput()
+		{
+			var input = new Node.Input();
+			Model.Inputs.Add(input);
+			inputs.Add(new InOutputViewModel(input, this));
+			NotifyOfPropertyChange(() => Inputs);
+			return input;
 		}
 	}
 }

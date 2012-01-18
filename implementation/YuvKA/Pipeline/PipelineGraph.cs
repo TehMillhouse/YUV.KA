@@ -60,6 +60,14 @@ namespace YuvKA.Pipeline
 		}
 
 		/// <summary>
+		/// Returns true iff an edge between the specified nodes does not lead to a cycle and can be added.
+		/// </summary>
+		public bool CanAddEdge(Node source, Node sink)
+		{
+			return !DepthFirstSearch(source).Contains(sink);
+		}
+
+		/// <summary>
 		/// Returns true if the specified edge does not lead to a cycle and can be added. Else the method returns false.
 		/// </summary>
 		/// <param name="source"> The start of the new edge. </param>

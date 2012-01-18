@@ -101,20 +101,32 @@ namespace YuvKA.ViewModel
 
 		public void InOutputMouseUp(InOutputViewModel inOut)
 		{
-			Node.Input input;
-			Node.Output output;
-			if (DraggedEdge.StartViewModel.Model is Node.Input && inOut.Model is Node.Output) {
-				input = (Node.Input)DraggedEdge.StartViewModel.Model;
-				output = (Node.Output)inOut.Model;
+			InOutputViewModel inputVM, outputVM;
+			if ((DraggedEdge.StartViewModel.IsFake || DraggedEdge.StartViewModel.Model is Node.Input) && inOut.Model is Node.Output) {
+				inputVM = DraggedEdge.StartViewModel;
+				outputVM = inOut;
 			}
-			else if (DraggedEdge.StartViewModel.Model is Node.Output && inOut.Model is Node.Input) {
-				output = (Node.Output)DraggedEdge.StartViewModel.Model;
-				input = (Node.Input)inOut.Model;
+			else if (DraggedEdge.StartViewModel.Model is Node.Output && (inOut.IsFake || inOut.Model is Node.Input)) {
+				inputVM = inOut;
+				outputVM = DraggedEdge.StartViewModel;
 			}
 			else {
 				DraggedEdge = null;
 				return;
 			}
+			DraggedEdge = null;
+
+			var output = (Node.Output)outputVM.Model;
+			Node.Input input;
+			if (inputVM.IsFake) {
+				// realize substitute input
+				if (Parent.Model.Graph.CanAddEdge(output.Node, inputVM.Parent.Model))
+					input = inputVM.Parent.AddInput();
+				else
+					return;
+			}
+			else
+				input = (Node.Input)inputVM.Model;
 
 			if (Parent.Model.Graph.AddEdge(output, input))
 				NotifyOfPropertyChange(() => Edges);

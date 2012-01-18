@@ -5,8 +5,8 @@
 	<UserControl.Resources>
 		<BooleanToVisibilityConverter x:Key="boolConv"/>
 	</UserControl.Resources>
-	<Grid Margin="0,0,0,10" cal:Bind.Model="{Binding}">
-		<Ellipse Width="11" Height="11" Stroke="Black" Fill="White" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action InOutputMouseDown($dataContext)]; [Event MouseLeftButtonUp] = [Action InOutputMouseUp($dataContext)]"/>
+	<Grid Margin="0,0,0,10" cal:Bind.Model="{Binding}" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action InOutputMouseDown($dataContext)]; [Event MouseLeftButtonUp] = [Action InOutputMouseUp($dataContext)]">
+		<Ellipse Width="11" Height="11" Stroke="Black" Fill="White"/>
 		<Path Data="M 0,3 l 6,0 M 3,0 l 0,6" Visibility="{Binding IsFake, Converter={StaticResource boolConv}}" Stroke="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 	</Grid>
 </UserControl>
