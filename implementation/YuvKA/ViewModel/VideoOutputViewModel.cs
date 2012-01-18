@@ -1,6 +1,7 @@
 ﻿using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using YuvKA.Pipeline;
+using System.Windows;
 
 namespace YuvKA.ViewModel
 {
@@ -21,12 +22,13 @@ namespace YuvKA.ViewModel
 			int height = message[Output].Size.Height;
 			if (sourceImage == null) {
 				sourceImage = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgr32, null);
+				NotifyOfPropertyChange(() => sourceImage);
 			}
 
 			sourceImage.Lock();
 
 			unsafe {
-				int pBackBuffer = (int)sourceImage.BackBuffer;
+				int* pBackBuffer = (int*)sourceImage.BackBuffer;
 
 				for (int y = 0; y < height; y++) {
 					for (int x = 0; x < width; x++) {
@@ -36,14 +38,13 @@ namespace YuvKA.ViewModel
 								   (message[Output][x, y].R));
 
 						// Set the pixel at the current position to the BGR of the frame
-						*((int*)pBackBuffer) = bgr;
-						++pBackBuffer;
+						*pBackBuffer++ = bgr;
 					}
 				}
 			}
 
+			sourceImage.AddDirtyRect(new Int32Rect(0, 0, width, height));
 			sourceImage.Unlock();
-			NotifyOfPropertyChange(() => sourceImage);
 		}
 
 		//public void ShowSample()
