@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
@@ -9,9 +8,10 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class DelayNode : Node
 	{
-		Queue<Frame> queue = new Queue<Frame>();
+		Queue<Frame> queue;
 
-		public DelayNode() : base(inputCount: 1, outputCount: 1)
+		public DelayNode()
+			: base(inputCount: 1, outputCount: 1)
 		{
 		}
 
@@ -21,7 +21,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
-			if (queue.Count != Delay) {
+			if (queue == null) {
 				Frame blackFrame = new Frame(inputs[0].Size);
 				for (int x = 0; x < inputs[0].Size.Width; x++) {
 					for (int y = 0; y < inputs[0].Size.Height; y++) {
