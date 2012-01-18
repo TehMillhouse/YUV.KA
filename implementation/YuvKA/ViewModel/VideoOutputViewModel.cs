@@ -32,10 +32,12 @@ namespace YuvKA.ViewModel
 
 				for (int y = 0; y < height; y++) {
 					for (int x = 0; x < width; x++) {
-						// Compute colors in pixel format. That is BGR.
-						int bgr = ((message[Output][x, y].B << 16) |
+						// Compute colors in pixel format. That is sRGB:
+						// MSDN: Bgr32 is a sRGB format with 32 bits per pixel (BPP).
+						// Each color channel (blue, green, and red) is allocated 8 bits per pixel (BPP).
+						int bgr = ((message[Output][x, y].R << 16) |
 								   (message[Output][x, y].G << 8) |
-								   (message[Output][x, y].R));
+								   (message[Output][x, y].B));
 
 						// Set the pixel at the current position to the BGR of the frame
 						*pBackBuffer++ = bgr;
