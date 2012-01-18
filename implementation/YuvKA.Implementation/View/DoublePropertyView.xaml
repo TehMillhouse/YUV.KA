@@ -11,7 +11,7 @@
 		<DockPanel>
 			<TextBlock Text="{Binding Minimum}" DockPanel.Dock="Left" Width="10"/>
 			<TextBlock Text="{Binding Maximum}" DockPanel.Dock="Right" Width="10"/>
-			<Slider Value="{Binding Value}" Maximum="{Binding Maximum}" Minimum="{Binding Minimum}"/>
+			<Slider Value="{Binding Value}" Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" IsSnapToTickEnabled="True" TickFrequency="0.05"/>
 		</DockPanel>
 		<TextBlock Text="{Binding Value}" HorizontalAlignment="Center" FontSize="10"/>
 	</StackPanel>
