@@ -9,10 +9,9 @@ namespace YuvKA.ViewModel
 		public Node.Output Output { get; private set; }
 		public WriteableBitmap sourceImage { get; set; }
 
-		public VideoOutputViewModel(Node.Output output)
+		public VideoOutputViewModel(Node.Output output) : base(output.Node)
 		{
 			Output = output;
-			NodeModel = Output.Node;
 		}
 
 		public override void Handle(TickRenderedMessage message)

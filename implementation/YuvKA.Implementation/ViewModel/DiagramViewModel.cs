@@ -7,6 +7,11 @@ namespace YuvKA.ViewModel.Implementation
 {
 	public class DiagramViewModel : OutputWindowViewModel
 	{
+		public DiagramViewModel(Node nodeModel)
+			: base(nodeModel)
+		{
+		}
+
 		public new DiagramNode NodeModel { get; set; }
 
 
@@ -20,9 +25,10 @@ namespace YuvKA.ViewModel.Implementation
 
 		public ObservableCollection<Node.Input> Videos
 		{
-			get { ObservableCollection<Node.Input> videos = new ObservableCollection<Node.Input>();
-				foreach (Node.Input i in NodeModel.Inputs)
-				{
+			get
+			{
+				ObservableCollection<Node.Input> videos = new ObservableCollection<Node.Input>();
+				foreach (Node.Input i in NodeModel.Inputs) {
 					videos.Add(i);
 				}
 				return videos;
