@@ -39,8 +39,7 @@ namespace YuvKA.Pipeline
 		public int NumberOfFramesToPrecompute(IEnumerable<Node> outputNodes)
 		{
 			int precomputeCount = 0;
-			foreach(Node node in outputNodes)
-			{
+			foreach (Node node in outputNodes) {
 				precomputeCount = Math.Max(precomputeCount, NumberOfFramesToPrecompute(node));
 			}
 			return precomputeCount;
@@ -52,7 +51,9 @@ namespace YuvKA.Pipeline
 			int framesToPrecompute = 0;
 			if (startNode.Inputs != null) {
 				foreach (Node.Input input in startNode.Inputs) {
-					framesToPrecompute = Math.Max(framesToPrecompute, NumberOfFramesToPrecompute(input.Source.Node));
+					if (input.Source != null) {
+						framesToPrecompute = Math.Max(framesToPrecompute, NumberOfFramesToPrecompute(input.Source.Node));
+					}
 				}
 			}
 			framesToPrecompute += startNode.NumberOfFramesToPrecompute;
@@ -112,17 +113,19 @@ namespace YuvKA.Pipeline
 		{
 			if (node.Inputs != null) {
 				foreach (Node.Input input in node.Inputs) {
-					Node child = input.Source.Node;
-					if (nodeList.Contains(child) && visited.Contains(child)) {
-						nodeList.AddLast(child);
-						//Cancel further search here, since a cycle has been found
-						return;
-					}
-					else if (!nodeList.Contains(child)) {
-						nodeList.AddLast(child);
-						visited.Add(child);
-						if (child.Inputs != null) {
-							Visit(child, nodeList, visited);
+					if (input.Source != null) {
+						Node child = input.Source.Node;
+						if (nodeList.Contains(child) && visited.Contains(child)) {
+							nodeList.AddLast(child);
+							//Cancel further search here, since a cycle has been found
+							return;
+						}
+						else if (!nodeList.Contains(child)) {
+							nodeList.AddLast(child);
+							visited.Add(child);
+							if (child.Inputs != null) {
+								Visit(child, nodeList, visited);
+							}
 						}
 					}
 				}
