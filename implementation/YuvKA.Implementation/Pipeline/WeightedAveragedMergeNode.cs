@@ -12,6 +12,7 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class WeightedAveragedMergeNode : Node
 	{
+		private ObservableCollection<double> weights;
 		public WeightedAveragedMergeNode()
 			: base(inputCount: null, outputCount: 1)
 		{
@@ -20,7 +21,23 @@ namespace YuvKA.Pipeline.Implementation
 		[DataMember]
 		[Range(0.0, 1.0)]
 		[Description("Weights of inputs relative to each other")]
-		public ObservableCollection<double> Weights { get; set; }
+		public ObservableCollection<double> Weights { get {
+			if (weights == null) {
+				weights = new ObservableCollection<double>(Inputs.Select(i => 1.0));
+			}
+			else if (weights.Count < Inputs.Count) {
+				for (int i = 0; i < Inputs.Count - weights.Count; i++) {
+					weights.Add(1.0);
+				}
+			}
+
+			return weights;
+		}
+			set
+			{
+				weights = value;
+			}
+		}
 
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
