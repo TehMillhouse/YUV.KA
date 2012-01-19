@@ -52,11 +52,11 @@ namespace YuvKA.Test.Pipeline
 		public void PipelineGraphCanDetectCycles()
 		{
 			// create graph
-			AnonymousNode node0 = new AnonymousNode( ) { Name = "node0"};
+			AnonymousNode node0 = new AnonymousNode() { Name = "node0" };
 			AnonymousNode node1 = new AnonymousNode(node0) { Name = "node1" };
 			AnonymousNode node2 = new AnonymousNode(node1) { Name = "node2" };
 			AnonymousNode node3 = new AnonymousNode(node2) { Name = "node3" };
-			PipelineGraph graph = new PipelineGraph { Nodes = { node0, node1, node2, node3} };
+			PipelineGraph graph = new PipelineGraph { Nodes = { node0, node1, node2, node3 } };
 
 			Assert.Equal(false, graph.AddEdge(node3.Outputs[0], node1.Inputs[0]));
 		}
@@ -135,10 +135,6 @@ namespace YuvKA.Test.Pipeline
 			Assert.Equal(5, graph.NumberOfFramesToPrecompute(nodeList));
 			nodeList.Add(node4);
 			Assert.Equal(13, graph.NumberOfFramesToPrecompute(nodeList));
-
 		}
-
-
 	}
-
 }

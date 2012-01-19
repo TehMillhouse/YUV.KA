@@ -1,14 +1,14 @@
-﻿using YuvKA.Pipeline;
-using System;
+﻿using System;
 using System.Windows;
+using YuvKA.Pipeline;
 
 namespace YuvKA.Test.Pipeline
 {
+	using System.Collections.Generic;
 	using System.Drawing;
+	using VideoModel;
 	using Xunit;
 	using YuvKA.Pipeline.Implementation;
-	using VideoModel;
-	using System.Collections.Generic;
 
 	public class OutputNodeTests
 	{
@@ -16,94 +16,61 @@ namespace YuvKA.Test.Pipeline
 		public void TestDiagramNode()
 		{
 			// Add Input Node for DiagramNode with 3 Outputs.
-			AnonymousNode SourceNode = new AnonymousNode(sourceNode, 3);
-			Frame[] inputs = SourceNode.Process(null, 0);
+			AnonymousNode sourceNode = new AnonymousNode(SourceNode, 3);
+			Frame[] inputs = sourceNode.Process(null, 0);
 
 			// Generate DiagramNode and add referencevideo.
 			Node.Input reference = new Node.Input();
-			reference.Source = SourceNode.Outputs[0];
+			reference.Source = sourceNode.Outputs[0];
 			DiagramNode diaNode = new DiagramNode();
 			diaNode.ReferenceVideo = reference;
 			diaNode.Inputs.Add(reference);
 
 			// Add other Outputs as Inputs to DiagramNode.
 			Node.Input video = new Node.Input();
-			video.Source = SourceNode.Outputs[1];
+			video.Source = sourceNode.Outputs[1];
 			diaNode.Inputs.Add(video);
 			Node.Input annVid = new Node.Input();
-			annVid.Source = SourceNode.Outputs[2];
+			annVid.Source = sourceNode.Outputs[2];
 			diaNode.Inputs.Add(annVid);
 
 			// Generate and add all GraphTypes to DiagramGraph once.
 			DiagramGraph pixDiff = new DiagramGraph();
 			pixDiff.Video = video;
 			pixDiff.Type = new PixelDiff();
-			DiagramGraph pSNR = new DiagramGraph();
-			pSNR.Video = video;
-			pSNR.Type = new PeakSignalNoiseRatio();
+			DiagramGraph pseudoNoiseRatio = new DiagramGraph();
+			pseudoNoiseRatio.Video = video;
+			pseudoNoiseRatio.Type = new PeakSignalNoiseRatio();
 			DiagramGraph inBlFreq = new DiagramGraph();
 			inBlFreq.Video = annVid;
 			inBlFreq.Type = new IntraBlockFrequency();
 			diaNode.Graphs.Add(pixDiff);
-			diaNode.Graphs.Add(pSNR);
+			diaNode.Graphs.Add(pseudoNoiseRatio);
 			diaNode.Graphs.Add(inBlFreq);
 
 			diaNode.Process(inputs, 0);
 
 			// Calculate expected results independently from DiagramGraph methods.
-			double MSE = 0.0;
+			double mse = 0.0;
 			double difference = 0.0;
 			for (int x = 0; x < inputs[0].Size.Width; x++) {
 				for (int y = 0; y < inputs[0].Size.Height; y++) {
 					difference += Math.Abs(inputs[0][x, y].R - inputs[1][x, y].R) + Math.Abs(inputs[0][x, y].G - inputs[1][x, y].G) +
 						Math.Abs(inputs[0][x, y].B - inputs[1][x, y].B);
-					MSE += Math.Pow(((inputs[0][x, y].R + inputs[0][x, y].G + inputs[0][x, y].B) - (inputs[1][x, y].R +
+					mse += Math.Pow(((inputs[0][x, y].R + inputs[0][x, y].G + inputs[0][x, y].B) - (inputs[1][x, y].R +
 						inputs[1][x, y].G + inputs[1][x, y].B)), 2);
 				}
 			}
 			difference = (double)difference / 3;
-			MSE *= (double)1 / (3 * inputs[1].Size.Height * inputs[1].Size.Width);
-			double PSNR;
-			if (MSE == 0.0)
-				PSNR = 0.0;
-			PSNR = 10 * Math.Log10((Math.Pow((Math.Pow(2, 24) - 1), 2)) / MSE);
+			mse *= (double)1 / (3 * inputs[1].Size.Height * inputs[1].Size.Width);
+			double psnr;
+			if (mse == 0.0)
+				psnr = 0.0;
+			psnr = 10 * Math.Log10((Math.Pow((Math.Pow(2, 24) - 1), 2)) / mse);
 
 			Assert.Equal(diaNode.Graphs[0].Data[0], difference);
-			Assert.Equal(diaNode.Graphs[1].Data[0], PSNR);
+			Assert.Equal(diaNode.Graphs[1].Data[0], psnr);
 			Assert.Equal(diaNode.Graphs[2].Data[0], 2);
-		}
-
-		/* A Process method to be used by AnonymousNodes.
-		 * Generates an array of 2 Frames and 1 AnnotatedFrame with randomly filled Data */
-		private Frame[] sourceNode(Frame[] inputs, int tick)
-		{
-			VideoModel.Size testSize = new VideoModel.Size(5, 5);
-			Frame[] outputs = { new Frame(testSize), new Frame(testSize), generateAnnFrame() };
-			for (int x = 0; x < testSize.Width; x++) {
-				for (int y = 0; y < testSize.Height; y++) {
-					outputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
-					outputs[1][x, y] = new Rgb((byte)(x * y), (byte)(x * y), (byte)(x * y));
-				}
-			}
-			return outputs;
-		}
-
-		/* Generates an AnnotatedFrame with randomly filled Data */
-		private AnnotatedFrame generateAnnFrame()
-		{
-			VideoModel.Size testSize = new VideoModel.Size(8, 8);
-			MacroblockDecision[,] decisions = {{
-				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4},
-				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4},
-				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision =  MacroblockPartitioning.Inter8x4}
-			}};
-			AnnotatedFrame output = new AnnotatedFrame(testSize, decisions);
-			for (int x = 0; x < testSize.Width; x++) {
-				for (int y = 0; y < testSize.Height; y++) {
-					output[x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
-				}
-			}
-			return output;
 		}
 
 		[Fact]
@@ -225,10 +192,10 @@ namespace YuvKA.Test.Pipeline
 			decisions[10] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Intra4x4 };
 			decisions[11] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Unknown };
 			Frame[] input = { new AnnotatedFrame(testFrame, decisions) };
-			OverlayNode Node = new OverlayNode { Type = new BlocksOverlay() };
-			Node.ProcessCore(input, 0);
+			OverlayNode node = new OverlayNode { Type = new BlocksOverlay() };
+			node.ProcessCore(input, 0);
 			List<Frame> output = new List<Frame>();
-			output.Add(Node.Data);
+			output.Add(node.Data);
 			YuvEncoder.Encode(@"..\..\..\..\output\BlockOverlayTest_64x48.yuv", output);
 		}
 
@@ -274,10 +241,10 @@ namespace YuvKA.Test.Pipeline
 			decisions[10] = new MacroblockDecision { Movement = new Vector(4.0, 4.0) };
 			decisions[11] = new MacroblockDecision { Movement = new Vector(-4.0, 0.0) };
 			Frame[] input = { new AnnotatedFrame(testFrame, decisions) };
-			OverlayNode Node = new OverlayNode { Type = new MoveVectorsOverlay() };
-			Node.ProcessCore(input, 0);
+			OverlayNode node = new OverlayNode { Type = new MoveVectorsOverlay() };
+			node.ProcessCore(input, 0);
 			List<Frame> output = new List<Frame>();
-			output.Add(Node.Data);
+			output.Add(node.Data);
 			YuvEncoder.Encode(@"..\..\..\..\output\VectorOverlayTest_64x48.yuv", output);
 		}
 
@@ -303,11 +270,44 @@ namespace YuvKA.Test.Pipeline
 				}
 			}
 			Frame[] input = { alteredTestFrame, testFrame };
-			OverlayNode Node = new OverlayNode { Type = new ArtifactsOverlay() };
-			Node.ProcessCore(input, 0);
+			OverlayNode node = new OverlayNode { Type = new ArtifactsOverlay() };
+			node.ProcessCore(input, 0);
 			List<Frame> output = new List<Frame>();
-			output.Add(Node.Data);
+			output.Add(node.Data);
 			YuvEncoder.Encode(@"..\..\..\..\output\ArtifactOverlayTest_80x80.yuv", output);
+		}
+
+		/* A Process method to be used by AnonymousNodes.
+		 * Generates an array of 2 Frames and 1 AnnotatedFrame with randomly filled Data */
+		private Frame[] SourceNode(Frame[] inputs, int tick)
+		{
+			VideoModel.Size testSize = new VideoModel.Size(5, 5);
+			Frame[] outputs = { new Frame(testSize), new Frame(testSize), GenerateAnnFrame() };
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					outputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
+					outputs[1][x, y] = new Rgb((byte)(x * y), (byte)(x * y), (byte)(x * y));
+				}
+			}
+			return outputs;
+		}
+
+		/* Generates an AnnotatedFrame with randomly filled Data */
+		private AnnotatedFrame GenerateAnnFrame()
+		{
+			VideoModel.Size testSize = new VideoModel.Size(8, 8);
+			MacroblockDecision[,] decisions = {{
+				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4},
+				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4},
+				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision =  MacroblockPartitioning.Inter8x4}
+			}};
+			AnnotatedFrame output = new AnnotatedFrame(testSize, decisions);
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					output[x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
+				}
+			}
+			return output;
 		}
 	}
 }

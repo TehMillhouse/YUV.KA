@@ -114,17 +114,19 @@ namespace YuvKA.Test.Pipeline
 			// Looks like the InvalidOperationException hasn't been thrown. Yay!
 		}
 
-		// Render a graph of anonymous int-returning nodes
-		IObservable<int> RenderTicksAnonIntNodes(PipelineDriver driver, AnonIntNode startNode, int tick, CancellationTokenSource tokenSource)
-		{
-			return driver.RenderTicks(new[] { startNode }, tokenSource: tokenSource).Select(dic => dic[startNode.Outputs[0]].Size.Width);
-		}
+		
 
 		// Catch free-flying non-observed Tasks
 		public void Dispose()
 		{
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
+		}
+
+		// Render a graph of anonymous int-returning nodes
+		IObservable<int> RenderTicksAnonIntNodes(PipelineDriver driver, AnonIntNode startNode, int tick, CancellationTokenSource tokenSource)
+		{
+			return driver.RenderTicks(new[] { startNode }, tokenSource: tokenSource).Select(dic => dic[startNode.Outputs[0]].Size.Width);
 		}
 	}
 }

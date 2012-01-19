@@ -9,6 +9,47 @@ namespace YuvKA.Test.Pipeline
 {
 	public class InputNodesTests
 	{
+		// Create images with the two supported noise types: Perlin and Coherent noise
+		[Fact]
+		public static void NoiseInputTest()
+		{
+			Frame outputFrame;
+			Bitmap outputImage;
+			int tick;
+
+			// Perlin noise
+			NoiseInputNode noiseInput = new NoiseInputNode();
+			noiseInput.Type = NoiseType.Perlin;
+			noiseInput.Size = new VideoModel.Size(352, 240);
+			tick = 7;
+
+			DateTime start = DateTime.Now; // Start time of Perlin noise test
+			outputFrame = noiseInput.OutputFrame(tick);
+			DateTime end = DateTime.Now; // End time
+
+			TimeSpan diff = end.Subtract(start);
+
+			// Time limit for the Perlin noise should be 200 ms
+			Assert.True(diff.Seconds * 1000 + diff.Milliseconds < 200);
+
+			outputImage = new Bitmap(noiseInput.Size.Width, noiseInput.Size.Height);
+			for (int y = 0; y < outputFrame.Size.Height; ++y) {
+				for (int x = 0; x < outputFrame.Size.Width; ++x) {
+					outputImage.SetPixel(x, y, Color.FromArgb(outputFrame[x, y].R,
+															  outputFrame[x, y].G,
+															  outputFrame[x, y].B));
+				}
+			}
+			outputImage.Save("..\\..\\..\\..\\output\\noise-" + noiseInput.Type + "-tick-" + tick + "-352x240.png");
+
+			// Change size and noise type to Coherent
+			noiseInput.Size = new VideoModel.Size(200, 200);
+			noiseInput.Type = NoiseType.Coherent;
+			tick = 7;
+			CopyFrameToOutputImage(noiseInput, out outputFrame, out outputImage, tick);
+			outputImage.Save("..\\..\\..\\..\\output\\noise-" + noiseInput.Type + "-tick-" + tick + "-200x200.png");
+		}
+
 		// Read a PNG file and resize it using the methods in ImageInputNode.
 		// This test does no verification. It's intended to generate a result to be visualized.
 		[Fact]
@@ -71,47 +112,6 @@ namespace YuvKA.Test.Pipeline
 			colorInput.Color = new Rgb(r, g, b);
 			CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage, 0);
 			outputImage.Save("..\\..\\..\\..\\output\\color-" + r + "-" + g + "-" + b + "177-100x50.png");
-		}
-
-		// Create images with the two supported noise types: Perlin and Coherent noise
-		[Fact]
-		public static void NoiseInputTest()
-		{
-			Frame outputFrame;
-			Bitmap outputImage;
-			int tick;
-
-			// Perlin noise
-			NoiseInputNode noiseInput = new NoiseInputNode();
-			noiseInput.Type = NoiseType.Perlin;
-			noiseInput.Size = new VideoModel.Size(352, 240);
-			tick = 7;
-
-			DateTime start = DateTime.Now; // Start time of Perlin noise test
-			outputFrame = noiseInput.OutputFrame(tick);
-			DateTime end = DateTime.Now; // End time
-
-			TimeSpan diff = end.Subtract(start);
-
-			// Time limit for the Perlin noise should be 200 ms
-			Assert.True(diff.Seconds * 1000 + diff.Milliseconds < 200);
-
-			outputImage = new Bitmap(noiseInput.Size.Width, noiseInput.Size.Height);
-			for (int y = 0; y < outputFrame.Size.Height; ++y) {
-				for (int x = 0; x < outputFrame.Size.Width; ++x) {
-					outputImage.SetPixel(x, y, Color.FromArgb(outputFrame[x, y].R,
-															  outputFrame[x, y].G,
-															  outputFrame[x, y].B));
-				}
-			}
-			outputImage.Save("..\\..\\..\\..\\output\\noise-" + noiseInput.Type + "-tick-" + tick + "-352x240.png");
-
-			// Change size and noise type to Coherent
-			noiseInput.Size = new VideoModel.Size(200, 200);
-			noiseInput.Type = NoiseType.Coherent;
-			tick = 7;
-			CopyFrameToOutputImage(noiseInput, out outputFrame, out outputImage, tick);
-			outputImage.Save("..\\..\\..\\..\\output\\noise-" + noiseInput.Type + "-tick-" + tick + "-200x200.png");
 		}
 
 		// A helper method to save the frame to a PNG image file

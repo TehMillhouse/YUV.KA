@@ -34,7 +34,7 @@ namespace YuvKA.Pipeline
 		/// <summary>
 		/// Returns the number of frames to precompute, so the specified nodes can process the next frame. The method assumes, that the graph does not contain any cycles.
 		/// </summary>
-		/// <param name="startNode">The specified nodes.</param>
+		/// <param name="outputNodes">The specified nodes.</param>
 		/// <returns>The number of frames to precompute.</returns>
 		public int NumberOfFramesToPrecompute(IEnumerable<Node> outputNodes)
 		{
@@ -46,19 +46,7 @@ namespace YuvKA.Pipeline
 		}
 
 
-		private int NumberOfFramesToPrecompute(Node startNode)
-		{
-			int framesToPrecompute = 0;
-			if (startNode.Inputs != null) {
-				foreach (Node.Input input in startNode.Inputs) {
-					if (input.Source != null) {
-						framesToPrecompute = Math.Max(framesToPrecompute, NumberOfFramesToPrecompute(input.Source.Node));
-					}
-				}
-			}
-			framesToPrecompute += startNode.NumberOfFramesToPrecompute;
-			return framesToPrecompute;
-		}
+		
 
 		/// <summary>
 		/// Returns true iff an edge between the specified nodes does not lead to a cycle and can be added.
@@ -104,6 +92,20 @@ namespace YuvKA.Pipeline
 			Visit(startNode, nodeList, visited);
 
 			return nodeList;
+		}
+
+		private int NumberOfFramesToPrecompute(Node startNode)
+		{
+			int framesToPrecompute = 0;
+			if (startNode.Inputs != null) {
+				foreach (Node.Input input in startNode.Inputs) {
+					if (input.Source != null) {
+						framesToPrecompute = Math.Max(framesToPrecompute, NumberOfFramesToPrecompute(input.Source.Node));
+					}
+				}
+			}
+			framesToPrecompute += startNode.NumberOfFramesToPrecompute;
+			return framesToPrecompute;
 		}
 
 		/**

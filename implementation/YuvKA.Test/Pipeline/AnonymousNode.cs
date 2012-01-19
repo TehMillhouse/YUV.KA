@@ -14,18 +14,6 @@ namespace YuvKA.Test.Pipeline
 	{
 		Func<Frame[], int, Frame[]> process;
 
-		public string Name { get; set; }
-
-		public override int NumberOfFramesToPrecompute
-		{
-			get
-			{
-				return SettableNumberOfFramesToPrecompute;
-			}
-		}
-
-		public int SettableNumberOfFramesToPrecompute { get; set; }
-
 		public AnonymousNode(Func<Frame[], int, Frame[]> process, int outputCount, params Output[] inputs)
 			: base(inputs.Length, outputCount)
 		{
@@ -42,6 +30,18 @@ namespace YuvKA.Test.Pipeline
 
 		public AnonymousNode(params AnonymousNode[] inputs)
 			: this(() => { throw new NotImplementedException(); }, inputs) { }
+
+		public string Name { get; set; }
+
+		public override int NumberOfFramesToPrecompute
+		{
+			get
+			{
+				return SettableNumberOfFramesToPrecompute;
+			}
+		}
+
+		public int SettableNumberOfFramesToPrecompute { get; set; }
 
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
