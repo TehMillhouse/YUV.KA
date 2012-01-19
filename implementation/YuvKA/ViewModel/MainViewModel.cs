@@ -4,13 +4,14 @@ using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Windows;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
 	[Export]
-	public class MainViewModel : PropertyChangedBase
+	public class MainViewModel : ViewAware
 	{
 		const string PipelineFilter = "YUV.KA Pipeline|*.yuvka";
 		Stack<byte[]> undoStack = new Stack<byte[]>();
@@ -113,6 +114,7 @@ namespace YuvKA.ViewModel
 			OpenWindows.Add(window);
 			IoC.Get<IWindowManager>().ShowWindow(window);
 			Model.RenderTick(new[] { window.NodeModel });
+			((Window)window.GetView()).Owner = (Window)this.GetView();
 		}
 
 		void Serialize(Stream stream, PipelineState state)
