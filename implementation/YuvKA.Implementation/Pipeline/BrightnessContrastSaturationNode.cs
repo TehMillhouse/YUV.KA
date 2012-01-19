@@ -24,14 +24,17 @@ namespace YuvKA.Pipeline.Implementation
 
 		[DataMember]
 		[Range(-1.0, 1.0)]
+		[Browsable(true)]
 		public double Brightness { get; set; }
 
 		[DataMember]
 		[Range(-1.0, 1.0)]
+		[Browsable(true)]
 		public double Contrast { get; set; }
 
 		[DataMember]
 		[Range(-1.0, 1.0)]
+		[Browsable(true)]
 		public double Saturation { get; set; }
 
 		/// <summary>

@@ -15,12 +15,11 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DataMember]
-		[Browsable(false)]
 		public IOverlayType Type { get; set; }
 
-		[Browsable(false)]
 		public Frame Data { get; private set; }
 
+		[Browsable(true)]
 		public OverlayViewModel Window { get { return new OverlayViewModel(this); } }
 
 		public override void ProcessCore(Frame[] inputs, int tick)

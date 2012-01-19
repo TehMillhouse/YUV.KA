@@ -16,13 +16,12 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DataMember]
-		[Browsable(false)]
 		public HistogramType Type { get; set; }
 
 		[DataMember]
-		[Browsable(false)]
 		public double[] Data { get; private set; }
 
+		[Browsable(true)]
 		public HistogramViewModel Window { get { return new HistogramViewModel(this); } }
 
 		public override void ProcessCore(Frame[] inputs, int tick)

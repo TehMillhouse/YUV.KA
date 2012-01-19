@@ -15,6 +15,7 @@ namespace YuvKA.Pipeline
 		}
 
 		[DataMember]
+		[Browsable(true)]
 		public Size Size
 		{
 			get { return size; }
@@ -25,7 +26,6 @@ namespace YuvKA.Pipeline
 			}
 		}
 
-		[Browsable(false)]
 		public virtual int TickCount { get { return 1; } }
 
 		public sealed override Frame[] Process(Frame[] inputs, int tick)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,18 +20,22 @@ namespace YuvKA.Pipeline.Implementation
 		[DataMember]
 		[Range(0.0, 1.0)]
 		[Description("Weights of inputs relative to each other")]
-		public ObservableCollection<double> Weights { get {
-			if (weights == null) {
-				weights = new ObservableCollection<double>(Inputs.Select(i => 1.0));
-			}
-			else if (weights.Count < Inputs.Count) {
-				for (int i = 0; i < Inputs.Count - weights.Count; i++) {
-					weights.Add(1.0);
+		[Browsable(true)]
+		public ObservableCollection<double> Weights
+		{
+			get
+			{
+				if (weights == null) {
+					weights = new ObservableCollection<double>(Inputs.Select(i => 1.0));
 				}
-			}
+				else if (weights.Count < Inputs.Count) {
+					for (int i = 0; i < Inputs.Count - weights.Count; i++) {
+						weights.Add(1.0);
+					}
+				}
 
-			return weights;
-		}
+				return weights;
+			}
 			set
 			{
 				weights = value;

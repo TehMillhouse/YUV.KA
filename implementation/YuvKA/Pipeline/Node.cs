@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -33,15 +32,12 @@ namespace YuvKA.Pipeline
 				Outputs = new ObservableCollection<Output>();
 		}
 
-		[Browsable(false)]
 		[DataMember]
 		public double X { get; set; }
 
-		[Browsable(false)]
 		[DataMember]
 		public double Y { get; set; }
 
-		[Browsable(false)]
 		public virtual bool InputIsValid
 		{
 			get
@@ -53,22 +49,18 @@ namespace YuvKA.Pipeline
 		/// <summary>
 		/// Represents the number of frames the node needs to precompute before he can process the frame of the current tick.
 		/// </summary>
-		[Browsable(false)]
 		public virtual int NumberOfFramesToPrecompute
 		{
 			get { return 0; }
 		}
 
 		[DataMember]
-		[Browsable(false)]
 		public IList<Input> Inputs { get; private set; }
 
 		[DataMember]
-		[Browsable(false)]
 		public bool UserCanAddInputs { get; private set; }
 
 		[DataMember]
-		[Browsable(false)]
 		public IList<Output> Outputs { get; private set; }
 
 		public abstract Frame[] Process(Frame[] inputs, int tick);

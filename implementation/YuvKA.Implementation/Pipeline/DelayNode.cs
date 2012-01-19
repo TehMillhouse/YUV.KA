@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
@@ -17,6 +18,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		[DataMember]
 		[Range(0.0, 10.0)]
+		[Browsable(true)]
 		public int Delay { get; set; }
 
 		public override Frame[] Process(Frame[] inputs, int tick)

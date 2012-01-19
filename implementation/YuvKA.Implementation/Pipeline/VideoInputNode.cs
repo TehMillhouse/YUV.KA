@@ -25,6 +25,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		[DisplayName("Video File")]
 		[DataMember]
+		[Browsable(true)]
 		public FilePath FileName
 		{
 			get { return fileName; }
@@ -49,6 +50,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		[DisplayName("(Log File)")]
 		[DataMember]
+		[Browsable(true)]
 		public FilePath LogFileName
 		{
 			get { return logFileName; }
@@ -61,6 +63,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		[DisplayName("(Motion Vector File)")]
 		[DataMember]
+		[Browsable(true)]
 		public FilePath MotionVectorFileName
 		{
 			get { return motionVectorFileName; }
@@ -71,7 +74,6 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
-		[Browsable(false)]
 		public override int TickCount
 		{
 			get
@@ -84,7 +86,6 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
-		[Browsable(false)]
 		public override bool InputIsValid
 		{
 			get

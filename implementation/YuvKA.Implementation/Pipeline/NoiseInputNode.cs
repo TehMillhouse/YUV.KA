@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
@@ -43,30 +44,24 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DataMember]
+		[Browsable(true)]
 		public NoiseType Type { get; set; }
-
-		#region INode Members
 
 		public override Frame OutputFrame(int tick)
 		{
 			EnsureInputLoaded();
 
-			if (Type == NoiseType.Perlin)
-			{
+			if (Type == NoiseType.Perlin) {
 				outputFrame = ProcessPerlinNoise(outputFrame, tick);
 			}
-			else if (Type == NoiseType.Coherent)
-			{
+			else if (Type == NoiseType.Coherent) {
 				outputFrame = ProcessCoherentNoise(outputFrame, tick);
 			}
-			else
-			{
+			else {
 				outputFrame = ProcessColoredPerlinNoise(outputFrame, tick);
 			}
 			return outputFrame;
 		}
-
-		#endregion
 
 		protected override void OnSizeChanged()
 		{

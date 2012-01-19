@@ -22,6 +22,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		[DisplayName("File Name")]
 		[DataMember]
+		[Browsable(true)]
 		public FilePath FileName
 		{
 			get { return fileName; }

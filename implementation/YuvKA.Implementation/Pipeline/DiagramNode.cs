@@ -18,17 +18,16 @@ namespace YuvKA.Pipeline.Implementation
 
 		[DataMember]
 		[DisplayName("Enabled")]
+		[Browsable(true)]
 		public bool IsEnabled { get; set; }
 
-
 		[DataMember]
-		[Browsable(false)]
 		public Input ReferenceVideo { get; set; }
 
 		[DataMember]
-		[Browsable(false)]
 		public List<DiagramGraph> Graphs { get; set; }
 
+		[Browsable(true)]
 		public DiagramViewModel Window { get { return new DiagramViewModel(this); } }
 
 		private int RefIndex

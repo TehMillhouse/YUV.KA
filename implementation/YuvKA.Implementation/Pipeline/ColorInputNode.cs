@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using YuvKA.VideoModel;
+using System.ComponentModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -17,6 +18,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DataMember]
+		[Browsable(true)]
 		public Rgb Color
 		{
 			get { return color; }
@@ -27,15 +29,11 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
-		#region INode Members
-
 		public override Frame OutputFrame(int tick)
 		{
 			EnsureInputLoaded();
 			return outputFrame;
 		}
-
-		#endregion
 
 		protected override void OnSizeChanged()
 		{

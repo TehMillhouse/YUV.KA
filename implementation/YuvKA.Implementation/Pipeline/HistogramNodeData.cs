@@ -7,7 +7,7 @@ namespace YuvKA.Pipeline.Implementation
 {
 	class HistogramNodeData : ObservableCollection<KeyValuePair<int, double>>, INotifyPropertyChanged
 	{
-		
+
 		public void setData(double[] data)
 		{
 			int i = 0;

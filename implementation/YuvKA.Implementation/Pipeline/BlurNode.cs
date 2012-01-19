@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
@@ -16,13 +17,13 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DataMember]
+		[Browsable(true)]
 		public BlurType Type { get; set; }
 
 		[DataMember]
 		[Range(0.0, 42.0)]
+		[Browsable(true)]
 		public int Radius { get; set; }
-
-		#region INode Members
 
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
@@ -38,8 +39,6 @@ namespace YuvKA.Pipeline.Implementation
 			// this should never happen
 			return new Frame[] { null };
 		}
-
-		#endregion
 
 		private Frame LinearBlur(Frame input, int tick)
 		{
