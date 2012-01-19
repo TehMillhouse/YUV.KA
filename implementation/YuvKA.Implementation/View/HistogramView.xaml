@@ -6,18 +6,18 @@
              xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         xmlns:local="clr-namespace:YuvKA.ViewModel.Implementation"
-        xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" WindowStyle="ToolWindow" mc:Ignorable="d" Height="200" Width="200">
+        xmlns:DynamicDataDisplay="clr-namespace:Microsoft.Research.DynamicDataDisplay;assembly=DynamicDataDisplay" WindowStyle="ToolWindow" mc:Ignorable="d" Height="200" Width="200">
     <Grid>
-        <d3:ChartPlotter x:Name="histogram" LegendVisibility="Hidden">
-            <d3:ChartPlotter.Resources>
+        <DynamicDataDisplay:ChartPlotter x:Name="histogram" LegendVisibility="Hidden">
+            <DynamicDataDisplay:ChartPlotter.Resources>
                 <Pen x:Key="pen" Brush="Black" Thickness="1"/>
-            </d3:ChartPlotter.Resources>
-            <d3:LineGraph  LinePen="{StaticResource pen}" DataSource="{Binding Data}">
-                <d3:LineGraph.Description>
-                    <d3:PenDescription DescriptionString="Histogram" >
-                    </d3:PenDescription>
-                </d3:LineGraph.Description>
-            </d3:LineGraph>
-        </d3:ChartPlotter>
+            </DynamicDataDisplay:ChartPlotter.Resources>
+            <DynamicDataDisplay:LineGraph  LinePen="{StaticResource pen}" DataSource="{Binding Data}">
+                <DynamicDataDisplay:LineGraph.Description>
+                    <DynamicDataDisplay:PenDescription DescriptionString="Histogram" >
+                    </DynamicDataDisplay:PenDescription>
+                </DynamicDataDisplay:LineGraph.Description>
+            </DynamicDataDisplay:LineGraph>
+        </DynamicDataDisplay:ChartPlotter>
     </Grid>
 </Window>
