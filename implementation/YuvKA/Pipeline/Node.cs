@@ -4,13 +4,14 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Runtime.Serialization;
+using Caliburn.Micro;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline
 {
 	[InheritedExport]
 	[DataContract]
-	public abstract class Node
+	public abstract class Node : PropertyChangedBase
 	{
 		/// <summary>
 		/// Initializes the Node object. Parameters hold the number of inputs or outputs to add, respectively,
