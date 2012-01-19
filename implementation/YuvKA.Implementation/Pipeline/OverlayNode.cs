@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using YuvKA.VideoModel;
+using YuvKA.ViewModel.Implementation;
 
 namespace YuvKA.Pipeline.Implementation
 {
 	[DataContract]
 	public class OverlayNode : OutputNode
 	{
-		public OverlayNode() : base(inputCount: 2)
+		public OverlayNode()
+			: base(inputCount: 2)
 		{
 		}
 
@@ -21,6 +20,8 @@ namespace YuvKA.Pipeline.Implementation
 
 		[Browsable(false)]
 		public Frame Data { get; private set; }
+
+		public OverlayViewModel Window { get { return new OverlayViewModel(this); } }
 
 		public override void ProcessCore(Frame[] inputs, int tick)
 		{

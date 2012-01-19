@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
+using YuvKA.ViewModel.Implementation;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -27,6 +28,8 @@ namespace YuvKA.Pipeline.Implementation
 		[DataMember]
 		[Browsable(false)]
 		public List<DiagramGraph> Graphs { get; set; }
+
+		public DiagramViewModel Window { get { return new DiagramViewModel(this); } }
 
 		private int RefIndex
 		{

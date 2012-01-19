@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
+using YuvKA.ViewModel.Implementation;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -21,6 +22,8 @@ namespace YuvKA.Pipeline.Implementation
 		[DataMember]
 		[Browsable(false)]
 		public double[] Data { get; private set; }
+
+		public HistogramViewModel Window { get { return new HistogramViewModel(this); } }
 
 		public override void ProcessCore(Frame[] inputs, int tick)
 		{
