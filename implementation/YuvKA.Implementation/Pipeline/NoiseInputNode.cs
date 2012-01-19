@@ -37,10 +37,8 @@ namespace YuvKA.Pipeline.Implementation
 
 		Frame outputFrame;
 
-		public NoiseInputNode()
-			: base(outputCount: 1)
+		public NoiseInputNode() : base(outputCount: 1)
 		{
-			Size = new Size(0, 0);
 		}
 
 		[DataMember]
@@ -102,8 +100,8 @@ namespace YuvKA.Pipeline.Implementation
 					double scalar = 0.05;
 					// Generate noise function values, which is also tick-dependent
 					double randomNumberR = (Noise(x * scalar, y * scalar, 0.05 * tick) + 1) / 2;
-					double randomNumberG = (Noise((x + 50) * scalar, (y - 50) * scalar, 0.05 * (tick + 50)) + 1) / 2;
-					double randomNumberB = (Noise((x - 50) * scalar, (y + 50) * scalar, 0.05 * (tick - 50)) + 1) / 2;
+					double randomNumberG = (Noise((x + 42) * scalar, (y - 42) * scalar, 0.05 * (tick + 42)) + 1) / 2;
+					double randomNumberB = (Noise((x - 42) * scalar, (y + 42) * scalar, 0.05 * (tick - 42)) + 1) / 2;
 					byte randomRed = (byte)(randomNumberR * 255);
 					byte randomGreen = (byte)(randomNumberG * 255);
 					byte randomBlue = (byte)(randomNumberB * 255);

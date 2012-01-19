@@ -12,6 +12,7 @@ namespace YuvKA.Pipeline
 		public InputNode(int? outputCount)
 			: base(inputCount: 0, outputCount: outputCount)
 		{
+			size = new Size(100, 100);
 		}
 
 		[DataMember]

@@ -20,7 +20,6 @@ namespace YuvKA.Pipeline.Implementation
 		public VideoInputNode()
 			: base(outputCount: 1)
 		{
-			Size = new Size(0, 0);
 		}
 
 		[DisplayName("Video File")]
