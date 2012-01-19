@@ -7,8 +7,9 @@ namespace YuvKA.Pipeline.Implementation
 {
 	public enum NoiseType
 	{
-		Perlin,
 		Coherent,
+		ColoredCoherent,
+		Perlin,
 		ColoredPerlin,
 	}
 }

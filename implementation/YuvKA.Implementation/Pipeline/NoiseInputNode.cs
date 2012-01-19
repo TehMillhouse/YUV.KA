@@ -49,15 +49,19 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			EnsureInputLoaded();
 
-			if (Type == NoiseType.Perlin) {
-				outputFrame = ProcessPerlinNoise(outputFrame, tick);
-			}
-			else if (Type == NoiseType.Coherent) {
+			if (Type == NoiseType.Coherent) {
 				outputFrame = ProcessCoherentNoise(outputFrame, tick);
 			}
-			else {
+			else if (Type == NoiseType.ColoredCoherent) {
+				outputFrame = ProcessColoredCoherentNoise(outputFrame, tick);
+			}
+			else if (Type == NoiseType.Perlin ) {
+				outputFrame = ProcessPerlinNoise(outputFrame, tick);
+			} else
+			{
 				outputFrame = ProcessColoredPerlinNoise(outputFrame, tick);
 			}
+
 			return outputFrame;
 		}
 
@@ -65,6 +69,32 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			base.OnSizeChanged();
 			outputFrame = null;
+		}
+
+		private static Frame ProcessCoherentNoise(Frame frame, int tick)
+		{
+			Random rnd = new Random();
+			for (int y = 0; y < frame.Size.Height; ++y) {
+				for (int x = 0; x < frame.Size.Width; ++x) {
+					byte color = (byte)rnd.Next(265);
+					frame[x, y] = new Rgb(color, color, color);
+				}
+			}
+			return frame;
+		}
+
+		private static Frame ProcessColoredCoherentNoise(Frame frame, int tick)
+		{
+			Random rnd = new Random();
+			for (int y = 0; y < frame.Size.Height; ++y) {
+				for (int x = 0; x < frame.Size.Width; ++x) {
+					byte colorR = (byte)rnd.Next(265);
+					byte colorG = (byte)rnd.Next(265);
+					byte colorB = (byte)rnd.Next(265);
+					frame[x, y] = new Rgb(colorR, colorG, colorB);
+				}
+			}
+			return frame;
 		}
 
 		private static Frame ProcessPerlinNoise(Frame frame, int tick)
@@ -76,18 +106,6 @@ namespace YuvKA.Pipeline.Implementation
 					double randomNumber = (Noise(x * scalar, y * scalar, 0.05 * tick) + 1) / 2;
 					byte randomColor = (byte)(randomNumber * 255);
 					frame[x, y] = new Rgb(randomColor, randomColor, randomColor);
-				}
-			}
-			return frame;
-		}
-
-		private static Frame ProcessCoherentNoise(Frame frame, int tick)
-		{
-			Random rnd = new Random();
-			for (int y = 0; y < frame.Size.Height; ++y) {
-				for (int x = 0; x < frame.Size.Width; ++x) {
-					byte color = (byte)rnd.Next(265);
-					frame[x, y] = new Rgb(color, color, color);
 				}
 			}
 			return frame;
