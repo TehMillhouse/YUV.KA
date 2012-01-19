@@ -37,10 +37,18 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 			get { return Value.Width; }
 			set { Value = new Size(value, Height); }
 		}
+
 		public int Height
 		{
 			get { return Value.Height; }
 			set { Value = new Size(Width, value); }
+		}
+
+		protected override void OnValueChanged()
+		{
+			base.OnValueChanged();
+			NotifyOfPropertyChange(() => Width);
+			NotifyOfPropertyChange(() => Height);
 		}
 	}
 

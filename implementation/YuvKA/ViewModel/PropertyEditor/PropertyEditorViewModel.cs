@@ -35,8 +35,7 @@ namespace YuvKA.ViewModel.PropertyEditor
 					if (browsable != null && browsable.Browsable) {
 						System.Type fittingPVM = viewModels.Single(pvm => (pvm.BaseType.GetGenericArguments()[0].IsAssignableFrom(pd.PropertyType)));
 						PropertyViewModel vm = (PropertyViewModel) Activator.CreateInstance(fittingPVM);
-						vm.Source = source;
-						vm.Property = pd;
+						vm.Initialize(source, pd);
 						pvmList.Add(vm);
 					}
 				}
