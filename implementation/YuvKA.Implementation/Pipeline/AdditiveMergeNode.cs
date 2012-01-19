@@ -15,7 +15,7 @@ namespace YuvKA.Pipeline.Implementation
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
 			Size maxSize = Frame.MaxBoundaries(inputs);
-			Frame[] output = { new Frame(new Size(maxSize.Height, maxSize.Width)) };
+			Frame[] output = { new Frame(new Size(maxSize.Width, maxSize.Height)) };
 			for (int i = 0; i < inputs.Length; i++) {
 				for (int x = 0; x < maxSize.Width; x++) {
 					for (int y = 0; y < maxSize.Height; y++) {
