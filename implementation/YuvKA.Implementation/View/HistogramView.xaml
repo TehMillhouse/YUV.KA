@@ -1,4 +1,4 @@
-﻿<Window x:Class="YuvKA.Implementation.View.HistogramView"
+﻿<Window x:Class="YuvKA.View.Implementation.HistogramView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,11 +6,7 @@
              xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         xmlns:local="clr-namespace:YuvKA.ViewModel.Implementation" WindowStyle="ToolWindow" SizeToContent="WidthAndHeight">
-    <Window.Resources>
-        <local:HistogramViewModel x:Key="VM"></local:HistogramViewModel>
-    </Window.Resources>
-
-    <Grid DataContext="{StaticResource VM}">
+    <Grid>
         <DVC:Chart Canvas.Top="80" Canvas.Left="10" Name="mcChart" Height="250" Background="White" HorizontalAlignment="Left" Width="400" VerticalAlignment="Top">
             <DVC:Chart.LegendStyle>
                 <Style TargetType="DV:Legend">

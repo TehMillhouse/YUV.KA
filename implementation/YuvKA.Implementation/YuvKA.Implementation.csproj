@@ -68,7 +68,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pipeline\HistogramNodeData.cs" />
     <Compile Include="Pipeline\NoiseType.cs" />
     <Compile Include="ViewModel\DiagramViewModel.cs" />
     <Compile Include="ViewModel\HistogramViewModel.cs" />
