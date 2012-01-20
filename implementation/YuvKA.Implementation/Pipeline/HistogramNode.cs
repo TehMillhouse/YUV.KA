@@ -52,7 +52,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 			int numberOfPixels = input.Size.Height * input.Size.Width;
 			for (int i = 0; i < 256; i++) {
-				Data[i] = (double)(intData[i] / numberOfPixels);
+				Data[i] = (double)intData[i] / numberOfPixels;
 			}
 		}
 
@@ -68,7 +68,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 			int numberOfPixels = input.Size.Height * input.Size.Width;
 			for (int i = 0; i < 256; i++) {
-				Data[i] = (double)(intData[i] / numberOfPixels);
+				Data[i] = (double)intData[i] / numberOfPixels;
 			}
 		}
 
@@ -84,7 +84,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 			int numberOfPixels = input.Size.Height * input.Size.Width;
 			for (int i = 0; i < 256; i++) {
-				Data[i] = (double)(intData[i] / numberOfPixels);
+				Data[i] = (double)intData[i] / numberOfPixels;
 			}
 		}
 
@@ -104,7 +104,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 			int numberOfPixels = input.Size.Height * input.Size.Width;
 			for (int i = 0; i < 256; i++) {
-				Data[i] = (double)(intData[i] / numberOfPixels);
+				Data[i] = (double)intData[i] / numberOfPixels;
 			}
 		}
 	}
