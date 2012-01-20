@@ -5,10 +5,12 @@ using Caliburn.Micro;
 
 namespace YuvKA.ViewModel
 {
-	public class EdgeViewModel : PropertyChangedBase
+	public class EdgeViewModel : PropertyChangedBase, IDisposable
 	{
 		Point startPoint, endPoint;
 		InOutputViewModel startVM, endVM;
+		// objects for disposing the subscriptions on InOutputVM.Midpoint
+		IDisposable startHandler, endHandler;
 		PipelineViewModel parent;
 
 		public EdgeViewModel(PipelineViewModel parent)
@@ -42,12 +44,7 @@ namespace YuvKA.ViewModel
 			set
 			{
 				startVM = value;
-				var getPos = IoC.Get<IGetPosition>();
-				DoWhenViewAvailable(value, () => {
-					double width = getPos.GetElementSize(value).Width;
-					Vector mid = new Vector(width, width) / 2;
-					StartPoint = getPos.GetElementPosition(value, relativeTo: parent) + mid;
-				});
+				startHandler = value.Midpoint.Subscribe(pos => StartPoint = pos);
 			}
 		}
 
@@ -57,12 +54,7 @@ namespace YuvKA.ViewModel
 			set
 			{
 				endVM = value;
-				var getPos = IoC.Get<IGetPosition>();
-				DoWhenViewAvailable(value, () => {
-					double width = getPos.GetElementSize(value).Width;
-					Vector mid = new Vector(width, width) / 2;
-					EndPoint = getPos.GetElementPosition(value, relativeTo: parent) + mid;
-				});
+				endHandler = value.Midpoint.Subscribe(pos => EndPoint = pos);
 			}
 		}
 
@@ -82,19 +74,12 @@ namespace YuvKA.ViewModel
 			}
 		}
 
-		void DoWhenViewAvailable(IViewAware element, System.Action action)
+		public void Dispose()
 		{
-			if (element.GetView() != null)
-				action();
-			else {
-				EventHandler<ViewAttachedEventArgs> handler = null;
-				handler = delegate
-				{
-					action();
-					element.ViewAttached -= handler;
-				};
-				element.ViewAttached += handler;
-			}
+			if (startHandler != null)
+				startHandler.Dispose();
+			if (endHandler != null)
+				endHandler.Dispose();
 		}
 	}
 }

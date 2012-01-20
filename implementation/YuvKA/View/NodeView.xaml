@@ -6,7 +6,7 @@
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			xmlns:pe="clr-namespace:YuvKA.View.PropertyEditor"
 			mc:Ignorable="d"
-			d:DesignHeight="190" d:DesignWidth="190" Margin="{Binding Margin}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.92">
+			d:DesignHeight="190" d:DesignWidth="190" Margin="{Binding Margin}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.92" cal:Message.Attach="[Event Loaded] = [Action ViewLoaded]">
 	<UserControl.Resources>
 		<DataTemplate x:Key="SaveOutputTemplate">
 			<!-- TODO: Show output index and disable menu item when !Node.InputIsValid. We'll need an OutputViewModel for that. -->

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Subjects;
 using System.Windows;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
@@ -11,6 +14,7 @@ namespace YuvKA.ViewModel
 	{
 		InOutputViewModel fake;
 		IList<InOutputViewModel> inputs;
+		Subject<Unit> viewPositionChanged = new Subject<Unit>();
 
 		public NodeViewModel(Node model, PipelineViewModel parent)
 		{
@@ -34,6 +38,7 @@ namespace YuvKA.ViewModel
 		public NodeType NodeType { get; private set; }
 		public Node Model { get; private set; }
 		public PipelineViewModel Parent { get; private set; }
+		public IObservable<Unit> ViewPositionChanged { get { return viewPositionChanged; } }
 
 		public IEnumerable<InOutputViewModel> Inputs
 		{
@@ -53,7 +58,7 @@ namespace YuvKA.ViewModel
 				Model.X = value.X;
 				Model.Y = value.Y;
 				NotifyOfPropertyChange(() => Margin);
-				Parent.NotifyOfPropertyChange(() => Parent.Edges);
+				viewPositionChanged.OnNext(Unit.Default);
 			}
 		}
 
@@ -85,6 +90,11 @@ namespace YuvKA.ViewModel
 			inputs.Add(new InOutputViewModel(input, this));
 			NotifyOfPropertyChange(() => Inputs);
 			return input;
+		}
+
+		public void ViewLoaded()
+		{
+			viewPositionChanged.OnNext(Unit.Default);
 		}
 	}
 }

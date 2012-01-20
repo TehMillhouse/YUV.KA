@@ -14,6 +14,7 @@ namespace YuvKA.ViewModel
 		NodeViewModel draggedNode;
 		EdgeViewModel draggedEdge;
 		Vector dragMouseOffset;
+		IEnumerable<EdgeViewModel> edges = Enumerable.Empty<EdgeViewModel>();
 
 		public PipelineViewModel(MainViewModel parent)
 		{
@@ -27,8 +28,11 @@ namespace YuvKA.ViewModel
 		{
 			get
 			{
+				foreach (EdgeViewModel edge in edges)
+					edge.Dispose();
+
 				// Linq query... OF DEATH
-				return
+				var newEdges =
 					from node in Nodes
 					from input in node.Inputs
 					where !input.IsFake
@@ -36,6 +40,8 @@ namespace YuvKA.ViewModel
 					where iModel.Source != null
 					let output = GetOutputViewModel(iModel.Source)
 					select new EdgeViewModel(this) { StartViewModel = input, EndViewModel = output };
+
+				return edges = newEdges.ToList();
 			}
 		}
 
