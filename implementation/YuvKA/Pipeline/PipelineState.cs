@@ -52,7 +52,7 @@ namespace YuvKA.Pipeline
 
 		public bool Start(IEnumerable<Node> outputNodes)
 		{
-			return RenderTicks(outputNodes, Graph.TickCount - CurrentTick);
+			return RenderTicks(outputNodes, Graph.TickCount - CurrentTick, isPreviewFrame: false);
 		}
 
 		public void Stop()
@@ -61,9 +61,9 @@ namespace YuvKA.Pipeline
 				cts.Cancel();
 		}
 
-		public void RenderTick(IEnumerable<Node> outputNodes)
+		public void RenderTick(IEnumerable<Node> outputNodes, bool isPreviewFrame)
 		{
-			RenderTicks(outputNodes, tickCount: 1);
+			RenderTicks(outputNodes, 1, isPreviewFrame);
 		}
 
 		[OnDeserialized]
@@ -72,7 +72,7 @@ namespace YuvKA.Pipeline
 			Driver = new PipelineDriver();
 		}
 
-		private bool RenderTicks(IEnumerable<Node> outputNodes, int tickCount)
+		private bool RenderTicks(IEnumerable<Node> outputNodes, int tickCount, bool isPreviewFrame)
 		{
 			if (!outputNodes.All(node => node.InputIsValid))
 				return false;
@@ -86,7 +86,9 @@ namespace YuvKA.Pipeline
 					lastTick = nextTick;
 				}
 				Events.Publish(new TickRenderedMessage(dic));
-				CurrentTick++;
+				if (!isPreviewFrame) {
+					CurrentTick++;
+				}
 			});
 			return true;
 		}

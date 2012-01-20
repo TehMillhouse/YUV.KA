@@ -113,7 +113,7 @@ namespace YuvKA.ViewModel
 		{
 			OpenWindows.Add(window);
 			IoC.Get<IWindowManager>().ShowWindow(window);
-			Model.RenderTick(new[] { window.NodeModel });
+			Model.RenderTick(new[] { window.NodeModel }, isPreviewFrame: true);
 			((Window)window.GetView()).Owner = (Window)this.GetView();
 		}
 
