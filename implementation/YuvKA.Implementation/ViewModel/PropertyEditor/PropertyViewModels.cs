@@ -87,11 +87,5 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 	}
 
-	public class OutputWindowViewModelPropertyViewModel : PropertyViewModel<OutputWindowViewModel>
-	{
-		public void Open()
-		{
-			IoC.Get<IWindowManager>().ShowWindow(Value);
-		}
-	}
+	public class OutputWindowViewModelPropertyViewModel : PropertyViewModel<OutputWindowViewModel> { }
 }
