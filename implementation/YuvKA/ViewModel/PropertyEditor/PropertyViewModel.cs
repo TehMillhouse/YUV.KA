@@ -19,6 +19,15 @@ namespace YuvKA.ViewModel.PropertyEditor
 			}
 		}
 
+		public string DisplayName
+		{
+			get
+			{
+				DisplayNameAttribute attr = Property.Attributes.OfType<DisplayNameAttribute>().FirstOrDefault();
+				return attr != null ? attr.DisplayName : Property.Name;
+			}
+		}
+
 		public void Initialize(object source, PropertyDescriptor property)
 		{
 			Source = source;
@@ -32,15 +41,6 @@ namespace YuvKA.ViewModel.PropertyEditor
 		protected virtual void OnValueChanged()
 		{
 			NotifyOfPropertyChange(() => Value);
-		}
-
-		public string DisplayName
-		{
-			get
-			{
-				DisplayNameAttribute attr = Property.Attributes.OfType<DisplayNameAttribute>().FirstOrDefault();
-				return attr != null ? attr.DisplayName : Property.Name;
-			}
 		}
 	}
 

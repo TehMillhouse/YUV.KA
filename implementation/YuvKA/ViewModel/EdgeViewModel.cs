@@ -71,8 +71,7 @@ namespace YuvKA.ViewModel
 					controlOffset *= -1;
 				using (var ctx = geo.Open()) {
 					ctx.BeginFigure(StartPoint, isFilled: false, isClosed: false);
-					ctx.BezierTo(StartPoint + controlOffset, EndPoint - controlOffset, EndPoint,
-						isStroked: true, isSmoothJoin: false);
+					ctx.BezierTo(StartPoint + controlOffset, EndPoint - controlOffset, EndPoint, isStroked: true, isSmoothJoin: false);
 				}
 				return geo;
 			}

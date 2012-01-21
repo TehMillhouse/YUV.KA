@@ -8,12 +8,6 @@ namespace YuvKA.ViewModel
 {
 	public class InOutputViewModel : ViewAware
 	{
-		// Prependes the given observable with an immediate OnNext notification on subscrition
-		static IObservable<Unit> Immediate(IObservable<Unit> obs)
-		{
-			return Observable.StartWith(obs, Unit.Default);
-		}
-
 		public InOutputViewModel(object model, NodeViewModel parent)
 		{
 			Model = model;
@@ -44,6 +38,12 @@ namespace YuvKA.ViewModel
 					return pos;
 				}).Where(pos => pos.HasValue).Select(pos => pos.Value); // ignore events before view creation
 			}
+		}
+
+		// Prependes the given observable with an immediate OnNext notification on subscrition
+		static IObservable<Unit> Immediate(IObservable<Unit> obs)
+		{
+			return Observable.StartWith(obs, Unit.Default);
 		}
 	}
 }
