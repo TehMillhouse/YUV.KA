@@ -15,6 +15,7 @@ namespace YuvKA.Pipeline.Implementation
 		public WeightedAveragedMergeNode()
 			: base(inputCount: null, outputCount: 1)
 		{
+			Name = "Weighted Merge";
 		}
 
 		[DataMember]

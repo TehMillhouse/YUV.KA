@@ -1,6 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using YuvKA.VideoModel;
-using System.ComponentModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -14,6 +14,7 @@ namespace YuvKA.Pipeline.Implementation
 		public ColorInputNode()
 			: base(outputCount: 1)
 		{
+			Name = "Color";
 		}
 
 		[DataMember]

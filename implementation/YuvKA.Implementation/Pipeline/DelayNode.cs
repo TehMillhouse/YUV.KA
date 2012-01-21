@@ -14,6 +14,7 @@ namespace YuvKA.Pipeline.Implementation
 		public DelayNode()
 			: base(inputCount: 1, outputCount: 1)
 		{
+			Name = "Delay";
 		}
 
 		[DataMember]

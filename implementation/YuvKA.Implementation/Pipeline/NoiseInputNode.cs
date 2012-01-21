@@ -37,8 +37,10 @@ namespace YuvKA.Pipeline.Implementation
 
 		Frame outputFrame;
 
-		public NoiseInputNode() : base(outputCount: 1)
+		public NoiseInputNode()
+			: base(outputCount: 1)
 		{
+			Name = "Noise";
 		}
 
 		[DataMember]
@@ -55,10 +57,10 @@ namespace YuvKA.Pipeline.Implementation
 			else if (Type == NoiseType.ColoredCoherent) {
 				outputFrame = ProcessColoredCoherentNoise(outputFrame, tick);
 			}
-			else if (Type == NoiseType.Perlin ) {
+			else if (Type == NoiseType.Perlin) {
 				outputFrame = ProcessPerlinNoise(outputFrame, tick);
-			} else
-			{
+			}
+			else {
 				outputFrame = ProcessColoredPerlinNoise(outputFrame, tick);
 			}
 

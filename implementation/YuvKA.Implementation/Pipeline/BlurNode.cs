@@ -12,6 +12,7 @@ namespace YuvKA.Pipeline.Implementation
 		public BlurNode()
 			: base(inputCount: 1, outputCount: 1)
 		{
+			Name = "Blur";
 			Type = BlurType.Linear;
 			Radius = 1;
 		}
@@ -46,8 +47,8 @@ namespace YuvKA.Pipeline.Implementation
 			float factor = 1F / (2 * Radius + 1);
 
 			/* Since this Arrays are sort of ugly now: Arrayname[x-coord, y-coord, colorchannel] */
-			float[,,] horizontalBlur = new float[input.Size.Width, input.Size.Height, 3];
-			float[,,] verticalBlur = new float[input.Size.Width, input.Size.Height, 3];
+			float[, ,] horizontalBlur = new float[input.Size.Width, input.Size.Height, 3];
+			float[, ,] verticalBlur = new float[input.Size.Width, input.Size.Height, 3];
 
 			/* Blur horinzontal dimension */
 			for (int x = 0; x < input.Size.Width; x++) {
@@ -87,8 +88,8 @@ namespace YuvKA.Pipeline.Implementation
 		private Frame GaussianBlur(Frame input, int tick)
 		{
 			/* Since this Arrays are sort of ugly now: Arrayname[x-coord, y-coord, colorchannel] */
-			float[,,] horizontalBlur = new float[input.Size.Width, input.Size.Height, 3];
-			float[,,] verticalBlur = new float[input.Size.Width, input.Size.Height, 3];
+			float[, ,] horizontalBlur = new float[input.Size.Width, input.Size.Height, 3];
+			float[, ,] verticalBlur = new float[input.Size.Width, input.Size.Height, 3];
 
 			/* Blur horinzontal dimension */
 			for (int x = 0; x < input.Size.Width; x++) {

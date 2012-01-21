@@ -10,6 +10,7 @@ namespace YuvKA.Pipeline.Implementation
 		public AdditiveMergeNode()
 			: base(inputCount: null, outputCount: 1)
 		{
+			Name = "Additive Merge";
 		}
 
 		public override Frame[] Process(Frame[] inputs, int tick)

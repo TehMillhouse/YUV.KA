@@ -12,6 +12,7 @@ namespace YuvKA.Pipeline.Implementation
 		public OverlayNode()
 			: base(inputCount: 2)
 		{
+			Name = "Overlay";
 		}
 
 		[DataMember]

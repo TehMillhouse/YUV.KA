@@ -17,6 +17,7 @@ namespace YuvKA.Pipeline.Implementation
 		public BrightnessContrastSaturationNode()
 			: base(inputCount: 1, outputCount: 1)
 		{
+			Name = "Brightness/Contrast/Saturation";
 			Brightness = 0;
 			Contrast = 0;
 			Saturation = 0;

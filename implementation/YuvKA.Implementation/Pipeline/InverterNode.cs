@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
@@ -10,6 +9,7 @@ namespace YuvKA.Pipeline.Implementation
 		public InverterNode()
 			: base(inputCount: 1, outputCount: 1)
 		{
+			Name = "Inverter";
 		}
 
 		public override Frame[] Process(Frame[] inputs, int tick)

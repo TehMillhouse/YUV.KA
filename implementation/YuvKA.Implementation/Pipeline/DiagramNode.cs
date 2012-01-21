@@ -12,6 +12,7 @@ namespace YuvKA.Pipeline.Implementation
 		public DiagramNode()
 			: base(inputCount: null)
 		{
+			Name = "Diagram";
 			IsEnabled = true;
 			Graphs = new List<DiagramGraph>();
 		}

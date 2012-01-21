@@ -20,6 +20,7 @@ namespace YuvKA.Pipeline.Implementation
 		public VideoInputNode()
 			: base(outputCount: 1)
 		{
+			Name = "Video";
 		}
 
 		[DisplayName("Video File")]

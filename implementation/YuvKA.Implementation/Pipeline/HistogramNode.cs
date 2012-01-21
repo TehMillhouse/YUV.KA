@@ -12,6 +12,7 @@ namespace YuvKA.Pipeline.Implementation
 		public HistogramNode()
 			: base(inputCount: 1)
 		{
+			Name = "Histogram";
 			Data = new double[256];
 		}
 

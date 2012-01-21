@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
@@ -10,6 +9,7 @@ namespace YuvKA.Pipeline.Implementation
 		public RgbSplitNode()
 			: base(inputCount: 1, outputCount: 3)
 		{
+			Name = "RGB-Split";
 		}
 
 		public override Frame[] Process(Frame[] inputs, int tick)
