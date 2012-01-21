@@ -30,7 +30,6 @@ namespace YuvKA.Pipeline
 			}
 		}
 
-
 		/// <summary>
 		/// Returns the number of frames to precompute, so the specified nodes can process the next frame. The method assumes, that the graph does not contain any cycles.
 		/// </summary>
@@ -44,9 +43,6 @@ namespace YuvKA.Pipeline
 			}
 			return precomputeCount;
 		}
-
-
-		
 
 		/// <summary>
 		/// Returns true iff an edge between the specified nodes does not lead to a cycle and can be added.
@@ -72,6 +68,27 @@ namespace YuvKA.Pipeline
 				sink.Source = source;
 				return true;
 			}
+		}
+
+		/// <summary>
+		/// Sets the name of the new node and adds it to the node list. The new Node contains the node's type and the number of existing nodes ofthis type plus one. Example: DelayNode2 means that one DelayNode already exists. If the new Node is the first of it's type the name will only contain the type.
+		/// </summary>
+		/// <param name="node">The new node.</param>
+		public void AddNode(Node node)
+		{
+			int nodeIndex = 1;
+			foreach (Node existingNode in Nodes) {
+				if (existingNode.GetType() == node.GetType()) {
+					nodeIndex++;
+				}
+			}
+			if (nodeIndex == 1) {
+				node.Name = node.GetType().Name;
+			}
+			else {
+				node.Name = node.GetType().Name + nodeIndex;
+			}
+			Nodes.Add(node);
 		}
 
 		/// <summary>

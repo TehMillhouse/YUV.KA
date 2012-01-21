@@ -62,7 +62,7 @@ namespace YuvKA.ViewModel
 			var nodeModel = new NodeViewModel(node, this);
 			nodeModel.Position = IoC.Get<IGetPosition>().GetDropPosition(e, this);
 
-			Parent.Model.Graph.Nodes.Add(node);
+			Parent.Model.Graph.AddNode(node);
 			Nodes.Add(nodeModel);
 		}
 

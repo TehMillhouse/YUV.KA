@@ -33,6 +33,9 @@ namespace YuvKA.Pipeline
 		}
 
 		[DataMember]
+		public string Name { get; set; }
+
+		[DataMember]
 		public double X { get; set; }
 
 		[DataMember]

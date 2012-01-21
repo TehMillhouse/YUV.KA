@@ -31,8 +31,6 @@ namespace YuvKA.Test.Pipeline
 		public AnonymousNode(params AnonymousNode[] inputs)
 			: this(() => { throw new NotImplementedException(); }, inputs) { }
 
-		public string Name { get; set; }
-
 		public override int NumberOfFramesToPrecompute
 		{
 			get

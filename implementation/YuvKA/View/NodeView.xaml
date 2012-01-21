@@ -43,7 +43,7 @@
 						<MenuItem Header="Display output... " ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource ShowOutputTemplate}"/>
 					</MenuItem>
 				</Menu>
-				<TextBlock DockPanel.Dock="Left" Text="{Binding NodeType.Type.Name}"/>
+				<TextBlock DockPanel.Dock="Left" Text="{Binding Model.Name}"/>
 
 			</DockPanel>
 				<pe:PropertyEditor Source="{Binding Model}" Opacity="1.0"/>
