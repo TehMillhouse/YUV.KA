@@ -11,15 +11,15 @@ namespace YuvKA.Pipeline.Implementation
 		public bool DependsOnLogfiles { get { return false; } }
 		public bool DependsOnVectors { get { return false; } }
 
-		public Frame Process(Frame frame, Frame reference)
+		public Frame Process(Frame[] input)
 		{
-			Frame result = new Frame(frame.Size);
-			for (int x = 0; x < frame.Size.Width; x++) {
-				for (int y = 0; y < frame.Size.Height; y++) {
-					int difference = Math.Abs(frame[x, y].R - reference[x, y].R);
-					difference += Math.Abs(frame[x, y].G - reference[x, y].G);
-					difference += Math.Abs(frame[x, y].B - reference[x, y].B);
-					result[x, y] = (difference >= 20) ? new Rgb(255, 0, 0) : frame[x, y];
+			Frame result = new Frame(input[0].Size);
+			for (int x = 0; x < input[0].Size.Width; x++) {
+				for (int y = 0; y < input[0].Size.Height; y++) {
+					int difference = Math.Abs(input[0][x, y].R - input[1][x, y].R);
+					difference += Math.Abs(input[0][x, y].G - input[1][x, y].G);
+					difference += Math.Abs(input[0][x, y].B - input[1][x, y].B);
+					result[x, y] = (difference >= 40) ? new Rgb(255, 0, 0) : input[0][x, y];
 				}
 			}
 			return result;
@@ -32,27 +32,27 @@ namespace YuvKA.Pipeline.Implementation
 		public bool DependsOnLogfiles { get { return false; } }
 		public bool DependsOnVectors { get { return true; } }
 
-		public Frame Process(Frame frame, Frame reference)
+		public Frame Process(Frame[] input)
 		{
-			Frame result = new Frame(frame);
-			AnnotatedFrame frameWithLogs = (AnnotatedFrame)frame;
+			Frame result = new Frame(input[0]);
+			AnnotatedFrame frameWithLogs = (AnnotatedFrame)input[0];
 			/* Create Bitmap to draw the vectors on */
-			using (Bitmap drawableFrame = new Bitmap(frame.Size.Width, frame.Size.Width)) {
-				for (int x = 0; x < frame.Size.Width; x++) {
-					for (int y = 0; y < frame.Size.Height; y++) {
-						Rgb pixel = frame[x, y];
+			using (Bitmap drawableFrame = new Bitmap(input[0].Size.Width, input[0].Size.Width)) {
+				for (int x = 0; x < input[0].Size.Width; x++) {
+					for (int y = 0; y < input[0].Size.Height; y++) {
+						Rgb pixel = input[0][x, y];
 						drawableFrame.SetPixel(x, y, Color.FromArgb(pixel.R, pixel.G, pixel.B));
 					}
 				}
 				/* Draw the movementvector of each macroblock */
-				for (int x = 0; x < (frame.Size.Width / 16); x++) {
-					for (int y = 0; y < (frame.Size.Height / 16); y++) {
+				for (int x = 0; x < (input[0].Size.Width / 16); x++) {
+					for (int y = 0; y < (input[0].Size.Height / 16); y++) {
 						DrawVector(drawableFrame, x * 16, y * 16, GetScaledVector(14.0, frameWithLogs.Decisions[x, y].Movement));
 					}
 				}
 				/* Print the frame with vectors into the resultframe */
-				for (int x = 0; x < frame.Size.Width; x++) {
-					for (int y = 0; y < frame.Size.Height; y++) {
+				for (int x = 0; x < input[0].Size.Width; x++) {
+					for (int y = 0; y < input[0].Size.Height; y++) {
 						Rgb pixel = new Rgb(drawableFrame.GetPixel(x, y).R, drawableFrame.GetPixel(x, y).G, drawableFrame.GetPixel(x, y).B);
 						result[x, y] = pixel;
 					}
@@ -98,13 +98,13 @@ namespace YuvKA.Pipeline.Implementation
 		public bool DependsOnLogfiles { get { return true; } }
 		public bool DependsOnVectors { get { return false; } }
 
-		public Frame Process(Frame frame, Frame reference)
+		public Frame Process(Frame[] input)
 		{
-			AnnotatedFrame frameWithLogs = (AnnotatedFrame)frame;
-			Frame result = new Frame(frame.Size);
-			for (int x = 0; x < frame.Size.Width; x++) {
-				for (int y = 0; y < frame.Size.Height; y++) {
-					result[x, y] = GetMaskedPixel(frame[x, y], x + 1, y + 1, frameWithLogs.Decisions[x / 16, y / 16].PartitioningDecision);
+			AnnotatedFrame frameWithLogs = (AnnotatedFrame)input[0];
+			Frame result = new Frame(input[0].Size);
+			for (int x = 0; x < input[0].Size.Width; x++) {
+				for (int y = 0; y < input[0].Size.Height; y++) {
+					result[x, y] = GetMaskedPixel(input[0][x, y], x + 1, y + 1, frameWithLogs.Decisions[x / 16, y / 16].PartitioningDecision);
 				}
 			}
 			return result;

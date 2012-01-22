@@ -12,6 +12,6 @@ namespace YuvKA.Pipeline.Implementation
 		bool DependsOnLogfiles { get; }
 		bool DependsOnVectors { get; }
 	
-		Frame Process(Frame frame, Frame reference);
+		Frame Process(Frame[] input);
 	}
 }
