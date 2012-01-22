@@ -13,6 +13,7 @@ namespace YuvKA.Pipeline.Implementation
 			: base(inputCount: 2)
 		{
 			Name = "Overlay";
+			Type = new NoOverlay();
 		}
 
 		[DataMember]

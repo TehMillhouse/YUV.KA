@@ -5,6 +5,18 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	public class NoOverlay : IOverlayType
+	{
+		public bool DependsOnReference { get { return false; } }
+		public bool DependsOnLogfiles { get { return false; } }
+		public bool DependsOnVectors { get { return false; } }
+
+		public Frame Process(Frame[] input)
+		{
+			return input[0];
+		}
+	}
+
 	public class ArtifactsOverlay : IOverlayType
 	{
 		public bool DependsOnReference { get { return true; } }
