@@ -71,19 +71,25 @@ namespace YuvKA.Pipeline
 		}
 
 		/// <summary>
-		/// Adds the index to the node's name. The index represents the number of existing nodes of the specified node's type plus one. Example: DelayNode2 means that one DelayNode already exists. If the new Node is the first of it's type the name not be changed.
+		/// Adds the index to the new node's name. The new name will be the first available one of the row NodeName, NodeName 2, NodeName 3, NodeName 4...
 		/// </summary>
 		/// <param name="node">The new node.</param>
 		public void AddNodeWithIndex(Node node)
 		{
-			int nodeIndex = 1;
-			foreach (Node existingNode in Nodes) {
-				if (existingNode.GetType() == node.GetType()) {
-					nodeIndex++;
+			bool nameIsFree = false;
+			for (int i = 1; i <= (Nodes.Count + 1) && !nameIsFree; i++) {
+				nameIsFree = true;
+				foreach (Node existingNode in Nodes) {
+					if (i == 1 && node.Name == existingNode.Name) {
+						nameIsFree = false;
+					}
+					else if (i > 1 && (node.Name + " " + i) == existingNode.Name) {
+						nameIsFree = false;
+					}
 				}
-			}
-			if (nodeIndex > 1) {
-				node.Name += " " + nodeIndex;
+				if (nameIsFree && i > 1) {
+					node.Name += " " + i;
+				}
 			}
 			Nodes.Add(node);
 		}
