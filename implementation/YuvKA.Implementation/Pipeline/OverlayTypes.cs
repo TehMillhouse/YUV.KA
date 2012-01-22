@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows;
 using YuvKA.VideoModel;
 
+
 namespace YuvKA.Pipeline.Implementation
 {
+	[DisplayName("No Overlay")]
 	public class NoOverlay : IOverlayType
 	{
 		public bool DependsOnReference { get { return false; } }
@@ -17,6 +20,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 	}
 
+	[DisplayName("Artifact-Overlay")]
 	public class ArtifactsOverlay : IOverlayType
 	{
 		public bool DependsOnReference { get { return true; } }
@@ -38,6 +42,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 	}
 
+	[DisplayName("Movementvector-Overlay")]
 	public class MoveVectorsOverlay : IOverlayType
 	{
 		public bool DependsOnReference { get { return false; } }
@@ -104,6 +109,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 	}
 
+	[DisplayName("Macroblock-Overlay")]
 	public class BlocksOverlay : IOverlayType
 	{
 		public bool DependsOnReference { get { return false; } }
