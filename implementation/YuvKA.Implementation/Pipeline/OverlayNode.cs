@@ -25,7 +25,26 @@ namespace YuvKA.Pipeline.Implementation
 
 		public override void ProcessCore(Frame[] inputs, int tick)
 		{
-			Data = Type.Process(inputs[0], (Type.DependsOnReference) ? inputs[1] : null);
+			if (Type.DependsOnReference && inputs.Length < 2)
+				SetBlackFrame(inputs[0].Size);
+			else if (Type.DependsOnLogfiles && (!(inputs[0] is AnnotatedFrame) || ((AnnotatedFrame)inputs[0]).Decisions[0, 0].PartitioningDecision == null))
+				SetBlackFrame(inputs[0].Size);
+			else if (Type.DependsOnVectors && (!(inputs[0] is AnnotatedFrame) || ((AnnotatedFrame)inputs[0]).Decisions[0, 0].Movement == null))
+				SetBlackFrame(inputs[0].Size);
+			else
+				Data = Type.Process(inputs);
+		}
+
+		private void SetBlackFrame(Size size)
+		{
+			Frame blackFrame = new Frame(size);
+			Rgb black = new Rgb(0, 0, 0);
+			for (int x = 0; x < size.Width; x++) {
+				for (int y = 0; y < size.Height; y++) {
+					blackFrame[x, y] = black;
+				}
+			}
+			Data = blackFrame;
 		}
 	}
 }
