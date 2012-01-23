@@ -34,6 +34,12 @@
     <Reference Include="Caliburn.Micro">
       <HintPath>..\packages\Caliburn.Micro.1.2.0\lib\Net40\Caliburn.Micro.dll</HintPath>
     </Reference>
+    <Reference Include="PropertyTools, Version=2012.1.1.4171, Culture=neutral, PublicKeyToken=ea0c9f2b460934d0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyTools.Wpf.2012.1.1.4171\lib\PropertyTools.dll</HintPath>
+    </Reference>
+    <Reference Include="PropertyTools.Wpf, Version=2012.1.1.4171, Culture=neutral, PublicKeyToken=ea0c9f2b460934d0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyTools.Wpf.2012.1.1.4171\lib\PropertyTools.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
