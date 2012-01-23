@@ -1,10 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
-using System;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -18,11 +18,6 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			Name = "Weighted Merge";
 			((ObservableCollection<Input>)Inputs).CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(OnInputsChanged);
-		}
-
-		public void OnInputsChanged(object sender, EventArgs e)
-		{
-			NotifyOfPropertyChange(() => Weights);
 		}
 
 		[DataMember]
@@ -48,6 +43,11 @@ namespace YuvKA.Pipeline.Implementation
 			{
 				weights = value;
 			}
+		}
+
+		public void OnInputsChanged(object sender, EventArgs e)
+		{
+			NotifyOfPropertyChange(() => Weights);
 		}
 
 		public override Frame[] Process(Frame[] inputs, int tick)
