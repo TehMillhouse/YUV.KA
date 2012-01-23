@@ -52,8 +52,8 @@ namespace YuvKA.Pipeline.Implementation
 
 			if (colorChanged) {
 				// Fill the frame with the selected color
-				for (int x = 0; x < outputFrame.Size.Width; ++x) {
-					for (int y = 0; y < outputFrame.Size.Height; ++y) {
+				for (int x = 0; x < outputFrame.Size.Width; x++) {
+					for (int y = 0; y < outputFrame.Size.Height; y++) {
 						outputFrame[x, y] = Color;
 					}
 				}
