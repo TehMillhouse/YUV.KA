@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	[DisplayName("Intra-Block-Frequency")]
 	public class IntraBlockFrequency : IGraphType
 	{
 		public IntraBlockFrequency()
@@ -26,7 +28,7 @@ namespace YuvKA.Pipeline.Implementation
 			return intraBlocks;
 		}
 	}
-
+	[DisplayName("Peak-Signal-to-Noise-Ratio")]
 	public class PeakSignalNoiseRatio : IGraphType
 	{
 		public PeakSignalNoiseRatio()
@@ -51,7 +53,7 @@ namespace YuvKA.Pipeline.Implementation
 			return psnr;
 		}
 	}
-
+	[DisplayName("Pixel-Difference")]
 	public class PixelDiff : IGraphType
 	{
 		public PixelDiff()
