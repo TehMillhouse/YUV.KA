@@ -14,7 +14,7 @@ namespace YuvKA.ViewModel
 		public ToolboxViewModel([ImportMany]IEnumerable<Node> nodes)
 		{
 			// TODO: Read in icons
-			NodeTypes = nodes.Select(n => new NodeType { Type = n.GetType() }).ToArray();
+			NodeTypes = nodes.Select(n => new NodeType { Type = n.GetType() }).OrderBy(n => n.Type.Name).ToArray();
 		}
 
 		public IList<NodeType> NodeTypes { get; private set; }
