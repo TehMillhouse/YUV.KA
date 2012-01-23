@@ -7,7 +7,7 @@
 			d:DesignHeight="300" d:DesignWidth="300">
 	<DockPanel>
 		<TextBlock Text="{Binding Property.DisplayName}" HorizontalAlignment="Left"/>
-		<Separator Width="20"/>
+		<Separator Width="20" Visibility="Hidden" />
 		<ComboBox ItemsSource="{Binding Choices}" SelectedValue="{Binding Value}"/>
 	</DockPanel>
 </UserControl>

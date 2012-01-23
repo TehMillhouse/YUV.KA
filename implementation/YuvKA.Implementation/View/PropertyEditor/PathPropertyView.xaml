@@ -7,7 +7,7 @@
 			d:DesignHeight="35" d:DesignWidth="150">
 	<DockPanel>
 		<TextBlock Text="{Binding Property.DisplayName}" HorizontalAlignment="Left"/>
-		<Separator Width="20"/>
+		<Separator Width="20" Visibility="Hidden"/>
 		<Button Name="OpenDialog" Content="Choose File..." Width="85" HorizontalAlignment="Right"/>
 	</DockPanel>
 </UserControl>

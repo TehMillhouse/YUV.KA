@@ -7,7 +7,7 @@
 			d:DesignHeight="35" d:DesignWidth="150">
 	<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 		<TextBlock Text="Size "/>
-		<Separator Width="20"/>
+		<Separator Width="20" Visibility="Hidden"/>
 		<TextBox AcceptsReturn="False" Text="{Binding Width}" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Right"/>
 		<TextBlock Text="x" FontSize="17"/>
 		<TextBox AcceptsReturn="False" Text="{Binding Height}" HorizontalAlignment="Right" MinWidth="50" HorizontalContentAlignment="Left"/>
