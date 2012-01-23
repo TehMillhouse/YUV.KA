@@ -18,7 +18,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DataMember]
-		[Range(0.0, 10.0)]
+		[Range(0.0, 30.0)]
 		[Browsable(true)]
 		public int Delay { get; set; }
 
