@@ -16,14 +16,21 @@
 		<DataTemplate x:Key="ShowOutputTemplate">
 			<MenuItem cal:Action.TargetWithoutContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Header="Show output" cal:Message.Attach="[Event Click] = [Action ShowNodeOutput($dataContext)]"/>
 		</DataTemplate>
+		<Style TargetType="ItemsControl" x:Key="MenuStyle" x:Shared="False">
+			<Setter Property="ItemsSource">
+				<Setter.Value>
+					<x:Array Type="MenuItem">
+						<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]"/>
+						<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource SaveOutputTemplate}"/>
+						<!-- TODO: Implement this when OutputWindow is implemented -->
+						<MenuItem Header="Display output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource ShowOutputTemplate}"/>
+					</x:Array>
+				</Setter.Value>
+			</Setter>
+		</Style>
 	</UserControl.Resources>
 	<UserControl.ContextMenu>
-		<ContextMenu>
-			<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]"/>
-			<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource SaveOutputTemplate}"/>
-			<!-- TODO: Implement this when OutputWindow is implemented -->
-			<MenuItem Header="Display output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource ShowOutputTemplate}"/>
-		</ContextMenu>
+		<ContextMenu Style="{StaticResource MenuStyle}"/>
 	</UserControl.ContextMenu>
 	<Grid>
 		<Border Background="#A799DBFF" CornerRadius="5" MinHeight="80" MinWidth="80" BorderThickness="3" BorderBrush="LightSkyBlue" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action NodeMouseDown($dataContext, $eventArgs)]">
@@ -31,21 +38,16 @@
 				<DropShadowEffect BlurRadius="13" Opacity="0.8" ShadowDepth="4"/>
 			</Border.Effect>
 			<StackPanel Orientation="Vertical">
-			<DockPanel LastChildFill="True" Height="20" Background="LightBlue" VerticalAlignment="Top">
-				<Menu DockPanel.Dock="Right" Background="LightBlue">
-					<MenuItem>
-						<MenuItem.Header>
-							<Image Width="10" Height="10" Source="context.png" />
-						</MenuItem.Header>
-						<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]"/>
-						<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource SaveOutputTemplate}"/>
-						<!-- TODO: Implement this when OutputWindow is implemented -->
-						<MenuItem Header="Display output... " ItemsSource="{Binding Model.Outputs}" ItemTemplate="{StaticResource ShowOutputTemplate}"/>
-					</MenuItem>
-				</Menu>
-				<TextBlock DockPanel.Dock="Left" Text="{Binding Model.Name}"/>
-
-			</DockPanel>
+				<DockPanel LastChildFill="True" Height="20" Background="LightBlue" VerticalAlignment="Top">
+					<Menu DockPanel.Dock="Right" Background="LightBlue">
+						<MenuItem Style="{StaticResource MenuStyle}">
+							<MenuItem.Header>
+								<Image Width="10" Height="10" Source="context.png" />
+							</MenuItem.Header>
+						</MenuItem>
+					</Menu>
+					<TextBlock DockPanel.Dock="Left" Text="{Binding Model.Name}"/>
+				</DockPanel>
 				<pe:PropertyEditor Source="{Binding Model}" Opacity="1.0"/>
 			</StackPanel>
 		</Border>
