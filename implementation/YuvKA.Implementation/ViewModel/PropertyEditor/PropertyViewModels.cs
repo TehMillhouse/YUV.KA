@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Windows.Media;
 using Caliburn.Micro;
 using YuvKA.VideoModel;
 
@@ -24,9 +25,10 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public class RgbPropertyViewModel : PropertyViewModel<VideoModel.Rgb>
 	{
-		public void OpenDialog()
+		public Color ChosenColor
 		{
-			throw new NotImplementedException();
+			get { return Color.FromRgb(Value.R, Value.G, Value.B); }
+			set { Value = new Rgb(value.R, value.G, value.B); }
 		}
 	}
 
