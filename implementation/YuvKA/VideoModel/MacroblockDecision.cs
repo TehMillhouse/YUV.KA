@@ -6,6 +6,6 @@ namespace YuvKA.VideoModel
 	{
 		public Vector Movement { get; set; }
 
-		public MacroblockPartitioning PartitioningDecision { get; set; }
+		public MacroblockPartitioning? PartitioningDecision { get; set; }
 	}
 }

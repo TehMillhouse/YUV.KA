@@ -128,7 +128,7 @@ namespace YuvKA.Pipeline.Implementation
 			return result;
 		}
 
-		private Rgb GetMaskedPixel(Rgb pixel, int x, int y, MacroblockPartitioning decision)
+		private Rgb GetMaskedPixel(Rgb pixel, int x, int y, MacroblockPartitioning? decision)
 		{
 			switch (decision) {
 				case MacroblockPartitioning.Inter16x16:
