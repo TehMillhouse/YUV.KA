@@ -15,6 +15,7 @@ namespace YuvKA.ViewModel
 		EdgeViewModel draggedEdge;
 		Vector dragMouseOffset;
 		IEnumerable<EdgeViewModel> edges = Enumerable.Empty<EdgeViewModel>();
+		int maxZValue;
 
 		public PipelineViewModel(MainViewModel parent)
 		{
@@ -61,6 +62,7 @@ namespace YuvKA.ViewModel
 			var node = (Node)Activator.CreateInstance(type.Type);
 			var nodeModel = new NodeViewModel(node, this);
 			nodeModel.Position = IoC.Get<IGetPosition>().GetDropPosition(e, this);
+			nodeModel.ZIndex = maxZValue++;
 
 			Parent.Model.Graph.AddNodeWithIndex(node);
 			Nodes.Add(nodeModel);
@@ -70,6 +72,9 @@ namespace YuvKA.ViewModel
 		{
 			draggedNode = node;
 			dragMouseOffset = IoC.Get<IGetPosition>().GetMousePosition(e, this) - draggedNode.Position;
+
+			draggedNode.ZIndex = maxZValue++;
+			draggedNode.NotifyOfPropertyChange(() => draggedNode.ZIndex);
 		}
 
 		public void InOutputMouseDown(InOutputViewModel inOut)

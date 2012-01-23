@@ -27,6 +27,11 @@
 		</ItemsControl>
 		<ContentControl x:Name="DraggedEdge"/>
 		<ItemsControl Name="Nodes">
+			<ItemsControl.ItemContainerStyle>
+				<Style>
+					<Setter Property="Panel.ZIndex" Value="{Binding ZIndex}"/>
+				</Style>
+			</ItemsControl.ItemContainerStyle>
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
 					<Grid/>

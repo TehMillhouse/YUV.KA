@@ -55,11 +55,5 @@ namespace YuvKA.ViewModel
 			SourceImage.AddDirtyRect(new Int32Rect(0, 0, width, height));
 			SourceImage.Unlock();
 		}
-
-		//public void ShowSample()
-		//{
-		//    sourceImage = new BitmapImage(new System.Uri("D:\\YUV.KA\\resources\\sample.png"));
-		//    NotifyOfPropertyChange(() => sourceImage);
-		//}
 	}
 }

@@ -22,6 +22,7 @@ namespace YuvKA.ViewModel
 			Model = model;
 			NodeType = new NodeType { Type = model.GetType() };
 			Parent = parent;
+			ZIndex = 0;
 
 			inputs = Model.Inputs.Select(i => new InOutputViewModel(i, this)).ToList();
 			Outputs = Model.Outputs.Select(i => new InOutputViewModel(i, this)).ToList();
@@ -39,6 +40,7 @@ namespace YuvKA.ViewModel
 		public Node Model { get; private set; }
 		public PipelineViewModel Parent { get; private set; }
 		public IObservable<Unit> ViewPositionChanged { get { return viewPositionChanged; } }
+		public int ZIndex { get; set; }
 
 		public IEnumerable<InOutputViewModel> Inputs
 		{
