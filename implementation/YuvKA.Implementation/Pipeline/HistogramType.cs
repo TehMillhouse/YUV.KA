@@ -5,5 +5,5 @@ using System.Text;
 
 namespace YuvKA.Pipeline.Implementation
 {
-    public enum HistogramType { R, G, B, Value }
+	public enum HistogramType { R, G, B, Value }
 }

@@ -17,6 +17,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DataMember]
+		[Browsable(true)]
 		public HistogramType Type { get; set; }
 
 		[DataMember]
