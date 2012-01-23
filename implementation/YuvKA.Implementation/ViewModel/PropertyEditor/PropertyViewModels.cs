@@ -16,7 +16,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 	{
 		public IEnumerable<IResult> OpenDialog()
 		{
-			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv" };
+			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv|All files (*.*)|*" };
 			yield return file;
 			Property.SetValue(Source, new YuvKA.Pipeline.FilePath(file.FileName));
 		}
