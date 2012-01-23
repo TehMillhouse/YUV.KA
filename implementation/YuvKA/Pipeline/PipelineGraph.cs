@@ -94,6 +94,19 @@ namespace YuvKA.Pipeline
 			Nodes.Add(node);
 		}
 
+		public void RemoveNode(Node node)
+		{
+			this.Nodes.Remove(node);
+			foreach (Node checkedNode in Nodes) {
+				foreach (Node.Input potentialDependency in checkedNode.Inputs) {
+					if (potentialDependency.Source != null && potentialDependency.Source.Node == node) {
+						// Delete edge to node
+						potentialDependency.Source = null;
+					}
+				}
+			}
+		}
+
 		/// <summary>
 		/// Returns a list which contains those Nodes who are necessary to let the specified Node process.
 		/// If the Graph contains a cycle, the returned list will contain one of the cycle-Nodes twice.

@@ -67,7 +67,7 @@ namespace YuvKA.ViewModel
 		public void RemoveNode()
 		{
 			Parent.Nodes.Remove(this);
-			Parent.Parent.Model.Graph.Nodes.Remove(this.Model);
+			Parent.Parent.Model.Graph.RemoveNode(this.Model);
 			Parent.NotifyOfPropertyChange(() => Parent.Edges);
 		}
 
