@@ -35,8 +35,6 @@ namespace YuvKA.Pipeline.Implementation
 			49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254,
 			138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180 };
 
-		Frame outputFrame;
-
 		public NoiseInputNode()
 			: base(outputCount: 1)
 		{
@@ -49,8 +47,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		public override Frame OutputFrame(int tick)
 		{
-			EnsureInputLoaded();
-
+			Frame outputFrame = new Frame(new Size(Size.Width, Size.Height));
 			if (Type == NoiseType.Coherent) {
 				outputFrame = ProcessCoherentNoise(outputFrame, tick);
 			}
@@ -65,12 +62,6 @@ namespace YuvKA.Pipeline.Implementation
 			}
 
 			return outputFrame;
-		}
-
-		protected override void OnSizeChanged()
-		{
-			base.OnSizeChanged();
-			outputFrame = null;
 		}
 
 		private static Frame ProcessCoherentNoise(Frame frame, int tick)
@@ -170,14 +161,6 @@ namespace YuvKA.Pipeline.Implementation
 			double g8 = Grad(p[bb + 1], x - 1, y - 1, z - 1);
 
 			return Lerp(w, Lerp(v, Lerp(u, g1, g2), Lerp(u, g3, g4)), Lerp(v, Lerp(u, g5, g6), Lerp(u, g7, g8)));
-		}
-
-		private void EnsureInputLoaded()
-		{
-			// If the size was changed
-			if (outputFrame == null) {
-				outputFrame = new Frame(new Size(Size.Width, Size.Height));
-			}
 		}
 	}
 }
