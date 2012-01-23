@@ -64,11 +64,12 @@ namespace YuvKA.ViewModel
 			get
 			{
 				var geo = new StreamGeometry();
-				var delta = StartPoint - EndPoint;
+				var delta = EndPoint - StartPoint;
 				var angle = Math.Atan2(delta.Y, delta.X);
-				var controlOffset = new Vector(Math.Abs(angle) / Math.PI * 200, 0);
-				if (StartViewModel.Model is Node.Input)
-					controlOffset *= -1;
+				var controlOffset = StartViewModel.Model is Node.Output ?
+					new Vector(Math.Abs(angle) / Math.PI * 200, 0) :
+					new Vector(-(1 - Math.Abs(angle) / Math.PI) * 200, 0);
+
 				using (var ctx = geo.Open()) {
 					ctx.BeginFigure(StartPoint, isFilled: false, isClosed: false);
 					ctx.BezierTo(StartPoint + controlOffset, EndPoint - controlOffset, EndPoint, isStroked: true, isSmoothJoin: false);
