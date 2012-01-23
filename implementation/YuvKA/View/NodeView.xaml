@@ -8,14 +8,7 @@
 			mc:Ignorable="d"
 			d:DesignHeight="190" d:DesignWidth="190" Margin="{Binding Margin}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.92" cal:Message.Attach="[Event Loaded] = [Action ViewLoaded]">
 	<UserControl.Resources>
-		<DataTemplate x:Key="SaveOutputTemplate">
-		</DataTemplate>
-		<DataTemplate x:Key="ShowOutputTemplate">
-			<MenuItem cal:Action.TargetWithoutContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Header="Show output" cal:Message.Attach="[Event Click] = [Action ShowNodeOutput($dataContext)]"/>
-		</DataTemplate>
 		<Style TargetType="ItemsControl" x:Key="MenuStyle" x:Shared="False">
-			<!-- Must set Target because Menu/ContextMenu creates its own Visual Tree -->
-			<Setter Property="cal:Action.TargetWithoutContext" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"/>
 			<Setter Property="ItemsSource">
 				<Setter.Value>
 					<x:Array Type="MenuItem">
@@ -24,6 +17,7 @@
 							<MenuItem.ItemContainerStyle>
 								<!-- TODO: Show output index and disable menu item when !Node.InputIsValid. We'll need an OutputViewModel for that. -->
 								<Style TargetType="MenuItem">
+									<Setter Property="cal:Action.TargetWithoutContext" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"/>
 									<Setter Property="Header" Value="Save output"/>
 									<Setter Property="cal:Message.Attach" Value="[Event Click] = [Action SaveNodeOutput($dataContext)]"/>
 								</Style>
@@ -33,6 +27,7 @@
 						<MenuItem Header="Display output..." ItemsSource="{Binding Model.Outputs}">
 							<MenuItem.ItemContainerStyle>
 								<Style TargetType="MenuItem">
+									<Setter Property="cal:Action.TargetWithoutContext" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"/>
 									<Setter Property="Header" Value="Show output"/>
 									<Setter Property="cal:Message.Attach" Value="[Event Click] = [Action ShowNodeOutput($dataContext)]"/>
 								</Style>
