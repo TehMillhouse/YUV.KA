@@ -13,6 +13,8 @@
 			<ContentControl cal:View.Model="{Binding ReplayStateViewModel}"/>
 		</DockPanel>
 		<ContentControl cal:View.Model="{Binding ToolboxViewModel}" DockPanel.Dock="Bottom"/>
-		<ContentControl cal:View.Model="{Binding PipelineViewModel}"/>
+		<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+			<ContentControl cal:View.Model="{Binding PipelineViewModel}"/>
+		</ScrollViewer>
 	</DockPanel>
 </Window>

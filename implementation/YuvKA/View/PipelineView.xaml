@@ -6,10 +6,9 @@
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			xmlns:yuv="clr-namespace:YuvKA"
 			mc:Ignorable="d"
-			d:DesignHeight="300" d:DesignWidth="300" AllowDrop="True" Background="Transparent" cal:Message.Attach="[Event Drop] = [Action Drop($eventArgs)]; [Event MouseMove] = [Action MouseMove($eventArgs)]; [Event MouseLeftButtonUp] = [Action MouseUp]">
-	<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-		<ScrollViewer.Background>
-			<ImageBrush ImageSource="PipelineGridBackdrop.png"
+			d:DesignHeight="300" d:DesignWidth="300" AllowDrop="True" cal:Message.Attach="[Event Drop] = [Action Drop($eventArgs)]; [Event MouseMove] = [Action MouseMove($eventArgs)]; [Event MouseLeftButtonUp] = [Action MouseUp]">
+	<UserControl.Background>
+		<ImageBrush ImageSource="PipelineGridBackdrop.png"
 						Stretch="None"
 						ViewboxUnits="Absolute"
 						TileMode="Tile"
@@ -17,23 +16,22 @@
 						ViewportUnits="Absolute"
 						AlignmentX="Left"
 						AlignmentY="Top"/>
-		</ScrollViewer.Background>
-		<Grid VerticalAlignment="Top" HorizontalAlignment="Left">
-			<ItemsControl x:Name="Edges">
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<Grid/>
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-			</ItemsControl>
-			<ContentControl x:Name="DraggedEdge"/>
-			<ItemsControl Name="Nodes">
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<Grid/>
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-			</ItemsControl>
-		</Grid>
-	</ScrollViewer>
+	</UserControl.Background>
+	<Grid VerticalAlignment="Top" HorizontalAlignment="Left">
+		<ItemsControl x:Name="Edges">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Grid/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+		</ItemsControl>
+		<ContentControl x:Name="DraggedEdge"/>
+		<ItemsControl Name="Nodes">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Grid/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+		</ItemsControl>
+	</Grid>
 </UserControl>
