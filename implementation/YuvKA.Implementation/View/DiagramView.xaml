@@ -3,9 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d3="clr-namespace:YuvKA.Implementation"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+             d:DesignHeight="532" d:DesignWidth="959">
+		<Grid Name="OuterGrid">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="75" />
+			<ColumnDefinition Width="421" />
+			<ColumnDefinition Width="213" />
+			<ColumnDefinition Width="250*" />
+		</Grid.ColumnDefinitions>
+		<ComboBox Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Videos}" SelectedItem="{Binding Reference}" Name="Reference" Grid.Column="1" />
+		<Label Content="Reference" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="0" />
+		<d3:ChartPlotter x:Name="plotter" LineGraphs="{Binding Path=LineGraphs}" LegendVisibility="Hidden" Grid.ColumnSpan="2" Height="502" VerticalAlignment="Bottom" Grid.Column="0"></d3:ChartPlotter>
+		<Button Content="Add" Height="23" HorizontalAlignment="Right" Margin="0,0,138,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
+		<ComboBox Height="23" HorizontalAlignment="Right" VerticalAlignment="Top" Width="132" ItemsSource="{Binding Videos}" SelectedItem="{Binding ChosenVid}" Grid.Column="2" Name="Videos" />
+		<Grid Height="502" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top" Width="463" Grid.Column="2" Grid.ColumnSpan="2"></Grid>
+	</Grid>
 </UserControl>

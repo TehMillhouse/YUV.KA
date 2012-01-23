@@ -76,6 +76,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChartPlotter.cs" />
+    <Compile Include="LineGraphViewModel.cs" />
     <Compile Include="Pipeline\NoiseType.cs" />
     <Compile Include="ViewModel\DiagramViewModel.cs" />
     <Compile Include="ViewModel\HistogramViewModel.cs" />

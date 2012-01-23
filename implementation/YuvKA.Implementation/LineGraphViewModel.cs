@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Microsoft.Research.DynamicDataDisplay.DataSources;
@@ -7,7 +8,7 @@ using System.Windows.Media;
 
 namespace YuvKA.Implementation
 {
-    public class LineGraphViewModel: ViewModelBase
+	public class LineGraphViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets or sets the point data source.
@@ -60,5 +61,16 @@ namespace YuvKA.Implementation
             get;
             set;
         }
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		protected virtual void OnPropertyChanged(string propertyName)
+		{
+			PropertyChangedEventHandler handler = this.PropertyChanged;
+			if (handler != null) {
+				var e = new PropertyChangedEventArgs(propertyName);
+				handler(this, e);
+			}
+		}
     }
 }
