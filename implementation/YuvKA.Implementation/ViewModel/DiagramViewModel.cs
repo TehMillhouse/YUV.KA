@@ -25,10 +25,10 @@ namespace YuvKA.ViewModel.Implementation
 		private void AddVideoToGrid()
 		{
 			var newB = new Button {Content = "Delete", Command = Delete()};
-			VidGrid.Children.Add(newB);
+			vGrid.Children.Add(newB);
 
 			var newL = new Label {Content = ChosenVideo.Item1};
-			VidGrid.Children.Add(newL);
+			vGrid.Children.Add(newL);
 
 			var newC = new ComboBox {ItemsSource = Types};
 			var newCT = new Tuple<string, IGraphType>(null, null);
