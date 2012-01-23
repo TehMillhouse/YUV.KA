@@ -19,8 +19,14 @@ namespace YuvKA.ViewModel
 		public override void Handle(TickRenderedMessage message)
 		{
 			base.Handle(message);
+			if (message[Output] == null)
+				return;
+
 			int width = message[Output].Size.Width;
 			int height = message[Output].Size.Height;
+			if (width == 0 || height == 0)
+				return;
+
 			if (SourceImage == null) {
 				SourceImage = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgr32, null);
 				NotifyOfPropertyChange(() => SourceImage);

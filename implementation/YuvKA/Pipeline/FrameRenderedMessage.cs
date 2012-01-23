@@ -12,6 +12,9 @@ namespace YuvKA.Pipeline
 			this.dic = dic;
 		}
 
-		public Frame this[Node.Output output] { get { return dic[output]; } }
+		public Frame this[Node.Output output]
+		{
+			get { return dic.ContainsKey(output) ? dic[output] : null; }
+		}
 	}
 }
