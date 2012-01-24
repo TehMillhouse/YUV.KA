@@ -62,7 +62,7 @@
 		</ComboBox>
 		<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="2" Height="490" HorizontalAlignment="Left" VerticalAlignment="Top" Width="486" Grid.ColumnSpan="3">
 
-			<ItemsControl ItemsSource="{Binding  AddedGraphViews}"
+			<ItemsControl ItemsSource="{Binding  GraphControls}"
      ItemTemplate="{StaticResource AddedVideos}"/>
 		</ScrollViewer>
 	</Grid>
