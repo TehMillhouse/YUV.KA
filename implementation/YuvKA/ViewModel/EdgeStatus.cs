@@ -1,5 +1,4 @@
-﻿
-namespace YuvKA.ViewModel
+﻿namespace YuvKA.ViewModel
 {
 	public enum EdgeStatus
 	{
