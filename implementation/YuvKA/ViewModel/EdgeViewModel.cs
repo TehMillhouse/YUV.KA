@@ -13,10 +13,21 @@ namespace YuvKA.ViewModel
 		// objects for disposing the subscriptions on InOutputVM.Midpoint
 		IDisposable startHandler, endHandler;
 		PipelineViewModel parent;
+		EdgeStatus status;
 
 		public EdgeViewModel(PipelineViewModel parent)
 		{
 			this.parent = parent;
+		}
+
+		public EdgeStatus Status
+		{
+			get { return status; }
+			set
+			{
+				status = value;
+				NotifyOfPropertyChange(() => Status);
+			}
 		}
 
 		public Point StartPoint
@@ -54,7 +65,11 @@ namespace YuvKA.ViewModel
 			get { return endVM; }
 			set
 			{
+				if (endVM == value)
+					return;
 				endVM = value;
+				if (endHandler != null)
+					endHandler.Dispose();
 				endHandler = value.Midpoint.Subscribe(pos => EndPoint = pos);
 			}
 		}
@@ -76,6 +91,27 @@ namespace YuvKA.ViewModel
 				}
 				return geo;
 			}
+		}
+
+		/// <summary>
+		/// Try and sort StartViewModel and EndViewModel into input and output.
+		/// Returns false if there are two inputs or outputs.
+		/// </summary>
+		public bool GetInOut(out InOutputViewModel inputVM, out InOutputViewModel outputVM)
+		{
+			if ((StartViewModel.IsFake || StartViewModel.Model is Node.Input) && EndViewModel.Model is Node.Output) {
+				inputVM = StartViewModel;
+				outputVM = EndViewModel;
+				return true;
+			}
+			if (StartViewModel.Model is Node.Output && (EndViewModel.IsFake || EndViewModel.Model is Node.Input)) {
+				inputVM = EndViewModel;
+				outputVM = StartViewModel;
+				return true;
+			}
+
+			inputVM = outputVM = null;
+			return false;
 		}
 
 		public void Dispose()

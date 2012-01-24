@@ -100,8 +100,24 @@ namespace YuvKA.ViewModel
 			IGetPosition getPos = IoC.Get<IGetPosition>();
 			if (draggedNode != null)
 				draggedNode.Position = getPos.GetMousePosition(e, this) - dragMouseOffset;
-			else if (DraggedEdge != null)
+			else if (DraggedEdge != null) {
+				if (DraggedEdge.Status != EdgeStatus.Indeterminate)
+					DraggedEdge.Status = EdgeStatus.Indeterminate;
 				DraggedEdge.EndPoint = getPos.GetMousePosition(e, this);
+			}
+		}
+
+		public void InOutputMouseMove(InOutputViewModel inOut, RoutedEventArgs e)
+		{
+			if (DraggedEdge == null)
+				return;
+
+			InOutputViewModel inputVM, outputVM;
+			DraggedEdge.EndViewModel = inOut;
+			DraggedEdge.Status =
+				DraggedEdge.GetInOut(out inputVM, out outputVM) && Parent.Model.Graph.CanAddEdge(outputVM.Parent.Model, inputVM.Parent.Model) ?
+				EdgeStatus.Valid : EdgeStatus.Invalid;
+			e.Handled = true; // don't bubble up into MouseMove
 		}
 
 		public void MouseUp()
@@ -112,16 +128,9 @@ namespace YuvKA.ViewModel
 
 		public void InOutputMouseUp(InOutputViewModel inOut)
 		{
+			DraggedEdge.EndViewModel = inOut;
 			InOutputViewModel inputVM, outputVM;
-			if ((DraggedEdge.StartViewModel.IsFake || DraggedEdge.StartViewModel.Model is Node.Input) && inOut.Model is Node.Output) {
-				inputVM = DraggedEdge.StartViewModel;
-				outputVM = inOut;
-			}
-			else if (DraggedEdge.StartViewModel.Model is Node.Output && (inOut.IsFake || inOut.Model is Node.Input)) {
-				inputVM = inOut;
-				outputVM = DraggedEdge.StartViewModel;
-			}
-			else {
+			if (!DraggedEdge.GetInOut(out inputVM, out outputVM)) {
 				DraggedEdge = null;
 				return;
 			}
