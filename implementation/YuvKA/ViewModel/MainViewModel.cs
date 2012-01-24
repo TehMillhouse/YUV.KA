@@ -21,9 +21,8 @@ namespace YuvKA.ViewModel
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Non-critical; refers to invocation of NotifyOfPropertyChange in PipelineViewModel.set")]
 		[ImportingConstructor]
-		public MainViewModel(CompositionContainer container)
+		public MainViewModel()
 		{
-			Container = container;
 			OpenWindows = new List<OutputWindowViewModel>();
 			Clear();
 		}
@@ -34,7 +33,7 @@ namespace YuvKA.ViewModel
 			set
 			{
 				model = value;
-				Container.SatisfyImportsOnce(model);
+				IoC.BuildUp(model);
 				if (ReplayStateViewModel != null)
 					ReplayStateViewModel.IsPlaying = false;
 				PipelineViewModel = new PipelineViewModel(this);
@@ -62,8 +61,6 @@ namespace YuvKA.ViewModel
 		public ToolboxViewModel ToolboxViewModel { get; private set; }
 
 		public IList<OutputWindowViewModel> OpenWindows { get; private set; }
-
-		CompositionContainer Container { get; set; }
 
 		public IEnumerable<IResult> Save()
 		{

@@ -17,7 +17,26 @@
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "God class")]
 	public class AppBootstrapper : Bootstrapper<MainViewModel>
 	{
-		static readonly string exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+		static AppBootstrapper designInstance;
+
+		static string ExeDir { get { return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); } }
+
+		public static MainViewModel DesignRoot
+		{
+			get
+			{
+				if (designInstance == null) {
+					designInstance = new AppBootstrapper();
+					var node1 = new DesignDummyNode { X = 10, Y = 10 };
+					var node2 = new DesignDummyNode { X = 200, Y = 10 };
+					node2.Inputs[1].Source = node1.Outputs[0];
+					DesignRoot.Model.Graph.AddNodeWithIndex(node1);
+					DesignRoot.Model.Graph.AddNodeWithIndex(node2);
+					DesignRoot.Model = DesignRoot.Model; // Force PipelineVM re-creation
+				}
+				return IoC.Get<MainViewModel>();
+			}
+		}
 
 		CompositionContainer container;
 
@@ -27,7 +46,6 @@
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "God class")]
 		protected override void Configure()
 		{
-			LogManager.GetLog = _ => new Logger();
 			ViewLocator.NameTransformer.AddRule(@"ViewModel(?=$|\.)", "View");
 			ViewLocator.NameTransformer.AddRule(@"ViewModels(?=$|\.)", "Views");
 
@@ -45,13 +63,25 @@
 			batch.AddExportedValue(container);
 			batch.AddExportedValue(catalog);
 
+			if (Execute.InDesignMode)
+				batch.AddExportedValue(new DesignDummyNode());
+
 			container.Compose(batch);
+		}
+
+		protected override void StartRuntime()
+		{
+			LogManager.GetLog = _ => new Logger();
+			base.StartRuntime();
 		}
 
 		// Return exe and all dlls in Plugins folder.
 		protected override IEnumerable<System.Reflection.Assembly> SelectAssemblies()
 		{
-			var pluginDir = Path.Combine(exeDir, "Plugins");
+			if (Execute.InDesignMode)
+				return base.SelectAssemblies();
+
+			var pluginDir = Path.Combine(ExeDir, "Plugins");
 			return base.SelectAssemblies().Concat(Directory.EnumerateFiles(pluginDir, "*.dll").Select(Assembly.LoadFile));
 		}
 
@@ -78,7 +108,7 @@
 
 		class Logger : ILog
 		{
-			static readonly string logFile = Path.Combine(exeDir, "Caliburn.log");
+			static readonly string logFile = Path.Combine(ExeDir, "Caliburn.log");
 			public Logger()
 			{
 				File.Delete(logFile);
@@ -129,6 +159,16 @@
 			public Size GetElementSize(IViewAware element)
 			{
 				return ((UIElement)element.GetView()).RenderSize;
+			}
+		}
+
+		class DesignDummyNode : YuvKA.Pipeline.Node
+		{
+			public DesignDummyNode() : base(2, 1) { Name = "Dummy"; }
+
+			public override VideoModel.Frame[] Process(VideoModel.Frame[] inputs, int tick)
+			{
+				throw new NotImplementedException();
 			}
 		}
 	}
