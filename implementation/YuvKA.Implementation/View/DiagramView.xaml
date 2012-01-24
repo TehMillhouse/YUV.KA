@@ -6,7 +6,7 @@
              xmlns:d3="clr-namespace:YuvKA.Implementation"
              mc:Ignorable="d" 
              d:DesignHeight="532" d:DesignWidth="959">
-		<Grid Name="OuterGrid">
+	<Grid Name="OuterGrid">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="75" />
 			<ColumnDefinition Width="421" />

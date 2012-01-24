@@ -15,34 +15,13 @@ namespace YuvKA.ViewModel.Implementation
 	public class DiagramViewModel : OutputWindowViewModel
 	{
 		private ObservableCollection<LineGraphViewModel> lineGraphs;
-		private Grid vGrid = new Grid();
-		public Grid Vgrid { get { return vGrid; } }
-		public ICommand Delete()
-		{
-			return null;
-		}
-
-		private void AddVideoToGrid()
-		{
-			var newB = new Button {Content = "Delete", Command = Delete()};
-			vGrid.Children.Add(newB);
-
-			var newL = new Label {Content = ChosenVideo.Item1};
-			vGrid.Children.Add(newL);
-
-			var newC = new ComboBox {ItemsSource = Types};
-			var newCT = new Tuple<string, IGraphType>(null, null);
-			newC.SelectedItem = newCT;
-
-
-
-		} 
-
+		private Grid vidGrid = new Grid();
 		public DiagramViewModel(Node nodeModel)
 			: base(nodeModel)
 		{
 		}
 
+		public Grid VidGrid { get { return vidGrid; } private set { vidGrid = value; } }
 
 
 		public ObservableCollection<LineGraphViewModel> LineGraphs
@@ -57,7 +36,7 @@ namespace YuvKA.ViewModel.Implementation
 		{
 			get
 			{
-				return (from IGraphType type in IoC.GetAllInstances(typeof (IGraphType)) select new Tuple<string, IGraphType>(type.GetType().GetCustomAttributes(true).OfType<DisplayNameAttribute>().First().DisplayName, type)).ToList();
+				return (from IGraphType type in IoC.GetAllInstances(typeof(IGraphType)) select new Tuple<string, IGraphType>(type.GetType().GetCustomAttributes(true).OfType<DisplayNameAttribute>().First().DisplayName, type)).ToList();
 			}
 		}
 
@@ -76,9 +55,8 @@ namespace YuvKA.ViewModel.Implementation
 			{
 				var videos = new ObservableCollection<Tuple<string, Node.Input>>();
 				int index = 0;
-				foreach (Node.Input i in NodeModel.Inputs)
-				{
-					videos.Add(new Tuple<string, Node.Input>("Video"+index, i));
+				foreach (Node.Input i in NodeModel.Inputs) {
+					videos.Add(new Tuple<string, Node.Input>("Video" + index, i));
 					index++;
 				}
 				return videos;
@@ -89,12 +67,19 @@ namespace YuvKA.ViewModel.Implementation
 		{
 			get
 			{
-				return (from IGraphType type in IoC.GetAllInstances(typeof (IGraphType)) select new Tuple<string, IGraphType>(type.GetType().GetCustomAttributes(true).OfType<DisplayNameAttribute>().First().DisplayName, type)).ToList();
+				return (from IGraphType type in IoC.GetAllInstances(typeof(IGraphType)) select new Tuple<string, IGraphType>(type.GetType().GetCustomAttributes(true).OfType<DisplayNameAttribute>().First().DisplayName, type)).ToList();
 			}
 		}
 
 		public Tuple<string, Node.Input> ChosenVideo { get; set; }
-		
+
+		public ICommand Delete()
+		{
+			return null;
+		}
+
+
+
 		public void DeleteGraph(DiagramGraph graph)
 		{
 			NodeModel.Graphs.Remove(graph);
@@ -102,9 +87,21 @@ namespace YuvKA.ViewModel.Implementation
 
 		public void AddGraph(Node.Input video)
 		{
-			var newGraph = new DiagramGraph {Video = video};
+			var newGraph = new DiagramGraph { Video = video };
 			NodeModel.Graphs.Add(newGraph);
+		}
 
+		private void AddVideoToGrid()
+		{
+			var newB = new Button { Content = "Delete", Command = Delete() };
+			VidGrid.Children.Add(newB);
+
+			var newL = new Label { Content = ChosenVideo.Item1 };
+			VidGrid.Children.Add(newL);
+
+			var newC = new ComboBox { ItemsSource = Types };
+			var newCT = new Tuple<string, IGraphType>(null, null);
+			newC.SelectedItem = newCT;
 		}
 	}
 }
