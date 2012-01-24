@@ -76,9 +76,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeleteGraphControlMessage.cs" />
+    <Compile Include="GraphControl.cs" />
     <Compile Include="ChartPlotter.cs" />
     <Compile Include="LineGraphViewModel.cs" />
     <Compile Include="Pipeline\NoiseType.cs" />
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel\DiagramViewModel.cs" />
     <Compile Include="ViewModel\HistogramViewModel.cs" />
     <Compile Include="ViewModel\OverlayViewModel.cs" />
@@ -169,6 +172,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProgramFiles)\MSBuild\StyleCop\v4.6\StyleCop.targets" Condition="Exists('$(ProgramFiles)\MSBuild\StyleCop\v4.6\StyleCop.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

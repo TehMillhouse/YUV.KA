@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Caliburn.Micro;
 using YuvKA.Implementation;
 using YuvKA.Pipeline;
@@ -12,17 +13,32 @@ using YuvKA.Pipeline.Implementation;
 
 namespace YuvKA.ViewModel.Implementation
 {
-	public class DiagramViewModel : OutputWindowViewModel
+	public class DiagramViewModel : OutputWindowViewModel, INotifyPropertyChanged, IHandle<DeleteGraphControlMessage>
 	{
 		private ObservableCollection<LineGraphViewModel> lineGraphs;
-		private Grid vidGrid = new Grid();
 		public DiagramViewModel(Node nodeModel)
 			: base(nodeModel)
 		{
 		}
 
-		public Grid VidGrid { get { return vidGrid; } private set { vidGrid = value; } }
+		private RelayCommand add;
 
+		public ICommand Add
+		{
+			get { return add ?? (add = new RelayCommand(param => AddGraphControl(), param => true)); }
+		}
+
+		private void AddGraphControl()
+		{
+			var random = new Random();
+			GraphControls.Add(new GraphControl { Video = ChosenVideo, Types = Types, Color = new SolidColorBrush(Color.FromArgb(255, (byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256))) });
+		}
+
+		public int del()
+		{
+
+			return 0;
+		}
 
 		public ObservableCollection<LineGraphViewModel> LineGraphs
 		{
@@ -36,7 +52,18 @@ namespace YuvKA.ViewModel.Implementation
 		{
 			get
 			{
-				return (from IGraphType type in IoC.GetAllInstances(typeof(IGraphType)) select new Tuple<string, IGraphType>(type.GetType().GetCustomAttributes(true).OfType<DisplayNameAttribute>().First().DisplayName, type)).ToList();
+				
+				ICollection<System.Tuple<string, IGraphType>> graphTypes = new List<System.Tuple<string, IGraphType>>();
+				/* Does not work at the moment. */
+				//foreach (IGraphType type in IoC.GetAllInstances(typeof(IGraphType))) {
+				//    graphTypes.Add(new System.Tuple<string, IGraphType>(type.GetType().GetCustomAttributes(true).OfType<DisplayNameAttribute>().First().DisplayName, type));
+				//}
+				//return graphTypes;
+
+				graphTypes.Add(new Tuple<string, IGraphType>(typeof(IntraBlockFrequency).GetCustomAttributes(true).OfType<DisplayNameAttribute>().First().DisplayName, typeof(IntraBlockFrequency) as IGraphType));
+				graphTypes.Add(new Tuple<string, IGraphType>(typeof(PeakSignalNoiseRatio).GetCustomAttributes(true).OfType<DisplayNameAttribute>().First().DisplayName, typeof(PeakSignalNoiseRatio) as IGraphType));
+				graphTypes.Add(new Tuple<string, IGraphType>(typeof(PixelDiff).GetCustomAttributes(true).OfType<DisplayNameAttribute>().First().DisplayName, typeof(PixelDiff) as IGraphType));
+				return graphTypes;
 			}
 		}
 
@@ -78,7 +105,17 @@ namespace YuvKA.ViewModel.Implementation
 			return null;
 		}
 
+		public ObservableCollection<GraphControl> GraphControls
+		{
+			get
+			{
+				if (addedGraphViews != null) return addedGraphViews;
+				addedGraphViews = new ObservableCollection<GraphControl>();
 
+				return addedGraphViews;
+			}
+			set { addedGraphViews = value; }
+		}
 
 		public void DeleteGraph(DiagramGraph graph)
 		{
@@ -91,17 +128,21 @@ namespace YuvKA.ViewModel.Implementation
 			NodeModel.Graphs.Add(newGraph);
 		}
 
-		private void AddVideoToGrid()
+		public event PropertyChangedEventHandler PropertyChanged;
+		private ObservableCollection<GraphControl> addedGraphViews;
+
+		protected virtual void OnPropertyChanged(string propertyName)
 		{
-			var newB = new Button { Content = "Delete", Command = Delete() };
-			VidGrid.Children.Add(newB);
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null) {
+				var e = new PropertyChangedEventArgs(propertyName);
+				handler(this, e);
+			}
+		}
 
-			var newL = new Label { Content = ChosenVideo.Item1 };
-			VidGrid.Children.Add(newL);
-
-			var newC = new ComboBox { ItemsSource = Types };
-			var newCT = new Tuple<string, IGraphType>(null, null);
-			newC.SelectedItem = newCT;
+		public void Handle(DeleteGraphControlMessage message)
+		{
+			GraphControls.Remove(message.GraphViewtoDelete);
 		}
 	}
 }

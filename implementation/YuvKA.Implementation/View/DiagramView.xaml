@@ -1,23 +1,69 @@
-﻿<UserControl x:Class="YuvKA.Implementation.View.DiagramView"
+﻿<Window x:Class="YuvKA.View.Implementation.DiagramView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:d3="clr-namespace:YuvKA.Implementation"
              mc:Ignorable="d" 
-             d:DesignHeight="532" d:DesignWidth="959">
+             d:DesignHeight="571" d:DesignWidth="1004" SizeToContent="WidthAndHeight">
+	<Window.Resources>
+		<DataTemplate x:Key="AddedVideos">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="30"/>
+					<ColumnDefinition Width="50"/>
+					<ColumnDefinition Width="75"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Rectangle Grid.Column="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Fill="{Binding Path=Color}" />
+				<Button Height="30" Width="30" Content="Delete" Grid.Column="1" Command="{Binding Path=Delete}" HorizontalAlignment="Left"/>
+				<TextBlock Height="30" Grid.Column="2" Text="{Binding Path=Video.Item1}" />
+				<ComboBox Height="30" Grid.Column="3" ItemsSource="{Binding Path=Types}" SelectedItem="{Binding Path=ChosenType}" HorizontalAlignment="Stretch">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Item1}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+				<Rectangle />
+			</Grid>
+		</DataTemplate>
+	</Window.Resources>
+
 	<Grid Name="OuterGrid">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40" />
+			<RowDefinition Height="500*" />
+		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="75" />
-			<ColumnDefinition Width="421" />
-			<ColumnDefinition Width="213" />
+			<ColumnDefinition Width="425" />
+			<ColumnDefinition Width="75" />
+			<ColumnDefinition Width="120" />
 			<ColumnDefinition Width="250*" />
 		</Grid.ColumnDefinitions>
-		<ComboBox Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Videos}" SelectedItem="{Binding Reference}" Name="Reference" Grid.Column="1" />
-		<Label Content="Reference" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="0" />
-		<d3:ChartPlotter x:Name="plotter" LineGraphs="{Binding Path=LineGraphs}" LegendVisibility="Hidden" Grid.ColumnSpan="2" Height="502" VerticalAlignment="Bottom" Grid.Column="0"></d3:ChartPlotter>
-		<Button Content="Add" Height="23" HorizontalAlignment="Right" Margin="0,0,138,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
-		<ComboBox Height="23" HorizontalAlignment="Right" VerticalAlignment="Top" Width="132" ItemsSource="{Binding Videos}" SelectedItem="{Binding ChosenVid}" Grid.Column="2" Name="Videos" />
-		<Grid Height="502" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top" Width="463" Grid.Column="2" Grid.ColumnSpan="2"></Grid>
+		<Label Content="Reference" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="0" Grid.Row="0"/>
+		<ComboBox Grid.Column="1" Grid.Row="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Videos}" SelectedItem="{Binding Reference, Mode=TwoWay}" Name="Reference">
+			<ComboBox.ItemTemplate>
+				<DataTemplate>
+					<TextBlock Text="{Binding Item1}" />
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
+		</ComboBox>
+		
+		<d3:ChartPlotter Height="500" Width="500" Grid.Column="0" Grid.Row="1" x:Name="plotter" LineGraphs="{Binding Path=LineGraphs}" LegendVisibility="Hidden" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></d3:ChartPlotter>
+		<Button Grid.Row="0" Content="Add" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="2" Command="{Binding Path=Add}"/>
+		<ComboBox Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" ItemsSource="{Binding Videos}" SelectedIndex="0" SelectedItem="{Binding ChosenVideo}" Grid.Column="3" Name="Videos">
+			<ComboBox.ItemTemplate>
+				<DataTemplate>
+					<TextBlock Text="{Binding Item1}" />
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
+		</ComboBox>
+		<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="2" Height="490" HorizontalAlignment="Left" VerticalAlignment="Top" Width="486" Grid.ColumnSpan="3">
+
+			<ItemsControl ItemsSource="{Binding  AddedGraphViews}"
+     ItemTemplate="{StaticResource AddedVideos}"/>
+		</ScrollViewer>
 	</Grid>
-</UserControl>
+</Window>
