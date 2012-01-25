@@ -8,6 +8,8 @@
 	using System.Diagnostics;
 	using System.IO;
 	using System.Linq;
+	using System.Reactive;
+	using System.Reactive.Linq;
 	using System.Reflection;
 	using System.Windows;
 	using System.Windows.Input;
@@ -138,6 +140,16 @@
 
 		class WpfGetPosition : IGetPosition
 		{
+			public IObservable<Unit> ViewLoaded(IViewAware element)
+			{
+				IObservable<Unit> getView = element.GetView() != null ? Observable.Return(Unit.Default) :
+					Observable.FromEventPattern(element, "ViewAttached").Select(_ => Unit.Default).Take(1);
+				return
+					from gotView in getView
+					from loaded in Observable.FromEventPattern(element.GetView(), "Loaded").Take(1)
+					select Unit.Default;
+			}
+
 			public Point GetMousePosition(MouseEventArgs e, IViewAware relativeTo)
 			{
 				return e.GetPosition((IInputElement)relativeTo.GetView());
