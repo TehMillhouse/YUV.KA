@@ -24,6 +24,8 @@ namespace YuvKA.ViewModel.Implementation
 
 		public WriteableBitmap RenderedImage { get; private set; }
 		public new OverlayNode NodeModel { get; private set; }
+		int widthOld;
+		int heightOld;
 
 		public IEnumerable<System.Tuple<string, IOverlayType>> TypeTuples
 		{
@@ -54,8 +56,10 @@ namespace YuvKA.ViewModel.Implementation
 			base.Handle(message);
 			int width = NodeModel.Data.Size.Width;
 			int height = NodeModel.Data.Size.Height;
-			if (RenderedImage == null) {
+			if (RenderedImage == null || width != widthOld || height != heightOld) {
 				RenderedImage = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgr32, null);
+				widthOld = width;
+				heightOld = height;
 				NotifyOfPropertyChange(() => RenderedImage);
 			}
 			RenderedImage.Lock();
