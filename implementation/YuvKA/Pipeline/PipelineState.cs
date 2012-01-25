@@ -87,7 +87,7 @@ namespace YuvKA.Pipeline
 				if (!isPreviewFrame) {
 					CurrentTick++;
 				}
-			});
+			}, onError: e => Execute.OnUIThread(() => { throw e; }));
 			return true;
 		}
 	}
