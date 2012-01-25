@@ -78,6 +78,38 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public class ObservableCollectionOfDoublePropertyViewModel : PropertyViewModel<ObservableCollection<double>>
 	{
+		protected override void OnValueChanged()
+		{
+			base.OnValueChanged();
+			NotifyOfPropertyChange(() => Wrapper);
+			Value.CollectionChanged += (sender, e) => NotifyOfPropertyChange(() => Wrapper);
+		}
+
+		IEnumerable<DoubleWrapper> wrapperCollection;
+
+		public class DoubleWrapper
+		{
+			ObservableCollection<double> source;
+			int index;
+			public DoubleWrapper(ObservableCollection<double> source, int index)
+			{
+				this.source = source;
+				this.index = index;
+			}
+			public double Value { get { return source[index]; }
+				set { source[index] = value; } }
+		}
+		public IEnumerable<DoubleWrapper> Wrapper
+		{
+			get
+			{
+				if (wrapperCollection == null || wrapperCollection.Count() != Value.Count()) {
+					wrapperCollection = Value.Select((_, index) => new DoubleWrapper(Value, index)).ToArray();
+					return wrapperCollection;
+				}
+				return wrapperCollection;
+			}
+		}
 	}
 
 	public class EnumerationPropertyViewModel : PropertyViewModel<Enum>
