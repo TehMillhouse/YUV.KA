@@ -43,15 +43,15 @@
 			<ColumnDefinition Width="250*" />
 		</Grid.ColumnDefinitions>
 		<Label Content="Reference" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="0" Grid.Row="0"/>
-		<ComboBox Grid.Column="1" Grid.Row="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Videos}" SelectedItem="{Binding Reference, Mode=TwoWay}" Name="Reference">
+		<ComboBox Grid.Column="1" Grid.Row="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Videos}" SelectedItem="{Binding Reference}" Name="Reference">
 			<ComboBox.ItemTemplate>
 				<DataTemplate>
 					<TextBlock Text="{Binding Item1}" />
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
-		
-		<d3:ChartPlotter Height="500" Width="500" Grid.Column="0" Grid.Row="1" x:Name="plotter" LineGraphs="{Binding Path=LineGraphs}" LegendVisibility="Hidden" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></d3:ChartPlotter>
+
+		<d3:ChartPlotter Height="500" Width="500" Grid.Column="0" Grid.Row="1" x:Name="plotter" LineGraphs="{Binding LineGraphs}" LegendVisibility="Hidden" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></d3:ChartPlotter>
 		<Button Grid.Row="0" Content="Add" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="2" Command="{Binding Path=Add}"/>
 		<ComboBox Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" ItemsSource="{Binding Videos}" SelectedIndex="0" SelectedItem="{Binding ChosenVideo}" Grid.Column="3" Name="Videos">
 			<ComboBox.ItemTemplate>
