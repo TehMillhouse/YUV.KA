@@ -110,7 +110,9 @@ namespace YuvKA.ViewModel
 		{
 			OpenWindows.Add(window);
 			IoC.Get<IWindowManager>().ShowWindow(window);
-			Model.RenderTick(new[] { window.NodeModel }, isPreviewFrame: true);
+			if (!ReplayStateViewModel.IsPlaying) {
+				Model.RenderTick(new[] { window.NodeModel }, isPreviewFrame: true);
+			}
 			((Window)window.GetView()).Owner = (Window)this.GetView();
 		}
 
