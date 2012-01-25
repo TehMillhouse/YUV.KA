@@ -94,7 +94,7 @@
     <Compile Include="Caliburn\Micro\DragResult.cs" />
     <Compile Include="Caliburn\Micro\IGetPosition.cs" />
     <Compile Include="Pipeline\FilePath.cs" />
-    <Compile Include="Pipeline\FrameRenderedMessage.cs" />
+    <Compile Include="Pipeline\TickRenderedMessage.cs" />
     <Compile Include="Pipeline\InputNode.cs" />
     <Compile Include="VideoModel\AnnotatedFrame.cs" />
     <Compile Include="VideoModel\Frame.cs" />
