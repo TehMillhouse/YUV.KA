@@ -15,6 +15,8 @@ namespace YuvKA.ViewModel
 
 		public Node.Output Output { get; private set; }
 		public WriteableBitmap SourceImage { get; set; }
+		int widthOld;
+		int heightOld;
 
 		public override void Handle(TickRenderedMessage message)
 		{
@@ -27,8 +29,10 @@ namespace YuvKA.ViewModel
 			if (width == 0 || height == 0)
 				return;
 
-			if (SourceImage == null) {
+			if (SourceImage == null || width != widthOld || height != heightOld) {
 				SourceImage = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgr32, null);
+				widthOld = width;
+				heightOld = height;
 				NotifyOfPropertyChange(() => SourceImage);
 			}
 
