@@ -27,7 +27,7 @@ namespace YuvKA.Pipeline
 			}
 		}
 
-		public virtual int TickCount { get { return 1; } }
+		public virtual int? TickCount { get { return null; } }
 
 		public sealed override Frame[] Process(Frame[] inputs, int tick)
 		{

@@ -72,7 +72,7 @@ namespace YuvKA.Pipeline
 			Driver = new PipelineDriver();
 		}
 
-		private bool RenderTicks(IEnumerable<Node> outputNodes, int tickCount, bool isPreviewFrame)
+		private bool RenderTicks(IEnumerable<Node> outputNodes, int? tickCount, bool isPreviewFrame)
 		{
 			if (!outputNodes.All(node => node.InputIsValid))
 				return false;

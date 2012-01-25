@@ -16,17 +16,11 @@ namespace YuvKA.Pipeline
 		[DataMember]
 		public IList<Node> Nodes { get; private set; }
 
-		public int TickCount
+		public int? TickCount
 		{
 			get
 			{
-				int tickCount = 0;
-				foreach (Node node in Nodes) {
-					if (node is InputNode && ((InputNode)node).TickCount > tickCount) {
-						tickCount = ((InputNode)node).TickCount;
-					}
-				}
-				return tickCount;
+				return Nodes.OfType<InputNode>().Max(node => node.TickCount);
 			}
 		}
 

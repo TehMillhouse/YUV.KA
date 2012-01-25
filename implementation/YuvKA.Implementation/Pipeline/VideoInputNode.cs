@@ -74,7 +74,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
-		public override int TickCount
+		public override int? TickCount
 		{
 			get
 			{
