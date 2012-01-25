@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
 using Caliburn.Micro;
@@ -21,6 +20,7 @@ namespace YuvKA.Pipeline
 		{
 			Graph = new PipelineGraph();
 			Driver = new PipelineDriver();
+			Speed = 30;
 		}
 
 		[DataMember]
@@ -67,7 +67,7 @@ namespace YuvKA.Pipeline
 		}
 
 		[OnDeserialized]
-		void OnDeserialized(StreamingContext context)
+		new void OnDeserialized(StreamingContext context)
 		{
 			Driver = new PipelineDriver();
 		}
@@ -79,12 +79,10 @@ namespace YuvKA.Pipeline
 			cts = new CancellationTokenSource();
 			int precomputeCount = Graph.NumberOfFramesToPrecompute(outputNodes);
 			Driver.RenderTicks(outputNodes, CurrentTick - precomputeCount, tickCount + precomputeCount, cts).Subscribe(dic => {
-				if (lastTick.HasValue) {
-					DateTimeOffset nextTick = lastTick.Value + TimeSpan.FromSeconds(1.0 / Speed);
-					if (DateTimeOffset.Now < nextTick)
-						Thread.Sleep(nextTick - lastTick.Value);
-					lastTick = nextTick;
-				}
+				DateTimeOffset nextTick = lastTick != null ? lastTick.Value + TimeSpan.FromSeconds(1.0 / Speed) : DateTimeOffset.Now;
+				if (DateTimeOffset.Now < nextTick)
+					Thread.Sleep(nextTick - lastTick.Value);
+				lastTick = nextTick;
 				Events.Publish(new TickRenderedMessage(dic));
 				if (!isPreviewFrame) {
 					CurrentTick++;
