@@ -58,14 +58,17 @@ namespace YuvKA.ViewModel
 
 		public void Drop(DragEventArgs e)
 		{
-			var type = (NodeType)e.Data.GetData(typeof(NodeType));
-			var node = (Node)Activator.CreateInstance(type.Type);
-			var nodeModel = new NodeViewModel(node, this);
-			nodeModel.Position = IoC.Get<IGetPosition>().GetDropPosition(e, this);
-			nodeModel.ZIndex = maxZValue++;
+			/* Only allow this if pipline is not rendering */
+			if (!Parent.ReplayStateViewModel.IsPlaying) {
+				var type = (NodeType)e.Data.GetData(typeof(NodeType));
+				var node = (Node)Activator.CreateInstance(type.Type);
+				var nodeModel = new NodeViewModel(node, this);
+				nodeModel.Position = IoC.Get<IGetPosition>().GetDropPosition(e, this);
+				nodeModel.ZIndex = maxZValue++;
 
-			Parent.Model.Graph.AddNodeWithIndex(node);
-			Nodes.Add(nodeModel);
+				Parent.Model.Graph.AddNodeWithIndex(node);
+				Nodes.Add(nodeModel);
+			}
 		}
 
 		public void NodeMouseDown(NodeViewModel node, MouseEventArgs e)
@@ -79,14 +82,17 @@ namespace YuvKA.ViewModel
 
 		public void InOutputMouseDown(InOutputViewModel inOut)
 		{
-			InOutputViewModel start = inOut;
-			// If the input is already connected, drag the existing edge
-			if (inOut.Model is Node.Input) {
-				start = GetOutputViewModel(((Node.Input)inOut.Model).Source) ?? start;
-				((Node.Input)inOut.Model).Source = null;
-				NotifyOfPropertyChange(() => Edges);
+			/* Only allow this if pipline is not rendering */
+			if (!Parent.ReplayStateViewModel.IsPlaying) {
+				InOutputViewModel start = inOut;
+				// If the input is already connected, drag the existing edge
+				if (inOut.Model is Node.Input) {
+					start = GetOutputViewModel(((Node.Input)inOut.Model).Source) ?? start;
+					((Node.Input)inOut.Model).Source = null;
+					NotifyOfPropertyChange(() => Edges);
+				}
+				DraggedEdge = new EdgeViewModel(this) { StartViewModel = start, EndViewModel = inOut };
 			}
-			DraggedEdge = new EdgeViewModel(this) { StartViewModel = start, EndViewModel = inOut };
 		}
 
 		public void MouseMove(MouseEventArgs e)
@@ -151,6 +157,13 @@ namespace YuvKA.ViewModel
 			if (Parent.Model.Graph.AddEdge(output, input))
 				NotifyOfPropertyChange(() => Edges);
 			DraggedEdge = null;
+		}
+
+		public void CheckClearance(DragEventArgs e)
+		{
+			if (Parent.ReplayStateViewModel.IsPlaying) {
+				e.Effects = DragDropEffects.None;
+			}
 		}
 
 		InOutputViewModel GetOutputViewModel(Node.Output output)

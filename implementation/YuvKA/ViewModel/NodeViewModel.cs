@@ -68,9 +68,12 @@ namespace YuvKA.ViewModel
 
 		public void RemoveNode()
 		{
-			Parent.Nodes.Remove(this);
-			Parent.Parent.Model.Graph.RemoveNode(this.Model);
-			Parent.NotifyOfPropertyChange(() => Parent.Edges);
+			/* Only allow this if pipline is not rendering */
+			if (!Parent.Parent.ReplayStateViewModel.IsPlaying) {
+				Parent.Nodes.Remove(this);
+				Parent.Parent.Model.Graph.RemoveNode(this.Model);
+				Parent.NotifyOfPropertyChange(() => Parent.Edges);
+			}
 		}
 
 		public IEnumerable<IResult> SaveNodeOutput(Node.Output output)
