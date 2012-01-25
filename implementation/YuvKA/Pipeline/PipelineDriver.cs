@@ -35,7 +35,7 @@ namespace YuvKA.Pipeline
 			return Observable.Create<FrameDic>(observer => {
 				lastTask = lastTask
 					.ContinueWith(_ => {
-						for (int tick = startTick; tickCount == null || tick < tickCount; tick++)
+						for (int tick = startTick; tickCount == null || tick < startTick + tickCount; tick++)
 							observer.OnNext(RenderTickCore(startNodes, tick, tokenSource.Token).Result);
 					}, tokenSource.Token)
 
