@@ -32,9 +32,9 @@ namespace YuvKA.Pipeline.Implementation
 			Frame result = new Frame(input[0].Size);
 			for (int x = 0; x < input[0].Size.Width; x++) {
 				for (int y = 0; y < input[0].Size.Height; y++) {
-					int difference = Math.Abs(input[0][x, y].R - input[1][x, y].R);
-					difference += Math.Abs(input[0][x, y].G - input[1][x, y].G);
-					difference += Math.Abs(input[0][x, y].B - input[1][x, y].B);
+					int difference = Math.Abs(input[0][x, y].R - input[1].GetPixelOrBlack(x, y).R);
+					difference += Math.Abs(input[0][x, y].G - input[1].GetPixelOrBlack(x, y).G);
+					difference += Math.Abs(input[0][x, y].B - input[1].GetPixelOrBlack(x, y).B);
 					result[x, y] = (difference >= 40) ? new Rgb(255, 0, 0) : input[0][x, y];
 				}
 			}
