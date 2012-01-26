@@ -245,7 +245,7 @@ namespace YuvKA.VideoModel
 							int logFrameSize = (int)(frameSize.Height / 16 * frameSize.Width / 16);
 							byte[] logData = ReadLogData(logFileName, index, frameSize, 1);
 							frameCache = AddMacroblockDecisions(frameCache, logData);
-						} 
+						}
 					}
 					return frameCache;
 				}
