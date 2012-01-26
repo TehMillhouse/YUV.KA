@@ -65,6 +65,5 @@
 			<ItemsControl ItemsSource="{Binding  GraphControls}"
      ItemTemplate="{StaticResource AddedVideos}"/>
 		</ScrollViewer>
-		<Button Content="Button" Grid.Column="1" Height="23" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Command="{Binding Path=AddLinesCommand}"/>
 	</Grid>
 </Window>

@@ -68,9 +68,9 @@ namespace YuvKA.Test.Pipeline
 				psnr = 0.0;
 			psnr = 10 * Math.Log10((Math.Pow((Math.Pow(2, 24) - 1), 2)) / mse);
 
-			Assert.Equal(diaNode.Graphs[0].Data[0], difference);
-			Assert.Equal(diaNode.Graphs[1].Data[0], psnr);
-			Assert.Equal(diaNode.Graphs[2].Data[0], 2);
+			Assert.Equal(diaNode.Graphs[0].Data[0].Value, difference);
+			Assert.Equal(diaNode.Graphs[1].Data[0].Value, psnr);
+			Assert.Equal(diaNode.Graphs[2].Data[0].Value, 2);
 		}
 
 		[Fact]
