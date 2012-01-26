@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 using YuvKA.ViewModel.Implementation;
@@ -20,6 +21,14 @@ namespace YuvKA.Pipeline.Implementation
 		public IOverlayType Type { get; set; }
 
 		public Frame Data { get; private set; }
+
+		public override bool InputIsValid
+		{
+			get
+			{
+				return (Inputs[0].Source != null) && (Inputs[0].Source.Node.InputIsValid);
+			}
+		}
 
 		[Browsable(true)]
 		public OverlayViewModel Window { get { return new OverlayViewModel(this); } }
