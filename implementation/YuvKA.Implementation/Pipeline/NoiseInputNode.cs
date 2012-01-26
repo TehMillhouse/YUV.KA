@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
@@ -39,11 +40,23 @@ namespace YuvKA.Pipeline.Implementation
 			: base(outputCount: 1)
 		{
 			Name = "Noise";
+			Speed = 0.05;
+			Scale = 0.05;
 		}
 
 		[DataMember]
 		[Browsable(true)]
 		public NoiseType Type { get; set; }
+
+		[DataMember]
+		[Browsable(true)]
+		[Range(0.0, 1.0)]
+		public double Speed { get; set; }
+
+		[DataMember]
+		[Browsable(true)]
+		[Range(0.0, 1.0)]
+		public double Scale { get; set; }
 
 		public override Frame OutputFrame(int tick)
 		{
@@ -64,7 +77,7 @@ namespace YuvKA.Pipeline.Implementation
 			return outputFrame;
 		}
 
-		private static Frame ProcessCoherentNoise(Frame frame, int tick)
+		private Frame ProcessCoherentNoise(Frame frame, int tick)
 		{
 			Random rnd = new Random();
 			for (int y = 0; y < frame.Size.Height; ++y) {
@@ -76,7 +89,7 @@ namespace YuvKA.Pipeline.Implementation
 			return frame;
 		}
 
-		private static Frame ProcessColoredCoherentNoise(Frame frame, int tick)
+		private Frame ProcessColoredCoherentNoise(Frame frame, int tick)
 		{
 			Random rnd = new Random();
 			for (int y = 0; y < frame.Size.Height; ++y) {
@@ -90,13 +103,12 @@ namespace YuvKA.Pipeline.Implementation
 			return frame;
 		}
 
-		private static Frame ProcessPerlinNoise(Frame frame, int tick)
+		private Frame ProcessPerlinNoise(Frame frame, int tick)
 		{
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
-					double scalar = 0.05;
 					// Generate a noise function value, which is also tick-dependent
-					double randomNumber = (Noise(x * scalar, y * scalar, 0.05 * tick) + 1) / 2;
+					double randomNumber = (Noise(x * Scale, y * Scale, Speed * tick) + 1) / 2;
 					byte randomColor = (byte)(randomNumber * 255);
 					frame[x, y] = new Rgb(randomColor, randomColor, randomColor);
 				}
@@ -104,15 +116,14 @@ namespace YuvKA.Pipeline.Implementation
 			return frame;
 		}
 
-		private static Frame ProcessColoredPerlinNoise(Frame frame, int tick)
+		private Frame ProcessColoredPerlinNoise(Frame frame, int tick)
 		{
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
-					double scalar = 0.05;
 					// Generate noise function values, which is also tick-dependent
-					double randomNumberR = (Noise(x * scalar, y * scalar, 0.05 * tick) + 1) / 2;
-					double randomNumberG = (Noise((x + 42) * scalar, (y - 42) * scalar, 0.05 * (tick + 42)) + 1) / 2;
-					double randomNumberB = (Noise((x - 42) * scalar, (y + 42) * scalar, 0.05 * (tick - 42)) + 1) / 2;
+					double randomNumberR = (Noise(x * Scale, y * Scale, Speed * tick) + 1) / 2;
+					double randomNumberG = (Noise((x + 42) * Scale, (y - 42) * Scale, Speed * (tick + 42)) + 1) / 2;
+					double randomNumberB = (Noise((x - 42) * Scale, (y + 42) * Scale, Speed * (tick - 42)) + 1) / 2;
 					byte randomRed = (byte)(randomNumberR * 255);
 					byte randomGreen = (byte)(randomNumberG * 255);
 					byte randomBlue = (byte)(randomNumberB * 255);
@@ -122,7 +133,7 @@ namespace YuvKA.Pipeline.Implementation
 			return frame;
 		}
 
-		private static double Grad(int hash, double x, double y, double z)
+		private double Grad(int hash, double x, double y, double z)
 		{
 			int h = hash & 15;						  // Convert lo 4 bits of hash code
 			double u = h < 8 ? x : y,                 // into 12 gradient directions.
@@ -130,11 +141,11 @@ namespace YuvKA.Pipeline.Implementation
 			return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
 		}
 
-		private static double Lerp(double t, double a, double b) { return a + t * (b - a); }
+		private double Lerp(double t, double a, double b) { return a + t * (b - a); }
 
-		private static double Fade(double t) { return t * t * t * (t * (t * 6 - 15) + 10); }
+		private double Fade(double t) { return t * t * t * (t * (t * 6 - 15) + 10); }
 
-		private static double Noise(double x, double y, double z)
+		private double Noise(double x, double y, double z)
 		{
 			int xx = (int)Math.Floor(x) & 255;                  // Find unit cube that
 			int yy = (int)Math.Floor(y) & 255;                  // contains point.
