@@ -10,7 +10,7 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
-	public class NodeViewModel : PropertyChangedBase
+	public class NodeViewModel : ViewAware
 	{
 		InOutputViewModel fake;
 		IList<InOutputViewModel> inputs;
@@ -101,6 +101,7 @@ namespace YuvKA.ViewModel
 		public void ViewLoaded()
 		{
 			viewPositionChanged.OnNext(Unit.Default);
+			IoC.Get<IGetPosition>().FixUpSize(this);
 		}
 	}
 }

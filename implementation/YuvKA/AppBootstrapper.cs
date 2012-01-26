@@ -172,6 +172,17 @@
 			{
 				return ((UIElement)element.GetView()).RenderSize;
 			}
+
+			/// <summary>
+			/// Work around weird WPF bug...
+			/// ...by rounding element sizes, lolwtfbbq
+			/// </summary>
+			public void FixUpSize(IViewAware element)
+			{
+				var view = (FrameworkElement)element.GetView();
+				view.Width = (int)view.ActualWidth;
+				view.Height = (int)view.ActualHeight;
+			}
 		}
 
 		class DesignDummyNode : YuvKA.Pipeline.Node

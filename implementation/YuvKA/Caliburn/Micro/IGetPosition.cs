@@ -15,5 +15,10 @@ namespace Caliburn.Micro
 		Point GetDropPosition(DragEventArgs e, IViewAware relativeTo);
 		Point? GetElementPosition(IViewAware element, IViewAware relativeTo);
 		Size GetElementSize(IViewAware element);
+
+		/// <summary>
+		/// Work around weird WPF bug
+		/// </summary>
+		void FixUpSize(IViewAware element);
 	}
 }
