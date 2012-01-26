@@ -10,9 +10,12 @@ namespace YuvKA.Pipeline.Implementation
 		public IntraBlockFrequency()
 		{
 			DependsOnReference = false;
+			DependsOnLogfile = true;
 		}
 
 		public bool DependsOnReference { get; private set; }
+
+		public bool DependsOnLogfile { get; private set; }
 
 		public double Process(Frame frame, Frame reference)
 		{
@@ -34,15 +37,18 @@ namespace YuvKA.Pipeline.Implementation
 		public PeakSignalNoiseRatio()
 		{
 			DependsOnReference = true;
+			DependsOnLogfile = false;
 		}
 
 		public bool DependsOnReference { get; private set; }
 
+		public bool DependsOnLogfile { get; private set; }
+
 		public double Process(Frame frame, Frame reference)
 		{
 			double mse = 0.0;
-			for (int i = 0; i < frame.Size.Height; i++) {
-				for (int j = 0; j < frame.Size.Width; j++) {
+			for (int i = 0; i < frame.Size.Width; i++) {
+				for (int j = 0; j < frame.Size.Height; j++) {
 					mse += Math.Pow(((frame[i, j].R + frame[i, j].G + frame[i, j].B) - (reference[i, j].R + reference[i, j].G + reference[i, j].B)), 2);
 				}
 			}
@@ -59,9 +65,11 @@ namespace YuvKA.Pipeline.Implementation
 		public PixelDiff()
 		{
 			DependsOnReference = true;
+			DependsOnLogfile = false;
 		}
 
 		public bool DependsOnReference { get; private set; }
+		public bool DependsOnLogfile { get; private set; }
 
 		public double Process(Frame frame, Frame reference)
 		{
@@ -72,7 +80,7 @@ namespace YuvKA.Pipeline.Implementation
 						Math.Abs(frame[x, y].B - reference[x, y].B);
 				}
 			}
-			return (double)difference / 3;
+			return difference / 3;
 		}
 	}
 }

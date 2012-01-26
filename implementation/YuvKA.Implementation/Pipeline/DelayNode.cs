@@ -22,6 +22,19 @@ namespace YuvKA.Pipeline.Implementation
 		[Browsable(true)]
 		public int Delay { get; set; }
 
+		public bool OutputHasMotionVectors
+		{
+			get { return Inputs != null && Inputs[0].Source.Node.OutputHasMotionVectors; }
+		}
+
+		public bool OutputHasLogfile
+		{
+			get
+			{
+				return Inputs != null && Inputs[0].Source.Node.OutputHasLogfile;
+			}
+		}
+
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
 			if (queue == null) {

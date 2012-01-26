@@ -58,6 +58,7 @@ namespace YuvKA.Pipeline.Implementation
 			{
 				logFileName = value;
 				input = null;
+				OutputHasLogfile = File.Exists(logFileName.Path);
 			}
 		}
 
@@ -71,6 +72,7 @@ namespace YuvKA.Pipeline.Implementation
 			{
 				motionVectorFileName = value;
 				input = null;
+				OutputHasMotionVectors = File.Exists(motionVectorFileName.Path);
 			}
 		}
 
