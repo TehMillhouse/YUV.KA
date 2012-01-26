@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using Xunit;
 using YuvKA.VideoModel;
+using System.Diagnostics;
 
 namespace YuvKA.Test.ViewModel
 {
@@ -86,6 +87,26 @@ namespace YuvKA.Test.ViewModel
 			}
 			Bitmap bmp = FrameToBitmap(frame);
 			bmp.Save(finalFile);
+		}
+
+		/// <summary>
+		/// Print out the time for Encoding one whole video,
+		/// to have comparevalues when modifying the encoder
+		/// </summary>
+		[Fact]
+		public void YuvEncoderSpeedtest()
+		{
+			Stopwatch stopWatch = new Stopwatch();
+			stopWatch.Start();
+			int width = 352;
+			int height = 240;
+			string fileName = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv";
+			YuvEncoder.Video video = new YuvEncoder.Video(new VideoModel.Size(width, height), fileName, null, null);
+			Frame notLazy;
+			for (int i = 0; i < 125; i++) {
+				notLazy = video[i];
+			}
+			System.Console.WriteLine(stopWatch.ElapsedMilliseconds + "ms");
 		}
 	}
 }
