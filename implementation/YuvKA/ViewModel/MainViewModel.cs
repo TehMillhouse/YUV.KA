@@ -11,7 +11,7 @@ using YuvKA.Pipeline;
 namespace YuvKA.ViewModel
 {
 	[Export]
-	public class MainViewModel : ViewAware
+	public class MainViewModel : ViewAware, IHandle<OutputWindowViewModel.ClosedMessage>
 	{
 		const string PipelineFilter = "YUV.KA Pipeline|*.yuvka";
 		Stack<byte[]> undoStack = new Stack<byte[]>();
@@ -24,6 +24,7 @@ namespace YuvKA.ViewModel
 		public MainViewModel()
 		{
 			OpenWindows = new List<OutputWindowViewModel>();
+			IoC.Get<IEventAggregator>().Subscribe(this);
 			Clear();
 		}
 
@@ -116,6 +117,7 @@ namespace YuvKA.ViewModel
 				if (!ReplayStateViewModel.IsPlaying) {
 					Model.RenderTick(new[] { window.NodeModel }, isPreviewFrame: true);
 				}
+				//TODO Extract owner in an interface
 				((Window)window.GetView()).Owner = (Window)this.GetView();
 			}
 		}
@@ -128,6 +130,11 @@ namespace YuvKA.ViewModel
 				}
 			}
 			OpenWindows = (from window in OpenWindows where window.NodeModel != source select window).ToList();
+		}
+
+		public void Handle(OutputWindowViewModel.ClosedMessage message)
+		{
+			OpenWindows.Remove(message.Window);
 		}
 
 		void Serialize(Stream stream, PipelineState state)
