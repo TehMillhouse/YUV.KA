@@ -89,7 +89,7 @@ namespace YuvKA.Pipeline
 			// If there's no task associated with this node yet, create one by waiting on all tasks of its inputs and throwing their results into Process
 			NodeTask result;
 			if (!tasks.TryGetValue(node, out result)) {
-				var dependencies = node.Inputs.Select(i => new { Output = i.Source, Task = Visit(i.Source.Node, tasks, tick, token) }).ToArray();
+				var dependencies = node.Inputs.Where(i => i.Source != null).Select(i => new { Output = i.Source, Task = Visit(i.Source.Node, tasks, tick, token) }).ToArray();
 				result = ContinueWhenAll(
 					dependencies.Select(dep => dep.Task).ToArray(),
 					_ => node.Process(dependencies.Select(dep => dep.Task.Result[dep.Output.Index]).ToArray(), tick),
