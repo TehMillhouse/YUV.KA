@@ -9,7 +9,7 @@ namespace YuvKA.ViewModel.Implementation
 	public class HistogramViewModel : OutputWindowViewModel, INotifyPropertyChanged
 	{
 		public HistogramViewModel(HistogramNode nodeModel)
-			: base(nodeModel)
+			: base(nodeModel, null)
 		{
 		}
 

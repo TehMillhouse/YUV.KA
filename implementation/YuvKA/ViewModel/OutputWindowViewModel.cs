@@ -6,12 +6,15 @@ namespace YuvKA.ViewModel
 {
 	public abstract class OutputWindowViewModel : Screen, IHandle<TickRenderedMessage>
 	{
-		public OutputWindowViewModel(Node nodeModel)
+		public OutputWindowViewModel(Node nodeModel, Node.Output outputModel)
 		{
 			NodeModel = nodeModel;
+			OutputModel = outputModel;
 			IoC.Get<IEventAggregator>().Subscribe(this);
 		}
+
 		public Node NodeModel { get; private set; }
+		public Node.Output OutputModel { get; private set; }
 
 		public void CloseWindow()
 		{

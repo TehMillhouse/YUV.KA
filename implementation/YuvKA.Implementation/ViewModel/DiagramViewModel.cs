@@ -18,7 +18,7 @@ namespace YuvKA.ViewModel.Implementation
 		private ObservableCollection<LineGraphViewModel> lineGraphs;
 
 		public DiagramViewModel(Node nodeModel)
-			: base(nodeModel)
+			: base(nodeModel, null)
 		{
 		}
 

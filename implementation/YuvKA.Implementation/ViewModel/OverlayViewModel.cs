@@ -17,7 +17,7 @@ namespace YuvKA.ViewModel.Implementation
 	public class OverlayViewModel : OutputWindowViewModel
 	{
 		public OverlayViewModel(OverlayNode node)
-			: base(node)
+			: base(node, null)
 		{
 			NodeModel = node;
 		}

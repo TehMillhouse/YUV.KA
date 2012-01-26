@@ -8,12 +8,10 @@ namespace YuvKA.ViewModel
 	public class VideoOutputViewModel : OutputWindowViewModel
 	{
 		public VideoOutputViewModel(Node.Output output)
-			: base(output.Node)
+			: base(output.Node, output)
 		{
-			Output = output;
 		}
 
-		public Node.Output Output { get; private set; }
 		public WriteableBitmap SourceImage { get; set; }
 		int widthOld;
 		int heightOld;
@@ -21,11 +19,11 @@ namespace YuvKA.ViewModel
 		public override void Handle(TickRenderedMessage message)
 		{
 			base.Handle(message);
-			if (message[Output] == null)
+			if (message[OutputModel] == null)
 				return;
 
-			int width = message[Output].Size.Width;
-			int height = message[Output].Size.Height;
+			int width = message[OutputModel].Size.Width;
+			int height = message[OutputModel].Size.Height;
 			if (width == 0 || height == 0)
 				return;
 
@@ -46,9 +44,9 @@ namespace YuvKA.ViewModel
 						// Compute colors in pixel format. That is sRGB:
 						// MSDN: Bgr32 is a sRGB format with 32 bits per pixel (BPP).
 						// Each color channel (blue, green, and red) is allocated 8 bits per pixel (BPP).
-						int bgr = ((message[Output][x, y].R << 16) |
-								   (message[Output][x, y].G << 8) |
-								   (message[Output][x, y].B));
+						int bgr = ((message[OutputModel][x, y].R << 16) |
+								   (message[OutputModel][x, y].G << 8) |
+								   (message[OutputModel][x, y].B));
 
 						// Set the pixel at the current position to the BGR of the frame
 						*backBuffer++ = bgr;

@@ -111,7 +111,7 @@ namespace YuvKA.ViewModel
 
 		public void OpenWindow(OutputWindowViewModel window)
 		{
-			if ((from openWin in OpenWindows where openWin.NodeModel == window.NodeModel select openWin).Count() == 0) {
+			if ((from openWin in OpenWindows where openWin.NodeModel == window.NodeModel && openWin.OutputModel == window.OutputModel select openWin).Count() == 0) {
 				OpenWindows.Add(window);
 				IoC.Get<IWindowManager>().ShowWindow(window);
 				if (!ReplayStateViewModel.IsPlaying) {
