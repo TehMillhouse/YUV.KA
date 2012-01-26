@@ -92,7 +92,7 @@ namespace YuvKA.Pipeline
 				var dependencies = node.Inputs.Select(i => new { Output = i.Source, Task = Visit(i.Source.Node, tasks, tick, token) }).ToArray();
 				result = ContinueWhenAll(
 					dependencies.Select(dep => dep.Task).ToArray(),
-					_ => node.Process(dependencies.Select(dep => dep.Task.Result[GetOutputIndex(dep.Output)]).ToArray(), tick),
+					_ => node.Process(dependencies.Select(dep => dep.Task.Result[dep.Output.Index]).ToArray(), tick),
 					token
 				);
 
@@ -101,9 +101,5 @@ namespace YuvKA.Pipeline
 			return result;
 		}
 
-		int GetOutputIndex(Node.Output output)
-		{
-			return output.Node.Outputs.IndexOf(output);
-		}
 	}
 }

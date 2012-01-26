@@ -83,6 +83,14 @@ namespace YuvKA.Pipeline
 				Node = node;
 			}
 
+			public int Index
+			{
+				get
+				{
+					return this.Node.Outputs.IndexOf(this);
+				}
+			}
+
 			[DataMember]
 			public Node Node { get; private set; }
 		}
