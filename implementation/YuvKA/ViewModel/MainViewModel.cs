@@ -124,8 +124,8 @@ namespace YuvKA.ViewModel
 				if (owvm.NodeModel == source) {
 					owvm.TryClose();
 				}
-				OpenWindows = (from window in OpenWindows where !(window.NodeModel == source) select window).ToList();
 			}
+			OpenWindows = (from window in OpenWindows where window.NodeModel != source select window).ToList();
 		}
 
 		void Serialize(Stream stream, PipelineState state)
