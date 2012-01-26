@@ -39,7 +39,7 @@ namespace YuvKA.Pipeline.Implementation
 		public override void ProcessCore(Frame[] inputs, int tick)
 		{
 			foreach (DiagramGraph g in Graphs) {
-				g.Data.Add(g.Type.Process(inputs[Inputs.IndexOf(g.Video)], inputs[RefIndex]));
+				g.Data.Add(new KeyValuePair<int, double>(tick, g.Type.Process(inputs[Inputs.IndexOf(g.Video)], inputs[RefIndex])));
 			}
 		}
 	}

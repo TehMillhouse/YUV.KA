@@ -8,7 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 	{
 		public DiagramGraph()
 		{
-			Data = new List<double>();
+			Data = new List<KeyValuePair<int, double>>();
 		}
 
 
@@ -19,6 +19,6 @@ namespace YuvKA.Pipeline.Implementation
 		public IGraphType Type { get; set; }
 
 		[DataMember]
-		public IList<double> Data { get; set; }
+		public IList<KeyValuePair<int, double>> Data { get; set; }
 	}
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
 using Caliburn.Micro;
@@ -42,7 +44,7 @@ namespace YuvKA.Implementation
 
 		public DiagramGraph Graph { get; set; }
 
-		public IEnumerable<Tuple<string, IGraphType>> Types { get; set; }
+		public ObservableCollection<Tuple<string, IGraphType>> Types { get; set; }
 
 		private Tuple<string, IGraphType> chosenType;
 
@@ -51,8 +53,33 @@ namespace YuvKA.Implementation
 			get { return chosenType; }
 			set
 			{
-				chosenType = value;
-				Graph.Type = value.Item2;
+				if (chosenType == null) {
+					chosenType = value;
+					Graph.Type = value.Item2;
+					Events.Publish(new GraphTypeChosenMessage(this));
+				}
+				else {
+					chosenType = value;
+					Graph.Type = value.Item2;
+				}
+			}
+		}
+
+		private List<Color> typeColors;
+
+		public List<Color> TypeColors
+		{
+			get
+			{
+				if (typeColors == null) {
+					var random = new Random();
+					var randomColors = new List<Color>();
+					for (int i = 0; i < Types.Count(); i++) {
+						randomColors.Add(Color.FromRgb((byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256)));
+					}
+					typeColors = randomColors;
+				}
+				return typeColors;
 			}
 		}
 
@@ -60,18 +87,20 @@ namespace YuvKA.Implementation
 		{
 			get
 			{
-				if (ChosenType != null) {
-					if (ChosenType.Item2 == (IGraphType)typeof(IntraBlockFrequency))
-						return Color.FromRgb(255, 0, 0);
-					if (ChosenType.Item2 == (IGraphType)typeof(PeakSignalNoiseRatio))
-						return Color.FromRgb(0, 255, 0);
-					if (ChosenType.Item2 == (IGraphType)typeof(PixelDiff))
-						return Color.FromRgb(0, 0, 255);
-				}
-				else {
+				if (ChosenType == null) {
 					return Color.FromRgb(0, 0, 0);
 				}
-				return Color.FromRgb(0, 0, 0);
+				return TypeColors[Types.IndexOf(ChosenType)];
+			}
+		}
+
+		private bool referenceSet;
+		public bool ReferenceSet
+		{
+			get { return referenceSet; }
+			set
+			{
+				referenceSet = value;
 			}
 		}
 
