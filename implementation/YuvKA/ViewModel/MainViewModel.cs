@@ -82,7 +82,9 @@ namespace YuvKA.ViewModel
 		public void Clear()
 		{
 			Model = new PipelineState();
-
+			foreach (OutputWindowViewModel owvm in OpenWindows) {
+				owvm.TryClose();
+			}
 			OpenWindows.Clear();
 			undoStack.Clear();
 			redoStack.Clear();
@@ -114,6 +116,16 @@ namespace YuvKA.ViewModel
 				Model.RenderTick(new[] { window.NodeModel }, isPreviewFrame: true);
 			}
 			((Window)window.GetView()).Owner = (Window)this.GetView();
+		}
+
+		public void CloseWindow(Node source)
+		{
+			foreach (OutputWindowViewModel owvm in OpenWindows) {
+				if (owvm.NodeModel == source) {
+					owvm.TryClose();
+				}
+				OpenWindows = (from window in OpenWindows where !(window.NodeModel == source) select window).ToList();
+			}
 		}
 
 		void Serialize(Stream stream, PipelineState state)

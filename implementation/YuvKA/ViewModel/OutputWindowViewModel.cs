@@ -3,7 +3,7 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
-	public abstract class OutputWindowViewModel : ViewAware, IHandle<TickRenderedMessage>
+	public abstract class OutputWindowViewModel : Screen, IHandle<TickRenderedMessage>
 	{
 		public OutputWindowViewModel(Node nodeModel)
 		{

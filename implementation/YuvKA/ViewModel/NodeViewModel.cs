@@ -70,6 +70,7 @@ namespace YuvKA.ViewModel
 		{
 			/* Only allow this if pipline is not rendering */
 			if (!Parent.Parent.ReplayStateViewModel.IsPlaying) {
+				Parent.Parent.CloseWindow(this.Model);
 				Parent.Nodes.Remove(this);
 				Parent.Parent.Model.Graph.RemoveNode(this.Model);
 				Parent.NotifyOfPropertyChange(() => Parent.Edges);
