@@ -180,12 +180,8 @@ namespace YuvKA.VideoModel
 
 		public class Video
 		{
-			// Maximal number of frames of original video to keep in memory
-			// this is not necessarily equal to the actual size of the cache.
-			// Therefor, always use frameCache.Length
-			private const int MaxCacheSize = 10;
-			private int? cachedBaseTick;
-			private Frame[] frameCache;
+			private int? lastTick;
+			private Frame frameCache;
 			private Size frameSize;
 			private string fileName;
 			private string logFileName;
@@ -215,7 +211,7 @@ namespace YuvKA.VideoModel
 			public Video(Size size, string fileName, string logFileName, string motionVectorFileName)
 			{
 				frameSize = size;
-				cachedBaseTick = null;
+				lastTick = null;
 				this.fileName = fileName;
 				FileInfo file = new FileInfo(fileName);
 				if (!file.Exists) {
@@ -229,10 +225,6 @@ namespace YuvKA.VideoModel
 				}
 				// Calculate number of frames in the yuv file
 				FrameCount = (int)file.Length / (size.Width * size.Height + size.Width * size.Height / 2);
-				// We don't want to use an array bigger than the video in the first place
-				frameCache = new Frame[Math.Min(MaxCacheSize, FrameCount)];
-				// Note that the array is not filled with meaningful data at this point.
-				// This happens when the first frame is requested from the object.
 			}
 
 			public int FrameCount { get; private set; }
@@ -246,39 +238,16 @@ namespace YuvKA.VideoModel
 					if (index < 0 || index >= FrameCount) {
 						throw new IndexOutOfRangeException();
 					}
-					// If the requested frame is not in the cache, load it from file
-					int yuvFrameSize = (int)(frameSize.Height * frameSize.Width * 1.5);
-					// If the cache is larger than the remaining number of frames in the video, we can't fill the whole cache
-					int fetchFramesCount = Math.Min(frameCache.Length, FrameCount - index);
-
-					if ((cachedBaseTick == null) || (index >= cachedBaseTick + fetchFramesCount) || (index < cachedBaseTick)) {
-						// requested frame is not cached, so we read enough data from file
-						byte[] yuvData = ReadYuvFrames(fileName, index, frameSize, fetchFramesCount);
-						byte[] frameData = new byte[yuvFrameSize];
-
-						for (int i = 0; i < fetchFramesCount; i++) {
-							// copy data for one frame into temporary array
-							Array.Copy(yuvData, yuvFrameSize * i, frameData, 0, yuvFrameSize);
-							// commit the frame we can calculate from this to cache
-							frameCache[i] = YuvToRgb(frameData, frameSize.Width, frameSize.Height);
-						}
-
-						// fetch and add log data if available
+					if (index != lastTick) {
+						int yuvFrameSize = (int)(frameSize.Height * frameSize.Width * 1.5);
+						frameCache = YuvToRgb(ReadYuvFrames(fileName, index, frameSize, 1), frameSize.Width, frameSize.Height);
 						if (logFileName != null) {
 							int logFrameSize = (int)(frameSize.Height / 16 * frameSize.Width / 16);
-							byte[] logData = ReadLogData(logFileName, index, frameSize, fetchFramesCount);
-							byte[] logFrameData = new byte[logFrameSize];
-							for (int i = 0; i < fetchFramesCount; i++) {
-								Array.Copy(logData, logFrameSize * i, logFrameData, 0, logFrameSize);
-								frameCache[i] = AddMacroblockDecisions(frameCache[i], logFrameData);
-							}
-						}
-
-						//TODO implement fetch and add motion vector data if available
-
-						cachedBaseTick = index;
+							byte[] logData = ReadLogData(logFileName, index, frameSize, 1);
+							frameCache = AddMacroblockDecisions(frameCache, logData);
+						} 
 					}
-					return frameCache[index - (int)cachedBaseTick];
+					return frameCache;
 				}
 			}
 		}
