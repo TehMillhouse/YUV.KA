@@ -106,11 +106,29 @@ namespace YuvKA.ViewModel
 			Model = Deserialize(modelBase);
 		}
 
+		// Undo without guard method (i.e. no CanGlobalUndo)
+		public void GlobalUndo()
+		{
+			if (CanUndo) {
+				// Since this call may come from anywhere in the visual tree without triggering
+				// a ChangeCommittedMessage, let's just propose the model is dirty and needs to be saved
+				SaveSnapshot();
+				Undo();
+			}
+		}
+
 		public void Redo()
 		{
 			undoStack.Push(modelBase);
 			modelBase = redoStack.Pop();
 			Model = Deserialize(modelBase);
+		}
+
+		// Redo without guard method (i.e. no CanGlobalRedo)
+		public void GlobalRedo()
+		{
+			if (CanRedo)
+				Redo();
 		}
 
 		public void SaveSnapshot()

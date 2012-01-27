@@ -4,15 +4,34 @@
 		xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
 		mc:Ignorable="d"
 		xmlns:my="clr-namespace:YuvKA"
+		xmlns:mycal="clr-namespace:Caliburn.Micro"
 		Title="Yuv.KA" Height="500" Width="700" cal:Bind.AtDesignTime="True" d:DataContext="{x:Static my:AppBootstrapper.DesignRoot}">
+	<i:Interaction.Triggers>
+		<mycal:CommandBindingTrigger Command="Open">
+			<cal:ActionMessage MethodName="Open"/>
+		</mycal:CommandBindingTrigger>
+		<mycal:CommandBindingTrigger Command="Save">
+			<cal:ActionMessage MethodName="Save"/>
+		</mycal:CommandBindingTrigger>
+		<mycal:CommandBindingTrigger Command="New">
+			<cal:ActionMessage MethodName="Clear"/>
+		</mycal:CommandBindingTrigger>
+		<mycal:CommandBindingTrigger Command="Undo">
+			<cal:ActionMessage MethodName="GlobalUndo"/>
+		</mycal:CommandBindingTrigger>
+		<mycal:CommandBindingTrigger Command="Redo">
+			<cal:ActionMessage MethodName="GlobalRedo"/>
+		</mycal:CommandBindingTrigger>
+	</i:Interaction.Triggers>
 	<DockPanel>
 		<DockPanel DockPanel.Dock="Top">
 			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
 				<Button x:Name="Open">Open</Button>
 				<Button x:Name="Save">Save</Button>
-				<Button x:Name="Clear">Clear</Button>
+				<Button x:Name="New">Clear</Button>
 				<Button x:Name="Undo">Undo</Button>
 				<Button x:Name="Redo">Redo</Button>
 			</StackPanel>
