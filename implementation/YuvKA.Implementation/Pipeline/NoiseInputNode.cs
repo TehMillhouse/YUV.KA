@@ -82,7 +82,7 @@ namespace YuvKA.Pipeline.Implementation
 			Random rnd = new Random();
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
-					byte color = (byte)rnd.Next(265);
+					byte color = (byte)rnd.Next(255);
 					frame[x, y] = new Rgb(color, color, color);
 				}
 			}
@@ -94,9 +94,9 @@ namespace YuvKA.Pipeline.Implementation
 			Random rnd = new Random();
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
-					byte colorR = (byte)rnd.Next(265);
-					byte colorG = (byte)rnd.Next(265);
-					byte colorB = (byte)rnd.Next(265);
+					byte colorR = (byte)rnd.Next(255);
+					byte colorG = (byte)rnd.Next(255);
+					byte colorB = (byte)rnd.Next(255);
 					frame[x, y] = new Rgb(colorR, colorG, colorB);
 				}
 			}
