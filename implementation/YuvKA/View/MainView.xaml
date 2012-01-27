@@ -29,11 +29,11 @@
 	<DockPanel>
 		<DockPanel DockPanel.Dock="Top">
 			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-				<Button x:Name="Open">Open</Button>
-				<Button x:Name="Save">Save</Button>
-				<Button x:Name="New">Clear</Button>
-				<Button x:Name="Undo">Undo</Button>
-				<Button x:Name="Redo">Redo</Button>
+				<Button x:Name="Open" ToolTip="Ctrl+O">Open</Button>
+				<Button x:Name="Save" ToolTip="Ctrl+S">Save</Button>
+				<Button x:Name="New" ToolTip="Ctrl+N">Clear</Button>
+				<Button x:Name="Undo" ToolTip="Ctrl+Z">Undo</Button>
+				<Button x:Name="Redo" ToolTip="Ctrl+Y">Redo</Button>
 			</StackPanel>
 			<ContentControl cal:View.Model="{Binding ReplayStateViewModel}"/>
 		</DockPanel>
