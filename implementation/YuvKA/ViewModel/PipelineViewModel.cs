@@ -135,6 +135,9 @@ namespace YuvKA.ViewModel
 
 		public void InOutputMouseUp(InOutputViewModel inOut)
 		{
+			if (DraggedEdge == null)
+				return;
+
 			DraggedEdge.EndViewModel = inOut;
 			InOutputViewModel inputVM, outputVM;
 			if (!DraggedEdge.GetInOut(out inputVM, out outputVM)) {
