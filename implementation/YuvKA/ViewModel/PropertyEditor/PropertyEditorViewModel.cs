@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using Caliburn.Micro;
 
 namespace YuvKA.ViewModel.PropertyEditor
@@ -34,7 +33,7 @@ namespace YuvKA.ViewModel.PropertyEditor
 					var browsable = pd.Attributes.OfType<BrowsableAttribute>().SingleOrDefault();
 					if (browsable != null && browsable.Browsable) {
 						System.Type fittingPVM = viewModels.Single(pvm => (pvm.BaseType.GetGenericArguments()[0].IsAssignableFrom(pd.PropertyType)));
-						PropertyViewModel vm = (PropertyViewModel) Activator.CreateInstance(fittingPVM);
+						PropertyViewModel vm = (PropertyViewModel)Activator.CreateInstance(fittingPVM);
 						vm.Initialize(source, pd);
 						pvmList.Add(vm);
 					}

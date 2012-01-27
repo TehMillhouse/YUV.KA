@@ -21,7 +21,7 @@
 	{
 		static AppBootstrapper designInstance;
 
-		static string ExeDir { get { return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); } }
+		CompositionContainer container;
 
 		public static MainViewModel DesignRoot
 		{
@@ -40,7 +40,7 @@
 			}
 		}
 
-		CompositionContainer container;
+		static string ExeDir { get { return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); } }
 
 		/// <summary>
 		/// By default, we are configured to use MEF
@@ -187,7 +187,11 @@
 
 		class DesignDummyNode : YuvKA.Pipeline.Node
 		{
-			public DesignDummyNode() : base(2, 1) { Name = "Dummy"; }
+			public DesignDummyNode()
+				: base(2, 1)
+			{
+				Name = "Dummy";
+			}
 
 			public override VideoModel.Frame[] Process(VideoModel.Frame[] inputs, int tick)
 			{
