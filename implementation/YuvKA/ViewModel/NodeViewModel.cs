@@ -73,6 +73,7 @@ namespace YuvKA.ViewModel
 				Parent.Parent.CloseWindow(this.Model);
 				Parent.Nodes.Remove(this);
 				Parent.Parent.Model.Graph.RemoveNode(this.Model);
+				Parent.Parent.SaveSnapshot();
 				Parent.NotifyOfPropertyChange(() => Parent.Edges);
 			}
 		}

@@ -3,6 +3,7 @@
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			mc:Ignorable="d"
 			d:DesignHeight="35" d:DesignWidth="150">
 	<StackPanel>
@@ -11,7 +12,7 @@
 		<DockPanel>
 			<TextBlock Text="{Binding Minimum}" DockPanel.Dock="Left" Width="10"/>
 			<TextBlock Text="{Binding Maximum}" DockPanel.Dock="Right" MinWidth="10" MaxWidth="20"/>
-			<Slider Value="{Binding Value}" Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" Ticks="1"/>
+			<Slider Value="{Binding Value}" Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" Ticks="1" cal:Message.Attach="[Event LostFocus] = [Action CommitChange]"/>
 		</DockPanel>
 		<TextBlock Text="{Binding Value}" HorizontalAlignment="Center" FontSize="10"/>
 	</StackPanel>

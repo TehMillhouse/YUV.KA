@@ -68,6 +68,7 @@ namespace YuvKA.ViewModel
 
 				Parent.Model.Graph.AddNodeWithIndex(node);
 				Nodes.Add(nodeModel);
+				Parent.SaveSnapshot();
 			}
 		}
 
@@ -154,8 +155,10 @@ namespace YuvKA.ViewModel
 			else
 				input = (Node.Input)inputVM.Model;
 
-			if (Parent.Model.Graph.AddEdge(output, input))
+			if (Parent.Model.Graph.AddEdge(output, input)) {
 				NotifyOfPropertyChange(() => Edges);
+				Parent.SaveSnapshot();
+			}
 			DraggedEdge = null;
 		}
 

@@ -1,30 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
+using YuvKA.ViewModel.PropertyEditor;
 
 namespace YuvKA.ViewModel
 {
 	[Export]
-	public class MainViewModel : ViewAware, IHandle<OutputWindowViewModel.ClosedMessage>
+	public class MainViewModel : ViewAware, IHandle<OutputWindowViewModel.ClosedMessage>, IHandle<ChangeCommittedMessage>
 	{
 		const string PipelineFilter = "YUV.KA Pipeline|*.yuvka";
 		Stack<byte[]> undoStack = new Stack<byte[]>();
 		Stack<byte[]> redoStack = new Stack<byte[]>();
 		PipelineState model;
+		byte[] modelBase; // Last observed state of the model
 		PipelineViewModel pipelineViewModel;
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Non-critical; refers to invocation of NotifyOfPropertyChange in PipelineViewModel.set")]
 		[ImportingConstructor]
 		public MainViewModel()
 		{
-			OpenWindows = new List<OutputWindowViewModel>();
 			IoC.Get<IEventAggregator>().Subscribe(this);
+			OpenWindows = new List<OutputWindowViewModel>();
 			Clear();
 		}
 
@@ -39,6 +40,8 @@ namespace YuvKA.ViewModel
 					ReplayStateViewModel.IsPlaying = false;
 				PipelineViewModel = new PipelineViewModel(this);
 				NotifyOfPropertyChange(() => Model);
+				NotifyOfPropertyChange(() => CanUndo);
+				NotifyOfPropertyChange(() => CanRedo);
 			}
 		}
 
@@ -78,6 +81,7 @@ namespace YuvKA.ViewModel
 			yield return file; // Let user/test code choose a file, then continue
 			using (var car = file.Stream())
 				Model = Deserialize(car);
+			modelBase = Serialize(Model);
 		}
 
 		public void Clear()
@@ -86,27 +90,40 @@ namespace YuvKA.ViewModel
 			foreach (OutputWindowViewModel owvm in OpenWindows) {
 				owvm.TryClose();
 			}
+			modelBase = Serialize(Model);
+
 			OpenWindows.Clear();
 			undoStack.Clear();
 			redoStack.Clear();
+			NotifyOfPropertyChange(() => CanUndo);
+			NotifyOfPropertyChange(() => CanRedo);
 		}
 
 		public void Undo()
 		{
-			redoStack.Push(Serialize(Model));
-			Model = Deserialize(undoStack.Pop());
+			redoStack.Push(modelBase);
+			modelBase = undoStack.Pop();
+			Model = Deserialize(modelBase);
 		}
 
 		public void Redo()
 		{
-			undoStack.Push(Serialize(Model));
-			Model = Deserialize(redoStack.Pop());
+			undoStack.Push(modelBase);
+			modelBase = redoStack.Pop();
+			Model = Deserialize(modelBase);
 		}
 
 		public void SaveSnapshot()
 		{
-			redoStack.Clear();
-			undoStack.Push(Serialize(Model));
+			byte[] serialized = Serialize(Model);
+			// Has anything actually changed?
+			if (!serialized.SequenceEqual(modelBase)) {
+				redoStack.Clear();
+				undoStack.Push(modelBase);
+				modelBase = serialized;
+				NotifyOfPropertyChange(() => CanUndo);
+				NotifyOfPropertyChange(() => CanRedo);
+			}
 		}
 
 		public void OpenWindow(OutputWindowViewModel window)
@@ -135,6 +152,11 @@ namespace YuvKA.ViewModel
 		public void Handle(OutputWindowViewModel.ClosedMessage message)
 		{
 			OpenWindows.Remove(message.Window);
+		}
+
+		public void Handle(ChangeCommittedMessage message)
+		{
+			SaveSnapshot();
 		}
 
 		void Serialize(Stream stream, PipelineState state)

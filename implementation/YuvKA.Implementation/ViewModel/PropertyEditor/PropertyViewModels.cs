@@ -56,6 +56,8 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public abstract class NumericalPropertyViewModel<T> : PropertyViewModel<T>
 	{
+		public NumericalPropertyViewModel() : base(commitOnValueChanged: false) { }
+
 		public double Minimum
 		{
 			get { return (double)(Property.Attributes.OfType<RangeAttribute>().First().Minimum); }
@@ -78,6 +80,8 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public class ObservableCollectionOfDoublePropertyViewModel : PropertyViewModel<ObservableCollection<double>>
 	{
+		public ObservableCollectionOfDoublePropertyViewModel() : base(commitOnValueChanged: false) { }
+
 		protected override void OnValueChanged()
 		{
 			base.OnValueChanged();

@@ -8,6 +8,9 @@ namespace YuvKA.ViewModel.PropertyEditor
 	[InheritedExport]
 	public abstract class PropertyViewModel : PropertyChangedBase
 	{
+		// True if Value's setter should throw a ChangeCommitedMessage
+		bool commitOnValueChanged;
+
 		public object Source { get; private set; }
 		public PropertyDescriptor Property { get; private set; }
 		public object Value
@@ -16,6 +19,8 @@ namespace YuvKA.ViewModel.PropertyEditor
 			set
 			{
 				Property.SetValue(Source, value);
+				if (commitOnValueChanged)
+					CommitChange();
 			}
 		}
 
@@ -28,6 +33,11 @@ namespace YuvKA.ViewModel.PropertyEditor
 			}
 		}
 
+		protected PropertyViewModel(bool commitOnValueChanged = true)
+		{
+			this.commitOnValueChanged = commitOnValueChanged;
+		}
+
 		public void Initialize(object source, PropertyDescriptor property)
 		{
 			Source = source;
@@ -38,6 +48,11 @@ namespace YuvKA.ViewModel.PropertyEditor
 			});
 		}
 
+		public void CommitChange()
+		{
+			IoC.Get<IEventAggregator>().Publish(new ChangeCommittedMessage());
+		}
+
 		protected virtual void OnValueChanged()
 		{
 			NotifyOfPropertyChange(() => Value);
@@ -46,6 +61,7 @@ namespace YuvKA.ViewModel.PropertyEditor
 
 	public abstract class PropertyViewModel<T> : PropertyViewModel
 	{
+		protected PropertyViewModel(bool commitOnValueChanged = true) : base(commitOnValueChanged) { }
 		public new T Value { get { return (T)base.Value; } set { base.Value = (T)value; } }
 	}
 }

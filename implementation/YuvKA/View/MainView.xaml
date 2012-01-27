@@ -13,6 +13,8 @@
 				<Button x:Name="Open">Open</Button>
 				<Button x:Name="Save">Save</Button>
 				<Button x:Name="Clear">Clear</Button>
+				<Button x:Name="Undo">Undo</Button>
+				<Button x:Name="Redo">Redo</Button>
 			</StackPanel>
 			<ContentControl cal:View.Model="{Binding ReplayStateViewModel}"/>
 		</DockPanel>

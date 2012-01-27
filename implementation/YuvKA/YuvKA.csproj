@@ -94,6 +94,7 @@
     <Compile Include="Caliburn\Micro\ChooseFileResult.cs" />
     <Compile Include="Caliburn\Micro\DragResult.cs" />
     <Compile Include="Caliburn\Micro\IGetPosition.cs" />
+    <Compile Include="Caliburn\Micro\CommandBindingTrigger.cs" />
     <Compile Include="Pipeline\FilePath.cs" />
     <Compile Include="Pipeline\TickRenderedMessage.cs" />
     <Compile Include="Pipeline\InputNode.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="VideoModel\YuvEncoder.cs" />
     <Compile Include="ViewModel\EdgeStatus.cs" />
     <Compile Include="ViewModel\InOutputViewModel.cs" />
+    <Compile Include="ViewModel\PropertyEditor\ChangeCommittedMessage.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyEditorViewModel.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyViewModel.cs" />
     <Compile Include="ViewModel\EdgeViewModel.cs" />
