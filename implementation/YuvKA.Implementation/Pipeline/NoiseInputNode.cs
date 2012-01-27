@@ -42,11 +42,15 @@ namespace YuvKA.Pipeline.Implementation
 			Name = "Noise";
 			Speed = 0.05;
 			Scale = 0.05;
+			Seed = (new Random()).Next();
 		}
 
 		[DataMember]
 		[Browsable(true)]
 		public NoiseType Type { get; set; }
+
+		[DataMember]
+		private int Seed;
 
 		[DataMember]
 		[Browsable(true)]
@@ -79,7 +83,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		private Frame ProcessCoherentNoise(Frame frame, int tick)
 		{
-			Random rnd = new Random();
+			Random rnd = new Random(Seed % (tick == 0 ? 1 : tick));
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
 					byte color = (byte)rnd.Next(255);
@@ -91,7 +95,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		private Frame ProcessColoredCoherentNoise(Frame frame, int tick)
 		{
-			Random rnd = new Random();
+			Random rnd = new Random(Seed % (tick == 0 ? 1 : tick));
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
 					byte colorR = (byte)rnd.Next(255);
@@ -135,7 +139,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		private double Grad(int hash, double x, double y, double z)
 		{
-			int h = hash & 15;						  // Convert lo 4 bits of hash code
+			int h = hash & 15;                        // Convert lo 4 bits of hash code
 			double u = h < 8 ? x : y,                 // into 12 gradient directions.
 				   v = h < 4 ? y : h == 12 || h == 14 ? x : z;
 			return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
@@ -147,8 +151,8 @@ namespace YuvKA.Pipeline.Implementation
 
 		private double Noise(double x, double y, double z)
 		{
-			int xx = (int)Math.Floor(x) & 255;                  // Find unit cube that
-			int yy = (int)Math.Floor(y) & 255;                  // contains point.
+			int xx = (int)Math.Floor(x) & 255;                 // Find unit cube that
+			int yy = (int)Math.Floor(y) & 255;                 // contains point.
 			int zz = (int)Math.Floor(z) & 255;
 
 			x -= Math.Floor(x);                                // Find relative x, y, z
@@ -159,7 +163,7 @@ namespace YuvKA.Pipeline.Implementation
 			double v = Fade(y);                                // for each of x, y, z.
 			double w = Fade(z);
 
-			int a = p[xx] + yy, aa = p[a] + zz, ab = p[a + 1] + zz,			 // Hash coordinates of
+			int a = p[xx] + yy, aa = p[a] + zz, ab = p[a + 1] + zz,          // Hash coordinates of
 				b = p[xx + 1] + yy, ba = p[b] + zz, bb = p[b + 1] + zz;      // the 8 cube corners,
 
 			double g1 = Grad(p[aa], x, y, z);
