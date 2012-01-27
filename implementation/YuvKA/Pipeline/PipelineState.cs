@@ -84,7 +84,7 @@ namespace YuvKA.Pipeline
 					Thread.Sleep(nextTick - lastTick.Value);
 				lastTick = nextTick;
 				Events.Publish(new TickRenderedMessage(dic));
-				if (!isPreviewFrame) {
+				if (!isPreviewFrame && !cts.IsCancellationRequested) {
 					CurrentTick++;
 				}
 			}, onError: e => Execute.OnUIThread(() => { throw e; }));
