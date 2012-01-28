@@ -13,7 +13,6 @@ namespace YuvKA.Pipeline
 	public class PipelineState : PropertyChangedBase
 	{
 		CancellationTokenSource cts;
-		DateTimeOffset? lastTick;
 		int currentTick;
 
 		public PipelineState()
@@ -43,6 +42,8 @@ namespace YuvKA.Pipeline
 		/// </summary>
 		[DataMember]
 		public int Speed { get; set; }
+
+		public int ActualSpeed { get; private set; }
 
 		[DataMember]
 		public PipelineGraph Graph { get; private set; }
@@ -78,11 +79,23 @@ namespace YuvKA.Pipeline
 				return false;
 			cts = new CancellationTokenSource();
 			int precomputeCount = Graph.NumberOfFramesToPrecompute(outputNodes);
+			Queue<DateTimeOffset> ticks = new Queue<DateTimeOffset>();
+			int fpsWindow = 5;
+
 			Driver.RenderTicks(outputNodes, CurrentTick - precomputeCount, tickCount + precomputeCount, cts).Subscribe(dic => {
-				DateTimeOffset nextTick = lastTick != null ? lastTick.Value + TimeSpan.FromSeconds(1.0 / Speed) : DateTimeOffset.Now;
-				if (DateTimeOffset.Now < nextTick)
-					Thread.Sleep(nextTick - lastTick.Value);
-				lastTick = nextTick;
+				DateTimeOffset now = DateTimeOffset.Now;
+				if (ticks.Count == fpsWindow) {
+					DateTimeOffset oldTick = ticks.Dequeue();
+					DateTimeOffset nextTick = oldTick + TimeSpan.FromSeconds((double)fpsWindow / Speed);
+					if (now < nextTick) {
+						Thread.Sleep(nextTick - now);
+						now = DateTimeOffset.Now;
+					}
+					ActualSpeed = (int)(fpsWindow / (DateTimeOffset.Now - oldTick).TotalSeconds);
+					NotifyOfPropertyChange(() => ActualSpeed);
+				}
+				ticks.Enqueue(now);
+
 				Events.Publish(new TickRenderedMessage(dic));
 				if (!isPreviewFrame && !cts.IsCancellationRequested) {
 					CurrentTick++;

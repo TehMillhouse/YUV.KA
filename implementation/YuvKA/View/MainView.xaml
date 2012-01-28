@@ -8,7 +8,7 @@
 		mc:Ignorable="d"
 		xmlns:my="clr-namespace:YuvKA"
 		xmlns:mycal="clr-namespace:Caliburn.Micro"
-		Title="Yuv.KA" Height="500" Width="700" cal:Bind.AtDesignTime="True" d:DataContext="{x:Static my:AppBootstrapper.DesignRoot}">
+		Title="{Binding Model.ActualSpeed, StringFormat={}Yuv.KA - {0} FPS}" Height="500" Width="700" cal:Bind.AtDesignTime="True" d:DataContext="{x:Static my:AppBootstrapper.DesignRoot}">
 	<i:Interaction.Triggers>
 		<mycal:CommandBindingTrigger Command="Open">
 			<cal:ActionMessage MethodName="Open"/>
