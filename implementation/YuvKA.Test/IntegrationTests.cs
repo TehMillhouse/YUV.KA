@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reactive.Linq;
+using Caliburn.Micro;
 using Xunit;
 using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
 using YuvKA.VideoModel;
+using YuvKA.ViewModel;
 
 namespace YuvKA.Test
 {
@@ -27,6 +30,24 @@ namespace YuvKA.Test
 				@"..\..\..\..\output\ViewlessPipeline_sif.yuv",
 				frames.ToEnumerable()
 			);
+		}
+
+		[Fact]
+		public void ViewfulPipeline()
+		{
+			var input = new VideoInputNode {
+				FileName = new FilePath(@"..\..\..\..\resources\americanFootball_352x240_125.yuv")
+			};
+			Node graph = new InverterNode();
+			graph.Inputs[0].Source = input.Outputs[0];
+
+			IoC.GetInstance = delegate { return new EventAggregator(); };
+			var output = new VideoOutputViewModel(graph.Outputs[0]);
+
+			var sw = Stopwatch.StartNew();
+			new PipelineDriver().RenderTicks(new[] { graph }, tickCount: input.TickCount)
+				.ForEach(dic => output.Handle(new TickRenderedMessage(dic)));
+			Console.WriteLine(sw.ElapsedMilliseconds + " ms");
 		}
 	}
 }

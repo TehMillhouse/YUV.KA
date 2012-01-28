@@ -19,11 +19,12 @@ namespace YuvKA.ViewModel
 		public override void Handle(TickRenderedMessage message)
 		{
 			base.Handle(message);
-			if (message[OutputModel] == null)
+			var frame = message[OutputModel];
+			if (frame == null)
 				return;
 
-			int width = message[OutputModel].Size.Width;
-			int height = message[OutputModel].Size.Height;
+			int width = frame.Size.Width;
+			int height = frame.Size.Height;
 			if (width == 0 || height == 0)
 				return;
 
@@ -44,9 +45,9 @@ namespace YuvKA.ViewModel
 						// Compute colors in pixel format. That is sRGB:
 						// MSDN: Bgr32 is a sRGB format with 32 bits per pixel (BPP).
 						// Each color channel (blue, green, and red) is allocated 8 bits per pixel (BPP).
-						int bgr = ((message[OutputModel][x, y].R << 16) |
-								   (message[OutputModel][x, y].G << 8) |
-								   (message[OutputModel][x, y].B));
+						int bgr = ((frame[x, y].R << 16) |
+								  (frame[x, y].G << 8) |
+								   (frame[x, y].B));
 
 						// Set the pixel at the current position to the BGR of the frame
 						*backBuffer++ = bgr;
