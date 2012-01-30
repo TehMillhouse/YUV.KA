@@ -8,7 +8,6 @@
 			d:DesignHeight="35" d:DesignWidth="150">
 	<StackPanel>
 		<TextBlock Text="{Binding Property.DisplayName}" HorizontalAlignment="Center" FontSize="10"/>
-		<!-- TODO: make this a grid so things overlap. That might save us some space -->
 		<DockPanel>
 			<TextBlock Text="{Binding Minimum}" DockPanel.Dock="Left" Width="10"/>
 			<TextBlock Text="{Binding Maximum}" DockPanel.Dock="Right" MinWidth="10" MaxWidth="20"/>

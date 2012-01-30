@@ -202,11 +202,9 @@ namespace YuvKA.VideoModel
 			/// </param>
 			/// <param name="logFileName">
 			/// Optional. The log file to use for the yuv video
-			/// TODO implement tests of log files
 			/// </param>
 			/// <param name="motionVectorFileName">
 			/// Optional. The motion vector file to use for the yuv video
-			/// TODO implement use of motion vector files
 			/// </param>
 			public Video(Size size, string fileName, string logFileName, string motionVectorFileName)
 			{

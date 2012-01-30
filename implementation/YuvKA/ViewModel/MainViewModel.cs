@@ -152,7 +152,6 @@ namespace YuvKA.ViewModel
 				if (!ReplayStateViewModel.IsPlaying) {
 					Model.RenderTick(new[] { window.NodeModel }, isPreviewFrame: true);
 				}
-				//TODO Extract owner in an interface
 				((Window)window.GetView()).Owner = (Window)this.GetView();
 			}
 		}
@@ -197,7 +196,7 @@ namespace YuvKA.ViewModel
 
 		PipelineState Deserialize(byte[] data)
 		{
-			OpenWindows.Clear(); // TODO: for now...
+			OpenWindows.Clear();
 			using (var stream = new MemoryStream(data))
 				return Deserialize(stream);
 		}
