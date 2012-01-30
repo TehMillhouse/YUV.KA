@@ -85,29 +85,40 @@ namespace YuvKA.Implementation
 
 		private List<Color> typeColors;
 
-		public List<Color> TypeColors
+		public List<Color> TypeColors { get; set; }
+
+		public System.Windows.Media.Color NewColor(Tuple<string, IGraphType> type)
 		{
-			get
-			{
-				if (typeColors == null) {
-					var random = new Random();
-					var randomColors = new List<Color>();
-					for (int i = 0; i < Types.Count(); i++) {
-						randomColors.Add(Color.FromRgb((byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256)));
-					}
-					typeColors = randomColors;
-				}
-				return typeColors;
-			}
+			var newColor = new System.Drawing.Color();
+			var typeCollection = new ObservableCollection<Tuple<string, IGraphType>>(Types);
+			var baseColor = System.Drawing.Color.FromArgb(TypeColors[typeCollection.IndexOf(type)].A, TypeColors[typeCollection.IndexOf(type)].R, TypeColors[typeCollection.IndexOf(type)].G, TypeColors[typeCollection.IndexOf(type)].B);
+
+			var h = baseColor.GetHue();
+
+			var random = new Random();
+			do {
+				newColor = HslHelper.HslToRgb(h, random.NextDouble(), random.NextDouble());
+			} while (LineColors.Contains(newColor));
+			LineColors.Add(newColor);
+
+			return System.Windows.Media.Color.FromArgb(newColor.A, newColor.R, newColor.G, newColor.B);
 		}
 
 		public void setLineColor()
 		{
-			LineColor = TypeColors[Types.IndexOf(ChosenType)];
+			LineColor = NewColor(ChosenType);
 			GraphColor = new SolidColorBrush(LineColor);
 			OnPropertyChanged("LineColor");
 			OnPropertyChanged("GraphColor");
 		}
+
+		private List<System.Drawing.Color> lineColors;
+
+		public List<System.Drawing.Color> LineColors 
+		{
+ 			get { return lineColors ?? (lineColors = new List<System.Drawing.Color>()); }
+			set { lineColors = value; }
+		} 
 
 		public Color LineColor { get; set; }
 
