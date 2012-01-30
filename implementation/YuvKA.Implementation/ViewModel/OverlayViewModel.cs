@@ -34,7 +34,13 @@ namespace YuvKA.ViewModel.Implementation
 				/* Get all available IOverlayTypes */
 				ICollection<System.Tuple<string, IOverlayType>> overlayTypes = new List<System.Tuple<string, IOverlayType>>();
 				foreach (IOverlayType type in IoC.GetAllInstances(typeof(IOverlayType))) {
-					overlayTypes.Add(new System.Tuple<string, IOverlayType>(type.GetType().GetCustomAttributes(true).OfType<DisplayNameAttribute>().First().DisplayName, type));
+					/* Validate Input for the Type */
+					if (NodeModel.Inputs[0].Source != null
+						&& (!type.DependsOnReference || NodeModel.Inputs[1].Source != null)
+						&& (!type.DependsOnLogfiles || NodeModel.Inputs[0].Source.Node.OutputHasLogfile)
+						&& (!type.DependsOnVectors || NodeModel.Inputs[0].Source.Node.OutputHasMotionVectors)) {
+						overlayTypes.Add(new System.Tuple<string, IOverlayType>(type.GetType().GetCustomAttributes(true).OfType<DisplayNameAttribute>().First().DisplayName, type));
+					}
 				}
 				return overlayTypes;
 			}

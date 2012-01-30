@@ -22,12 +22,12 @@ namespace YuvKA.Pipeline.Implementation
 		[Browsable(true)]
 		public int Delay { get; set; }
 
-		public bool OutputHasMotionVectors
+		public new bool OutputHasMotionVectors
 		{
 			get { return Inputs != null && Inputs[0].Source.Node.OutputHasMotionVectors; }
 		}
 
-		public bool OutputHasLogfile
+		public new bool OutputHasLogfile
 		{
 			get
 			{
