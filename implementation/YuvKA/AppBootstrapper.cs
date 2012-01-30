@@ -60,6 +60,7 @@
 			var batch = new CompositionBatch();
 
 			batch.AddExportedValue<IWindowManager>(new WindowManager());
+			batch.AddExportedValue<IWindowManagerEx>(new WindowManagerEx());
 			batch.AddExportedValue<IEventAggregator>(new EventAggregator());
 			batch.AddExportedValue<IGetPosition>(new WpfGetPosition());
 			batch.AddExportedValue(container);
@@ -182,6 +183,14 @@
 				var view = (FrameworkElement)element.GetView();
 				view.Width = (int)view.ActualWidth;
 				view.Height = (int)view.ActualHeight;
+			}
+		}
+
+		class WindowManagerEx : WindowManager, IWindowManagerEx
+		{
+			public void SetOwner(IViewAware owningWindow, IViewAware ownedWindow)
+			{
+				((Window)ownedWindow.GetView()).Owner = (Window)owningWindow.GetView();
 			}
 		}
 

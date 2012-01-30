@@ -152,7 +152,7 @@ namespace YuvKA.ViewModel
 				if (!ReplayStateViewModel.IsPlaying) {
 					Model.RenderTick(new[] { window.NodeModel }, isPreviewFrame: true);
 				}
-				((Window)window.GetView()).Owner = (Window)this.GetView();
+				IoC.Get<IWindowManagerEx>().SetOwner(this, window);
 			}
 		}
 
