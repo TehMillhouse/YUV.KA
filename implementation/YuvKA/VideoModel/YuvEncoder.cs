@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows;
 
 namespace YuvKA.VideoModel
 {
@@ -144,7 +145,7 @@ namespace YuvKA.VideoModel
 			return yuvData;
 		}
 
-		private static byte[] ReadLogData(string logFileName, int startFrame, Size imageSize, int frameCount)
+		private static byte[] ReadLogData(string logFileName, Size imageSize)
 		{
 			//The logfile contains one byte for every 16x16 macroblock per frame
 			int logFrameSize = (int)(imageSize.Height / 16 * imageSize.Width / 16);
@@ -152,24 +153,57 @@ namespace YuvKA.VideoModel
 			if (!logFile.Exists) {
 				throw new FileNotFoundException();
 			}
-			if (logFile.Length < (logFrameSize * (startFrame + frameCount))) {
-				// Someone's trying to fetch a macroblockdecisions that isn't there
-				throw new IndexOutOfRangeException();
-			}
-			byte[] data = new byte[logFrameSize * frameCount];
+			//Reads the whole File into that byte array
+			byte[] data = new byte[logFile.Length];
 			using (FileStream stream = new FileStream(logFileName, FileMode.Open)) {
-				stream.Seek(logFrameSize * startFrame, SeekOrigin.Begin);
-				stream.Read(data, 0, logFrameSize * frameCount);
+				stream.Read(data, 0, (int)logFile.Length);
 			}
 			return data;
 		}
 
-		private static AnnotatedFrame AddMacroblockDecisions(Frame frame, byte[] bytes)
+		private static int[][] ReadMovementVectors(string fileName, Size imageSize)
 		{
-			MacroblockDecision[] decisions = new MacroblockDecision[frame.Size.Width / 16 * frame.Size.Height / 16];
-			for (int i = 0; i < decisions.Length && i < bytes.Length; i++) {
+			FileInfo vectorFile = new FileInfo(fileName);
+			if (!vectorFile.Exists) {
+				throw new FileNotFoundException();
+			}
+			/* Read the csv file in a two level int array
+			 * First level is the Frame/line of the date
+			 * Second level is data for the vectors of each macroblock*/
+			string[] inputLines = File.ReadAllLines(fileName);
+			int[][] data = new int[inputLines.Length - 1][];
+			for (int i = 0; i < inputLines.Length - 1; i++) {
+				string[] line = inputLines[i + 1].Split(',');
+				data[i] = new int[line.Length];
+				for (int j = 0; j < line.Length - 1; j++) {
+					data[i][j] = int.Parse(line[j]);
+				}
+			}
+			return data;
+		}
+
+		private static AnnotatedFrame AddAnnotations(Frame frame, byte[] bytes, int[][] vectorData, int index)
+		{
+			int macroBlockNumber = frame.Size.Width / 16 * frame.Size.Height / 16;
+			MacroblockDecision[] decisions = new MacroblockDecision[macroBlockNumber];
+			for (int i = 0; i < decisions.Length; i++) {
 				decisions[i] = new MacroblockDecision();
-				decisions[i].PartitioningDecision = (MacroblockPartitioning)bytes[i];
+			}
+			if (bytes != null) {
+				for (int i = 0; i < decisions.Length && i < bytes.Length; i++) {
+					decisions[i].PartitioningDecision = (MacroblockPartitioning)bytes[macroBlockNumber * index + i];
+				}
+			}
+			if (vectorData != null) {
+				for (int i = 0; i < decisions.Length; i++) {
+					// if we run out of vectors just pretend there are plenty zero vectors
+					if (index < vectorData.Length && vectorData[index].Length > i * 2 + 2) {
+						decisions[i].Movement = new Vector(vectorData[index][i * 2 + 1], vectorData[index][i * 2 + 2]);
+					}
+					else {
+						decisions[i].Movement = new Vector(0, 0);
+					}
+				}
 			}
 			return new AnnotatedFrame(frame, decisions);
 		}
@@ -184,8 +218,10 @@ namespace YuvKA.VideoModel
 			private Frame frameCache;
 			private Size frameSize;
 			private string fileName;
-			private string logFileName;
-			private string motionVectorFileName;
+			private string logFileName = null;
+			private byte[] logFile = null;
+			private string motionVectorFileName = null;
+			private int[][] motionVectorFile = null;
 
 			/// <summary>
 			/// Ctor for for the Video object. At this point, it is expected
@@ -215,14 +251,18 @@ namespace YuvKA.VideoModel
 				if (!file.Exists) {
 					throw new FileNotFoundException();
 				}
-				if (logFileName != null && File.Exists(logFileName)) {
-					this.logFileName = logFileName;
-				}
-				if (motionVectorFileName != null && File.Exists(motionVectorFileName)) {
-					this.motionVectorFileName = motionVectorFileName;
-				}
 				// Calculate number of frames in the yuv file
 				FrameCount = (int)file.Length / (size.Width * size.Height + size.Width * size.Height / 2);
+				// if we have a logfile parse and cache it
+				if (logFileName != null && File.Exists(logFileName)) {
+					this.logFileName = logFileName;
+					this.logFile = ReadLogData(logFileName, size);
+				}
+				// if we have a vectorfile parse and cache it
+				if (motionVectorFileName != null && File.Exists(motionVectorFileName)) {
+					this.motionVectorFileName = motionVectorFileName;
+					this.motionVectorFile = ReadMovementVectors(motionVectorFileName, size);
+				}
 			}
 
 			public int FrameCount { get; private set; }
@@ -237,13 +277,11 @@ namespace YuvKA.VideoModel
 						throw new IndexOutOfRangeException();
 					}
 					if (index != lastTick) {
-						int yuvFrameSize = (int)(frameSize.Height * frameSize.Width * 1.5);
 						frameCache = YuvToRgb(ReadYuvFrames(fileName, index, frameSize, 1), frameSize.Width, frameSize.Height);
-						if (logFileName != null) {
-							int logFrameSize = (int)(frameSize.Height / 16 * frameSize.Width / 16);
-							byte[] logData = ReadLogData(logFileName, index, frameSize, 1);
-							frameCache = AddMacroblockDecisions(frameCache, logData);
+						if (logFileName != null || motionVectorFileName != null) {
+							frameCache = AddAnnotations(frameCache, logFile, motionVectorFile, index);
 						}
+						lastTick = index;
 					}
 					return frameCache;
 				}
