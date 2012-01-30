@@ -26,7 +26,7 @@ namespace YuvKA.ViewModel
 		{
 			IoC.Get<IEventAggregator>().Subscribe(this);
 			OpenWindows = new List<OutputWindowViewModel>();
-			Clear();
+			New();
 		}
 
 		public PipelineState Model
@@ -84,7 +84,7 @@ namespace YuvKA.ViewModel
 			modelBase = Serialize(Model);
 		}
 
-		public void Clear()
+		public void New()
 		{
 			Model = new PipelineState();
 			foreach (OutputWindowViewModel owvm in OpenWindows) {

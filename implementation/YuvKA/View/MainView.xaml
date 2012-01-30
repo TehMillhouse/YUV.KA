@@ -17,7 +17,7 @@
 			<cal:ActionMessage MethodName="Save"/>
 		</mycal:CommandBindingTrigger>
 		<mycal:CommandBindingTrigger Command="New">
-			<cal:ActionMessage MethodName="Clear"/>
+			<cal:ActionMessage MethodName="New"/>
 		</mycal:CommandBindingTrigger>
 		<mycal:CommandBindingTrigger Command="Undo">
 			<cal:ActionMessage MethodName="GlobalUndo"/>
@@ -31,7 +31,7 @@
 			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
 				<Button x:Name="Open" ToolTip="Ctrl+O">Open</Button>
 				<Button x:Name="Save" ToolTip="Ctrl+S">Save</Button>
-				<Button x:Name="New" ToolTip="Ctrl+N">Clear</Button>
+				<Button x:Name="New" ToolTip="Ctrl+N">New</Button>
 				<Button x:Name="Undo" ToolTip="Ctrl+Z">Undo</Button>
 				<Button x:Name="Redo" ToolTip="Ctrl+Y">Redo</Button>
 			</StackPanel>

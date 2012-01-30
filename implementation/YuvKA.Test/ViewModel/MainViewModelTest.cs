@@ -38,7 +38,7 @@ namespace YuvKA.Test.ViewModel
 		[Fact]
 		public void UndoRedoWorks()
 		{
-			vm.Clear();
+			vm.New();
 			Assert.False(vm.CanUndo);
 			Assert.False(vm.CanRedo);
 
@@ -88,7 +88,7 @@ namespace YuvKA.Test.ViewModel
 		[Fact]
 		public void OpenCreatesNodeViewModelsFromModel()
 		{
-			vm.Clear();
+			vm.New();
 			Assert.Equal(0, vm.PipelineViewModel.Nodes.Count);
 			vm.Model.Graph.Nodes.Add(new AnonymousNode());
 
@@ -102,7 +102,7 @@ namespace YuvKA.Test.ViewModel
 				serialized = stream.ToArray();
 			}
 
-			vm.Clear();
+			vm.New();
 			using (var enumerator = vm.Open().GetEnumerator()) {
 				enumerator.MoveNext();
 				((ChooseFileResult)enumerator.Current).Stream = () => new MemoryStream(serialized);
