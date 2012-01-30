@@ -40,11 +40,28 @@ namespace YuvKA.Implementation
 			Events.Publish(new DeleteGraphControlMessage(this));
 		}
 
+		public void setDisplayTypes()
+		{
+			var newTypes = new ObservableCollection<Tuple<string, IGraphType>>();
+			if (ReferenceSet == true) {
+				foreach (var t in Types.Where(type => type.Item2.DependsOnReference))
+					newTypes.Add(t);
+			}
+			if (Video.Item2.Source.Node.OutputHasLogfile == true) {
+				foreach (var t in Types.Where(type => type.Item2.DependsOnLogfile))
+					newTypes.Add(t);
+			}
+			DisplayTypes = newTypes;
+			OnPropertyChanged("DisplayTypes");
+		}
+
 		public Tuple<string, Node.Input> Video { get; set; }
 
 		public DiagramGraph Graph { get; set; }
 
 		public ObservableCollection<Tuple<string, IGraphType>> Types { get; set; }
+
+		public ObservableCollection<Tuple<string, IGraphType>> DisplayTypes { get; set; }
 
 		private Tuple<string, IGraphType> chosenType;
 
@@ -56,11 +73,12 @@ namespace YuvKA.Implementation
 				if (chosenType == null) {
 					chosenType = value;
 					Graph.Type = value.Item2;
+					setLineColor();
 					Events.Publish(new GraphTypeChosenMessage(this));
-				}
-				else {
+				} else {
 					chosenType = value;
 					Graph.Type = value.Item2;
+					setLineColor();
 				}
 			}
 		}
@@ -83,16 +101,15 @@ namespace YuvKA.Implementation
 			}
 		}
 
-		public Color LineColor
+		public void setLineColor()
 		{
-			get
-			{
-				if (ChosenType == null) {
-					return Color.FromRgb(0, 0, 0);
-				}
-				return TypeColors[Types.IndexOf(ChosenType)];
-			}
+			LineColor = TypeColors[Types.IndexOf(ChosenType)];
+			GraphColor = new SolidColorBrush(LineColor);
+			OnPropertyChanged("LineColor");
+			OnPropertyChanged("GraphColor");
 		}
+
+		public Color LineColor { get; set; }
 
 		private bool referenceSet;
 		public bool ReferenceSet
@@ -101,10 +118,11 @@ namespace YuvKA.Implementation
 			set
 			{
 				referenceSet = value;
+				setDisplayTypes();
 			}
 		}
 
-		public SolidColorBrush GraphColor { get { return new SolidColorBrush(LineColor); } }
+		public SolidColorBrush GraphColor { get; set; }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 

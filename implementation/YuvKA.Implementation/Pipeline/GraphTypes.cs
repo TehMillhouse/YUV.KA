@@ -80,7 +80,7 @@ namespace YuvKA.Pipeline.Implementation
 						Math.Abs(frame[x, y].B - reference[x, y].B);
 				}
 			}
-			return difference / 3;
+			return difference / (3 * frame.Size.Height * frame.Size.Width);
 		}
 	}
 }

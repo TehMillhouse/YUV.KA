@@ -17,17 +17,16 @@
 					<ColumnDefinition Width="75"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Rectangle Grid.Column="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Fill="{Binding Path=Color}" />
+				<Rectangle Grid.Column="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Fill="{Binding Path=GraphColor}" />
 				<Button Height="30" Width="30" Content="Delete" Grid.Column="1" Command="{Binding Path=Delete}" HorizontalAlignment="Left"/>
 				<TextBlock Height="30" Grid.Column="2" Text="{Binding Path=Video.Item1}" />
-				<ComboBox Height="30" Grid.Column="3" ItemsSource="{Binding Path=Types}" SelectedItem="{Binding Path=ChosenType}" HorizontalAlignment="Stretch">
+				<ComboBox Height="30" Grid.Column="3" ItemsSource="{Binding Path=DisplayTypes}" SelectedItem="{Binding Path=ChosenType}" HorizontalAlignment="Stretch">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
 							<TextBlock Text="{Binding Item1}" />
 						</DataTemplate>
 					</ComboBox.ItemTemplate>
 				</ComboBox>
-				<Rectangle />
 			</Grid>
 		</DataTemplate>
 	</Window.Resources>

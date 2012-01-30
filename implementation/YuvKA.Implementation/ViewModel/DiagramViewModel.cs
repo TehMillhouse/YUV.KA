@@ -31,8 +31,9 @@ namespace YuvKA.ViewModel.Implementation
 
 		private void AddGraphControl()
 		{
-			var graph = new DiagramGraph {Video = NodeModel.Inputs[Videos.IndexOf(ChosenVideo)], Type = Types.ElementAt(2).Item2};
-			var graphControl = new GraphControl { Video = ChosenVideo, Types = new ObservableCollection<Tuple<string, IGraphType>>(Types), Graph = graph };
+			var graph = new DiagramGraph { Video = NodeModel.Inputs[Videos.IndexOf(ChosenVideo)] };
+			var graphControl = new GraphControl { Video = ChosenVideo, Types = new ObservableCollection<Tuple<string, IGraphType>>(Types), DisplayTypes = new ObservableCollection<Tuple<string, IGraphType>>(Types), Graph = graph };
+			graphControl.setDisplayTypes();
 			if (Reference.Item2 != null)
 				graphControl.ReferenceSet = true;
 			else
@@ -66,6 +67,7 @@ namespace YuvKA.ViewModel.Implementation
 				NodeModel.ReferenceVideo = NodeModel.Inputs[Videos.IndexOf(value)];
 				foreach (var graphControl in GraphControls) {
 					graphControl.ReferenceSet = true;
+					graphControl.setDisplayTypes();
 				}
 			}
 		}
@@ -127,8 +129,7 @@ namespace YuvKA.ViewModel.Implementation
 			if (graphControl.ChosenType != null) {
 				line.Name = graphControl.Video.Item1 + graphControl.ChosenType.Item1;
 				line.Name = line.Name.Replace("-", "");
-			}
-			else {
+			} else {
 				line.Name = graphControl.Video.Item1;
 			}
 			line.Color = graphControl.LineColor;
@@ -162,6 +163,8 @@ namespace YuvKA.ViewModel.Implementation
 
 		public void Handle(DeleteGraphControlMessage message)
 		{
+			LineGraphs[NodeModel.Graphs.IndexOf(message.GraphControltoDelete.Graph)].PointDataSource = new CompositeDataSource();
+			LineGraphs.RemoveAt(NodeModel.Graphs.IndexOf(message.GraphControltoDelete.Graph));
 			GraphControls.Remove(message.GraphControltoDelete);
 			DeleteGraph(message.GraphControltoDelete.Graph);
 		}
@@ -182,6 +185,7 @@ namespace YuvKA.ViewModel.Implementation
 		{
 			for (int index = 0; index < LineGraphs.Count; index++) {
 				var l = LineGraphs[index];
+				l.Color = GraphControls[index].LineColor;
 				l.PointDataSource = new CompositeDataSource(ConvertToDataSource(NodeModel.Graphs[index].Data));
 				LineGraphs[index] = l;
 			}
