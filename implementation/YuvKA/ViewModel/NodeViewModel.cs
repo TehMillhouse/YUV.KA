@@ -41,6 +41,7 @@ namespace YuvKA.ViewModel
 		public PipelineViewModel Parent { get; private set; }
 		public IObservable<Unit> ViewPositionChanged { get { return viewPositionChanged; } }
 		public int ZIndex { get; set; }
+		public bool HasOutputs { get { return Model.Outputs.Count != 0; } }
 
 		public IEnumerable<InOutputViewModel> Inputs
 		{

@@ -33,7 +33,7 @@
 				<Setter.Value>
 					<x:Array Type="MenuItem">
 						<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]" IsEnabled="{Binding Parent.Parent.ReplayStateViewModel.IsPlaying, Converter={StaticResource NotConverter}}"/>
-						<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}">
+						<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" IsEnabled="{Binding HasOutputs}">
 							<MenuItem.ItemContainerStyle>
 								<!-- TODO: Show output index and disable menu item when !Node.InputIsValid. We'll need an OutputViewModel for that. -->
 								<Style TargetType="MenuItem">
@@ -43,8 +43,7 @@
 								</Style>
 							</MenuItem.ItemContainerStyle>
 						</MenuItem>
-						<!-- TODO: Implement this when OutputWindow is implemented -->
-						<MenuItem Header="Display output..." ItemsSource="{Binding Model.Outputs}">
+						<MenuItem Header="Display output..." ItemsSource="{Binding Model.Outputs}" IsEnabled="{Binding HasOutputs}">
 							<MenuItem.ItemContainerStyle>
 								<Style TargetType="MenuItem">
 									<Setter Property="cal:Action.TargetWithoutContext" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"/>
