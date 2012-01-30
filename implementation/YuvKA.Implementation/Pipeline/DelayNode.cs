@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
@@ -24,14 +25,14 @@ namespace YuvKA.Pipeline.Implementation
 
 		public new bool OutputHasMotionVectors
 		{
-			get { return Inputs != null && Inputs[0].Source.Node.OutputHasMotionVectors; }
+			get { return Inputs.All(input => input.Source != null && input.Source.Node.OutputHasMotionVectors); }
 		}
 
 		public new bool OutputHasLogfile
 		{
 			get
 			{
-				return Inputs != null && Inputs[0].Source.Node.OutputHasLogfile;
+				return Inputs.All(input => input.Source != null && input.Source.Node.OutputHasLogfile);
 			}
 		}
 
