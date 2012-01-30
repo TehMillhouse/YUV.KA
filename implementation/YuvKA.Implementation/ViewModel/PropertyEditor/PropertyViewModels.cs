@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using Caliburn.Micro;
@@ -19,6 +20,12 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		{
 			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv|All files (*.*)|*" };
 			yield return file;
+
+			string currentDir = Directory.GetCurrentDirectory();
+			if (file.FileName.Substring(0, currentDir.Length).Equals(currentDir)) {
+				file.FileName = file.FileName.Substring(currentDir.Length + 1);
+			}
+
 			Value = new YuvKA.Pipeline.FilePath(file.FileName);
 		}
 	}
@@ -100,8 +107,11 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 				this.source = source;
 				this.index = index;
 			}
-			public double Value { get { return source[index]; }
-				set { source[index] = value; } }
+			public double Value
+			{
+				get { return source[index]; }
+				set { source[index] = value; }
+			}
 		}
 		public IEnumerable<DoubleWrapper> Wrapper
 		{
