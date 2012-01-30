@@ -62,6 +62,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Reactive">
       <HintPath>..\packages\Rx-Main.1.0.11226\lib\Net4\System.Reactive.dll</HintPath>
     </Reference>
@@ -95,6 +96,7 @@
     <Compile Include="Caliburn\Micro\DragResult.cs" />
     <Compile Include="Caliburn\Micro\IGetPosition.cs" />
     <Compile Include="Caliburn\Micro\CommandBindingTrigger.cs" />
+    <Compile Include="HslHelper.cs" />
     <Compile Include="Pipeline\FilePath.cs" />
     <Compile Include="Pipeline\TickRenderedMessage.cs" />
     <Compile Include="Pipeline\InputNode.cs" />
