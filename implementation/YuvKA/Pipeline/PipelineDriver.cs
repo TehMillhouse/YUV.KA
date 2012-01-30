@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
@@ -8,8 +9,9 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline
 {
-	using FrameDic = IDictionary<Node.Output, Frame>;
+	using FrameDic = Dictionary<Node.Output, Frame>;
 	using NodeTask = Task<Frame[]>;
+	using NodeTasks = Dictionary<Node, Task<Frame[]>>;
 
 	public class PipelineDriver
 	{
@@ -35,8 +37,27 @@ namespace YuvKA.Pipeline
 			return Observable.Create<FrameDic>(observer => {
 				lastTask = lastTask
 					.ContinueWith(_ => {
-						for (int tick = startTick; tickCount == null || tick < startTick + tickCount; tick++)
-							observer.OnNext(RenderTickCore(startNodes.Distinct(), tick, tokenSource.Token).Result);
+						// producer/consumer scenario: ticks holds all currently executing tasks
+						// consumer also holds one -> maximum of <ProcessorCount> parallel ticks
+						// except when there's only one core and we'd allocate an empty collection, let's just use 2 cores
+						var ticks = new BlockingCollection<Lazy<Task<FrameDic>>>(Math.Max(1, Environment.ProcessorCount - 1));
+
+						Task.Factory.StartNew(() => {
+							for (int tick = startTick; tickCount == null || tick < startTick + tickCount; tick++) {
+								// use lazy to only start the task after adding it
+								var task = new Lazy<Task<FrameDic>>(() => RenderTickCore(startNodes.Distinct(), tick, tokenSource.Token));
+								ticks.Add(task, tokenSource.Token);
+								new Func<object>(() => task.Value)(); // force evaluation
+							}
+						}, tokenSource.Token, TaskCreationOptions.AttachedToParent, TaskScheduler.Current)
+						.ContinueWith(__ => ticks.CompleteAdding());
+
+						try {
+							foreach (Lazy<Task<FrameDic>> tick in ticks.GetConsumingEnumerable())
+								observer.OnNext(tick.Value.Result);
+						} finally {
+							ticks.CompleteAdding();
+						}
 					}, tokenSource.Token)
 
 					.ContinueWith(t => {
@@ -71,12 +92,15 @@ namespace YuvKA.Pipeline
 			return tcs.Task;
 		}
 
-		// RenderTick without the lastTask wait thingy
+		// Store tasks of previous tick for synchronization purposes (see Visit)
+		NodeTasks previousTasks = new NodeTasks();
+
 		Task<FrameDic> RenderTickCore(IEnumerable<Node> startNodes, int tick, CancellationToken token)
 		{
 			// Start task for each start task, wait on their completion, zip together their outputs and the corresponding computed frames.
-			var tasks = new Dictionary<Node, NodeTask>();
-			var startTasks = startNodes.Select(start => new { Outputs = start.Outputs, Task = Visit(start, tasks, tick, token) }).ToArray();
+			NodeTasks allTasks = new NodeTasks();
+			var startTasks = startNodes.Select(start => new { Outputs = start.Outputs, Task = Visit(start, allTasks, tick, token) }).ToArray();
+			previousTasks = allTasks;
 			return ContinueWhenAll(
 				startTasks.Select(t => t.Task).ToArray(),
 				_ => (FrameDic)startTasks.SelectMany(t => t.Outputs.Zip(t.Task.Result, Tuple.Create)).ToDictionary(tup => tup.Item1, tup => tup.Item2),
@@ -84,22 +108,27 @@ namespace YuvKA.Pipeline
 			);
 		}
 
-		NodeTask Visit(Node node, Dictionary<Node, NodeTask> tasks, int tick, CancellationToken token)
+		NodeTask Visit(Node node, NodeTasks tasks, int tick, CancellationToken token)
 		{
 			// If there's no task associated with this node yet, create one by waiting on all tasks of its inputs and throwing their results into Process
+			// Also wait on the node's previous task if existing to avoid race conditions
 			NodeTask result;
 			if (!tasks.TryGetValue(node, out result)) {
 				var dependencies = node.Inputs.Where(i => i.Source != null).Select(i => new { Output = i.Source, Task = Visit(i.Source.Node, tasks, tick, token) }).ToArray();
-				result = ContinueWhenAll(
+				Func<NodeTask> getResult = () => ContinueWhenAll(
 					dependencies.Select(dep => dep.Task).ToArray(),
 					_ => node.Process(dependencies.Select(dep => dep.Task.Result[dep.Output.Index]).ToArray(), tick),
 					token
 				);
+				NodeTask previous;
+				if (previousTasks.TryGetValue(node, out previous))
+					result = previous.ContinueWith(_ => getResult(), token, TaskContinuationOptions.AttachedToParent, TaskScheduler.Current).Unwrap();
+				else
+					result = getResult();
 
 				tasks.Add(node, result);
 			}
 			return result;
 		}
-
 	}
 }

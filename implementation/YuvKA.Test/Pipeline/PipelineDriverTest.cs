@@ -114,7 +114,7 @@ namespace YuvKA.Test.Pipeline
 			// Looks like the InvalidOperationException hasn't been thrown. Yay!
 		}
 
-		
+
 
 		// Catch free-flying non-observed Tasks
 		public void Dispose()
