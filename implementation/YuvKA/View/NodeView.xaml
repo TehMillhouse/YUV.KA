@@ -6,10 +6,10 @@
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			xmlns:conv="http://schemas.kent.boogaart.com/converters"
 			xmlns:sys="clr-namespace:System;assembly=mscorlib"
-			xmlns:pe="clr-namespace:YuvKA.View.PropertyEditor"
-			mc:Ignorable="d"
+			xmlns:pe="clr-namespace:YuvKA.View.PropertyEditor" xmlns:converter="clr-namespace:YuvKA" mc:Ignorable="d"
 			d:DesignHeight="190" d:DesignWidth="190" Margin="{Binding Margin}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.92" cal:Message.Attach="[Event Loaded] = [Action ViewLoaded]">
 	<UserControl.Resources>
+		<converter:NodeMenuItemFormatter x:Key="NodeMenuItemFormatter"/>
 		<conv:MapConverter x:Key="NotConverter">
 			<conv:Mapping>
 				<conv:Mapping.From>
@@ -37,7 +37,8 @@
 							<MenuItem.ItemContainerStyle>
 								<Style TargetType="MenuItem">
 									<Setter Property="cal:Action.TargetWithoutContext" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"/>
-									<Setter Property="Header" Value="Save output"/>
+									<Setter Property="Header" Value="{Binding Index, Converter={StaticResource NodeMenuItemFormatter}, ConverterParameter='Save output {0}'}"/>
+									<Setter Property="IsEnabled" Value="{Binding Node.InputIsValid}"/>
 									<Setter Property="cal:Message.Attach" Value="[Event Click] = [Action SaveNodeOutput($dataContext)]"/>
 								</Style>
 							</MenuItem.ItemContainerStyle>
@@ -46,7 +47,8 @@
 							<MenuItem.ItemContainerStyle>
 								<Style TargetType="MenuItem">
 									<Setter Property="cal:Action.TargetWithoutContext" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"/>
-									<Setter Property="Header" Value="Show output"/>
+									<Setter Property="Header" Value="{Binding Index, Converter={StaticResource NodeMenuItemFormatter}, ConverterParameter='Show output {0}'}"/>
+									<Setter Property="IsEnabled" Value="{Binding Node.InputIsValid}"/>
 									<Setter Property="cal:Message.Attach" Value="[Event Click] = [Action ShowNodeOutput($dataContext)]"/>
 								</Style>
 							</MenuItem.ItemContainerStyle>
