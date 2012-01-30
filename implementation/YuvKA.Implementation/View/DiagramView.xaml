@@ -1,11 +1,13 @@
 ﻿<Window x:Class="YuvKA.View.Implementation.DiagramView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:d3="clr-namespace:YuvKA.Implementation"
-             mc:Ignorable="d" 
-             d:DesignHeight="571" d:DesignWidth="1004" SizeToContent="WidthAndHeight">
+			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			xmlns:d3="clr-namespace:YuvKA.Implementation"
+			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+			mc:Ignorable="d"
+			cal:Message.Attach="[Event Closed] = [Action CloseWindow()]"
+			d:DesignHeight="571" d:DesignWidth="1004" SizeToContent="WidthAndHeight">
 	<Window.Resources>
 		<DataTemplate x:Key="AddedVideos">
 			<Grid>
@@ -63,7 +65,7 @@
 		<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="2" Height="490" HorizontalAlignment="Left" VerticalAlignment="Top" Width="486" Grid.ColumnSpan="3">
 
 			<ItemsControl ItemsSource="{Binding  GraphControls}"
-     ItemTemplate="{StaticResource AddedVideos}"/>
+	 ItemTemplate="{StaticResource AddedVideos}"/>
 		</ScrollViewer>
 	</Grid>
 </Window>
