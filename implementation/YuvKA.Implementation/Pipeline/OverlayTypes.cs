@@ -122,7 +122,10 @@ namespace YuvKA.Pipeline.Implementation
 			Frame result = new Frame(input[0].Size);
 			for (int x = 0; x < input[0].Size.Width; x++) {
 				for (int y = 0; y < input[0].Size.Height; y++) {
-					result[x, y] = GetMaskedPixel(input[0][x, y], x + 1, y + 1, frameWithLogs.Decisions[x / 16, y / 16].PartitioningDecision);
+					/* Make result black and white first to emphasize color highlighting */
+					byte average = (byte)((input[0][x, y].R + input[0][x, y].G + input[0][x, y].B) / 3);
+					result[x, y] = new Rgb(average, average, average);
+					result[x, y] = GetMaskedPixel(result[x, y], x + 1, y + 1, frameWithLogs.Decisions[x / 16, y / 16].PartitioningDecision);
 				}
 			}
 			return result;
@@ -135,72 +138,72 @@ namespace YuvKA.Pipeline.Implementation
 					if ((x % 16 == 0) || (y % 16 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 40), pixel.B);
+						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 100), pixel.B);
 				case MacroblockPartitioning.Inter16x16:
 					if ((x % 16 == 0) || (y % 16 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 40), pixel.B);
+						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 100), pixel.B);
 				case MacroblockPartitioning.Inter16x8:
 					if ((x % 16 == 0) || (y % 8 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 40), pixel.B);
+						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 100), pixel.B);
 				case MacroblockPartitioning.Inter4x4:
 					if ((x % 4 == 0) || (y % 4 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 40), pixel.B);
+						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 100), pixel.B);
 				case MacroblockPartitioning.Inter4x8:
 					if ((x % 4 == 0) || (y % 8 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 40), pixel.B);
+						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 100), pixel.B);
 				case MacroblockPartitioning.Inter8x16:
 					if ((x % 8 == 0) || (y % 16 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 40), pixel.B);
+						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 100), pixel.B);
 				case MacroblockPartitioning.Inter8x4:
 					if ((x % 8 == 0) || (y % 4 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 40), pixel.B);
+						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 100), pixel.B);
 				case MacroblockPartitioning.Inter8x8:
 					if ((x % 8 == 0) || (y % 8 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 40), pixel.B);
+						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 100), pixel.B);
 				case MacroblockPartitioning.Inter8x8OrBelow:
 					if ((x % 8 == 0) || (y % 8 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 40), pixel.B);
+						return new Rgb(pixel.R, (byte)Math.Min(255, pixel.G + 100), pixel.B);
 				case MacroblockPartitioning.Intra16x16:
 					if ((x % 16 == 0) || (y % 16 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb((byte)Math.Min(255, pixel.R + 20), pixel.G, (byte)Math.Min(255, pixel.B + 20));
+						return new Rgb((byte)Math.Min(255, pixel.R + 80), pixel.G, (byte)Math.Min(255, pixel.B + 80));
 				case MacroblockPartitioning.Intra4x4:
 					if ((x % 4 == 0) || (y % 4 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb((byte)Math.Min(255, pixel.R + 20), pixel.G, (byte)Math.Min(255, pixel.B + 20));
+						return new Rgb((byte)Math.Min(255, pixel.R + 80), pixel.G, (byte)Math.Min(255, pixel.B + 80));
 				case MacroblockPartitioning.Intra8x8:
 					if ((x % 8 == 0) || (y % 8 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb((byte)Math.Min(255, pixel.R + 20), pixel.G, (byte)Math.Min(255, pixel.B + 20));
+						return new Rgb((byte)Math.Min(255, pixel.R + 80), pixel.G, (byte)Math.Min(255, pixel.B + 80));
 				case MacroblockPartitioning.IntraPCM:
 					if ((x % 16 == 0) || (y % 16 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb((byte)Math.Min(255, pixel.R + 20), pixel.G, (byte)Math.Min(255, pixel.B + 20));
+						return new Rgb((byte)Math.Min(255, pixel.R + 80), pixel.G, (byte)Math.Min(255, pixel.B + 80));
 				case MacroblockPartitioning.Unknown:
 					if ((x % 16 == 0) || (y % 16 == 0))
 						return new Rgb(0, 0, 0);
 					else
-						return new Rgb((byte)Math.Min(255, pixel.R + 40), pixel.G, pixel.B);
+						return new Rgb((byte)Math.Min(255, pixel.R + 100), pixel.G, pixel.B);
 				default:
 					if ((x % 16 == 0) || (y % 16 == 0))
 						return new Rgb(0, 0, 0);
