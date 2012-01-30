@@ -22,7 +22,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 			yield return file;
 
 			string currentDir = Directory.GetCurrentDirectory();
-			if (file.FileName.Substring(0, currentDir.Length).Equals(currentDir)) {
+			if (file.FileName.StartsWith(currentDir)) {
 				file.FileName = file.FileName.Substring(currentDir.Length + 1);
 			}
 
