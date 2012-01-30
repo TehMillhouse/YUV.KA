@@ -7,7 +7,8 @@
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			mc:Ignorable="d"
 			cal:Message.Attach="[Event Closed] = [Action CloseWindow()]"
-			d:DesignHeight="571" d:DesignWidth="1004" SizeToContent="WidthAndHeight">
+			Title="{Binding NodeModel.Name}"
+			Height="571" Width="1004" >
 	<Window.Resources>
 		<DataTemplate x:Key="AddedVideos">
 			<Grid>
@@ -34,14 +35,14 @@
 	<Grid Name="OuterGrid">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="40" />
-			<RowDefinition Height="500*" />
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="75" />
 			<ColumnDefinition Width="425" />
 			<ColumnDefinition Width="75" />
 			<ColumnDefinition Width="120" />
-			<ColumnDefinition Width="250*" />
+			<ColumnDefinition Width="Auto" />
 		</Grid.ColumnDefinitions>
 		<Label Content="Reference" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="0" Grid.Row="0"/>
 		<ComboBox Grid.Column="1" Grid.Row="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Videos}" SelectedItem="{Binding Reference}" Name="Reference">
@@ -51,7 +52,7 @@
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
-		<d3:ChartPlotter Grid.Column="0" Grid.Row="1" x:Name="plotter" LegendVisibility="Hidden" LineGraphs="{Binding Path=LineGraphs}" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></d3:ChartPlotter>
+		<d3:ChartPlotter Height="500" Width="500" Grid.Column="0" Grid.Row="1" x:Name="plotter" LegendVisibility="Hidden" LineGraphs="{Binding Path=LineGraphs}" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></d3:ChartPlotter>
 		<Button Grid.Row="0" Content="Add" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="2" Command="{Binding Path=Add}"/>
 		<ComboBox Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" ItemsSource="{Binding Videos}" SelectedIndex="0" SelectedItem="{Binding ChosenVideo}" Grid.Column="3" Name="Videos">
 			<ComboBox.ItemTemplate>

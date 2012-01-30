@@ -14,45 +14,25 @@ namespace YuvKA.Implementation
 {
 	public class GraphControl : INotifyPropertyChanged
 	{
-		[Import]
-		IEventAggregator Events { get; set; }
+		
+		private RelayCommand delete;
+		private Tuple<string, IGraphType> chosenType;
+		private List<System.Drawing.Color> lineColors;
+		private bool referenceSet;
 
+		public event PropertyChangedEventHandler PropertyChanged;
+		
 		public GraphControl()
 		{
 			Events = IoC.Get<IEventAggregator>();
 		}
-
-		private RelayCommand delete;
+		
+		[Import]
+		IEventAggregator Events { get; set; }
 
 		public ICommand Delete
 		{
-			get
-			{
-				if (this.delete == null) {
-					this.delete = new RelayCommand(param => this.Del(), param => true);
-				}
-				return this.delete;
-			}
-		}
-
-		public void Del()
-		{
-			Events.Publish(new DeleteGraphControlMessage(this));
-		}
-
-		public void setDisplayTypes()
-		{
-			var newTypes = new ObservableCollection<Tuple<string, IGraphType>>();
-			if (ReferenceSet == true) {
-				foreach (var t in Types.Where(type => type.Item2.DependsOnReference))
-					newTypes.Add(t);
-			}
-			if (Video.Item2.Source.Node.OutputHasLogfile == true) {
-				foreach (var t in Types.Where(type => type.Item2.DependsOnLogfile))
-					newTypes.Add(t);
-			}
-			DisplayTypes = newTypes;
-			OnPropertyChanged("DisplayTypes");
+			get { return delete ?? (delete = new RelayCommand(param => Del(), param => true)); }
 		}
 
 		public Tuple<string, Node.Input> Video { get; set; }
@@ -63,8 +43,6 @@ namespace YuvKA.Implementation
 
 		public ObservableCollection<Tuple<string, IGraphType>> DisplayTypes { get; set; }
 
-		private Tuple<string, IGraphType> chosenType;
-
 		public Tuple<string, IGraphType> ChosenType
 		{
 			get { return chosenType; }
@@ -73,23 +51,58 @@ namespace YuvKA.Implementation
 				if (chosenType == null) {
 					chosenType = value;
 					Graph.Type = value.Item2;
-					setLineColor();
+					SetLineColor();
 					Events.Publish(new GraphTypeChosenMessage(this));
 				} else {
 					chosenType = value;
 					Graph.Type = value.Item2;
-					setLineColor();
+					SetLineColor();
 				}
 			}
 		}
 
-		private List<Color> typeColors;
-
 		public List<Color> TypeColors { get; set; }
 
-		public System.Windows.Media.Color NewColor(Tuple<string, IGraphType> type)
+		public List<System.Drawing.Color> LineColors 
 		{
-			var newColor = new System.Drawing.Color();
+ 			get { return lineColors ?? (lineColors = new List<System.Drawing.Color>()); }
+			set { lineColors = value; }
+		} 
+
+		public Color LineColor { get; set; }
+
+		public bool ReferenceSet
+		{
+			get { return referenceSet; }
+			set
+			{
+				referenceSet = value;
+				SetDisplayTypes();
+			}
+		}
+
+		public SolidColorBrush GraphColor { get; set; }
+		
+		protected virtual void OnPropertyChanged(string propertyName)
+		{
+			var handler = PropertyChanged;
+			if (handler == null)
+				return;
+			var e = new PropertyChangedEventArgs(propertyName);
+			handler(this, e);
+		}
+		
+		public void SetLineColor()
+		{
+			LineColor = NewColor(ChosenType);
+			GraphColor = new SolidColorBrush(LineColor);
+			OnPropertyChanged("LineColor");
+			OnPropertyChanged("GraphColor");
+		}
+
+		public Color NewColor(Tuple<string, IGraphType> type)
+		{
+			System.Drawing.Color newColor;
 			var typeCollection = new ObservableCollection<Tuple<string, IGraphType>>(Types);
 			var baseColor = System.Drawing.Color.FromArgb(TypeColors[typeCollection.IndexOf(type)].A, TypeColors[typeCollection.IndexOf(type)].R, TypeColors[typeCollection.IndexOf(type)].G, TypeColors[typeCollection.IndexOf(type)].B);
 
@@ -101,49 +114,27 @@ namespace YuvKA.Implementation
 			} while (LineColors.Contains(newColor));
 			LineColors.Add(newColor);
 
-			return System.Windows.Media.Color.FromArgb(newColor.A, newColor.R, newColor.G, newColor.B);
+			return Color.FromArgb(newColor.A, newColor.R, newColor.G, newColor.B);
 		}
 
-		public void setLineColor()
+		public void SetDisplayTypes()
 		{
-			LineColor = NewColor(ChosenType);
-			GraphColor = new SolidColorBrush(LineColor);
-			OnPropertyChanged("LineColor");
-			OnPropertyChanged("GraphColor");
-		}
-
-		private List<System.Drawing.Color> lineColors;
-
-		public List<System.Drawing.Color> LineColors 
-		{
- 			get { return lineColors ?? (lineColors = new List<System.Drawing.Color>()); }
-			set { lineColors = value; }
-		} 
-
-		public Color LineColor { get; set; }
-
-		private bool referenceSet;
-		public bool ReferenceSet
-		{
-			get { return referenceSet; }
-			set
-			{
-				referenceSet = value;
-				setDisplayTypes();
+			var newTypes = new ObservableCollection<Tuple<string, IGraphType>>();
+			if (ReferenceSet) {
+				foreach (var t in Types.Where(type => type.Item2.DependsOnReference))
+					newTypes.Add(t);
 			}
+			if (Video.Item2.Source.Node.OutputHasLogfile) {
+				foreach (var t in Types.Where(type => type.Item2.DependsOnLogfile))
+					newTypes.Add(t);
+			}
+			DisplayTypes = newTypes;
+			OnPropertyChanged("DisplayTypes");
 		}
 
-		public SolidColorBrush GraphColor { get; set; }
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		protected virtual void OnPropertyChanged(string propertyName)
+		public void Del()
 		{
-			var handler = PropertyChanged;
-			if (handler == null)
-				return;
-			var e = new PropertyChangedEventArgs(propertyName);
-			handler(this, e);
+			Events.Publish(new DeleteGraphControlMessage(this));
 		}
 	}
 }
