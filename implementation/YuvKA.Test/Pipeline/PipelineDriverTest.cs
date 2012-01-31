@@ -69,10 +69,26 @@ namespace YuvKA.Test.Pipeline
 		[Fact]
 		public void RenderTicksPropagatesExceptions()
 		{
-			Node graph = new AnonymousNode(() => { throw new InvalidOperationException(); });
+			Node graph = new AnonymousNode(() => { throw new InvalidOperationException("trololo"); });
 
 			var ex = Assert.Throws<AggregateException>(() => new PipelineDriver().RenderTicks(new[] { graph }).Last());
-			Assert.IsType<InvalidOperationException>(ex.Flatten().InnerException);
+			ex = ex.Flatten();
+			Assert.True(ex.Flatten().InnerExceptions.All(e => e.Message == "trololo"));
+		}
+
+		[Fact]
+		public void RenderTicksPropagatesRetardedExceptions()
+		{
+			var tick = 0;
+			Node graph = new AnonymousNode(() => {
+				if (tick++ == 50) {
+					Thread.Sleep(1000);
+					throw new InvalidOperationException("trololo");
+				}
+			});
+
+			var ex = Assert.Throws<AggregateException>(() => new PipelineDriver().RenderTicks(new[] { graph }).Last());
+			Assert.True(ex.Flatten().InnerExceptions.All(e => e.Message == "trololo"));
 		}
 
 		/// <summary>

@@ -56,7 +56,7 @@ namespace YuvKA.Pipeline
 							foreach (Lazy<Task<FrameDic>> tick in ticks.GetConsumingEnumerable())
 								observer.OnNext(tick.Value.Result);
 						} finally {
-							ticks.CompleteAdding();
+							tokenSource.Cancel(); // Cancel producer
 						}
 					}, tokenSource.Token)
 
