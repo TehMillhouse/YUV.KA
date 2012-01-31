@@ -90,6 +90,11 @@
 
 		protected override object GetInstance(Type serviceType, string key)
 		{
+			return GetInstance(serviceType, key, container);
+		}
+
+		public static object GetInstance(Type serviceType, string key, CompositionContainer container)
+		{
 			string contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(serviceType) : key;
 			var exports = container.GetExportedValues<object>(contract);
 

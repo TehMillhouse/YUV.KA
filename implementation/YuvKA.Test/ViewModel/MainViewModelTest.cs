@@ -19,6 +19,8 @@ namespace YuvKA.Test.ViewModel
 			var container = new CompositionContainer(catalog);
 			container.ComposeExportedValue(container);
 			container.ComposeExportedValue<IEventAggregator>(new EventAggregator());
+			IoC.GetInstance = (t, key) => AppBootstrapper.GetInstance(t, key, container);
+			IoC.BuildUp = o => container.SatisfyImportsOnce(o);
 
 			vm = container.GetExportedValue<MainViewModel>();
 		}
@@ -42,13 +44,13 @@ namespace YuvKA.Test.ViewModel
 			Assert.False(vm.CanUndo);
 			Assert.False(vm.CanRedo);
 
-			vm.SaveSnapshot();
 			vm.Model.CurrentTick = 1;
+			vm.SaveSnapshot();
 			Assert.True(vm.CanUndo);
 			Assert.False(vm.CanRedo);
 
-			vm.SaveSnapshot();
 			vm.Model.CurrentTick = 2;
+			vm.SaveSnapshot();
 			Assert.True(vm.CanUndo);
 			Assert.False(vm.CanRedo);
 
@@ -68,8 +70,8 @@ namespace YuvKA.Test.ViewModel
 			Assert.True(vm.CanRedo);
 
 			vm.Undo();
-			vm.SaveSnapshot();
 			vm.Model.CurrentTick = 3;
+			vm.SaveSnapshot();
 			Assert.True(vm.CanUndo);
 			Assert.False(vm.CanRedo);
 
