@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="YuvKA.View.PropertyEditor.Implementation.DoublePropertyView"
+﻿<UserControl x:Class="YuvKA.View.PropertyEditor.Implementation.NullableDoublePropertyView"
 			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,7 +11,7 @@
 		<DockPanel>
 			<TextBlock Text="{Binding Minimum}" DockPanel.Dock="Left" Width="10"/>
 			<TextBlock Text="{Binding Maximum}" DockPanel.Dock="Right" Width="10"/>
-			<Slider Value="{Binding Value}" Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" IsSnapToTickEnabled="True" TickFrequency="0.05" cal:Message.Attach="[Event LostFocus] = [Action CommitChange]"/>
+			<Slider Value="{Binding Value}" IsEnabled="{Binding SlidersAreEnabled}" Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" IsSnapToTickEnabled="True" TickFrequency="0.05" cal:Message.Attach="[Event LostFocus] = [Action CommitChange]"/>
 		</DockPanel>
 		<TextBlock Text="{Binding Value, StringFormat=g5}" HorizontalAlignment="Center" FontSize="10"/>
 	</StackPanel>

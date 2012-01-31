@@ -140,7 +140,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\PropertyEditor\DoublePropertyView.xaml">
+    <Page Include="View\PropertyEditor\NullableDoublePropertyView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

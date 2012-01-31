@@ -62,6 +62,6 @@ namespace YuvKA.ViewModel.PropertyEditor
 	public abstract class PropertyViewModel<T> : PropertyViewModel
 	{
 		protected PropertyViewModel(bool commitOnValueChanged = true) : base(commitOnValueChanged) { }
-		public new T Value { get { return (T)base.Value; } set { base.Value = (T)value; } }
+		public T TypedValue { get { return (T)base.Value; } set { base.Value = (T)value; } }
 	}
 }
