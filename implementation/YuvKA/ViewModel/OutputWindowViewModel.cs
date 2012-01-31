@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
@@ -19,13 +18,15 @@ namespace YuvKA.ViewModel
 		public void CloseWindow()
 		{
 			IoC.Get<IEventAggregator>().Publish(new ClosedMessage(this));
+			IoC.Get<IEventAggregator>().Unsubscribe(this);
 		}
 
 		public virtual void Handle(TickRenderedMessage message)
 		{
 		}
 
-		public class ClosedMessage {
+		public class ClosedMessage
+		{
 			public ClosedMessage(OutputWindowViewModel closedWindow) { Window = closedWindow; }
 			public OutputWindowViewModel Window { get; private set; }
 		}
