@@ -1,13 +1,30 @@
 ﻿using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
+using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
 	[Export]
-	public class ReplayStateViewModel : PropertyChangedBase
+	public class ReplayStateViewModel : PropertyChangedBase, IHandle<TickRenderedMessage>
 	{
-		public bool IsPlaying { get; set; }
+		bool isPlaying;
+
+		public ReplayStateViewModel()
+		{
+			IoC.Get<IEventAggregator>().Subscribe(this);
+		}
+
+		public bool IsPlaying
+		{
+			get { return isPlaying; }
+			set
+			{
+				isPlaying = value;
+				NotifyOfPropertyChange(() => IsPlaying);
+			}
+		}
+
 		[Import]
 		public MainViewModel Parent { get; private set; }
 
@@ -19,7 +36,7 @@ namespace YuvKA.ViewModel
 
 		public void PlayPause()
 		{
-			if (Parent.Model.CurrentTick == Parent.Model.Graph.TickCount - 1)
+			if (Parent.Model.CurrentTick == Parent.Model.Graph.TickCount)
 				Stop();
 
 			if (!IsPlaying) {
@@ -30,7 +47,6 @@ namespace YuvKA.ViewModel
 				Parent.Model.Stop();
 				IsPlaying = !IsPlaying;
 			}
-			NotifyOfPropertyChange(() => IsPlaying);
 		}
 
 		public void Stop()
@@ -38,12 +54,17 @@ namespace YuvKA.ViewModel
 			Parent.Model.CurrentTick = 0;
 			IsPlaying = false;
 			Parent.Model.Stop();
-			NotifyOfPropertyChange(() => IsPlaying);
 		}
 
 		public void Faster()
 		{
 			Parent.Model.Speed *= 2;
+		}
+
+		public void Handle(TickRenderedMessage message)
+		{
+			if (Parent.Model.CurrentTick == Parent.Model.Graph.TickCount - 1)
+				IsPlaying = false;
 		}
 	}
 }
