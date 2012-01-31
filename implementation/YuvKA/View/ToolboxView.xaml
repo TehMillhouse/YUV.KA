@@ -11,7 +11,7 @@
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
 					<Border CornerRadius="2" BorderBrush="CornflowerBlue" Padding="10" Opacity="0.8" Background="LightBlue" Margin="3" BorderThickness="3" cal:Message.Attach="[Event MouseDown] = [Action BeginDrag($dataContext)]">
-						<TextBlock Text="{Binding Type.Name}"/>
+						<TextBlock Text="{Binding Name}"/>
 					</Border>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>

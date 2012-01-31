@@ -13,7 +13,10 @@ namespace YuvKA.ViewModel
 		[ImportingConstructor]
 		public ToolboxViewModel([ImportMany]IEnumerable<Node> nodes)
 		{
-			NodeTypes = nodes.Select(n => new NodeType { Type = n.GetType() }).OrderBy(n => n.Type.Name).ToArray();
+			NodeTypes = nodes
+				.Select(n => new NodeType { Type = n.GetType(), Name = n.Name })
+				.OrderBy(n => n.Name)
+				.ToArray();
 		}
 
 		public IList<NodeType> NodeTypes { get; private set; }
