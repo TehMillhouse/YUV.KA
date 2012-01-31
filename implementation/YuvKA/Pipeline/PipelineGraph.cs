@@ -86,7 +86,6 @@ namespace YuvKA.Pipeline
 					node.Name += " " + i;
 				}
 			}
-			NotifyOfPropertyChange(() => TickCount);
 			if (node is InputNode)
 				node.PropertyChanged += delegate { NotifyOfPropertyChange(() => TickCount); };
 			Nodes.Add(node);
