@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using Caliburn.Micro;
 
 namespace YuvKA.Pipeline
 {
 	[DataContract]
-	public class PipelineGraph
+	public class PipelineGraph : PropertyChangedBase
 	{
 		public PipelineGraph()
 		{
@@ -85,6 +86,9 @@ namespace YuvKA.Pipeline
 					node.Name += " " + i;
 				}
 			}
+			NotifyOfPropertyChange(() => TickCount);
+			if (node is InputNode)
+				node.PropertyChanged += delegate { NotifyOfPropertyChange(() => TickCount); };
 			Nodes.Add(node);
 		}
 
@@ -99,6 +103,7 @@ namespace YuvKA.Pipeline
 					}
 				}
 			}
+			NotifyOfPropertyChange(() => TickCount);
 		}
 
 		/// <summary>

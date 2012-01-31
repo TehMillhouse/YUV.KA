@@ -95,7 +95,7 @@
 				</Button>
 			</Grid>
 		</Border>
-		<Slider x:Name="TickSlider" Margin="139,19,8,6" Value="{Binding Parent.Model.CurrentTick}" Minimum="0" Maximum="100" TickPlacement="BottomRight" TickFrequency="2"/>
+		<Slider x:Name="TickSlider" Margin="139,19,8,6" Value="{Binding Parent.Model.CurrentTick}" Minimum="0" Maximum="{Binding Parent.Model.Graph.TickCount}" TickPlacement="BottomRight" TickFrequency="2"/>
 		<TextBlock x:Name="TickLabel" Text="{Binding Parent.Model.CurrentTick}" Margin="139,4,137,0" Height="14" VerticalAlignment="Top" FontWeight="Bold"/>
 		<Border x:Name="SlowerButton" HorizontalAlignment="Left" Width="29.667" Margin="8.125,12.333,0,11">
 			<Grid HorizontalAlignment="Left" Width="29" Height="29" VerticalAlignment="Top">
