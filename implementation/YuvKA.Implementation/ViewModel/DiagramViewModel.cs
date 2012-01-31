@@ -16,13 +16,12 @@ namespace YuvKA.ViewModel.Implementation
 {
 	public class DiagramViewModel : OutputWindowViewModel, IHandle<DeleteGraphControlMessage>, IHandle<GraphTypeChosenMessage>
 	{
-
 		private ObservableCollection<LineGraphViewModel> lineGraphs;
 		private ObservableCollection<GraphControl> graphControls;
 		private ICommand add;
 		private List<System.Windows.Media.Color> typeColors;
 		public event PropertyChangedEventHandler PropertyChanged;
-		
+
 		public DiagramViewModel(Node nodeModel)
 			: base(nodeModel, null)
 		{
@@ -99,7 +98,12 @@ namespace YuvKA.ViewModel.Implementation
 			set { graphControls = value; }
 		}
 
-		public List<Color> LineColors { get; set; }
+		private List<Color> lineColors;
+		public List<Color> LineColors
+		{
+			get { return lineColors ?? (lineColors = new List<Color>()); }
+			set { lineColors = value; }
+		}
 
 		public List<System.Windows.Media.Color> TypeColors
 		{
@@ -114,7 +118,7 @@ namespace YuvKA.ViewModel.Implementation
 
 						do {
 							newColor = Color.FromArgb(255, (byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256));
-						} while (randomColors.FindIndex(color => color.GetHue().Equals(newColor.GetHue())) != -1);
+						} while (randomColors.FindIndex(color => IsInIntervall(color.GetHue(), newColor.GetHue(), 25.0)) != -1 || newColor.GetHue().Equals(0.0) || newColor.GetBrightness().Equals(1.0) || newColor.GetBrightness().Equals(0.0));
 						randomColors.Add(newColor);
 						randomColorsMedia.Add(System.Windows.Media.Color.FromArgb(newColor.A, newColor.R, newColor.G, newColor.B));
 					}
@@ -126,22 +130,22 @@ namespace YuvKA.ViewModel.Implementation
 
 		public void Handle(DeleteGraphControlMessage message)
 		{
-			if (message.GraphControltoDelete.ChosenType != null)
-			{
-				LineGraphs[NodeModel.Graphs.IndexOf(message.GraphControltoDelete.Graph)].PointDataSource = new CompositeDataSource();
-			LineGraphs.RemoveAt(NodeModel.Graphs.IndexOf(message.GraphControltoDelete.Graph));
+			if (message.GraphControltoDelete.ChosenType != null) {
+				var l = LineGraphs[GraphControls.IndexOf(message.GraphControltoDelete)];
+				l.PointDataSource = new CompositeDataSource();
+				LineGraphs[GraphControls.IndexOf(message.GraphControltoDelete)] = l;
+				LineGraphs.RemoveAt(GraphControls.IndexOf(message.GraphControltoDelete));
 			}
-			
 			GraphControls.Remove(message.GraphControltoDelete);
 			DeleteGraph(message.GraphControltoDelete.Graph);
 		}
 
 		public override void Handle(TickRenderedMessage message)
 		{
-			for (int index = 0; index < LineGraphs.Count; index++) {
+			for (var index = 0; index < LineGraphs.Count; index++) {
 				var l = LineGraphs[index];
 				l.Color = GraphControls[index].LineColor;
-				l.PointDataSource = new CompositeDataSource(ConvertToDataSource(NodeModel.Graphs[index].Data));
+				l.PointDataSource = new CompositeDataSource(ConvertToDataSource(GraphControls[index].Graph.Data));
 				LineGraphs[index] = l;
 			}
 		}
@@ -154,14 +158,17 @@ namespace YuvKA.ViewModel.Implementation
 
 		private static ObservableDataSource<Point> ConvertToDataSource(IEnumerable<KeyValuePair<int, double>> data)
 		{
-			var inData = new ObservableCollection<Point>();
-			foreach (var d in data) {
-				inData.Add(new Point(d.Key, d.Value));
-			}
+			var inData = new ObservableCollection<Point>(data.Select(datum => new Point(datum.Key, datum.Value)));
 			var outData = new ObservableDataSource<Point>(inData);
 			outData.SetXMapping(k => k.X);
 			outData.SetYMapping(k => k.Y);
 			return outData;
+		}
+
+		public static bool IsInIntervall(double intervallCenter, double number, double intervallSize)
+		{
+			var difference = number - intervallCenter;
+			return Math.Abs(difference).CompareTo(intervallSize) < 0;
 		}
 
 		protected virtual void OnPropertyChanged(string propertyName)
@@ -186,15 +193,7 @@ namespace YuvKA.ViewModel.Implementation
 		public void AddLineGraphViewModel(GraphControl graphControl)
 		{
 			var line = new LineGraphViewModel();
-			var inDat = new ObservableCollection<Point>();
-
-
-			var index = 0;
-			foreach (var d in graphControl.Graph.Data) {
-				inDat.Add(new Point(d.Key, d.Value));
-				index++;
-			}
-
+			var inDat = new ObservableCollection<Point>(graphControl.Graph.Data.Select(datum => new Point(datum.Key, datum.Value)));
 			var data = new ObservableDataSource<Point>(inDat);
 			data.SetXMapping(k => k.X);
 			data.SetYMapping(k => k.Y);
@@ -216,16 +215,16 @@ namespace YuvKA.ViewModel.Implementation
 
 		private void AddGraphControl()
 		{
-			if (ChosenVideo != null) {
-				var graph = new DiagramGraph { Video = NodeModel.Inputs[Videos.IndexOf(ChosenVideo)] };
-				var graphControl = new GraphControl { Video = ChosenVideo, Types = new ObservableCollection<Tuple<string, IGraphType>>(Types), DisplayTypes = new ObservableCollection<Tuple<string, IGraphType>>(Types), Graph = graph, TypeColors = TypeColors, LineColors = LineColors };
-				graphControl.SetDisplayTypes();
-				if (Reference.Item2 != null)
-					graphControl.ReferenceSet = true;
-				else
-					Reference = new Tuple<string, Node.Input>("Video0", NodeModel.Inputs[0]);
-				GraphControls.Add(graphControl);
-			}
+			if (ChosenVideo == null)
+				return;
+			var graph = new DiagramGraph { Video = NodeModel.Inputs[Videos.IndexOf(ChosenVideo)] };
+			var graphControl = new GraphControl { Video = ChosenVideo, Types = new ObservableCollection<Tuple<string, IGraphType>>(Types), DisplayTypes = new ObservableCollection<Tuple<string, IGraphType>>(Types), Graph = graph, TypeColors = TypeColors, LineColors = LineColors };
+			graphControl.SetDisplayTypes();
+			if (Reference.Item2 != null)
+				graphControl.ReferenceSet = true;
+			else
+				Reference = new Tuple<string, Node.Input>("Video0", NodeModel.Inputs[0]);
+			GraphControls.Add(graphControl);
 		}
 	}
 }

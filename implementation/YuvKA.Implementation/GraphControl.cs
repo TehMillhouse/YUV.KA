@@ -9,6 +9,7 @@ using System.Windows.Media;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
+using YuvKA.ViewModel.Implementation;
 
 namespace YuvKA.Implementation
 {
@@ -17,7 +18,7 @@ namespace YuvKA.Implementation
 		
 		private RelayCommand delete;
 		private Tuple<string, IGraphType> chosenType;
-		private List<System.Drawing.Color> lineColors;
+		private List<System.Drawing.Color> theseLineColors; 
 		private bool referenceSet;
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -52,10 +53,15 @@ namespace YuvKA.Implementation
 					chosenType = value;
 					Graph.Type = value.Item2;
 					SetLineColor();
+					foreach (var lColor in TheseLineColors)
+					{
+						LineColors.Add(lColor);
+					}
 					Events.Publish(new GraphTypeChosenMessage(this));
 				} else {
 					chosenType = value;
 					Graph.Type = value.Item2;
+					TheseLineColors.RemoveAll(color => color.R == LineColor.R && color.G == LineColor.G && color.B == LineColor.B);
 					SetLineColor();
 				}
 			}
@@ -63,11 +69,13 @@ namespace YuvKA.Implementation
 
 		public List<Color> TypeColors { get; set; }
 
-		public List<System.Drawing.Color> LineColors 
+		public List<System.Drawing.Color> TheseLineColors
 		{
- 			get { return lineColors ?? (lineColors = new List<System.Drawing.Color>()); }
-			set { lineColors = value; }
-		} 
+			get { return theseLineColors ?? (theseLineColors = new List<System.Drawing.Color>()); }
+			set { theseLineColors = value; }
+		}
+
+		public List<System.Drawing.Color> LineColors { get; set; }
 
 		public Color LineColor { get; set; }
 
@@ -111,8 +119,8 @@ namespace YuvKA.Implementation
 			var random = new Random();
 			do {
 				newColor = HslHelper.HslToRgb(h, random.NextDouble(), random.NextDouble());
-			} while (LineColors.Contains(newColor));
-			LineColors.Add(newColor);
+			} while (LineColors.Contains(newColor) || newColor.GetHue().Equals(0.0) || newColor.GetBrightness().Equals(1.0) || newColor.GetBrightness().Equals(0.0) || LineColors.FindIndex(color => DiagramViewModel.IsInIntervall(newColor.GetBrightness(), color.GetBrightness(), 0.08) && DiagramViewModel.IsInIntervall(newColor.GetSaturation(), color.GetSaturation(), 0.08)) != -1);
+			TheseLineColors.Add(newColor);
 
 			return Color.FromArgb(newColor.A, newColor.R, newColor.G, newColor.B);
 		}

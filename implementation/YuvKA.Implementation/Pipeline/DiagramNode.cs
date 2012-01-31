@@ -3,12 +3,14 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 using YuvKA.ViewModel.Implementation;
+using System.Threading;
 
 namespace YuvKA.Pipeline.Implementation
 {
 	[DataContract]
 	public class DiagramNode : OutputNode
 	{
+		static readonly object graphLock = new object();
 		public DiagramNode()
 			: base(inputCount: null)
 		{
@@ -25,8 +27,14 @@ namespace YuvKA.Pipeline.Implementation
 		[DataMember]
 		public Input ReferenceVideo { get; set; }
 
+		private List<DiagramGraph> graphs;
+
 		[DataMember]
-		public List<DiagramGraph> Graphs { get; set; }
+		public List<DiagramGraph> Graphs 
+		{
+		    get { lock (graphLock) {return graphs;} }
+		    set { lock (graphLock) {graphs = value;} }
+		}
 
 		[Browsable(true)]
 		public DiagramViewModel Window { get { return new DiagramViewModel(this); } }
@@ -38,10 +46,12 @@ namespace YuvKA.Pipeline.Implementation
 
 		public override void ProcessCore(Frame[] inputs, int tick)
 		{
-			foreach (DiagramGraph g in Graphs) {
-				if (!(g.Data.Count == 0) && tick < g.Data[g.Data.Count - 1].Key)
-					g.Data = new List<KeyValuePair<int, double>>();
-				g.Data.Add(new KeyValuePair<int, double>(tick, g.Type.Process(inputs[Inputs.IndexOf(g.Video)], inputs[RefIndex])));
+			lock (graphLock) {
+				foreach (DiagramGraph g in Graphs) {
+					if (g.Data.Count != 0 && tick < g.Data[g.Data.Count - 1].Key)
+						g.Data = new List<KeyValuePair<int, double>>();
+					g.Data.Add(new KeyValuePair<int, double>(tick, g.Type.Process(inputs[Inputs.IndexOf(g.Video)], inputs[RefIndex])));
+				}
 			}
 		}
 	}
