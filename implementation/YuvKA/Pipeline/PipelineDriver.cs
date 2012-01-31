@@ -26,13 +26,12 @@ namespace YuvKA.Pipeline
 		/// <param name="startTick">The first pipeline tick to render</param>
 		/// <param name="tickCount">The number of ticks to render (if the computation isn't cancelled earlier) or null if the computation should only be completed
 		/// by cancellation</param>
-		/// <param name="tokenSource">A CancellationTokenSource whose token to observe while processing the pipeline. Signalling the token will complete the observable.</param>
+		/// <param name="token">A token to observe while processing the pipeline. Signalling the token will complete the observable.</param>
 		/// <returns>A (possibly infinite) cold observable of dictionaries that map each output of a start node to its rendered Frame.
 		/// The dictionaries are returned in consecutive tick order.</returns>
-		public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(IEnumerable<Node> startNodes, int startTick = 0, int? tickCount = null, CancellationTokenSource tokenSource = null)
+		public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(IEnumerable<Node> startNodes, int startTick = 0, int? tickCount = null, CancellationToken? token = null)
 		{
-			if (tokenSource == null)
-				tokenSource = new CancellationTokenSource();
+			var tokenSource = token.HasValue ? CancellationTokenSource.CreateLinkedTokenSource(token.Value) : new CancellationTokenSource();
 
 			return Observable.Create<FrameDic>(observer => {
 				lastTask = lastTask

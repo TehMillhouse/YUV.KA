@@ -18,7 +18,7 @@ namespace YuvKA.ViewModel
 		public SaveNodeOutputViewModel(Node.Output output, Stream stream, PipelineState model)
 		{
 			this.model = model;
-			IEnumerable<Frame> frames = model.Driver.RenderTicks(new[] { output.Node }, 0, TickCount, cts)
+			IEnumerable<Frame> frames = model.Driver.RenderTicks(new[] { output.Node }, 0, TickCount, cts.Token)
 				.Do(_ => { CurrentTick++; NotifyOfPropertyChange(() => CurrentTick); })
 				.Select(dic => dic[output])
 				.ToEnumerable();

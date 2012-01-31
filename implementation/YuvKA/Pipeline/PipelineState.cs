@@ -82,7 +82,7 @@ namespace YuvKA.Pipeline
 			Queue<DateTimeOffset> ticks = new Queue<DateTimeOffset>();
 			int fpsWindow = 5;
 
-			Driver.RenderTicks(outputNodes, CurrentTick - precomputeCount, tickCount + precomputeCount, cts).Subscribe(dic => {
+			Driver.RenderTicks(outputNodes, CurrentTick - precomputeCount, tickCount + precomputeCount, cts.Token).Subscribe(dic => {
 				DateTimeOffset now = DateTimeOffset.Now;
 				if (ticks.Count == fpsWindow) {
 					DateTimeOffset oldTick = ticks.Dequeue();

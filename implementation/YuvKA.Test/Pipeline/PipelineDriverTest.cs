@@ -29,7 +29,7 @@ namespace YuvKA.Test.Pipeline
 			);
 
 			var tokenSource = new CancellationTokenSource();
-			var frames = RenderTicksAnonIntNodes(new PipelineDriver(), graph, 0, tokenSource).Take(5).ToEnumerable();
+			var frames = RenderTicksAnonIntNodes(new PipelineDriver(), graph, 0, token: tokenSource.Token).Take(5).ToEnumerable();
 
 			Assert.Equal(new[] { 0, 2, 4, 6, 8 }, frames.ToArray());
 			// Token should be cancelled at this point by completing Observable.Take
@@ -44,7 +44,7 @@ namespace YuvKA.Test.Pipeline
 				(node, _) => new AnonIntNode(i => i[0] + 1, node)
 			);
 
-			Assert.Equal(Enumerable.Range(100, 20).ToArray(), RenderTicksAnonIntNodes(new PipelineDriver(), graph, 0, new CancellationTokenSource()).Take(20).ToEnumerable().ToArray());
+			Assert.Equal(Enumerable.Range(100, 20).ToArray(), RenderTicksAnonIntNodes(new PipelineDriver(), graph).Take(20).ToEnumerable().ToArray());
 		}
 
 		[Fact]
@@ -60,7 +60,7 @@ namespace YuvKA.Test.Pipeline
 			var cts = new CancellationTokenSource();
 			Node graph = new AnonymousNode(() => { cts.Cancel(); cts.Token.ThrowIfCancellationRequested(); });
 
-			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, tokenSource: cts).Count().Last());
+			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, token: cts.Token).Count().Last());
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
 		}
@@ -126,9 +126,14 @@ namespace YuvKA.Test.Pipeline
 				new AnonymousNode(() => tokenSource.Cancel())
 			);
 
-			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, tokenSource: tokenSource).Count().Last());
+			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, token: tokenSource.Token).Count().Last());
 			// Looks like the InvalidOperationException hasn't been thrown. Yay!
 		}
+
+		//[Fact]
+		//public void IsFullyParallel()
+		//{
+		//    var graph = new AnonymousNode(
 
 
 
@@ -140,9 +145,9 @@ namespace YuvKA.Test.Pipeline
 		}
 
 		// Render a graph of anonymous int-returning nodes
-		IObservable<int> RenderTicksAnonIntNodes(PipelineDriver driver, AnonIntNode startNode, int tick, CancellationTokenSource tokenSource)
+		IObservable<int> RenderTicksAnonIntNodes(PipelineDriver driver, AnonIntNode startNode, int tick = 0, CancellationToken? token = null)
 		{
-			return driver.RenderTicks(new[] { startNode }, tokenSource: tokenSource).Select(dic => dic[startNode.Outputs[0]].Size.Width);
+			return driver.RenderTicks(new[] { startNode }, token: token).Select(dic => dic[startNode.Outputs[0]].Size.Width);
 		}
 	}
 }
