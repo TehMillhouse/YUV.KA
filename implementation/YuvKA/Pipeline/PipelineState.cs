@@ -14,6 +14,7 @@ namespace YuvKA.Pipeline
 	{
 		CancellationTokenSource cts;
 		int currentTick;
+		int speed;
 
 		public PipelineState()
 		{
@@ -41,7 +42,18 @@ namespace YuvKA.Pipeline
 		/// Replay speed in frames per second
 		/// </summary>
 		[DataMember]
-		public int Speed { get; set; }
+		public int Speed
+		{
+			get
+			{
+				return speed;
+			}
+			set
+			{
+				speed = value;
+				NotifyOfPropertyChange(() => Speed);
+			}
+		}
 
 		public int ActualSpeed { get; private set; }
 

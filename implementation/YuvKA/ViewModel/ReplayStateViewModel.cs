@@ -30,8 +30,10 @@ namespace YuvKA.ViewModel
 
 		public void Slower()
 		{
-			if (Parent.Model.Speed > 1)
-				Parent.Model.Speed /= 2;
+			if (Parent.Model.Speed > 5)
+				Parent.Model.Speed -= 5;
+			else
+				Parent.Model.Speed = 1;
 		}
 
 		public void PlayPause()
@@ -58,7 +60,7 @@ namespace YuvKA.ViewModel
 
 		public void Faster()
 		{
-			Parent.Model.Speed *= 2;
+			Parent.Model.Speed += 5;
 		}
 
 		public void Handle(TickRenderedMessage message)
