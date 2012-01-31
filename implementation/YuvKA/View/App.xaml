@@ -9,6 +9,24 @@
 					<local:AppBootstrapper x:Key="bootstrapper"/>
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
+			<Polygon Points="3,0 3,20 13,10 3,0"
+					 Stroke="Black"
+					 x:Key="PlayTriangle"
+					 Fill="Black"/>
+			<Rectangle x:Key="StopRectangle"
+					   Width="10"
+					   Height="10"
+					   Fill="Black"/>
+			<Canvas x:Key="PauseRectangles">
+				<Rectangle Width="5"
+						   Height="20"
+						   Fill="Black"
+						   Margin="-10,-10,0,0"/>
+				<Rectangle Width="5"
+						   Height="20"
+						   Fill="Black"
+						   Margin="2,-10,0,0"/>
+			</Canvas>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

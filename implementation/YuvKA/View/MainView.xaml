@@ -28,13 +28,20 @@
 	</i:Interaction.Triggers>
 	<DockPanel>
 		<DockPanel DockPanel.Dock="Top">
-			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-				<Button x:Name="Open" ToolTip="Ctrl+O">Open</Button>
-				<Button x:Name="Save" ToolTip="Ctrl+S">Save</Button>
-				<Button x:Name="New" ToolTip="Ctrl+N">New</Button>
-				<Button x:Name="Undo" ToolTip="Ctrl+Z">Undo</Button>
-				<Button x:Name="Redo" ToolTip="Ctrl+Y">Redo</Button>
+			<DockPanel.Background>
+				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+					<GradientStop Color="#FFC6C5C5" Offset="0.996"/>
+					<GradientStop Color="#FFF3F3F3" Offset="0.144"/>
+				</LinearGradientBrush>
+			</DockPanel.Background>
+			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="5,11,0,11">
+				<Button x:Name="Open" ToolTip="Ctrl+O" Margin="1,0,1,0">Open</Button>
+				<Button x:Name="Save" ToolTip="Ctrl+S" Margin="1,0,1,0">Save</Button>
+				<Button x:Name="New" ToolTip="Ctrl+N" Margin="1,0,1,0">New</Button>
+				<Button x:Name="Undo" ToolTip="Ctrl+Z" Margin="1,0,1,0">Undo</Button>
+				<Button x:Name="Redo" ToolTip="Ctrl+Y" Margin="1,0,1,0">Redo</Button>
 			</StackPanel>
+			<Rectangle Width="1" Stroke="Silver" Margin="8,4,8,4"/>
 			<ContentControl cal:View.Model="{Binding ReplayStateViewModel}"/>
 		</DockPanel>
 		<ContentControl cal:View.Model="{Binding ToolboxViewModel}" DockPanel.Dock="Bottom"/>
