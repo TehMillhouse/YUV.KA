@@ -9,6 +9,9 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class BlurNode : Node
 	{
+		// cache the weights, so they must be only calculated once per video(best case)
+		Tuple<float[], int, BlurType> weights;
+
 		public BlurNode()
 			: base(inputCount: 1, outputCount: 1)
 		{
@@ -28,8 +31,22 @@ namespace YuvKA.Pipeline.Implementation
 
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
+			// no need to do anything with radius 0
 			if (Radius == 0)
 				return inputs;
+			// if the cached weights arent valid recompute them
+			if (weights == null || weights.Item2 != this.Radius || weights.Item3 != this.Type) {
+				if (Type == BlurType.Linear) {
+					weights = Tuple.Create(new float[] { 1F / (2 * Radius + 1) }, this.Radius, this.Type);
+				}
+				else if (Type == BlurType.Gaussian) {
+					float[] weight = new float[3 * this.Radius + 1];
+					for (int i = 0; i <= this.Radius * 3; i++) {
+						weight[i] = G(i);
+					}
+					weights = Tuple.Create(weight, this.Radius, this.Type);
+				}
+			}
 			Frame[] result = new Frame[1];
 			if (Type == BlurType.Gaussian) {
 				return new[] { GaussianBlur(inputs[0], tick) };
@@ -43,9 +60,6 @@ namespace YuvKA.Pipeline.Implementation
 
 		private Frame LinearBlur(Frame input, int tick)
 		{
-			// only needs to be calculated once
-			float factor = 1F / (2 * Radius + 1);
-
 			/* Since this Arrays are sort of ugly now: Arrayname[x-coord, y-coord, colorchannel] */
 			float[,,] horizontalBlur = new float[input.Size.Width, input.Size.Height, 3];
 			float[,,] verticalBlur = new float[input.Size.Width, input.Size.Height, 3];
@@ -56,22 +70,21 @@ namespace YuvKA.Pipeline.Implementation
 					horizontalBlur[x, y, 0] = horizontalBlur[x, y, 1] = horizontalBlur[x, y, 2] = 0F;
 					for (int z = x - Radius; z <= x + Radius; z++) {
 						Rgb imagePixel = GetCappedPixels(z, y, input);
-						horizontalBlur[x, y, 0] += factor * imagePixel.R;
-						horizontalBlur[x, y, 1] += factor * imagePixel.G;
-						horizontalBlur[x, y, 2] += factor * imagePixel.B;
+						horizontalBlur[x, y, 0] += weights.Item1[0] * imagePixel.R;
+						horizontalBlur[x, y, 1] += weights.Item1[0] * imagePixel.G;
+						horizontalBlur[x, y, 2] += weights.Item1[0] * imagePixel.B;
 					}
 				}
 			}
 			/* Blur vertical dimension */
-
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
 					verticalBlur[x, y, 0] = verticalBlur[x, y, 1] = verticalBlur[x, y, 2] = 0F;
 					for (int z = y - Radius; z <= y + Radius; z++) {
 						int cappedY = Math.Min(input.Size.Height - 1, Math.Max(0, z));
-						verticalBlur[x, y, 0] += factor * horizontalBlur[x, cappedY, 0];
-						verticalBlur[x, y, 1] += factor * horizontalBlur[x, cappedY, 1];
-						verticalBlur[x, y, 2] += factor * horizontalBlur[x, cappedY, 2];
+						verticalBlur[x, y, 0] += weights.Item1[0] * horizontalBlur[x, cappedY, 0];
+						verticalBlur[x, y, 1] += weights.Item1[0] * horizontalBlur[x, cappedY, 1];
+						verticalBlur[x, y, 2] += weights.Item1[0] * horizontalBlur[x, cappedY, 2];
 					}
 				}
 			}
@@ -96,11 +109,10 @@ namespace YuvKA.Pipeline.Implementation
 				for (int y = 0; y < input.Size.Height; y++) {
 					horizontalBlur[x, y, 0] = horizontalBlur[x, y, 1] = horizontalBlur[x, y, 2] = 0F;
 					for (int z = x - (3 * Radius); z <= x + (3 * Radius); z++) {
-						float factor = G(z - x);
 						Rgb imagePixel = GetCappedPixels(z, y, input);
-						horizontalBlur[x, y, 0] += factor * imagePixel.R;
-						horizontalBlur[x, y, 1] += factor * imagePixel.G;
-						horizontalBlur[x, y, 2] += factor * imagePixel.B;
+						horizontalBlur[x, y, 0] += weights.Item1[Math.Abs(z - x)] * imagePixel.R;
+						horizontalBlur[x, y, 1] += weights.Item1[Math.Abs(z - x)] * imagePixel.G;
+						horizontalBlur[x, y, 2] += weights.Item1[Math.Abs(z - x)] * imagePixel.B;
 					}
 				}
 			}
@@ -109,11 +121,10 @@ namespace YuvKA.Pipeline.Implementation
 				for (int y = 0; y < input.Size.Height; y++) {
 					verticalBlur[x, y, 0] = verticalBlur[x, y, 1] = verticalBlur[x, y, 2] = 0F;
 					for (int z = y - (3 * Radius); z <= y + (3 * Radius); z++) {
-						float factor = G(y - z);
 						int cappedY = Math.Min(input.Size.Height - 1, Math.Max(0, z));
-						verticalBlur[x, y, 0] += factor * horizontalBlur[x, cappedY, 0];
-						verticalBlur[x, y, 1] += factor * horizontalBlur[x, cappedY, 1];
-						verticalBlur[x, y, 2] += factor * horizontalBlur[x, cappedY, 2];
+						verticalBlur[x, y, 0] += weights.Item1[Math.Abs(z - y)] * horizontalBlur[x, cappedY, 0];
+						verticalBlur[x, y, 1] += weights.Item1[Math.Abs(z - y)] * horizontalBlur[x, cappedY, 1];
+						verticalBlur[x, y, 2] += weights.Item1[Math.Abs(z - y)] * horizontalBlur[x, cappedY, 2];
 					}
 				}
 			}
