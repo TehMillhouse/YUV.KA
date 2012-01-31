@@ -197,8 +197,8 @@ namespace YuvKA.VideoModel
 			if (vectorData != null) {
 				for (int i = 0; i < decisions.Length; i++) {
 					// if we run out of vectors just pretend there are plenty zero vectors
-					if (index < vectorData.Length && vectorData[index].Length > i * 2 + 2) {
-						decisions[i].Movement = new Vector(vectorData[index][i * 2 + 1], vectorData[index][i * 2 + 2]);
+					if (index < vectorData.Length && vectorData[index].Length > i * 2 + 1) {
+						decisions[i].Movement = new Vector(vectorData[index][i * 2], vectorData[index][i * 2 + 1]);
 					}
 					else {
 						decisions[i].Movement = new Vector(0, 0);
