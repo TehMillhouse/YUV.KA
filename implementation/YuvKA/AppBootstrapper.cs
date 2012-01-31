@@ -193,9 +193,11 @@
 
 		class WindowManagerEx : WindowManager, IWindowManagerEx
 		{
-			public void SetOwner(IViewAware owningWindow, IViewAware ownedWindow)
+			public void ShowWindow(IViewAware rootModel, IViewAware owningModel)
 			{
-				((Window)ownedWindow.GetView()).Owner = (Window)owningWindow.GetView();
+				Window win = CreateWindow(rootModel, isDialog: false, context: null, settings: null);
+				win.Owner = (Window)owningModel.GetView();
+				win.Show();
 			}
 		}
 

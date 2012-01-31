@@ -148,11 +148,10 @@ namespace YuvKA.ViewModel
 		{
 			if ((from openWin in OpenWindows where openWin.NodeModel == window.NodeModel && openWin.OutputModel == window.OutputModel select openWin).Count() == 0) {
 				OpenWindows.Add(window);
-				IoC.Get<IWindowManager>().ShowWindow(window);
+				IoC.Get<IWindowManagerEx>().ShowWindow(window, owningModel: this);
 				if (!ReplayStateViewModel.IsPlaying) {
 					Model.RenderTick(new[] { window.NodeModel }, isPreviewFrame: true);
 				}
-				IoC.Get<IWindowManagerEx>().SetOwner(this, window);
 			}
 		}
 
