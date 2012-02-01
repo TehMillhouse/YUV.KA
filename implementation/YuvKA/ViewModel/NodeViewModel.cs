@@ -32,6 +32,7 @@ namespace YuvKA.ViewModel
 				{
 					Outputs = Model.Outputs.Select(i => new InOutputViewModel(i, this)).ToList();
 					NotifyOfPropertyChange(() => Outputs);
+					NotifyOfPropertyChange(() => HasOutputs);
 					Parent.NotifyOfPropertyChange(() => Parent.Edges);
 				};
 		}

@@ -141,6 +141,10 @@ namespace YuvKA.ViewModel
 				modelBase = serialized;
 				NotifyOfPropertyChange(() => CanUndo);
 				NotifyOfPropertyChange(() => CanRedo);
+
+				// Also refresh some node properties the UI depends on
+				foreach (Node node in Model.Graph.Nodes)
+					node.NotifyOfPropertyChange(() => node.InputIsValid);
 			}
 		}
 
