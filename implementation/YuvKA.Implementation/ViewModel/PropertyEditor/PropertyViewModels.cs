@@ -26,7 +26,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 				file.FileName = file.FileName.Substring(currentDir.Length + 1);
 			}
 
-			Value = new YuvKA.Pipeline.FilePath(file.FileName);
+			TypedValue = new YuvKA.Pipeline.FilePath(file.FileName);
 		}
 	}
 
@@ -34,8 +34,8 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 	{
 		public Color ChosenColor
 		{
-			get { return Color.FromRgb(Value.R, Value.G, Value.B); }
-			set { Value = new Rgb(value.R, value.G, value.B); }
+			get { return Color.FromRgb(TypedValue.R, TypedValue.G, TypedValue.B); }
+			set { TypedValue = new Rgb(value.R, value.G, value.B); }
 		}
 	}
 
@@ -43,14 +43,14 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 	{
 		public int Width
 		{
-			get { return Value.Width; }
-			set { Value = new Size(value, Height); }
+			get { return TypedValue.Width; }
+			set { TypedValue = new Size(value, Height); }
 		}
 
 		public int Height
 		{
-			get { return Value.Height; }
-			set { Value = new Size(Width, value); }
+			get { return TypedValue.Height; }
+			set { TypedValue = new Size(Width, value); }
 		}
 
 		protected override void OnValueChanged()
@@ -92,7 +92,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 		public bool SlidersAreEnabled
 		{
-			get { return Value != null; }
+			get { return TypedValue != null; }
 		}
 	}
 
@@ -104,7 +104,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		{
 			base.OnValueChanged();
 			NotifyOfPropertyChange(() => Wrapper);
-			Value.CollectionChanged += (sender, e) => NotifyOfPropertyChange(() => Wrapper);
+			TypedValue.CollectionChanged += (sender, e) => NotifyOfPropertyChange(() => Wrapper);
 		}
 
 		IEnumerable<DoubleWrapper> wrapperCollection;
@@ -128,8 +128,8 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		{
 			get
 			{
-				if (wrapperCollection == null || wrapperCollection.Count() != Value.Count()) {
-					wrapperCollection = Value.Select((_, index) => new DoubleWrapper(Value, index)).ToArray();
+				if (wrapperCollection == null || wrapperCollection.Count() != TypedValue.Count()) {
+					wrapperCollection = TypedValue.Select((_, index) => new DoubleWrapper(TypedValue, index)).ToArray();
 					return wrapperCollection;
 				}
 				return wrapperCollection;
