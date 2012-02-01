@@ -37,14 +37,10 @@ namespace YuvKA.Pipeline.Implementation
 			// if the cached weights arent valid recompute them
 			if (weights == null || weights.Item2 != this.Radius || weights.Item3 != this.Type) {
 				if (Type == BlurType.Linear) {
-					weights = Tuple.Create(new float[] { 1F / (2 * Radius + 1) }, this.Radius, this.Type);
+					CalculateLinearWeights(this.Radius);
 				}
 				else if (Type == BlurType.Gaussian) {
-					float[] weight = new float[3 * this.Radius + 1];
-					for (int i = 0; i <= this.Radius * 3; i++) {
-						weight[i] = G(i);
-					}
-					weights = Tuple.Create(weight, this.Radius, this.Type);
+					CalculateGaussianWeights(this.Radius);
 				}
 			}
 			Frame[] result = new Frame[1];
@@ -63,12 +59,15 @@ namespace YuvKA.Pipeline.Implementation
 			/* Since this Arrays are sort of ugly now: Arrayname[x-coord, y-coord, colorchannel] */
 			float[,,] horizontalBlur = new float[input.Size.Width, input.Size.Height, 3];
 			float[,,] verticalBlur = new float[input.Size.Width, input.Size.Height, 3];
-
+			// Cache Radius
+			int cachedRadius = this.Radius;
+			if (cachedRadius != this.weights.Item2)
+				CalculateLinearWeights(this.Radius);
 			/* Blur horinzontal dimension */
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
 					horizontalBlur[x, y, 0] = horizontalBlur[x, y, 1] = horizontalBlur[x, y, 2] = 0F;
-					for (int z = x - Radius; z <= x + Radius; z++) {
+					for (int z = x - cachedRadius; z <= x + cachedRadius; z++) {
 						Rgb imagePixel = GetCappedPixels(z, y, input);
 						horizontalBlur[x, y, 0] += weights.Item1[0] * imagePixel.R;
 						horizontalBlur[x, y, 1] += weights.Item1[0] * imagePixel.G;
@@ -80,7 +79,7 @@ namespace YuvKA.Pipeline.Implementation
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
 					verticalBlur[x, y, 0] = verticalBlur[x, y, 1] = verticalBlur[x, y, 2] = 0F;
-					for (int z = y - Radius; z <= y + Radius; z++) {
+					for (int z = y - cachedRadius; z <= y + cachedRadius; z++) {
 						int cappedY = Math.Min(input.Size.Height - 1, Math.Max(0, z));
 						verticalBlur[x, y, 0] += weights.Item1[0] * horizontalBlur[x, cappedY, 0];
 						verticalBlur[x, y, 1] += weights.Item1[0] * horizontalBlur[x, cappedY, 1];
@@ -103,12 +102,15 @@ namespace YuvKA.Pipeline.Implementation
 			/* Since this Arrays are sort of ugly now: Arrayname[x-coord, y-coord, colorchannel] */
 			float[,,] horizontalBlur = new float[input.Size.Width, input.Size.Height, 3];
 			float[,,] verticalBlur = new float[input.Size.Width, input.Size.Height, 3];
-
+			// Cache Radius
+			int cachedRadius = this.Radius;
+			if (cachedRadius != this.weights.Item2)
+				CalculateGaussianWeights(cachedRadius);
 			/* Blur horinzontal dimension */
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
 					horizontalBlur[x, y, 0] = horizontalBlur[x, y, 1] = horizontalBlur[x, y, 2] = 0F;
-					for (int z = x - (3 * Radius); z <= x + (3 * Radius); z++) {
+					for (int z = x - (3 * cachedRadius); z <= x + (3 * cachedRadius); z++) {
 						Rgb imagePixel = GetCappedPixels(z, y, input);
 						horizontalBlur[x, y, 0] += weights.Item1[Math.Abs(z - x)] * imagePixel.R;
 						horizontalBlur[x, y, 1] += weights.Item1[Math.Abs(z - x)] * imagePixel.G;
@@ -120,7 +122,7 @@ namespace YuvKA.Pipeline.Implementation
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
 					verticalBlur[x, y, 0] = verticalBlur[x, y, 1] = verticalBlur[x, y, 2] = 0F;
-					for (int z = y - (3 * Radius); z <= y + (3 * Radius); z++) {
+					for (int z = y - (3 * cachedRadius); z <= y + (3 * cachedRadius); z++) {
 						int cappedY = Math.Min(input.Size.Height - 1, Math.Max(0, z));
 						verticalBlur[x, y, 0] += weights.Item1[Math.Abs(z - y)] * horizontalBlur[x, cappedY, 0];
 						verticalBlur[x, y, 1] += weights.Item1[Math.Abs(z - y)] * horizontalBlur[x, cappedY, 1];
@@ -152,6 +154,20 @@ namespace YuvKA.Pipeline.Implementation
 			int cappedX = Math.Min(frame.Size.Width - 1, Math.Max(0, x));
 			int cappedY = Math.Min(frame.Size.Height - 1, Math.Max(0, y));
 			return frame[cappedX, cappedY];
+		}
+
+		private void CalculateGaussianWeights(int r)
+		{
+			float[] weight = new float[3 * r + 1];
+			for (int i = 0; i <= r * 3; i++) {
+				weight[i] = G(i);
+			}
+			weights = Tuple.Create(weight, r, this.Type);
+		}
+
+		private void CalculateLinearWeights(int r)
+		{
+			weights = Tuple.Create(new float[] { 1F / (2 * r + 1) }, r, this.Type);
 		}
 	}
 }
