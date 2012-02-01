@@ -87,7 +87,7 @@ namespace YuvKA.ViewModel
 		public void New()
 		{
 			Model = new PipelineState();
-			foreach (OutputWindowViewModel owvm in OpenWindows) {
+			foreach (OutputWindowViewModel owvm in OpenWindows.ToArray()) {
 				owvm.TryClose();
 			}
 			modelBase = Serialize(Model);
