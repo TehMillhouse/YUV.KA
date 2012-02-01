@@ -181,13 +181,12 @@
 
 			/// <summary>
 			/// Work around weird WPF bug...
-			/// ...by rounding element sizes, lolwtfbbq
+			/// ...by rounding element width, lolwtfbbq
 			/// </summary>
-			public void FixUpSize(IViewAware element)
+			public void FixUpWidth(IViewAware element)
 			{
 				var view = (FrameworkElement)element.GetView();
 				view.Width = (int)view.ActualWidth;
-				view.Height = (int)view.ActualHeight;
 			}
 		}
 

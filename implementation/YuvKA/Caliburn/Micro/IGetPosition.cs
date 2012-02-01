@@ -19,6 +19,6 @@ namespace Caliburn.Micro
 		/// <summary>
 		/// Work around weird WPF bug
 		/// </summary>
-		void FixUpSize(IViewAware element);
+		void FixUpWidth(IViewAware element);
 	}
 }
