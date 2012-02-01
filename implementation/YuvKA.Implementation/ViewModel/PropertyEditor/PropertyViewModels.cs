@@ -14,8 +14,18 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 	{
 	}
 
-	public class PathPropertyViewModel : PropertyViewModel<Pipeline.FilePath>
+	public class FilePathPropertyViewModel : PropertyViewModel<Pipeline.FilePath>
 	{
+		public string ShortPath
+		{
+			get
+			{
+				if (TypedValue.Path != null)
+					return TypedValue.Path.Split(new char[] { '\\' }).Last();
+				return "Choose File...";
+			}
+		}
+
 		public IEnumerable<IResult> OpenDialog()
 		{
 			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv|All files (*.*)|*" };
@@ -25,8 +35,8 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 			if (file.FileName.StartsWith(currentDir)) {
 				file.FileName = file.FileName.Substring(currentDir.Length + 1);
 			}
-
 			TypedValue = new YuvKA.Pipeline.FilePath(file.FileName);
+			NotifyOfPropertyChange(() => ShortPath);
 		}
 	}
 

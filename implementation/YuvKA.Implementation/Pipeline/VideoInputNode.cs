@@ -43,6 +43,7 @@ namespace YuvKA.Pipeline.Implementation
 						Size = Cif;
 					else if (Regex.IsMatch(fileName.Path, @"[_.]sif[_.]"))
 						Size = Sif;
+					NotifyOfPropertyChange(() => FileName);
 					NotifyOfPropertyChange(() => Size);
 					NotifyOfPropertyChange(() => TickCount);
 				}

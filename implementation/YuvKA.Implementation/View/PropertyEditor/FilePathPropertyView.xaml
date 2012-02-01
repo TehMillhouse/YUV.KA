@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="YuvKA.View.PropertyEditor.Implementation.PathPropertyView"
+﻿<UserControl x:Class="YuvKA.View.PropertyEditor.Implementation.FilePathPropertyView"
 			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,7 +7,11 @@
 			d:DesignHeight="35" d:DesignWidth="150">
 	<DockPanel>
 		<TextBlock Text="{Binding Property.DisplayName}" HorizontalAlignment="Left"/>
-		<Separator Width="20" Visibility="Hidden"/>
-		<Button Name="OpenDialog" Content="Choose File..." Width="85" HorizontalAlignment="Right"/>
+		<Separator Width="10" Visibility="Hidden"/>
+		<Button Name="OpenDialog" Width="85" HorizontalAlignment="Right">
+			<Button.Content>
+				<TextBlock Text="{Binding ShortPath, TargetNullValue=Choose File...}" TextAlignment="Right" HorizontalAlignment="Right"/>
+			</Button.Content>
+		</Button>
 	</DockPanel>
 </UserControl>
