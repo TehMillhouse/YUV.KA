@@ -11,7 +11,7 @@
 		<DockPanel>
 			<TextBlock Text="{Binding Minimum}" DockPanel.Dock="Left" Width="10"/>
 			<TextBlock Text="{Binding Maximum}" DockPanel.Dock="Right" MinWidth="10" MaxWidth="20"/>
-			<Slider Value="{Binding TypedValue}" Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" Ticks="1" cal:Message.Attach="[Event LostFocus] = [Action CommitChange]"/>
+			<Slider MinWidth="60" Value="{Binding TypedValue}" Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" Ticks="1" cal:Message.Attach="[Event LostFocus] = [Action CommitChange]"/>
 		</DockPanel>
 		<TextBlock Text="{Binding Value}" HorizontalAlignment="Center" FontSize="10"/>
 	</StackPanel>
