@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
 using Caliburn.Micro;
@@ -15,19 +14,19 @@ namespace YuvKA.Implementation
 {
 	public class GraphControl : INotifyPropertyChanged
 	{
-		
+
 		private RelayCommand delete;
 		private Tuple<string, IGraphType> chosenType;
-		private List<System.Drawing.Color> theseLineColors; 
+		private List<System.Drawing.Color> theseLineColors;
 		private bool referenceSet;
 
 		public event PropertyChangedEventHandler PropertyChanged;
-		
+
 		public GraphControl()
 		{
 			Events = IoC.Get<IEventAggregator>();
 		}
-		
+
 		[Import]
 		IEventAggregator Events { get; set; }
 
@@ -53,8 +52,7 @@ namespace YuvKA.Implementation
 					chosenType = value;
 					Graph.Type = value.Item2;
 					SetLineColor();
-					foreach (var lColor in TheseLineColors)
-					{
+					foreach (var lColor in TheseLineColors) {
 						LineColors.Add(lColor);
 					}
 					Events.Publish(new GraphTypeChosenMessage(this));
@@ -89,8 +87,19 @@ namespace YuvKA.Implementation
 			}
 		}
 
+		private bool referenceHasLogfile;
+		public bool ReferenceHasLogfile
+		{
+			get { return referenceHasLogfile; }
+			set
+			{
+				referenceHasLogfile = value;
+				SetDisplayTypes();
+			}
+		}
+
 		public SolidColorBrush GraphColor { get; set; }
-		
+
 		protected virtual void OnPropertyChanged(string propertyName)
 		{
 			var handler = PropertyChanged;
@@ -99,7 +108,7 @@ namespace YuvKA.Implementation
 			var e = new PropertyChangedEventArgs(propertyName);
 			handler(this, e);
 		}
-		
+
 		public void SetLineColor()
 		{
 			LineColor = NewColor(ChosenType);
@@ -127,16 +136,17 @@ namespace YuvKA.Implementation
 
 		public void SetDisplayTypes()
 		{
-			var newTypes = new ObservableCollection<Tuple<string, IGraphType>>();
-			if (ReferenceSet) {
-				foreach (var t in Types.Where(type => type.Item2.DependsOnReference))
-					newTypes.Add(t);
+			var newTypes = new List<Tuple<string, IGraphType>>(Types);
+			if (!ReferenceSet) {
+				newTypes.RemoveAll(type => type.Item2.DependsOnReference);
 			}
-			if (Video.Item2.Source.Node.OutputHasLogfile) {
-				foreach (var t in Types.Where(type => type.Item2.DependsOnLogfile))
-					newTypes.Add(t);
+			if (!Video.Item2.Source.Node.OutputHasLogfile) {
+				newTypes.RemoveAll(type => type.Item2.DependsOnLogfile);
 			}
-			DisplayTypes = newTypes;
+			if (!ReferenceHasLogfile) {
+				newTypes.RemoveAll(type => type.Item2.DependsOnAnnotatedReference);
+			}
+			DisplayTypes = new ObservableCollection<Tuple<string, IGraphType>>(newTypes);
 			OnPropertyChanged("DisplayTypes");
 		}
 

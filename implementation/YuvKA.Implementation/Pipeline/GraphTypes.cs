@@ -11,10 +11,11 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			DependsOnReference = false;
 			DependsOnLogfile = true;
+			DependsOnAnnotatedReference = false;
 		}
 
 		public bool DependsOnReference { get; private set; }
-
+		public bool DependsOnAnnotatedReference { get; private set; }
 		public bool DependsOnLogfile { get; private set; }
 
 		public double Process(Frame frame, Frame reference)
@@ -38,10 +39,11 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			DependsOnReference = true;
 			DependsOnLogfile = false;
+			DependsOnAnnotatedReference = false;
 		}
 
 		public bool DependsOnReference { get; private set; }
-
+		public bool DependsOnAnnotatedReference { get; private set; }
 		public bool DependsOnLogfile { get; private set; }
 
 		public double Process(Frame frame, Frame reference)
@@ -66,11 +68,12 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			DependsOnReference = true;
 			DependsOnLogfile = false;
+			DependsOnAnnotatedReference = false;
 		}
 
 		public bool DependsOnReference { get; private set; }
 		public bool DependsOnLogfile { get; private set; }
-
+		public bool DependsOnAnnotatedReference { get; private set; }
 		public double Process(Frame frame, Frame reference)
 		{
 			double difference = 0.0;
@@ -81,6 +84,39 @@ namespace YuvKA.Pipeline.Implementation
 				}
 			}
 			return difference / (3 * frame.Size.Height * frame.Size.Width);
+		}
+	}
+	[DisplayName("Encoderdecision-Difference")]
+	public class DecisionDiff : IGraphType
+	{
+		public DecisionDiff()
+		{
+			DependsOnReference = true;
+			DependsOnLogfile = true;
+			DependsOnAnnotatedReference = true;
+		}
+
+		public bool DependsOnReference { get; private set; }
+		public bool DependsOnLogfile { get; private set; }
+		public bool DependsOnAnnotatedReference { get; private set; }
+
+		public double Process(Frame frame, Frame reference)
+		{
+			double difference = 0.0;
+			if (!frame.Size.Equals(reference.Size))
+				return difference;
+			if (frame is AnnotatedFrame && reference is AnnotatedFrame) {
+				AnnotatedFrame annFrame = (AnnotatedFrame)frame;
+				AnnotatedFrame annRef = (AnnotatedFrame)reference;
+				for (int i = 0; i < annFrame.Decisions.GetLength(0); i++) {
+					for (int j = 0; j < annFrame.Decisions.GetLength(1); j++) {
+						if (annFrame.Decisions[i, j].Equals(annRef.Decisions[i, j]))
+							difference++;
+					}
+				}
+				difference /= annFrame.Decisions.Length;
+			}
+			return difference;
 		}
 	}
 }

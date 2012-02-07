@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel.Composition;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
@@ -11,7 +7,7 @@ namespace YuvKA.Pipeline.Implementation
 	public interface IGraphType
 	{
 		bool DependsOnReference { get; }
-
+		bool DependsOnAnnotatedReference { get; }
 		bool DependsOnLogfile { get; }
 
 		double Process(Frame frame, Frame reference);

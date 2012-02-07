@@ -56,6 +56,7 @@ namespace YuvKA.ViewModel.Implementation
 				NodeModel.ReferenceVideo = NodeModel.Inputs[Videos.IndexOf(value)];
 				foreach (var graphControl in GraphControls) {
 					graphControl.ReferenceSet = true;
+					graphControl.ReferenceHasLogfile = value.Item2.Source.Node.OutputHasLogfile;
 					graphControl.SetDisplayTypes();
 				}
 			}
@@ -202,8 +203,7 @@ namespace YuvKA.ViewModel.Implementation
 			if (graphControl.ChosenType != null) {
 				line.Name = graphControl.Video.Item1 + graphControl.ChosenType.Item1;
 				line.Name = line.Name.Replace("-", "");
-			}
-			else {
+			} else {
 				line.Name = graphControl.Video.Item1;
 			}
 			line.Color = graphControl.LineColor;
@@ -220,10 +220,10 @@ namespace YuvKA.ViewModel.Implementation
 			var graph = new DiagramGraph { Video = NodeModel.Inputs[Videos.IndexOf(ChosenVideo)] };
 			var graphControl = new GraphControl { Video = ChosenVideo, Types = new ObservableCollection<Tuple<string, IGraphType>>(Types), DisplayTypes = new ObservableCollection<Tuple<string, IGraphType>>(Types), Graph = graph, TypeColors = TypeColors, LineColors = LineColors };
 			graphControl.SetDisplayTypes();
-			if (Reference.Item2 != null)
+			if (Reference.Item2 != null) {
 				graphControl.ReferenceSet = true;
-			else
-				Reference = new Tuple<string, Node.Input>("Video0", NodeModel.Inputs[0]);
+				graphControl.ReferenceHasLogfile = Reference.Item2.Source.Node.OutputHasLogfile;
+			}
 			GraphControls.Add(graphControl);
 		}
 	}
