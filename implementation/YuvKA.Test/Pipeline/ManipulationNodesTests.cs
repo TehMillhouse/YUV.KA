@@ -263,5 +263,38 @@ namespace YuvKA.Test.Pipeline
 			}
 		}
 
+		/// <summary>
+		/// Creates two Frames and checks if their difference (and the
+		/// difference of one frame with itself) is appropriate
+		/// </summary>
+		[Fact]
+		public void TestDifferenceNode()
+		{
+			Size testSize = new Size(5, 5);
+			Frame inputA = new Frame(testSize);
+			Frame inputB = new Frame(testSize);
+			Frame black = new Frame(testSize);
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					inputA[x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
+					inputB[x, y] = new Rgb((byte)(x * y), (byte)(x * y), (byte)(x * y));
+				}
+			}
+			DifferenceNode diffNode = new DifferenceNode();
+			Frame[] diffReal = { inputA, inputB };
+			Frame[] diffSelf = { inputA, inputA };
+			Frame[] resultReal = diffNode.Process(diffReal, 0);
+			Frame[] resultSelf = diffNode.Process(diffSelf, 0);
+			for (int x = 0; x < testSize.Width; x++) {
+				for (int y = 0; y < testSize.Height; y++) {
+					Assert.Equal(127, resultSelf[0][x, y].R);
+					Assert.Equal(127, resultSelf[0][x, y].G);
+					Assert.Equal(127, resultSelf[0][x, y].B);
+					Assert.Equal(127 + (((int)inputA[x, y].R - inputB[x, y].R) / 2), resultReal[0][x, y].R);
+					Assert.Equal(127 + (((int)inputA[x, y].G - inputB[x, y].G) / 2), resultReal[0][x, y].G);
+					Assert.Equal(127 + (((int)inputA[x, y].B - inputB[x, y].B) / 2), resultReal[0][x, y].B);
+				}
+			}
+		}
 	}
 }
