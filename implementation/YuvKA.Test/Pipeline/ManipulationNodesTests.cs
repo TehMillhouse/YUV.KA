@@ -238,5 +238,30 @@ namespace YuvKA.Test.Pipeline
 
 			image.Save("..\\..\\..\\..\\output\\papagei-bcs-" + (int)(bcsNode.Contrast * 10) + ".png");
 		}
+
+		/// <summary>
+		/// Creates Frames and test if they are delayed properly
+		/// </summary>
+		[Fact]
+		public void TestDelayNode()
+		{
+			int n = 50;
+			Frame[][] input = new Frame[n][];
+			for (int i = 0; i < n; i++) {
+				input[i] = new Frame[1];
+				input[i][0] = new Frame(new Size(1, 1));
+				input[i][0][0, 0] = new Rgb((byte)i, (byte)i, (byte)i);
+			}
+			for (int k = 0; k < 31; k++) {
+				DelayNode node = new DelayNode();
+				node.Delay = k;
+				for (int i = 0; i < n; i++) {
+					Frame[] output = node.Process(input[i], 0);
+					if (i >= k)
+						Assert.Equal(input[i - k][0], output[0]);
+				}
+			}
+		}
+
 	}
 }
