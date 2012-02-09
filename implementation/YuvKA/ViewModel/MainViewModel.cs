@@ -161,10 +161,9 @@ namespace YuvKA.ViewModel
 
 		public void CloseWindow(Node source)
 		{
-			foreach (OutputWindowViewModel owvm in OpenWindows) {
+			foreach (OutputWindowViewModel owvm in OpenWindows.ToArray()) {
 				if (owvm.NodeModel == source) {
 					owvm.TryClose();
-					break;
 				}
 			}
 			OpenWindows = (from window in OpenWindows where window.NodeModel != source select window).ToList();
