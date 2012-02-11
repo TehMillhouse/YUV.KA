@@ -32,8 +32,6 @@ namespace YuvKA.Test.Pipeline
 			var frames = RenderTicksAnonIntNodes(new PipelineDriver(), graph, 0, token: tokenSource.Token).Take(5).ToEnumerable();
 
 			Assert.Equal(new[] { 0, 2, 4, 6, 8 }, frames.ToArray());
-			// Token should be cancelled at this point by completing Observable.Take
-			Assert.True(tokenSource.Token.WaitHandle.WaitOne(TimeSpan.FromSeconds(1)));
 		}
 
 		[Fact]
