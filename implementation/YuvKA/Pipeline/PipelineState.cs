@@ -91,20 +91,25 @@ namespace YuvKA.Pipeline
 				return false;
 			cts = new CancellationTokenSource();
 			int precomputeCount = Graph.NumberOfFramesToPrecompute(outputNodes);
-			Queue<DateTimeOffset> ticks = new Queue<DateTimeOffset>();
-			int fpsWindow = 5;
+			Queue<DateTime> ticks = new Queue<DateTime>();
+			ticks.Enqueue(DateTime.Now);
+			int windowSize = 5;
 
 			Driver.RenderTicks(outputNodes, CurrentTick - precomputeCount, tickCount + precomputeCount, cts.Token).Subscribe(dic => {
-				DateTimeOffset now = DateTimeOffset.Now;
-				if (ticks.Count == fpsWindow) {
-					DateTimeOffset oldTick = ticks.Dequeue();
-					DateTimeOffset nextTick = oldTick + TimeSpan.FromSeconds((double)fpsWindow / Speed);
+				DateTime now = DateTime.Now;
+				if (ticks.Count == windowSize) {
+					// Compute "virtual" tick from average of tick window
+					DateTime midTick = new DateTime((long)ticks.Average(t => t.Ticks));
+					// tick count between virtual and current tick
+					double midDelta = (windowSize + 1) / 2.0;
+					DateTime nextTick = midTick + TimeSpan.FromSeconds(midDelta / Speed);
 					if (now < nextTick) {
 						Thread.Sleep(nextTick - now);
-						now = DateTimeOffset.Now;
+						now = DateTime.Now;
 					}
-					ActualSpeed = (int)(fpsWindow / (DateTimeOffset.Now - oldTick).TotalSeconds);
+					ActualSpeed = (int)(midDelta / (now - midTick).TotalSeconds);
 					NotifyOfPropertyChange(() => ActualSpeed);
+					ticks.Dequeue();
 				}
 				ticks.Enqueue(now);
 
