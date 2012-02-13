@@ -97,7 +97,6 @@
     <Compile Include="Caliburn\Micro\IGetPosition.cs" />
     <Compile Include="Caliburn\Micro\CommandBindingTrigger.cs" />
     <Compile Include="NodeMenuItemFormatter.cs" />
-    <Compile Include="HslHelper.cs" />
     <Compile Include="Caliburn\Micro\IWindowManagerEx.cs" />
     <Compile Include="Pipeline\FilePath.cs" />
     <Compile Include="Pipeline\TickRenderedMessage.cs" />

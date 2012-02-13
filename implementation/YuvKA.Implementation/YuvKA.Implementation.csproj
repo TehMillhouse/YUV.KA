@@ -80,6 +80,7 @@
     <Compile Include="DeleteGraphControlMessage.cs" />
     <Compile Include="GraphControl.cs" />
     <Compile Include="ChartPlotter.cs" />
+    <Compile Include="HslHelper.cs" />
     <Compile Include="LineGraphViewModel.cs" />
     <Compile Include="Pipeline\NoiseType.cs" />
     <Compile Include="RelayCommand.cs" />

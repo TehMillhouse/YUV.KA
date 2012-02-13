@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 
-namespace YuvKA
+namespace YuvKA.Implementation
 {
 	public static class HslHelper
 	{

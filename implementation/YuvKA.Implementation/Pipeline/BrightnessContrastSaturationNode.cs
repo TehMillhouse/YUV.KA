@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Runtime.Serialization;
+using YuvKA.Implementation;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
