@@ -77,13 +77,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeleteGraphControlMessage.cs" />
     <Compile Include="GraphControl.cs" />
     <Compile Include="ChartPlotter.cs" />
     <Compile Include="HslHelper.cs" />
     <Compile Include="LineGraphViewModel.cs" />
     <Compile Include="Pipeline\NoiseType.cs" />
-    <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel\DiagramViewModel.cs" />
     <Compile Include="ViewModel\HistogramViewModel.cs" />
     <Compile Include="ViewModel\OverlayViewModel.cs" />

@@ -19,7 +19,7 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<Rectangle Grid.Column="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Fill="{Binding Path=GraphColor}" />
-				<Button Height="30" Width="30" Content="Delete" Grid.Column="1" Command="{Binding Path=Delete}" HorizontalAlignment="Left"/>
+				<Button Height="30" Width="30" Content="Delete" Grid.Column="1" cal:Message.Attach="[Event Click] = [Action DeleteGraphControl($dataContext)]" HorizontalAlignment="Left"/>
 				<TextBlock Height="30" Grid.Column="2" Text="{Binding Path=Video.Item1}" />
 				<ComboBox Height="30" Grid.Column="3" ItemsSource="{Binding Path=DisplayTypes}" SelectedItem="{Binding Path=ChosenType}" HorizontalAlignment="Stretch">
 					<ComboBox.ItemTemplate>
@@ -53,7 +53,7 @@
 			</ComboBox.ItemTemplate>
 		</ComboBox>
 		<d3:ChartPlotter Height="500" Width="500" Grid.Column="0" Grid.Row="1" x:Name="plotter" LegendVisibility="Hidden" LineGraphs="{Binding Path=LineGraphs}" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></d3:ChartPlotter>
-		<Button Grid.Row="0" Content="Add" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="2" Command="{Binding Path=Add}"/>
+		<Button Grid.Row="0" x:Name="AddGraphControl" Content="Add" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="2"/>
 		<ComboBox Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" ItemsSource="{Binding Videos}" SelectedIndex="0" SelectedItem="{Binding ChosenVideo}" Grid.Column="3" Name="Videos">
 			<ComboBox.ItemTemplate>
 				<DataTemplate>

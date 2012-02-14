@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Windows.Input;
 using System.Windows.Media;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
@@ -12,28 +9,13 @@ using YuvKA.ViewModel.Implementation;
 
 namespace YuvKA.Implementation
 {
-	public class GraphControl : INotifyPropertyChanged
+	public class GraphControl : PropertyChangedBase
 	{
-
-		private RelayCommand delete;
 		private Tuple<string, IGraphType> chosenType;
 		private List<System.Drawing.Color> theseLineColors;
 		private bool referenceSet;
 
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		public GraphControl()
-		{
-			Events = IoC.Get<IEventAggregator>();
-		}
-
-		[Import]
-		IEventAggregator Events { get; set; }
-
-		public ICommand Delete
-		{
-			get { return delete ?? (delete = new RelayCommand(param => Del(), param => true)); }
-		}
+		public DiagramViewModel Parent { get; set; }
 
 		public Tuple<string, Node.Input> Video { get; set; }
 
@@ -55,8 +37,9 @@ namespace YuvKA.Implementation
 					foreach (var lColor in TheseLineColors) {
 						LineColors.Add(lColor);
 					}
-					Events.Publish(new GraphTypeChosenMessage(this));
-				} else {
+					Parent.AddGraph(this);
+				}
+				else {
 					chosenType = value;
 					Graph.Type = value.Item2;
 					TheseLineColors.RemoveAll(color => color.R == LineColor.R && color.G == LineColor.G && color.B == LineColor.B);
@@ -100,21 +83,12 @@ namespace YuvKA.Implementation
 
 		public SolidColorBrush GraphColor { get; set; }
 
-		protected virtual void OnPropertyChanged(string propertyName)
-		{
-			var handler = PropertyChanged;
-			if (handler == null)
-				return;
-			var e = new PropertyChangedEventArgs(propertyName);
-			handler(this, e);
-		}
-
 		public void SetLineColor()
 		{
 			LineColor = NewColor(ChosenType);
+			NotifyOfPropertyChange(() => LineColor);
 			GraphColor = new SolidColorBrush(LineColor);
-			OnPropertyChanged("LineColor");
-			OnPropertyChanged("GraphColor");
+			NotifyOfPropertyChange(() => GraphColor);
 		}
 
 		public Color NewColor(Tuple<string, IGraphType> type)
@@ -147,12 +121,7 @@ namespace YuvKA.Implementation
 				newTypes.RemoveAll(type => type.Item2.DependsOnAnnotatedReference);
 			}
 			DisplayTypes = new ObservableCollection<Tuple<string, IGraphType>>(newTypes);
-			OnPropertyChanged("DisplayTypes");
-		}
-
-		public void Del()
-		{
-			Events.Publish(new DeleteGraphControlMessage(this));
+			NotifyOfPropertyChange(() => DisplayTypes);
 		}
 	}
 }

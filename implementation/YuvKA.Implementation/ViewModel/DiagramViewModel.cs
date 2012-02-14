@@ -14,22 +14,15 @@ using Point = System.Windows.Point;
 
 namespace YuvKA.ViewModel.Implementation
 {
-	public class DiagramViewModel : OutputWindowViewModel, IHandle<DeleteGraphControlMessage>, IHandle<GraphTypeChosenMessage>
+	public class DiagramViewModel : OutputWindowViewModel
 	{
 		private ObservableCollection<LineGraphViewModel> lineGraphs;
 		private ObservableCollection<GraphControl> graphControls;
-		private ICommand add;
 		private List<System.Windows.Media.Color> typeColors;
-		public event PropertyChangedEventHandler PropertyChanged;
 
 		public DiagramViewModel(Node nodeModel)
 			: base(nodeModel, null)
 		{
-		}
-
-		public ICommand Add
-		{
-			get { return add ?? (add = new RelayCommand(param => AddGraphControl(), param => true)); }
 		}
 
 		public ObservableCollection<LineGraphViewModel> LineGraphs
@@ -129,16 +122,16 @@ namespace YuvKA.ViewModel.Implementation
 			}
 		}
 
-		public void Handle(DeleteGraphControlMessage message)
+		public void DeleteGraphControl(GraphControl graphControl)
 		{
-			if (message.GraphControltoDelete.ChosenType != null) {
-				var l = LineGraphs[GraphControls.IndexOf(message.GraphControltoDelete)];
+			if (graphControl.ChosenType != null) {
+				var l = LineGraphs[GraphControls.IndexOf(graphControl)];
 				l.PointDataSource = new CompositeDataSource();
-				LineGraphs[GraphControls.IndexOf(message.GraphControltoDelete)] = l;
-				LineGraphs.RemoveAt(GraphControls.IndexOf(message.GraphControltoDelete));
+				LineGraphs[GraphControls.IndexOf(graphControl)] = l;
+				LineGraphs.RemoveAt(GraphControls.IndexOf(graphControl));
 			}
-			GraphControls.Remove(message.GraphControltoDelete);
-			DeleteGraph(message.GraphControltoDelete.Graph);
+			GraphControls.Remove(graphControl);
+			NodeModel.Graphs.Remove(graphControl.Graph);
 		}
 
 		public override void Handle(TickRenderedMessage message)
@@ -151,10 +144,10 @@ namespace YuvKA.ViewModel.Implementation
 			}
 		}
 
-		public void Handle(GraphTypeChosenMessage message)
+		public void AddGraph(GraphControl graphControl)
 		{
-			AddGraph(message.GraphControl.Graph);
-			AddLineGraphViewModel(message.GraphControl);
+			NodeModel.Graphs.Add(graphControl.Graph);
+			AddLineGraphViewModel(graphControl);
 		}
 
 		private static ObservableDataSource<Point> ConvertToDataSource(IEnumerable<KeyValuePair<int, double>> data)
@@ -170,25 +163,6 @@ namespace YuvKA.ViewModel.Implementation
 		{
 			var difference = number - intervallCenter;
 			return Math.Abs(difference).CompareTo(intervallSize) < 0;
-		}
-
-		protected virtual void OnPropertyChanged(string propertyName)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null) {
-				var e = new PropertyChangedEventArgs(propertyName);
-				handler(this, e);
-			}
-		}
-
-		public void AddGraph(DiagramGraph graph)
-		{
-			NodeModel.Graphs.Add(graph);
-		}
-
-		public void DeleteGraph(DiagramGraph graph)
-		{
-			NodeModel.Graphs.Remove(graph);
 		}
 
 		public void AddLineGraphViewModel(GraphControl graphControl)
@@ -213,12 +187,12 @@ namespace YuvKA.ViewModel.Implementation
 			LineGraphs.Add(line);
 		}
 
-		private void AddGraphControl()
+		public void AddGraphControl()
 		{
 			if (ChosenVideo == null)
 				return;
 			var graph = new DiagramGraph { Video = NodeModel.Inputs[Videos.IndexOf(ChosenVideo)] };
-			var graphControl = new GraphControl { Video = ChosenVideo, Types = new ObservableCollection<Tuple<string, IGraphType>>(Types), DisplayTypes = new ObservableCollection<Tuple<string, IGraphType>>(Types), Graph = graph, TypeColors = TypeColors, LineColors = LineColors };
+			var graphControl = new GraphControl { Parent = this, Video = ChosenVideo, Types = new ObservableCollection<Tuple<string, IGraphType>>(Types), DisplayTypes = new ObservableCollection<Tuple<string, IGraphType>>(Types), Graph = graph, TypeColors = TypeColors, LineColors = LineColors };
 			graphControl.SetDisplayTypes();
 			if (Reference.Item2 != null) {
 				graphControl.ReferenceSet = true;
