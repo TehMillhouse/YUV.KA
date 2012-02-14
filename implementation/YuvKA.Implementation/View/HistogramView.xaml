@@ -3,8 +3,6 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-		xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
 		xmlns:local="clr-namespace:YuvKA.ViewModel.Implementation"
 		xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 		cal:Message.Attach="[Event Closed] = [Action CloseWindow()]"
