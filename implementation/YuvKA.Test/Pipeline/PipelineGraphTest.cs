@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Xunit;
 using YuvKA.Pipeline;
+using YuvKA.Pipeline.Implementation;
 
 namespace YuvKA.Test.Pipeline
 {
 	public class PipelineGraphTest
 	{
 		/// <summary>
-		/// Creates a simple graph and then runs DFS on it, afterwards testing 
+		/// Creates a simple graph and then runs DFS on it, afterwards testing
 		/// whether the returned list contains the right nodes.
 		/// graph:
 		///             [node2]
@@ -135,6 +136,74 @@ namespace YuvKA.Test.Pipeline
 			Assert.Equal(5, graph.NumberOfFramesToPrecompute(nodeList));
 			nodeList.Add(node4);
 			Assert.Equal(13, graph.NumberOfFramesToPrecompute(nodeList));
+		}
+
+		/// <summary>
+		/// Creates a simple graph and then removes a node.
+		/// graph:
+		///     [node0]         [node3]
+		///            \       /
+		///             [node2]
+		///            /	   \
+		///     [node1]			[node4]
+		/// </summary>
+		[Fact]
+		public void TestRemoveNode()
+		{
+			// create graph
+			AnonymousNode node0 = new AnonymousNode() { Name = "node0" };
+			AnonymousNode node1 = new AnonymousNode() { Name = "node1" };
+			AnonymousNode node2 = new AnonymousNode(node0, node1) { Name = "node2" };
+			AnonymousNode node3 = new AnonymousNode(node2) { Name = "node3" };
+			AnonymousNode node4 = new AnonymousNode(node2) { Name = "node4" };
+			PipelineGraph graph = new PipelineGraph {
+				Nodes = { node0, node1, node2, node3, node4 }
+			};
+
+			graph.RemoveNode(node2);
+
+			foreach(Node.Input input in node3.Inputs) 
+				Assert.Equal(null, input.Source);
+
+			foreach (Node.Input input in node4.Inputs)
+				Assert.Equal(null, input.Source);
+		}
+
+
+		/// <summary>
+		/// Creates some nodes and checks the behaviour of the AddNodeWithIndex method.
+		/// </summary>
+		[Fact]
+		public void TestAddNodeWithIndex()
+		{
+			// create some nodes and initialize graph
+			BlurNode blur0 = new BlurNode();
+			BlurNode blur1 = new BlurNode();
+			BlurNode blur2 = new BlurNode();
+			BlurNode blur3 = new BlurNode();
+			BlurNode blur4 = new BlurNode();
+			DelayNode delay0 = new DelayNode();
+			DelayNode delay1 = new DelayNode();
+			PipelineGraph graph = new PipelineGraph();
+
+			graph.AddNodeWithIndex(blur0);
+			graph.AddNodeWithIndex(blur1);
+			graph.AddNodeWithIndex(delay0);
+			graph.AddNodeWithIndex(blur2);
+			graph.AddNodeWithIndex(delay1);
+
+			Assert.Equal("Blur", blur0.Name);
+			Assert.Equal("Blur 2", blur1.Name);
+			Assert.Equal("Blur 3", blur2.Name);
+			Assert.Equal("Delay", delay0.Name);
+			Assert.Equal("Delay 2", delay1.Name);
+
+			graph.RemoveNode(blur1);
+			graph.AddNodeWithIndex(blur3);
+			graph.AddNodeWithIndex(blur4);
+
+			Assert.Equal("Blur 2", blur3.Name);
+			Assert.Equal("Blur 4", blur4.Name);
 		}
 	}
 }
