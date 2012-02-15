@@ -13,6 +13,9 @@ namespace YuvKA.Pipeline
 	using NodeTask = Task<Frame[]>;
 	using NodeTasks = Dictionary<Node, Task<Frame[]>>;
 
+	/// <summary>
+	/// Renders a pipeline graph in parallel.
+	/// </summary>
 	public class PipelineDriver
 	{
 		// We have to wait for any rendering process to complete before starting the next one

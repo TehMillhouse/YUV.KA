@@ -1,0 +1,5 @@
+\begin{itemize}
+	\item \name{YuvKA.Pipeline.PipelineDriver.RenderTicks}
+	
+		Neuer Parameter \verb!int? tickCount = null!: Wie sich herausstellte, sollte die Berechnung der Pipeline nicht nur durch ein \name{CancellationToken} jederzeit abbrechbar sein, sondern auch von sich aus nach einer gegebenen Anzahl Ticks, nämlich bis zum Ende des gegebenen Eingabevideos, enden können. Existiert kein Eingabevideo, kann dem Parameter \name{null} zugewiesen werden (der Standardwert), um weiterhin bis zu einem manuellen Abbruch zu berechnen.
+\end{itemize}
