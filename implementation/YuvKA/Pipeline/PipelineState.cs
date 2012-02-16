@@ -8,6 +8,10 @@ using Caliburn.Micro;
 
 namespace YuvKA.Pipeline
 {
+	/// <summary>
+	/// Holding the model's complete state, the PipelineState class may be serialized to save all application data of a pipeline.
+	/// Aside from the PipelineGraph it contains the replay state and can act on a PipelineDriver accordingly.
+	/// </summary>
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Long-living, rarely instantiated class")]
 	[DataContract]
 	public class PipelineState : PropertyChangedBase
@@ -23,6 +27,9 @@ namespace YuvKA.Pipeline
 			Speed = 30;
 		}
 
+		/// <summary>
+		/// Gets or sets the next tick to be computed.
+		/// </summary>
 		[DataMember]
 		public int CurrentTick
 		{
@@ -36,6 +43,9 @@ namespace YuvKA.Pipeline
 			}
 		}
 
+		/// <summary>
+		/// Gets the PipelineDriver instance used by this object.
+		/// </summary>
 		public PipelineDriver Driver { get; private set; }
 
 		/// <summary>
@@ -55,28 +65,42 @@ namespace YuvKA.Pipeline
 			}
 		}
 
+		/// <summary>
+		/// Gets the actual measured replay speed
+		/// </summary>
 		public int ActualSpeed { get; private set; }
 
+		/// <summary>
+		/// Gets the pipeline graph.
+		/// </summary>
 		[DataMember]
 		public PipelineGraph Graph { get; private set; }
 
-		[Import]
-		IEventAggregator Events { get; set; }
-
+		/// <summary>
+		/// Instructs the driver to render the given nodes, starting with CurrentTick. After each
+		/// rendered tick a TickRenderedMessage will be thrown.
+		/// </summary>
+		/// <returns>True iff outputNodes can be rendered</returns>
 		public bool Start(IEnumerable<Node> outputNodes)
 		{
 			return RenderTicks(outputNodes, Graph.TickCount - CurrentTick, isPreviewFrame: false);
 		}
 
+		/// <summary>
+		/// Stops the current rendering process, if any.
+		/// </summary>
 		public void Stop()
 		{
 			if (cts != null)
 				cts.Cancel();
 		}
 
-		public void RenderTick(IEnumerable<Node> outputNodes, bool isPreviewFrame)
+		/// <summary>
+		/// Renders a single tick without advancing CurrentTick.
+		/// </summary>
+		public void RenderTick(IEnumerable<Node> outputNodes)
 		{
-			RenderTicks(outputNodes, 1, isPreviewFrame);
+			RenderTicks(outputNodes, 1, isPreviewFrame: true);
 		}
 
 		[OnDeserialized]
@@ -89,6 +113,7 @@ namespace YuvKA.Pipeline
 		{
 			if (!outputNodes.All(node => node.InputIsValid))
 				return false;
+
 			cts = new CancellationTokenSource();
 			int precomputeCount = Graph.NumberOfFramesToPrecompute(outputNodes);
 			Queue<DateTime> ticks = new Queue<DateTime>();
@@ -113,11 +138,13 @@ namespace YuvKA.Pipeline
 				}
 				ticks.Enqueue(now);
 
-				Events.Publish(new TickRenderedMessage(dic));
+				IoC.Get<IEventAggregator>().Publish(new TickRenderedMessage(dic));
 				if (!isPreviewFrame && !cts.IsCancellationRequested) {
 					CurrentTick++;
 				}
-			}, onError: e => Execute.OnUIThread(() => { throw e; }));
+			},
+			// Rethrow exceptions on UI thread for easier debugging
+			onError: e => Execute.OnUIThread(() => { throw e; }));
 			return true;
 		}
 	}

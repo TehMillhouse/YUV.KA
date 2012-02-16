@@ -154,7 +154,7 @@ namespace YuvKA.ViewModel
 				OpenWindows.Add(window);
 				IoC.Get<IWindowManagerEx>().ShowWindow(window, owningModel: this);
 				if (!ReplayStateViewModel.IsPlaying) {
-					Model.RenderTick(new[] { window.NodeModel }, isPreviewFrame: true);
+					Model.RenderTick(new[] { window.NodeModel });
 				}
 			}
 		}

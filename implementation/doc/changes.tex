@@ -1,5 +1,17 @@
+\subsection{\name{YuvKA.Pipeline}}
+
+\paragraph{\name{PipelineDriver}}
 \begin{itemize}
-	\item \name{YuvKA.Pipeline.PipelineDriver.RenderTicks}
-	
-		Neuer Parameter \verb!int? tickCount = null!: Wie sich herausstellte, sollte die Berechnung der Pipeline nicht nur durch ein \name{CancellationToken} jederzeit abbrechbar sein, sondern auch von sich aus nach einer gegebenen Anzahl Ticks, nämlich bis zum Ende des gegebenen Eingabevideos, enden können. Existiert kein Eingabevideo, kann dem Parameter \name{null} zugewiesen werden (der Standardwert), um weiterhin bis zu einem manuellen Abbruch zu berechnen.
+	\change Die Klasse ist nicht mehr als statisch deklariert. Diese Änderung ermöglicht, verschiedene Graphen parallel zu berechnen, indem jeweils ein Driver instanziert wird, die einzelnen Berechnungen aber weiterhin den Parallelitätszusicherungen genügen.
+	\add \verb!RenderTicks! \\
+	Neuer Parameter \verb!int? tickCount = null!: Wie sich herausstellte, sollte die Berechnung der Pipeline nicht nur durch ein \name{CancellationToken} jederzeit abbrechbar sein, sondern auch von sich aus nach einer gegebenen Anzahl Ticks, nämlich bis zum Ende des gegebenen Eingabevideos, enden können. Existiert kein Eingabevideo, kann dem Parameter \name{null} zugewiesen werden (der Standardwert), um weiterhin bis zu einem manuellen Abbruch zu berechnen.
+\end{itemize}
+
+\paragraph{\name{PipelineState}}
+\begin{itemize}
+	\add \verb!public int ActualSpeed { get; }! \\
+	Besonders zu Debugzwecken und zur Demonstration wurde diese Property hinzugefügt, um die tatsächlich gemessene Abarbeitungsgeschwindigkeit in der UI anzeigen zu können.
+	\add \verb!public PipelineDriver Driver { get; }! \\
+	Nachdem in der \name{PipelineDriver}-Klasse der \name{static}-Modifier entfernt wurde, musste mit dieser neuen Property der Pipeline eine Driver-Instanz zugeordnet werden.
+
 \end{itemize}
