@@ -7,6 +7,9 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// Enables the modification of brightness, contrast and saturation of an input frame.
+	/// </summary>
 	[DataContract]
 	[Description("Changes brightness, contrast, and/or saturation of the input")]
 	public class BrightnessContrastSaturationNode : Node
@@ -24,16 +27,25 @@ namespace YuvKA.Pipeline.Implementation
 			Saturation = 0;
 		}
 
+		/// <summary>
+		/// Gets or sets the brightness value of the frame.
+		/// </summary>
 		[DataMember]
 		[Range(-1.0, 1.0)]
 		[Browsable(true)]
 		public double Brightness { get; set; }
 
+		/// <summary>
+		/// Gets or sets the contrast value of the frame.
+		/// </summary>
 		[DataMember]
 		[Range(-1.0, 1.0)]
 		[Browsable(true)]
 		public double Contrast { get; set; }
 
+		/// <summary>
+		/// Gets or sets the saturation value of the frame.
+		/// </summary>
 		[DataMember]
 		[Range(-1.0, 1.0)]
 		[Browsable(true)]

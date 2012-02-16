@@ -6,6 +6,9 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// Provides an input stream containing noise. The noise can be Perlin or Coherent.
+	/// </summary>
 	[DataContract]
 	public class NoiseInputNode : InputNode
 	{
@@ -36,6 +39,9 @@ namespace YuvKA.Pipeline.Implementation
 			49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254,
 			138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180 };
 
+		/// <summary>
+		/// Creates a new NoiseInputNode with default values. 
+		/// </summary>
 		public NoiseInputNode()
 			: base(outputCount: 1)
 		{
@@ -45,6 +51,9 @@ namespace YuvKA.Pipeline.Implementation
 			Seed = (new Random()).Next();
 		}
 
+		/// <summary>
+		/// Gets or sets the type of noise. It can be Perlin or Coherent.
+		/// </summary>
 		[DataMember]
 		[Browsable(true)]
 		public NoiseType Type
@@ -62,6 +71,9 @@ namespace YuvKA.Pipeline.Implementation
 		[DataMember]
 		private int Seed;
 
+		/// <summary>
+		/// Gets or sets the rendering speed of Perlin noise.
+		/// </summary>
 		[DataMember]
 		[Browsable(true)]
 		[Range(0.0, 1.0)]
@@ -77,6 +89,9 @@ namespace YuvKA.Pipeline.Implementation
 			set { speed = value ?? speed; }
 		}
 
+		/// <summary>
+		/// Gets or sets the rendering size of Perlin noise.
+		/// </summary>
 		[DataMember]
 		[Browsable(true)]
 		[Range(0.0, 1.0)]
@@ -96,6 +111,11 @@ namespace YuvKA.Pipeline.Implementation
 		double speed;
 		NoiseType type;
 
+		/// <summary>
+		/// Returns a Frame with noise corresponding to the current tick in the stream.
+		/// </summary>
+		/// <param name="tick">The index of the current frame in the video stream</param>
+		/// <returns>A tick-dependent noise Frame.</returns>
 		public override Frame OutputFrame(int tick)
 		{
 			Frame outputFrame = new Frame(new Size(Size.Width, Size.Height));

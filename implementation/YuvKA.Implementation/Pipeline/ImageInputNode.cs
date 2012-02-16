@@ -5,6 +5,9 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// Provides a video stream contaning a still image from a PNG file.
+	/// </summary>
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Rarely instantiated, long-living class")]
 	[DataContract]
 	public class ImageInputNode : InputNode
@@ -14,12 +17,18 @@ namespace YuvKA.Pipeline.Implementation
 		FilePath fileName;
 		Frame resizedFrame;
 
+		/// <summary>
+		/// Creates a new ImageInputNode
+		/// </summary>
 		public ImageInputNode()
 			: base(outputCount: 1)
 		{
 			Name = "Image";
 		}
 
+		/// <summary>
+		/// Gets or sets the path of the PNG image file to be streamed into the pipeline
+		/// </summary>
 		[DisplayName("File Name")]
 		[DataMember]
 		[Browsable(true)]

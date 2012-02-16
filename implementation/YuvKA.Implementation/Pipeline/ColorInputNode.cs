@@ -4,6 +4,9 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// Provides a video stream consisting of a single constant color.
+	/// </summary>
 	[DataContract]
 	public class ColorInputNode : InputNode
 	{
@@ -11,12 +14,18 @@ namespace YuvKA.Pipeline.Implementation
 		Frame outputFrame;
 		bool colorChanged;
 
+		/// <summary>
+		/// Creates a new color input node with the default color (black).
+		/// </summary>
 		public ColorInputNode()
 			: base(outputCount: 1)
 		{
 			Name = "Color";
 		}
 
+		/// <summary>
+		/// Gets or sets the color of the input frame
+		/// </summary>
 		[DataMember]
 		[Browsable(true)]
 		public Rgb Color
@@ -29,6 +38,13 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
+		/// <summary>
+		/// Ignores the given parameter and returns a frame array of size 1
+		/// containing a frame of the specified constant color.
+		/// </summary>
+		/// <param name="tick">The index of the current frame in the video stream. 
+		/// This parameter is unused.</param>
+		/// <returns>A frame of the specified constant color</returns>
 		public override Frame OutputFrame(int tick)
 		{
 			EnsureInputLoaded();
