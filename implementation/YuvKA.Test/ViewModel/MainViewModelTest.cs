@@ -11,9 +11,9 @@ namespace YuvKA.Test.ViewModel
 {
 	public class MainViewModelTest
 	{
-		MainViewModel vm;
+		MainViewModel vm = GetInstance();
 
-		public MainViewModelTest()
+		public static MainViewModel GetInstance()
 		{
 			var catalog = new AggregateCatalog(new AssemblyCatalog("YuvKA.exe"), new AssemblyCatalog("YuvKA.Implementation.dll"));
 			var container = new CompositionContainer(catalog);
@@ -22,7 +22,7 @@ namespace YuvKA.Test.ViewModel
 			IoC.GetInstance = (t, key) => AppBootstrapper.GetInstance(t, key, container);
 			IoC.BuildUp = o => container.SatisfyImportsOnce(o);
 
-			vm = container.GetExportedValue<MainViewModel>();
+			return container.GetExportedValue<MainViewModel>();
 		}
 
 		/// <summary>
