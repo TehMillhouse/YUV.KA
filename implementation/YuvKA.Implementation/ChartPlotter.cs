@@ -10,14 +10,14 @@ namespace YuvKA.Implementation
 {
 	public class ChartPlotter : Microsoft.Research.DynamicDataDisplay.ChartPlotter
 	{
-		private IDictionary<Guid, LineGraphViewModel> lineGraphsList;
-		private IList<LineGraph> lineGraphLines = new List<LineGraph>();
-		private IList<LineAndMarker<MarkerPointsGraph>> lineAndMarkerGraphs = new List<LineAndMarker<MarkerPointsGraph>>();
-
 		/// <summary>
 		/// DependencyProperty for LineGraphs
 		/// </summary>
 		public static readonly DependencyProperty LineGraphsProperty = DependencyProperty.Register("LineGraphs", typeof(ObservableCollection<LineGraphViewModel>), typeof(ChartPlotter), new FrameworkPropertyMetadata(new PropertyChangedCallback(ChangeLineGraphs)));
+
+		private IDictionary<Guid, LineGraphViewModel> lineGraphsList;
+		private IList<LineGraph> lineGraphLines = new List<LineGraph>();
+		private IList<LineAndMarker<MarkerPointsGraph>> lineAndMarkerGraphs = new List<LineAndMarker<MarkerPointsGraph>>();
 
 		/// <summary>
 		/// Gets or sets the line graphs.
@@ -66,7 +66,8 @@ namespace YuvKA.Implementation
 								LineAndMarker<MarkerPointsGraph> lineAndMarker = this.AddLineGraph(viewModel.PointDataSource, new Pen(brush, viewModel.Thickness), new CirclePointMarker { Size = 7, Fill = brush }, new PenDescription(viewModel.Name));
 								lineAndMarker.LineGraph.Name = viewModel.Name;
 								this.lineAndMarkerGraphs.Add(lineAndMarker);
-							} else {
+							}
+							else {
 								LineGraph lineGraph = this.AddLineGraph(viewModel.PointDataSource, viewModel.Color, viewModel.Thickness, viewModel.Name);
 								lineGraph.Name = viewModel.Name;
 								this.lineGraphLines.Add(lineGraph);
@@ -85,13 +86,13 @@ namespace YuvKA.Implementation
 					}
 
 				case System.Collections.Specialized.NotifyCollectionChangedAction.Replace: {
-						bool bTemp = false;
+						bool tempBool = false;
 						foreach (LineGraphViewModel viewModel in e.NewItems) {
 							foreach (LineGraph line in this.lineGraphLines) {
 								if (this.Children.Contains(line) && line.Name == viewModel.Name) {
 									this.Children.Remove(line);
 									this.lineGraphLines.Remove(line);
-									bTemp = true;
+									tempBool = true;
 									break;
 								}
 							}
@@ -101,25 +102,26 @@ namespace YuvKA.Implementation
 									this.Children.Remove(line.LineGraph);
 									this.Children.Remove(line.MarkerGraph);
 									this.lineAndMarkerGraphs.Remove(line);
-									bTemp = true;
+									tempBool = true;
 									break;
 								}
 							}
 
-							if (bTemp) {
+							if (tempBool) {
 								if (viewModel.LineAndMarker) {
 									SolidColorBrush brush = new SolidColorBrush();
 									brush.Color = viewModel.Color;
 									LineAndMarker<MarkerPointsGraph> lineAndMarker = this.AddLineGraph(viewModel.PointDataSource, new Pen(brush, viewModel.Thickness), new CirclePointMarker { Size = 7, Fill = brush }, new PenDescription(viewModel.Name));
 									lineAndMarker.LineGraph.Name = viewModel.Name;
 									this.lineAndMarkerGraphs.Add(lineAndMarker);
-								} else {
+								}
+								else {
 									LineGraph lineGraph = this.AddLineGraph(viewModel.PointDataSource, viewModel.Color, viewModel.Thickness, viewModel.Name);
 									lineGraph.Name = viewModel.Name;
 									this.lineGraphLines.Add(lineGraph);
 								}
 
-								bTemp = false;
+								tempBool = false;
 							}
 						}
 

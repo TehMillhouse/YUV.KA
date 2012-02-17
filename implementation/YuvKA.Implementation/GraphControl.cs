@@ -14,6 +14,7 @@ namespace YuvKA.Implementation
 		private Tuple<string, IGraphType> chosenType;
 		private List<System.Drawing.Color> theseLineColors;
 		private bool referenceSet;
+		private bool referenceHasLogfile;
 
 		public DiagramViewModel Parent { get; set; }
 
@@ -34,8 +35,8 @@ namespace YuvKA.Implementation
 					chosenType = value;
 					Graph.Type = value.Item2;
 					SetLineColor();
-					foreach (var lColor in TheseLineColors) {
-						LineColors.Add(lColor);
+					foreach (var lineColor in TheseLineColors) {
+						LineColors.Add(lineColor);
 					}
 					Parent.AddGraph(this);
 				}
@@ -70,7 +71,6 @@ namespace YuvKA.Implementation
 			}
 		}
 
-		private bool referenceHasLogfile;
 		public bool ReferenceHasLogfile
 		{
 			get { return referenceHasLogfile; }

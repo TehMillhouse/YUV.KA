@@ -39,6 +39,12 @@ namespace YuvKA.Pipeline.Implementation
 			49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254,
 			138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180 };
 
+		double scale;
+		double speed;
+		NoiseType type;
+		[DataMember]
+		private int seed;
+
 		/// <summary>
 		/// Creates a new NoiseInputNode with default values. 
 		/// </summary>
@@ -48,7 +54,7 @@ namespace YuvKA.Pipeline.Implementation
 			Name = "Noise";
 			Speed = 0.05;
 			Scale = 0.05;
-			Seed = (new Random()).Next();
+			seed = (new Random()).Next();
 		}
 
 		/// <summary>
@@ -67,9 +73,6 @@ namespace YuvKA.Pipeline.Implementation
 				NotifyOfPropertyChange(() => Speed);
 			}
 		}
-
-		[DataMember]
-		private int Seed;
 
 		/// <summary>
 		/// Gets or sets the rendering speed of Perlin noise.
@@ -107,10 +110,6 @@ namespace YuvKA.Pipeline.Implementation
 			set { scale = value ?? scale; }
 		}
 
-		double scale;
-		double speed;
-		NoiseType type;
-
 		/// <summary>
 		/// Returns a Frame with noise corresponding to the current tick in the stream.
 		/// </summary>
@@ -137,7 +136,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		private Frame ProcessCoherentNoise(Frame frame, int tick)
 		{
-			Random rnd = new Random(Seed % (tick == 0 ? 1 : tick));
+			Random rnd = new Random(seed % (tick == 0 ? 1 : tick));
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
 					byte color = (byte)rnd.Next(255);
@@ -149,7 +148,7 @@ namespace YuvKA.Pipeline.Implementation
 
 		private Frame ProcessColoredCoherentNoise(Frame frame, int tick)
 		{
-			Random rnd = new Random(Seed % (tick == 0 ? 1 : tick));
+			Random rnd = new Random(seed % (tick == 0 ? 1 : tick));
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
 					byte colorR = (byte)rnd.Next(255);
@@ -179,11 +178,15 @@ namespace YuvKA.Pipeline.Implementation
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
 					// Generate noise function values, which is also tick-dependent
-					double randomNumberR = (Noise(x * (double)Scale, y * (double)Scale, (double)Speed * tick) + 1) / 2;
+					double randomNumberR = (Noise(x * (double)Scale,
+						y * (double)Scale,
+						(double)Speed * tick) + 1) / 2;
 					double randomNumberG = (Noise((x + 42) * (double)Scale,
-						(y - 42) * (double)Scale, (double)Speed * (tick + 42)) + 1) / 2;
+						(y - 42) * (double)Scale,
+						(double)Speed * (tick + 42)) + 1) / 2;
 					double randomNumberB = (Noise((x - 42) * (double)Scale,
-						(y + 42) * (double)Scale, (double)Speed * (tick - 42)) + 1) / 2;
+						(y + 42) * (double)Scale,
+						(double)Speed * (tick - 42)) + 1) / 2;
 					byte randomRed = (byte)(randomNumberR * 255);
 					byte randomGreen = (byte)(randomNumberG * 255);
 					byte randomBlue = (byte)(randomNumberB * 255);

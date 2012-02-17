@@ -16,6 +16,9 @@ namespace YuvKA.ViewModel.Implementation
 {
 	public class OverlayViewModel : OutputWindowViewModel
 	{
+		int widthOld;
+		int heightOld;
+
 		public OverlayViewModel(OverlayNode node)
 			: base(node, null)
 		{
@@ -24,8 +27,6 @@ namespace YuvKA.ViewModel.Implementation
 
 		public WriteableBitmap RenderedImage { get; private set; }
 		public new OverlayNode NodeModel { get; private set; }
-		int widthOld;
-		int heightOld;
 
 		public IEnumerable<System.Tuple<string, IOverlayType>> TypeTuples
 		{

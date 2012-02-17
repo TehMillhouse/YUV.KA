@@ -19,6 +19,7 @@ namespace YuvKA.ViewModel.Implementation
 		private ObservableCollection<LineGraphViewModel> lineGraphs;
 		private ObservableCollection<GraphControl> graphControls;
 		private List<System.Windows.Media.Color> typeColors;
+		private List<Color> lineColors;
 
 		public DiagramViewModel(Node nodeModel)
 			: base(nodeModel, null)
@@ -92,7 +93,6 @@ namespace YuvKA.ViewModel.Implementation
 			set { graphControls = value; }
 		}
 
-		private List<Color> lineColors;
 		public List<Color> LineColors
 		{
 			get { return lineColors ?? (lineColors = new List<Color>()); }
@@ -109,7 +109,6 @@ namespace YuvKA.ViewModel.Implementation
 					var randomColorsMedia = new List<System.Windows.Media.Color>();
 					Color newColor;
 					for (var i = 0; i < Types.Count(); i++) {
-
 						do {
 							newColor = Color.FromArgb(255, (byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256));
 						} while (randomColors.FindIndex(color => IsInIntervall(color.GetHue(), newColor.GetHue(), 25.0)) != -1 || newColor.GetHue().Equals(0.0) || newColor.GetBrightness().Equals(1.0) || newColor.GetBrightness().Equals(0.0));
@@ -120,6 +119,12 @@ namespace YuvKA.ViewModel.Implementation
 				}
 				return typeColors;
 			}
+		}
+
+		public static bool IsInIntervall(double intervallCenter, double number, double intervallSize)
+		{
+			var difference = number - intervallCenter;
+			return Math.Abs(difference).CompareTo(intervallSize) < 0;
 		}
 
 		public void DeleteGraphControl(GraphControl graphControl)
@@ -150,21 +155,6 @@ namespace YuvKA.ViewModel.Implementation
 			AddLineGraphViewModel(graphControl);
 		}
 
-		private static ObservableDataSource<Point> ConvertToDataSource(IEnumerable<KeyValuePair<int, double>> data)
-		{
-			var inData = new ObservableCollection<Point>(data.Select(datum => new Point(datum.Key, datum.Value)));
-			var outData = new ObservableDataSource<Point>(inData);
-			outData.SetXMapping(k => k.X);
-			outData.SetYMapping(k => k.Y);
-			return outData;
-		}
-
-		public static bool IsInIntervall(double intervallCenter, double number, double intervallSize)
-		{
-			var difference = number - intervallCenter;
-			return Math.Abs(difference).CompareTo(intervallSize) < 0;
-		}
-
 		public void AddLineGraphViewModel(GraphControl graphControl)
 		{
 			var line = new LineGraphViewModel();
@@ -177,7 +167,8 @@ namespace YuvKA.ViewModel.Implementation
 			if (graphControl.ChosenType != null) {
 				line.Name = graphControl.Video.Item1 + graphControl.ChosenType.Item1;
 				line.Name = line.Name.Replace("-", "");
-			} else {
+			}
+			else {
 				line.Name = graphControl.Video.Item1;
 			}
 			line.Color = graphControl.LineColor;
@@ -199,6 +190,15 @@ namespace YuvKA.ViewModel.Implementation
 				graphControl.ReferenceHasLogfile = Reference.Item2.Source.Node.OutputHasLogfile;
 			}
 			GraphControls.Add(graphControl);
+		}
+
+		private static ObservableDataSource<Point> ConvertToDataSource(IEnumerable<KeyValuePair<int, double>> data)
+		{
+			var inData = new ObservableCollection<Point>(data.Select(datum => new Point(datum.Key, datum.Value)));
+			var outData = new ObservableDataSource<Point>(inData);
+			outData.SetXMapping(k => k.X);
+			outData.SetYMapping(k => k.Y);
+			return outData;
 		}
 	}
 }

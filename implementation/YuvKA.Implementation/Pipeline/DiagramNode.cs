@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using System.Threading;
 using YuvKA.VideoModel;
 using YuvKA.ViewModel.Implementation;
-using System.Threading;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -11,6 +11,8 @@ namespace YuvKA.Pipeline.Implementation
 	public class DiagramNode : OutputNode
 	{
 		static readonly object graphLock = new object();
+		private List<DiagramGraph> graphs;
+
 		public DiagramNode()
 			: base(inputCount: null)
 		{
@@ -27,13 +29,19 @@ namespace YuvKA.Pipeline.Implementation
 		[DataMember]
 		public Input ReferenceVideo { get; set; }
 
-		private List<DiagramGraph> graphs;
-
 		[DataMember]
-		public List<DiagramGraph> Graphs 
+		public List<DiagramGraph> Graphs
 		{
-		    get { lock (graphLock) {return graphs;} }
-		    set { lock (graphLock) {graphs = value;} }
+			get {
+				lock (graphLock) {
+					return graphs;
+				}
+			}
+			set {
+				lock (graphLock) {
+					graphs = value;
+				}
+			}
 		}
 
 		[Browsable(true)]
