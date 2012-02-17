@@ -6,7 +6,6 @@ using Caliburn.Micro;
 
 namespace YuvKA.Pipeline
 {
-
 	/// <summary>
 	/// This class manages the basic functionalities of the pipeline.
 	/// </summary>

@@ -7,14 +7,15 @@ namespace YuvKA.ViewModel
 {
 	public class VideoOutputViewModel : OutputWindowViewModel
 	{
+		int widthOld;
+		int heightOld;
+
 		public VideoOutputViewModel(Node.Output output)
 			: base(output.Node, output)
 		{
 		}
 
 		public WriteableBitmap SourceImage { get; set; }
-		int widthOld;
-		int heightOld;
 
 		public override void Handle(TickRenderedMessage message)
 		{

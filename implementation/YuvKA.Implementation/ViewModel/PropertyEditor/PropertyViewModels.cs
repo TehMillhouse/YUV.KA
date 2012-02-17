@@ -93,22 +93,35 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public class NullableDoublePropertyViewModel : NumericalPropertyViewModel<double?>
 	{
+		public bool SlidersAreEnabled
+		{
+			get { return TypedValue != null; }
+		}
 
 		protected override void OnValueChanged()
 		{
 			base.OnValueChanged();
 			NotifyOfPropertyChange(() => SlidersAreEnabled);
 		}
-
-		public bool SlidersAreEnabled
-		{
-			get { return TypedValue != null; }
-		}
 	}
 
 	public class ObservableCollectionOfDoublePropertyViewModel : PropertyViewModel<ObservableCollection<double>>
 	{
+		IEnumerable<DoubleWrapper> wrapperCollection;
+
 		public ObservableCollectionOfDoublePropertyViewModel() : base(commitOnValueChanged: false) { }
+
+		public IEnumerable<DoubleWrapper> Wrapper
+		{
+			get
+			{
+				if (wrapperCollection == null || wrapperCollection.Count() != TypedValue.Count()) {
+					wrapperCollection = TypedValue.Select((_, index) => new DoubleWrapper(TypedValue, index)).ToArray();
+					return wrapperCollection;
+				}
+				return wrapperCollection;
+			}
+		}
 
 		protected override void OnValueChanged()
 		{
@@ -116,8 +129,6 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 			NotifyOfPropertyChange(() => Wrapper);
 			TypedValue.CollectionChanged += (sender, e) => NotifyOfPropertyChange(() => Wrapper);
 		}
-
-		IEnumerable<DoubleWrapper> wrapperCollection;
 
 		public class DoubleWrapper
 		{
@@ -132,17 +143,6 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 			{
 				get { return source[index]; }
 				set { source[index] = value; }
-			}
-		}
-		public IEnumerable<DoubleWrapper> Wrapper
-		{
-			get
-			{
-				if (wrapperCollection == null || wrapperCollection.Count() != TypedValue.Count()) {
-					wrapperCollection = TypedValue.Select((_, index) => new DoubleWrapper(TypedValue, index)).ToArray();
-					return wrapperCollection;
-				}
-				return wrapperCollection;
 			}
 		}
 	}

@@ -21,6 +21,8 @@ namespace YuvKA.Pipeline
 		// We have to wait for any rendering process to complete before starting the next one
 		// because Node.Process will most likely not be thread-safe.
 		Task lastTask = CreateCompletedTask();
+		// Store tasks of previous tick for synchronization purposes (see Visit)
+		NodeTasks previousTasks = new NodeTasks();
 
 		/// <summary>
 		/// Renders consecutive ticks for the given set of nodes by processing the relevant parts of the pipeline.
@@ -93,9 +95,6 @@ namespace YuvKA.Pipeline
 			tcs.SetResult(42);
 			return tcs.Task;
 		}
-
-		// Store tasks of previous tick for synchronization purposes (see Visit)
-		NodeTasks previousTasks = new NodeTasks();
 
 		Task<FrameDic> RenderTickCore(IEnumerable<Node> startNodes, int tick, CancellationToken token)
 		{

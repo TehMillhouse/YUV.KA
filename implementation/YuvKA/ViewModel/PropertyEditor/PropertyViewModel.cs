@@ -11,6 +11,11 @@ namespace YuvKA.ViewModel.PropertyEditor
 		// True if Value's setter should throw a ChangeCommitedMessage
 		bool commitOnValueChanged;
 
+		protected PropertyViewModel(bool commitOnValueChanged = true)
+		{
+			this.commitOnValueChanged = commitOnValueChanged;
+		}
+
 		public object Source { get; private set; }
 		public PropertyDescriptor Property { get; private set; }
 		public object Value
@@ -31,11 +36,6 @@ namespace YuvKA.ViewModel.PropertyEditor
 				DisplayNameAttribute attr = Property.Attributes.OfType<DisplayNameAttribute>().FirstOrDefault();
 				return attr != null ? attr.DisplayName : Property.Name;
 			}
-		}
-
-		protected PropertyViewModel(bool commitOnValueChanged = true)
-		{
-			this.commitOnValueChanged = commitOnValueChanged;
 		}
 
 		public void Initialize(object source, PropertyDescriptor property)
@@ -62,6 +62,6 @@ namespace YuvKA.ViewModel.PropertyEditor
 	public abstract class PropertyViewModel<T> : PropertyViewModel
 	{
 		protected PropertyViewModel(bool commitOnValueChanged = true) : base(commitOnValueChanged) { }
-		public T TypedValue { get { return (T)base.Value; } set { base.Value = (T)value; } }
+		public T TypedValue { get { return (T)this.Value; } set { this.Value = (T)value; } }
 	}
 }

@@ -42,6 +42,17 @@
 
 		static string ExeDir { get { return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); } }
 
+		public static object GetInstance(Type serviceType, string key, CompositionContainer container)
+		{
+			string contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(serviceType) : key;
+			var exports = container.GetExportedValues<object>(contract);
+
+			if (exports.Count() > 0)
+				return exports.First();
+
+			throw new Exception(string.Format("Could not locate any instances of contract {0}.", contract));
+		}
+
 		/// <summary>
 		/// By default, we are configured to use MEF
 		/// </summary>
@@ -91,17 +102,6 @@
 		protected override object GetInstance(Type serviceType, string key)
 		{
 			return GetInstance(serviceType, key, container);
-		}
-
-		public static object GetInstance(Type serviceType, string key, CompositionContainer container)
-		{
-			string contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(serviceType) : key;
-			var exports = container.GetExportedValues<object>(contract);
-
-			if (exports.Count() > 0)
-				return exports.First();
-
-			throw new Exception(string.Format("Could not locate any instances of contract {0}.", contract));
 		}
 
 		protected override IEnumerable<object> GetAllInstances(Type serviceType)

@@ -25,7 +25,6 @@ namespace YuvKA
 			//get the only number in the text.
 			var numbersAsString = Regex.Split((string)value, @"\D+");
 			return int.Parse(numbersAsString[0]);
-			;
 		}
 	}
 }

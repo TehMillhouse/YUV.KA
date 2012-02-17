@@ -1,5 +1,4 @@
-﻿
-namespace Caliburn.Micro
+﻿namespace Caliburn.Micro
 {
 	public interface IWindowManagerEx : IWindowManager
 	{
