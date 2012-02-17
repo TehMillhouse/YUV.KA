@@ -54,7 +54,7 @@ namespace YuvKA.VideoModel
 
 		public Rgb GetPixelOrBlack(int x, int y)
 		{
-			return (x < Size.Width && y < Size.Height) ? this[x, y] : new Rgb(0, 0, 0);
+			return (x < Size.Width && y < Size.Height && x >= 0 && y >= 0) ? this[x, y] : new Rgb(0, 0, 0);
 		}
 	}
 }

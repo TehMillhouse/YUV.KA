@@ -36,6 +36,11 @@ namespace YuvKA.Test.ViewModel
 			// Don't expect this to work if the filename doesn't happen to be formatted
 			// just the right way
 			Assert.Equal(video.FrameCount, int.Parse(videoName.Substring(videoName.Length - 7, 3)));
+			// Test video and frame indexer
+			Assert.Equal(new Rgb(0, 0, 0), video[0].GetPixelOrBlack(-1, -1));
+			// obviously, this is only true if the video is either very large and black or not that large
+			Assert.Equal(new Rgb(0, 0, 0), video[0].GetPixelOrBlack(9999999, 9999999));
+			Assert.Equal(video[0][0, 0], video[0].GetPixelOrBlack(0, 0));
 
 			Bitmap bmp;
 			// I test the first and last three frames
