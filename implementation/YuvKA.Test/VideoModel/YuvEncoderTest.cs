@@ -27,13 +27,15 @@ namespace YuvKA.Test.ViewModel
 		{
 			int width = 352;
 			int height = 240;
-			string fileName = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv"; // be sure to adjust this beforehand
-			string saveName = "..\\..\\..\\..\\output\\"; // warning, depending on the file, this produces a lot of images
+			string videoName = @"..\..\..\..\resources\americanFootball_352x240_125.yuv"; // be sure to adjust this beforehand
+			string logFileName = @"..\..\..\..\resources\ModeGrid_AmFootball_OUR.dat";
+			string motionVectorFileName = @"..\..\..\..\resources\motion_info\motion_info_football_qp20.csv";
+			string saveName = @"..\..\..\..\output\";
 			// leave the file extension away
-			YuvEncoder.Video video = new YuvEncoder.Video(new VideoModel.Size(width, height), fileName, null, null);
+			YuvEncoder.Video video = YuvEncoder.Decode(width, height, videoName, logFileName, motionVectorFileName);
 			// Don't expect this to work if the filename doesn't happen to be formatted
 			// just the right way
-			Assert.Equal(video.FrameCount, int.Parse(fileName.Substring(fileName.Length - 7, 3)));
+			Assert.Equal(video.FrameCount, int.Parse(videoName.Substring(videoName.Length - 7, 3)));
 
 			Bitmap bmp;
 			// I test the first and last three frames
