@@ -1,3 +1,13 @@
+\subsection{\name{YuvKA.VideoModel}}
+
+\paragraph{\name{YuvEncoder}}
+\begin{itemize}
+	\add \verb!Decode! \\
+	Neuer Parameter \verb!string motionVectorFileName = null!: Die an ein Video gebundenen Bewegungsvektoren sollen schon beim Lesen eines Videos vom Hintergrundspeicher gelesen werden, da \name{Video}-Obekte unveränderlich sind, und bei Neuwahl der entsprechenden Datei ein neues Video-Objekt erstellt werden muss.
+	\add \verb!Encode(Stream stream, IEnumerable<Frame> frames)! \\
+	Neue öffentliche statische Methode Encode, welche als Parameter einen Stream entgegennimmt. Dies ermöglicht es, zu Testzwecken auch in einen \name{MemoryStream} zu schreiben, was den Hintergrundspeicher nicht belastet und in der Regel schneller ist.
+
+
 \subsection{\name{YuvKA.Pipeline}}
 
 \paragraph{\name{PipelineDriver}}
@@ -15,3 +25,7 @@
 	Nachdem in der \name{PipelineDriver}-Klasse der \name{static}-Modifier entfernt wurde, musste mit dieser neuen Property der Pipeline eine Driver-Instanz zugeordnet werden.
 
 \end{itemize}
+
+\subsection{\name{YuvKA.ViewModel}}
+
+\subsection{\name{YuvKA.ViewModel.PropertyEditor}}

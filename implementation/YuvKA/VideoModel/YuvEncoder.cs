@@ -5,20 +5,49 @@ using System.Windows;
 
 namespace YuvKA.VideoModel
 {
+	/// <summary>
+	/// The YuvEncoder provides a simple static interface for converting between Frame objects in RGB color space and yuv files on disk.
+	/// See Decode and Encode methods for further details.
+	/// </summary>
 	public static class YuvEncoder
 	{
+		/// <summary>
+		/// Reads a yuv-file from disk and converts is into a Video object of RGB color formatting.
+		/// If present, log and movement vector metadata is used to enhance the returned video.
+		/// Since the yuv420 format doesn't carry any metadata, the height and width parameters are mandatory.
+		/// </summary>
+		/// <param name="width">The frame width to assume</param>
+		/// <param name="height">The frame height to assume</param>
+		/// <param name="fileName">The path to the yuv file to be read</param>
+		/// <param name="logFileName">
+		/// The path to any log information previously produced by an encoder.
+		/// If present, this log information will be incorporated into the Video object returned.
+		/// </param>
+		/// <param name="motionVectorFileName">
+		/// The path to any motion vector information previously produced by an encoder.
+		/// If present, these motion vectors will be incorporated into the Video object returned.
+		/// </param>
+		/// <returns>
+		/// A Video object that can be queried for frames.
+		/// </returns>
 		public static Video Decode(int width, int height, string fileName, string logFileName = null, string motionVectorFileName = null)
 		{
 			// Nothing to see here, move along.
 			return new Video(new Size(width, height), fileName, logFileName, motionVectorFileName);
 		}
 
+		/// <summary>
+		/// Takes an IEnumerable of RGB frames and encodes it into a yuv file under the given file path.
+		/// </summary>
 		public static void Encode(string fileName, IEnumerable<Frame> frames)
 		{
 			using (var stream = new FileStream(fileName, FileMode.Create))
 				Encode(stream, frames);
 		}
 
+		/// <summary>
+		/// Takes an IEnumerable of RGB frames and encodes it into a given data stream.
+		/// </summary>
 		public static void Encode(Stream stream, IEnumerable<Frame> frames)
 		{
 			foreach (Frame frame in frames) {
@@ -97,6 +126,9 @@ namespace YuvKA.VideoModel
 			return new Frame(new Size(width, height), frameData);
 		}
 
+		/// <summary>
+		/// Converts an arbitraty value of double precision to a byte by cropping information
+		/// </summary>
 		private static byte ClampToByte(double value)
 		{
 			return (byte)Math.Max(Math.Min(value, 255), 0);
@@ -145,6 +177,16 @@ namespace YuvKA.VideoModel
 			return yuvData;
 		}
 
+		/// <summary>
+		/// Reads the log data from file and returns it as a byte array.
+		/// The array returned by this function may not have the right size or content if the given file doesn't contain valid log information
+		/// </summary>
+		/// <param name="logFileName">
+		/// The File to read from
+		/// </param>
+		/// <returns>
+		/// A raw byte array containing the data read from file
+		/// </returns>
 		private static byte[] ReadLogData(string logFileName)
 		{
 			FileInfo logFile = new FileInfo(logFileName);
@@ -159,6 +201,19 @@ namespace YuvKA.VideoModel
 			return data;
 		}
 
+		/// <summary>
+		/// Reads movement vector information from file found at given location.
+		/// The file that's to be read should be supplied in csv (comma separated value) format.
+		/// Data will not be valid or complete if the file at the given location isn't valid or complete.
+		/// </summary>
+		/// <param name="fileName">
+		/// The path to the file that's to be parsed
+		/// </param>
+		/// <returns>
+		/// An array of arrays containing the movement vector data.
+		/// The first level hereof indexes the lines/frames of data read from file,
+		/// the second level indexes the single data points read from the csv file.
+		/// </returns>
 		private static int[][] ReadMovementVectors(string fileName)
 		{
 			FileInfo vectorFile = new FileInfo(fileName);
@@ -166,7 +221,7 @@ namespace YuvKA.VideoModel
 				throw new FileNotFoundException();
 			}
 			/* Read the csv file in a two level int array
-			 * First level is the Frame/line of the date
+			 * First level is the Frame/line of the data
 			 * Second level is data for the vectors of each macroblock*/
 			string[] inputLines = File.ReadAllLines(fileName);
 			int[][] data = new int[inputLines.Length - 1][];
@@ -180,16 +235,37 @@ namespace YuvKA.VideoModel
 			return data;
 		}
 
-		private static AnnotatedFrame AddAnnotations(Frame frame, byte[] bytes, int[][] vectorData, int index)
+		/// <summary>
+		/// Adds log information and movement vector metadata to a given frame
+		/// </summary>
+		/// <param name="frame">
+		/// The basic frame to be enhanced with metadata
+		/// </param>
+		/// <param name="macroblockPartitionData">
+		/// A byte array containing the macroblock decision information to be added to the frame.
+		/// Invalid values yield undefined behavior.
+		/// </param>
+		/// <param name="vectorData">
+		/// An array of arrays containing the vector data to be added to the frame.
+		/// If not enough data is present, the two-dimensional zero vector (0,0) is used for all remaining macroblocks.
+		/// </param>
+		/// <param name="index">
+		/// The index of the given frame in the video stream.
+		/// Used for selecting the right metadata for the given frame.
+		/// </param>
+		/// <returns>
+		/// An instance of AnnotatedFrame bearing the given parameters as source of information.
+		/// </returns>
+		private static AnnotatedFrame AddAnnotations(Frame frame, byte[] macroblockPartitionData, int[][] vectorData, int index)
 		{
 			int macroBlockNumber = frame.Size.Width / 16 * frame.Size.Height / 16;
 			MacroblockDecision[] decisions = new MacroblockDecision[macroBlockNumber];
 			for (int i = 0; i < decisions.Length; i++) {
 				decisions[i] = new MacroblockDecision();
 			}
-			if (bytes != null) {
-				for (int i = 0; i < decisions.Length && i < bytes.Length; i++) {
-					decisions[i].PartitioningDecision = (MacroblockPartitioning)bytes[macroBlockNumber * index + i];
+			if (macroblockPartitionData != null) {
+				for (int i = 0; i < decisions.Length && i < macroblockPartitionData.Length; i++) {
+					decisions[i].PartitioningDecision = (MacroblockPartitioning)macroblockPartitionData[macroBlockNumber * index + i];
 				}
 			}
 			if (vectorData != null) {
