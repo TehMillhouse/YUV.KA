@@ -6,7 +6,11 @@
 	Neuer Parameter \verb!string motionVectorFileName = null!: Die an ein Video gebundenen Bewegungsvektoren sollen schon beim Lesen eines Videos vom Hintergrundspeicher gelesen werden, da \name{Video}-Obekte unveränderlich sind, und bei Neuwahl der entsprechenden Datei ein neues Video-Objekt erstellt werden muss.
 	\add \verb!Encode(Stream stream, IEnumerable<Frame> frames)! \\
 	Neue öffentliche statische Methode Encode, welche als Parameter einen Stream entgegennimmt. Dies ermöglicht es, zu Testzwecken auch in einen \name{MemoryStream} zu schreiben, was den Hintergrundspeicher nicht belastet und in der Regel schneller ist.
-	\remove \verb!Video.Dispose! \\
+\end{itemize}
+
+\paragraph{\name{YuvEncoder.Video}}
+\begin{itemize}
+	\remove \verb!Dispose! \\
 	Da keine Streams länger als unbedingt nötig offen gehalten werden, ist die zuvor von der \name{Video}-Klasse implementierte Schnittstelle \name{IDisposable} hier nicht mehr benötigt. Dadurch entfällt die Methode \name{Dispose}.
 \end{itemize}
 
