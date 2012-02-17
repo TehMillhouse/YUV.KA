@@ -10,6 +10,13 @@
 	Da keine Streams länger als unbedingt nötig offen gehalten werden, ist die zuvor von der \name{Video}-Klasse implementierte Schnittstelle \name{IDisposable} hier nicht mehr benötigt. Dadurch entfällt die Methode \name{Dispose}.
 \end{itemize}
 
+\paragraph{\name{Frame}}
+\begin{itemize}
+	\add \verb!GetPixelOrBlack(int x, int y)! \\
+	Neue öffentliche Methode, die es erleichtern soll, auf die Farbwerte innerhalb eines Frames zuzugreifen, ohne beachten zu müssen, ob die gegebenen Koordinaten tatsächlich innerhalb des \name{Frame} liegen. Falls ja, so wird der entsprechende Pixel an Stelle (x, y) als \name{Rgb}-Objekt zurückgegeben. Falls nicht, so wird ein schwarzer Farbwert für den Pixel zurückgegeben.
+	\add \verb!MaxBoundaries(Frame[] frames)! \\
+	Neue öffentliche Methode, welche aus einem Array von Frames jeweils das Maximum der Breite und der Höhe findet und ein \name{Size}-Objekt zurückgibt mit \name{height}- bzw. \name{width}-Wert, welcher alle gegebenen Frames umfasst.
+\end{itemize}
 
 \subsection{\name{YuvKA.Pipeline}}
 
