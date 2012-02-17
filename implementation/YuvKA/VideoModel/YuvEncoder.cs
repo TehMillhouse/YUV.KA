@@ -286,6 +286,12 @@ namespace YuvKA.VideoModel
 
 		#region Video class
 
+		/// <summary>
+		/// The Video class represents a loaded video.
+		/// It loads frames one by one from disk without keeping the file stream open as to let background file operations work.
+		/// It interfaces with the YuvEncoder for converting between the yuv420 and RGB formats,
+		/// and handles adding metadata to Frame objects.
+		/// </summary>
 		public class Video
 		{
 			private int? lastTick;
@@ -341,8 +347,13 @@ namespace YuvKA.VideoModel
 
 			public int FrameCount { get; private set; }
 
-			// Indexer so we can access the different video frames
-			// as if the Video were an array of frames
+			/// <summary>
+			/// Indexer for video frames so the video can be accessed like an array.
+			/// Throws IndexOutOfRangeException when an invalid index is chosen.
+			/// </summary>
+			/// <returns>
+			/// The Frame at the given index.
+			/// </returns>
 			public Frame this[int index]
 			{
 				get
