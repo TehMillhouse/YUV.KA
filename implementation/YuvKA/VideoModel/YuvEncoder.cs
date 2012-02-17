@@ -145,10 +145,8 @@ namespace YuvKA.VideoModel
 			return yuvData;
 		}
 
-		private static byte[] ReadLogData(string logFileName, Size imageSize)
+		private static byte[] ReadLogData(string logFileName)
 		{
-			//The logfile contains one byte for every 16x16 macroblock per frame
-			int logFrameSize = (int)(imageSize.Height / 16 * imageSize.Width / 16);
 			FileInfo logFile = new FileInfo(logFileName);
 			if (!logFile.Exists) {
 				throw new FileNotFoundException();
@@ -161,7 +159,7 @@ namespace YuvKA.VideoModel
 			return data;
 		}
 
-		private static int[][] ReadMovementVectors(string fileName, Size imageSize)
+		private static int[][] ReadMovementVectors(string fileName)
 		{
 			FileInfo vectorFile = new FileInfo(fileName);
 			if (!vectorFile.Exists) {
@@ -256,12 +254,12 @@ namespace YuvKA.VideoModel
 				// if we have a logfile parse and cache it
 				if (logFileName != null && File.Exists(logFileName)) {
 					this.logFileName = logFileName;
-					this.logFile = ReadLogData(logFileName, size);
+					this.logFile = ReadLogData(logFileName);
 				}
 				// if we have a vectorfile parse and cache it
 				if (motionVectorFileName != null && File.Exists(motionVectorFileName)) {
 					this.motionVectorFileName = motionVectorFileName;
-					this.motionVectorFile = ReadMovementVectors(motionVectorFileName, size);
+					this.motionVectorFile = ReadMovementVectors(motionVectorFileName);
 				}
 			}
 
