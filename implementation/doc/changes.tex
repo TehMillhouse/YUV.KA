@@ -42,4 +42,18 @@
 
 \subsection{\name{YuvKA.ViewModel}}
 
+Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die zum Großteil aus dem Hinzufügen neuer Properties bestehen. Dies ist besonders der Tatsache geschuldet, dass das Viewmodel nicht wirklich Teil der grundlegenden Architektur sondern vielmehr Verknüpfungsschicht des Models und der View ist, wobei die Architektur letztgenannter Schicht, nämlich WPF, bereits gegeben war und wegen ihres unglaublichen Umfangs im Detail erst während der Implementierung Fall für Fall exakt erkundet werden konnte. Deshalb werden im Weiteren die Änderungen beschrieben, ohne einzeln auf die Gründe einzugehen, warum von der Entwurfsarchitektur abgewichen wurde.
+
+\paragraph{EdgeViewModel}
+\begin{itemize}
+	\add \verb!InOutputViewModel StartViewModel { get; set; }! \\
+	     \verb!InOutputViewModel EndViewModel { get; set; }! \\
+	Legt Anfang bzw. Ende der Kante auf einen Ein-/Ausgang fest. Nach Setzen der Properties werden Start- bzw. Endpunkt der Kante automatisch entsprechend aktualisiert.
+	\add \begin{verbatim}EdgeStatus Status { get; set; }
+	enum EdgeStatus { Indeterminate, Invalid, Valid }
+	\end{verbatim}
+	Gibt während des Ziehens einer Kante ihren Zustand an, der in der View durch die Linienfarben schwarz/rot/grün visualisiert wird.
+	\add \verb!void Dispose()! \\
+	Entfernt alle Abonnements von Positionsänderungen der verbundenen Knoten, um Speicherlecks zu verhindern.
+\end{itemize}
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}

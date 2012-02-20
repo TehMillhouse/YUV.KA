@@ -6,19 +6,17 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
+	/// <summary>
+	/// Models an edge connecting two nodes in the view. In the pipeline model, edges are not
+	/// modelled explictly but implied by the Node.Input.Source property.
+	/// </summary>
 	public class EdgeViewModel : PropertyChangedBase, IDisposable
 	{
 		Point startPoint, endPoint;
 		InOutputViewModel startVM, endVM;
 		// objects for disposing the subscriptions on InOutputVM.Midpoint
 		IDisposable startHandler, endHandler;
-		PipelineViewModel parent;
 		EdgeStatus status;
-
-		public EdgeViewModel(PipelineViewModel parent)
-		{
-			this.parent = parent;
-		}
 
 		public EdgeStatus Status
 		{
@@ -50,6 +48,10 @@ namespace YuvKA.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the start in-/output connected to this edge.
+		/// If set, the StartPoint property will be held in sync to the in-/output.
+		/// </summary>
 		public InOutputViewModel StartViewModel
 		{
 			get { return startVM; }
@@ -60,6 +62,10 @@ namespace YuvKA.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the end in-/output connected to this edge.
+		/// If set, the EndPoint property will be held in sync to the in-/output.
+		/// </summary>
 		public InOutputViewModel EndViewModel
 		{
 			get { return endVM; }
@@ -74,6 +80,9 @@ namespace YuvKA.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Gets a Geometry object visualizing the edge.
+		/// </summary>
 		public Geometry Geometry
 		{
 			get
@@ -94,7 +103,7 @@ namespace YuvKA.ViewModel
 		}
 
 		/// <summary>
-		/// Try and sort StartViewModel and EndViewModel into input and output.
+		/// Try and sort two InOutputViewModels into input and output.
 		/// Returns false if there are two inputs or outputs.
 		/// </summary>
 		public bool GetInOut(out InOutputViewModel inputVM, out InOutputViewModel outputVM)
@@ -114,6 +123,9 @@ namespace YuvKA.ViewModel
 			return false;
 		}
 
+		/// <summary>
+		/// Removes all handlers notifying of position changes of the nodes this edge is connected to.
+		/// </summary>
 		public void Dispose()
 		{
 			if (startHandler != null)
