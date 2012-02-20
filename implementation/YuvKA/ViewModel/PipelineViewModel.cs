@@ -40,7 +40,7 @@ namespace YuvKA.ViewModel
 					let iModel = ((Node.Input)input.Model)
 					where iModel.Source != null
 					let output = GetOutputViewModel(iModel.Source)
-					select new EdgeViewModel(this) { StartViewModel = input, EndViewModel = output };
+					select new EdgeViewModel { StartViewModel = input, EndViewModel = output };
 
 				return edges = newEdges.ToList();
 			}
@@ -92,7 +92,7 @@ namespace YuvKA.ViewModel
 					((Node.Input)inOut.Model).Source = null;
 					NotifyOfPropertyChange(() => Edges);
 				}
-				DraggedEdge = new EdgeViewModel(this) { StartViewModel = start, EndViewModel = inOut };
+				DraggedEdge = new EdgeViewModel { StartViewModel = start, EndViewModel = inOut };
 			}
 		}
 
