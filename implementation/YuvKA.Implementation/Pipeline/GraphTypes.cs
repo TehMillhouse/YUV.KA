@@ -4,9 +4,16 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// Provides an IGraphType calculating the Data by counting the number of Intra-Blocks.
+	/// </summary>
 	[DisplayName("Intra-Block-Frequency")]
 	public class IntraBlockFrequency : IGraphType
 	{
+		/// <summary>
+		/// Creates a new IntraBlockFrequency IGraphtype.
+		/// This IGraphType requires an attached logfile.
+		/// </summary>
 		public IntraBlockFrequency()
 		{
 			DependsOnReference = false;
@@ -14,10 +21,15 @@ namespace YuvKA.Pipeline.Implementation
 			DependsOnAnnotatedReference = false;
 		}
 
+
 		public bool DependsOnReference { get; private set; }
 		public bool DependsOnAnnotatedReference { get; private set; }
 		public bool DependsOnLogfile { get; private set; }
 
+		/// <summary>
+		/// Calculates the Data by counting the number of IntraBlocks in the given frame.
+		/// </summary>
+		/// <param name="reference">The frame against which the given frame is compared. This parameter is unnused.</param>
 		public double Process(Frame frame, Frame reference)
 		{
 			double intraBlocks = 0.0;
@@ -32,9 +44,17 @@ namespace YuvKA.Pipeline.Implementation
 			return intraBlocks;
 		}
 	}
+
+	/// <summary>
+	/// Providing an IGraphType calculating the Data by computing the Peak-Signal-to-Noise-Ratio.
+	/// </summary>
 	[DisplayName("Peak-Signal-to-Noise-Ratio")]
 	public class PeakSignalNoiseRatio : IGraphType
 	{
+		/// <summary>
+		/// Creates a new PeakSignalNoiseRatio IGraphtype.
+		/// This IGraphType requires a reference frame.
+		/// </summary>
 		public PeakSignalNoiseRatio()
 		{
 			DependsOnReference = true;
@@ -46,6 +66,10 @@ namespace YuvKA.Pipeline.Implementation
 		public bool DependsOnAnnotatedReference { get; private set; }
 		public bool DependsOnLogfile { get; private set; }
 
+		/// <summary>
+		/// Calculates the Data by computing the Peak-Signal-to-Noise-Ratio.
+		/// </summary>
+		/// <param name="reference">The frame against which the given frame is compared</param>
 		public double Process(Frame frame, Frame reference)
 		{
 			double mse = 0.0;
@@ -61,9 +85,17 @@ namespace YuvKA.Pipeline.Implementation
 			return psnr;
 		}
 	}
+
+	/// <summary>
+	/// Providing an IGraphType calculating the Data by computing color difference between two frames pixel-by-pixel.
+	/// </summary>
 	[DisplayName("Pixel-Difference")]
 	public class PixelDiff : IGraphType
 	{
+		/// <summary>
+		/// Creates a new PixelDiff IGraphtype.
+		/// This IGraphType requires a reference frame.
+		/// </summary>
 		public PixelDiff()
 		{
 			DependsOnReference = true;
@@ -74,6 +106,11 @@ namespace YuvKA.Pipeline.Implementation
 		public bool DependsOnReference { get; private set; }
 		public bool DependsOnLogfile { get; private set; }
 		public bool DependsOnAnnotatedReference { get; private set; }
+
+		/// <summary>
+		/// Calculates the Data by computing color difference between two frames pixel-by-pixel.
+		/// </summary>
+		/// <param name="reference">The frame against which the given frame is compared</param>
 		public double Process(Frame frame, Frame reference)
 		{
 			double difference = 0.0;
@@ -86,9 +123,19 @@ namespace YuvKA.Pipeline.Implementation
 			return difference / (3 * frame.Size.Height * frame.Size.Width);
 		}
 	}
+
+	/// <summary>
+	/// Providing an IGraphType calculating the Data by computing the number
+	/// of similar Encoderdecisions between two frames.
+	/// </summary>
 	[DisplayName("Encoderdecision-Difference")]
 	public class DecisionDiff : IGraphType
 	{
+		/// <summary>
+		/// Creates a new DecisionDiff IGraphtype.
+		/// This IGraphType requires a reference frame with an attached 
+		/// logfile and a logfile to the given frame
+		/// </summary>
 		public DecisionDiff()
 		{
 			DependsOnReference = true;
@@ -100,6 +147,11 @@ namespace YuvKA.Pipeline.Implementation
 		public bool DependsOnLogfile { get; private set; }
 		public bool DependsOnAnnotatedReference { get; private set; }
 
+		/// <summary>
+		/// Calculates the Data by computing the number
+		/// of similar Encoderdecisions between two frames.
+		/// </summary>
+		/// <param name="reference">The frame against which the given frame is compared</param>
 		public double Process(Frame frame, Frame reference)
 		{
 			double difference = 0.0;

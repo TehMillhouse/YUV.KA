@@ -6,6 +6,9 @@ using Microsoft.Research.DynamicDataDisplay.DataSources;
 
 namespace YuvKA.Implementation
 {
+	/// <summary>
+	/// Represents a line in the diagram of a DiagramViewModel
+	/// </summary>
 	public class LineGraphViewModel : PropertyChangedBase
 	{
 		/// <summary>

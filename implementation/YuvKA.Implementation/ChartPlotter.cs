@@ -8,6 +8,10 @@ using Microsoft.Research.DynamicDataDisplay.PointMarkers;
 
 namespace YuvKA.Implementation
 {
+	/// <summary>
+	/// A class from the DynamicDataDisplay package, modified
+	/// to be able to add and remove lines dynamically.
+	/// </summary>
 	public class ChartPlotter : Microsoft.Research.DynamicDataDisplay.ChartPlotter
 	{
 		/// <summary>
@@ -66,8 +70,7 @@ namespace YuvKA.Implementation
 								LineAndMarker<MarkerPointsGraph> lineAndMarker = this.AddLineGraph(viewModel.PointDataSource, new Pen(brush, viewModel.Thickness), new CirclePointMarker { Size = 7, Fill = brush }, new PenDescription(viewModel.Name));
 								lineAndMarker.LineGraph.Name = viewModel.Name;
 								this.lineAndMarkerGraphs.Add(lineAndMarker);
-							}
-							else {
+							} else {
 								LineGraph lineGraph = this.AddLineGraph(viewModel.PointDataSource, viewModel.Color, viewModel.Thickness, viewModel.Name);
 								lineGraph.Name = viewModel.Name;
 								this.lineGraphLines.Add(lineGraph);
@@ -114,8 +117,7 @@ namespace YuvKA.Implementation
 									LineAndMarker<MarkerPointsGraph> lineAndMarker = this.AddLineGraph(viewModel.PointDataSource, new Pen(brush, viewModel.Thickness), new CirclePointMarker { Size = 7, Fill = brush }, new PenDescription(viewModel.Name));
 									lineAndMarker.LineGraph.Name = viewModel.Name;
 									this.lineAndMarkerGraphs.Add(lineAndMarker);
-								}
-								else {
+								} else {
 									LineGraph lineGraph = this.AddLineGraph(viewModel.PointDataSource, viewModel.Color, viewModel.Thickness, viewModel.Name);
 									lineGraph.Name = viewModel.Name;
 									this.lineGraphLines.Add(lineGraph);

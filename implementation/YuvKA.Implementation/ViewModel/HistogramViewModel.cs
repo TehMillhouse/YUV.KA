@@ -6,16 +6,34 @@ using YuvKA.Pipeline.Implementation;
 
 namespace YuvKA.ViewModel.Implementation
 {
+	/// <summary>
+	/// Prvides the output window of a HistogramNode
+	/// </summary>
 	public class HistogramViewModel : OutputWindowViewModel, INotifyPropertyChanged
 	{
+		/// <summary>
+		/// Creates a new HistogramViewMode with the given HistogramNode.
+		/// </summary>
 		public HistogramViewModel(HistogramNode nodeModel)
 			: base(nodeModel, null)
 		{
 		}
 
+		/// <summary>
+		/// Gets the HistogramNode of this output window.
+		/// </summary>
 		public new HistogramNode NodeModel { get { return (HistogramNode)base.NodeModel; } }
+
+		/// <summary>
+		/// Get or sets the Data of the HistogramNode
+		/// </summary>
 		public EnumerableDataSource<KeyValuePair<int, double>> Data { get; private set; }
 
+		/// <summary>
+		/// Updates the graph of the histogram with the newly calculated data of the frame
+		/// once it is rendered.
+		/// </summary>
+		/// <param name="message"></param>
 		public override void Handle(Pipeline.TickRenderedMessage message)
 		{
 			Data = new EnumerableDataSource<KeyValuePair<int, double>>(
