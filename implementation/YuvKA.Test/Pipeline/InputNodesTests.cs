@@ -48,6 +48,17 @@ namespace YuvKA.Test.Pipeline
 			tick = 7;
 			CopyFrameToOutputImage(noiseInput, out outputFrame, out outputImage, tick);
 			outputImage.Save("..\\..\\..\\..\\output\\noise-" + noiseInput.Type + "-tick-" + tick + "-200x200.png");
+
+			// Change noise type to colored-Coherent and image size to 352x240
+			noiseInput.Type = NoiseType.ColoredCoherent;
+			noiseInput.Size = new YuvKA.VideoModel.Size(352, 240);
+			CopyFrameToOutputImage(noiseInput, out outputFrame, out outputImage, tick);
+			outputImage.Save("..\\..\\..\\..\\output\\noise-" + noiseInput.Type + "-tick-" + tick + "-352x240.png");
+
+			// Change noise type to colored-Perlin
+			noiseInput.Type = NoiseType.ColoredPerlin;
+			CopyFrameToOutputImage(noiseInput, out outputFrame, out outputImage, tick);
+			outputImage.Save("..\\..\\..\\..\\output\\noise-" + noiseInput.Type + "-tick-" + tick + "-352x240.png");
 		}
 
 		// Read a PNG file and resize it using the methods in ImageInputNode.
