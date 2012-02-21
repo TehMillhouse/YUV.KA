@@ -3,15 +3,29 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// This class implements the possibility to subtract one Frame from another.
+	/// </summary>
 	[DataContract]
 	public class DifferenceNode : Node
 	{
+		/// <summary>
+		/// Construct a differencenode.
+		/// It has two Inputs and one Output.
+		/// </summary>
 		public DifferenceNode()
 			: base(inputCount: 2, outputCount: 1)
 		{
 			Name = "Difference";
 		}
 
+		/// <summary>
+		/// Subtracts the second entry of input from the first entry.
+		/// If the first Frame has a greater size than the second one, the missing data will be simulated with black.
+		/// </summary>
+		/// <param name="inputs">An array of Frames, with only the first two entries regarded.</param>
+		/// <param name="tick">The index of the Frame which is processes now.</param>
+		/// <returns>An array of Frames whose only entry is the subtraction of the second entry of input from the first entry.</returns>
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
 			Size maxSize = Frame.MaxBoundaries(inputs);
