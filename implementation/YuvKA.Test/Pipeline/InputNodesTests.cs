@@ -20,7 +20,7 @@ namespace YuvKA.Test.Pipeline
 			// Perlin noise
 			NoiseInputNode noiseInput = new NoiseInputNode();
 			noiseInput.Type = NoiseType.Perlin;
-			noiseInput.Size = new VideoModel.Size(352, 240);
+			noiseInput.Size = new YuvKA.VideoModel.Size(352, 240);
 			tick = 7;
 
 			DateTime start = DateTime.Now; // Start time of Perlin noise test
@@ -43,7 +43,7 @@ namespace YuvKA.Test.Pipeline
 			outputImage.Save("..\\..\\..\\..\\output\\noise-" + noiseInput.Type + "-tick-" + tick + "-352x240.png");
 
 			// Change size and noise type to Coherent
-			noiseInput.Size = new VideoModel.Size(200, 200);
+			noiseInput.Size = new YuvKA.VideoModel.Size(200, 200);
 			noiseInput.Type = NoiseType.Coherent;
 			tick = 7;
 			CopyFrameToOutputImage(noiseInput, out outputFrame, out outputImage, tick);
@@ -74,14 +74,14 @@ namespace YuvKA.Test.Pipeline
 							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
 
 			// Change path and size
-			inputNode.Size = new VideoModel.Size(400, 50);
+			inputNode.Size = new YuvKA.VideoModel.Size(400, 50);
 			inputNode.FileName = new YuvKA.Pipeline.FilePath("..\\..\\..\\..\\resources\\sample.png");
 			CopyFrameToOutputImage(inputNode, out outputFrame, out outputImage, 0);
 			outputImage.Save("..\\..\\..\\..\\output\\sample-resized-" +
 							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
 
 			// Change only size
-			inputNode.Size = new VideoModel.Size(50, 400);
+			inputNode.Size = new YuvKA.VideoModel.Size(50, 400);
 			CopyFrameToOutputImage(inputNode, out outputFrame, out outputImage, 0);
 			outputImage.Save("..\\..\\..\\..\\output\\sample-resized-" +
 							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
@@ -96,13 +96,13 @@ namespace YuvKA.Test.Pipeline
 			Bitmap outputImage;
 			ColorInputNode colorInput = new ColorInputNode();
 
-			colorInput.Size = new VideoModel.Size(200, 200);
+			colorInput.Size = new YuvKA.VideoModel.Size(200, 200);
 			colorInput.Color = new Rgb(50, 92, 177);
 			CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage, 0);
 			outputImage.Save("..\\..\\..\\..\\output\\color-50-92-177-200x200.png");
 
 			// Change the size
-			colorInput.Size = new VideoModel.Size(100, 50);
+			colorInput.Size = new YuvKA.VideoModel.Size(100, 50);
 			CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage, 0);
 			outputImage.Save("..\\..\\..\\..\\output\\color-50-92-177-100x50.png");
 

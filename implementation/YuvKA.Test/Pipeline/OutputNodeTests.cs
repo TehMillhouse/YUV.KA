@@ -1,15 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows;
+using Xunit;
 using YuvKA.Pipeline;
+using YuvKA.Pipeline.Implementation;
+using YuvKA.VideoModel;
+
 
 namespace YuvKA.Test.Pipeline
 {
-	using System.Collections.Generic;
-	using System.Drawing;
-	using VideoModel;
-	using Xunit;
-	using YuvKA.Pipeline.Implementation;
-
 	public class OutputNodeTests
 	{
 		[Fact]
@@ -281,7 +281,7 @@ namespace YuvKA.Test.Pipeline
 		 * Generates an array of 2 Frames and 1 AnnotatedFrame with randomly filled Data */
 		private Frame[] SourceNode(Frame[] inputs, int tick)
 		{
-			VideoModel.Size testSize = new VideoModel.Size(5, 5);
+			var testSize = new YuvKA.VideoModel.Size(5, 5);
 			Frame[] outputs = { new Frame(testSize), new Frame(testSize), GenerateAnnFrame() };
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
@@ -295,7 +295,7 @@ namespace YuvKA.Test.Pipeline
 		/* Generates an AnnotatedFrame with randomly filled Data */
 		private AnnotatedFrame GenerateAnnFrame()
 		{
-			VideoModel.Size testSize = new VideoModel.Size(8, 8);
+			var testSize = new YuvKA.VideoModel.Size(8, 8);
 			MacroblockDecision[,] decisions = {{
 				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4},
 				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4},

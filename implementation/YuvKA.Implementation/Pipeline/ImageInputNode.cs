@@ -85,7 +85,7 @@ namespace YuvKA.Pipeline.Implementation
 			}
 
 			// Create output frame
-			resizedFrame = new Frame(new VideoModel.Size(Size.Width, Size.Height));
+			resizedFrame = new Frame(new YuvKA.VideoModel.Size(Size.Width, Size.Height));
 			for (int y = 0; y < Size.Height; ++y) {
 				for (int x = 0; x < Size.Width; ++x) {
 					resizedFrame[x, y] = new Rgb(resizedInputImage.GetPixel(x, y).R,

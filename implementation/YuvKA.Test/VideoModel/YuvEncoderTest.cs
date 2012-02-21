@@ -6,7 +6,7 @@ using Xunit;
 using YuvKA.VideoModel;
 using System.Diagnostics;
 
-namespace YuvKA.Test.ViewModel
+namespace YuvKA.Test.VideoModel
 {
 	public class YuvEncoderTest
 	{
@@ -66,7 +66,7 @@ namespace YuvKA.Test.ViewModel
 			int height = 240;
 			string fileName = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv"; // be sure to adjust this beforehand
 			string saveName = "..\\..\\..\\..\\output\\yuvencoder-output_352x240_125.yuv"; // warning, depending on the file, this produces a lot of images
-			YuvEncoder.Video video = new YuvEncoder.Video(new VideoModel.Size(width, height), fileName, null, null);
+			YuvEncoder.Video video = new YuvEncoder.Video(new YuvKA.VideoModel.Size(width, height), fileName, null, null);
 			IEnumerable<Frame> frameList = Enumerable.Range(0, video.FrameCount).Select(i => video[i]);
 			YuvEncoder.Encode(saveName, frameList);
 		}
@@ -83,7 +83,7 @@ namespace YuvKA.Test.ViewModel
 			// processes the same image many times
 			int width = 352;
 			int height = 240;
-			VideoModel.Size size = new VideoModel.Size(width, height);
+			var size = new YuvKA.VideoModel.Size(width, height);
 			string source = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv";
 			string finalFile = "..\\..\\..\\..\\output\\multipass.png";
 
@@ -108,7 +108,7 @@ namespace YuvKA.Test.ViewModel
 			int width = 352;
 			int height = 240;
 			string fileName = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv";
-			YuvEncoder.Video video = new YuvEncoder.Video(new VideoModel.Size(width, height), fileName, null, null);
+			YuvEncoder.Video video = new YuvEncoder.Video(new YuvKA.VideoModel.Size(width, height), fileName, null, null);
 			Frame notLazy;
 			for (int i = 0; i < 125; i++) {
 				notLazy = video[i];

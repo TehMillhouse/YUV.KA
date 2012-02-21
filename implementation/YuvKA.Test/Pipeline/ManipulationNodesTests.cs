@@ -209,7 +209,7 @@ namespace YuvKA.Test.Pipeline
 		public void TestBrightnessContrastSaturation()
 		{
 			System.Drawing.Bitmap image = new System.Drawing.Bitmap("..\\..\\..\\..\\resources\\papagei.png");
-			YuvKA.VideoModel.Size size = new VideoModel.Size(image.Width, image.Height);
+			YuvKA.VideoModel.Size size = new YuvKA.VideoModel.Size(image.Width, image.Height);
 			Frame[] inputFrames = { new Frame(size) };
 			BrightnessContrastSaturationNode bcsNode = new BrightnessContrastSaturationNode();
 
