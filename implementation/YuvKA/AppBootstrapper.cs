@@ -62,6 +62,9 @@
 			ViewLocator.NameTransformer.AddRule(@"ViewModel(?=$|\.)", "View");
 			ViewLocator.NameTransformer.AddRule(@"ViewModels(?=$|\.)", "Views");
 
+			MessageBinder.CustomConverters.Add(typeof(IDragEventInfo), (e, _) => new WpfDragEventInfo((DragEventArgs)e));
+			MessageBinder.CustomConverters.Add(typeof(IMouseEventInfo), (e, _) => new WpfMouseEventInfo((MouseEventArgs)e));
+
 			var catalog = new AggregateCatalog(
 				AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()
 			);

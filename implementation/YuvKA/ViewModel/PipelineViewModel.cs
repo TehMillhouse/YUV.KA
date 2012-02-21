@@ -56,14 +56,14 @@ namespace YuvKA.ViewModel
 			}
 		}
 
-		public void Drop(DragEventArgs e)
+		public void Drop(IDragEventInfo e)
 		{
 			/* Only allow this if pipline is not rendering */
 			if (!Parent.ReplayStateViewModel.IsPlaying) {
-				var type = (NodeType)e.Data.GetData(typeof(NodeType));
+				var type = e.GetData<NodeType>();
 				var node = (Node)Activator.CreateInstance(type.Type);
 				var nodeModel = new NodeViewModel(node, this);
-				nodeModel.Position = IoC.Get<IGetPosition>().GetDropPosition(e, this);
+				nodeModel.Position = e.GetPosition(relativeTo: this);
 				nodeModel.ZIndex = maxZValue++;
 
 				Parent.Model.Graph.AddNodeWithIndex(node);
@@ -72,10 +72,10 @@ namespace YuvKA.ViewModel
 			}
 		}
 
-		public void NodeMouseDown(NodeViewModel node, MouseEventArgs e)
+		public void NodeMouseDown(NodeViewModel node, IMouseEventInfo e)
 		{
 			draggedNode = node;
-			dragMouseOffset = IoC.Get<IGetPosition>().GetMousePosition(e, this) - draggedNode.Position;
+			dragMouseOffset = e.GetPosition(relativeTo: this) - draggedNode.Position;
 
 			draggedNode.ZIndex = maxZValue++;
 			draggedNode.NotifyOfPropertyChange(() => draggedNode.ZIndex);
@@ -96,7 +96,7 @@ namespace YuvKA.ViewModel
 			}
 		}
 
-		public void MouseMove(MouseEventArgs e)
+		public void MouseMove(IMouseEventInfo e)
 		{
 			if (e.LeftButton != MouseButtonState.Pressed) {
 				draggedNode = null;
@@ -106,11 +106,11 @@ namespace YuvKA.ViewModel
 
 			IGetPosition getPos = IoC.Get<IGetPosition>();
 			if (draggedNode != null)
-				draggedNode.Position = getPos.GetMousePosition(e, this) - dragMouseOffset;
+				draggedNode.Position = e.GetPosition(relativeTo: this) - dragMouseOffset;
 			else if (DraggedEdge != null) {
 				if (DraggedEdge.Status != EdgeStatus.Indeterminate)
 					DraggedEdge.Status = EdgeStatus.Indeterminate;
-				DraggedEdge.EndPoint = getPos.GetMousePosition(e, this);
+				DraggedEdge.EndPoint = e.GetPosition(relativeTo: this);
 			}
 		}
 
