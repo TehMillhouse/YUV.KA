@@ -61,7 +61,7 @@ namespace YuvKA.Test.Pipeline
 						inputs[1][x, y].G + inputs[1][x, y].B)), 2);
 				}
 			}
-			difference = (double)difference / 3;
+			difference = difference / (3 * inputs[0].Size.Height * inputs[0].Size.Width);
 			mse *= (double)1 / (3 * inputs[1].Size.Height * inputs[1].Size.Width);
 			double psnr;
 			if (mse == 0.0)
@@ -112,9 +112,9 @@ namespace YuvKA.Test.Pipeline
 			}
 			int numberOfPixels = inputs[0].Size.Height * inputs[0].Size.Width;
 			for (int i = 0; i < 256; i++) {
-				Assert.Equal(histNodeR.Data[i], (double)(intData[i, 0] / numberOfPixels));
-				Assert.Equal(histNodeG.Data[i], (double)(intData[i, 1] / numberOfPixels));
-				Assert.Equal(histNodeB.Data[i], (double)(intData[i, 2] / numberOfPixels));
+				Assert.Equal(histNodeR.Data[i], (double)intData[i, 0] / numberOfPixels);
+				Assert.Equal(histNodeG.Data[i], (double)intData[i, 1] / numberOfPixels);
+				Assert.Equal(histNodeB.Data[i], (double)intData[i, 2] / numberOfPixels);
 			}
 		}
 		[Fact]
@@ -148,7 +148,7 @@ namespace YuvKA.Test.Pipeline
 			}
 			int numberOfPixels = inputs[0].Size.Height * inputs[0].Size.Width;
 			for (int i = 0; i < 256; i++) {
-				Assert.Equal(histNodeValue.Data[i], (double)(intData[i] / numberOfPixels));
+				Assert.Equal(histNodeValue.Data[i], (double)intData[i] / numberOfPixels);
 			}
 		}
 
