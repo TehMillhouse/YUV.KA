@@ -6,12 +6,20 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// This class implements the possibility to blur a given Frame.
+	/// It has a Type and a Radius to define how the Frame shall be blurred.
+	/// </summary>
 	[DataContract]
 	public class BlurNode : Node
 	{
 		// cache the weights, so they must be only calculated once per video(best case)
 		Tuple<float[], int, BlurType> weights;
 
+		/// <summary>
+		/// Constructs a blurnode with initial values "Linear" and 1 for the Type and Radius.
+		/// It has one In- and one Output.
+		/// </summary>
 		public BlurNode()
 			: base(inputCount: 1, outputCount: 1)
 		{
@@ -20,15 +28,28 @@ namespace YuvKA.Pipeline.Implementation
 			Radius = 1;
 		}
 
+		/// <summary>
+		/// The type of blur which shall be applied.
+		/// </summary>
 		[DataMember]
 		[Browsable(true)]
 		public BlurType Type { get; set; }
 
+		/// <summary>
+		/// The radius of blur.
+		/// </summary>
 		[DataMember]
 		[Range(0.0, 42.0)]
 		[Browsable(true)]
 		public int Radius { get; set; }
 
+		/// <summary>
+		/// Blurs the inputframes.
+		/// </summary>
+		/// <param name="inputs">An array of Frames, with only the first entry regarded.</param>
+		/// <param name="tick">The index of the Frame which is processes now.</param>
+		/// <returns>An array of Frames with one entry, which is the blurred version of the input.
+		/// Returns the input, if the radius is 0.</returns>
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
 			// no need to do anything with radius 0
@@ -56,14 +77,14 @@ namespace YuvKA.Pipeline.Implementation
 
 		private Frame LinearBlur(Frame input, int tick)
 		{
-			/* Since this Arrays are sort of ugly now: Arrayname[x-coord, y-coord, colorchannel] */
+			// Since this Arrays are sort of ugly now: Arrayname[x-coord, y-coord, colorchannel]
 			float[,,] horizontalBlur = new float[input.Size.Width, input.Size.Height, 3];
 			float[,,] verticalBlur = new float[input.Size.Width, input.Size.Height, 3];
 			// Cache Radius
 			int cachedRadius = this.Radius;
 			if (cachedRadius != this.weights.Item2)
 				CalculateLinearWeights(this.Radius);
-			/* Blur horinzontal dimension */
+			// Blur horinzontal dimension
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
 					horizontalBlur[x, y, 0] = horizontalBlur[x, y, 1] = horizontalBlur[x, y, 2] = 0F;
@@ -75,7 +96,7 @@ namespace YuvKA.Pipeline.Implementation
 					}
 				}
 			}
-			/* Blur vertical dimension */
+			// Blur vertical dimension
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
 					verticalBlur[x, y, 0] = verticalBlur[x, y, 1] = verticalBlur[x, y, 2] = 0F;
@@ -87,7 +108,7 @@ namespace YuvKA.Pipeline.Implementation
 					}
 				}
 			}
-			/* Convert floatarray to frame */
+			// Convert floatarray to frame
 			Frame result = new Frame(input.Size);
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
@@ -99,14 +120,14 @@ namespace YuvKA.Pipeline.Implementation
 
 		private Frame GaussianBlur(Frame input, int tick)
 		{
-			/* Since this Arrays are sort of ugly now: Arrayname[x-coord, y-coord, colorchannel] */
+			// Since this Arrays are sort of ugly now: Arrayname[x-coord, y-coord, colorchannel]
 			float[,,] horizontalBlur = new float[input.Size.Width, input.Size.Height, 3];
 			float[,,] verticalBlur = new float[input.Size.Width, input.Size.Height, 3];
 			// Cache Radius
 			int cachedRadius = this.Radius;
 			if (cachedRadius != this.weights.Item2)
 				CalculateGaussianWeights(cachedRadius);
-			/* Blur horinzontal dimension */
+			// Blur horinzontal dimension
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
 					horizontalBlur[x, y, 0] = horizontalBlur[x, y, 1] = horizontalBlur[x, y, 2] = 0F;
@@ -118,7 +139,7 @@ namespace YuvKA.Pipeline.Implementation
 					}
 				}
 			}
-			/* Blur vertical dimension */
+			// Blur vertical dimension
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
 					verticalBlur[x, y, 0] = verticalBlur[x, y, 1] = verticalBlur[x, y, 2] = 0F;
@@ -130,11 +151,11 @@ namespace YuvKA.Pipeline.Implementation
 					}
 				}
 			}
-			/* Convert floatarray to frame */
+			// Convert floatarray to frame
 			Frame result = new Frame(input.Size);
 			for (int x = 0; x < input.Size.Width; x++) {
 				for (int y = 0; y < input.Size.Height; y++) {
-					/* Compensate the loss due to disregarding the pixels from 3 * Radius to infinity (for -x, -y, +x, +y) */
+					// Compensate the loss due to disregarding the pixels from 3 * Radius to infinity (for -x, -y, +x, +y)
 					byte newR = (verticalBlur[x, y, 0] == 0) ? (byte)verticalBlur[x, y, 0] : (byte)(verticalBlur[x, y, 0] + 1);
 					byte newG = (verticalBlur[x, y, 1] == 0) ? (byte)verticalBlur[x, y, 1] : (byte)(verticalBlur[x, y, 1] + 1);
 					byte newB = (verticalBlur[x, y, 2] == 0) ? (byte)verticalBlur[x, y, 2] : (byte)(verticalBlur[x, y, 2] + 1);
