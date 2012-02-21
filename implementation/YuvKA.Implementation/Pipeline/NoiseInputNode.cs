@@ -39,11 +39,12 @@ namespace YuvKA.Pipeline.Implementation
 			49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254,
 			138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180 };
 
+		[DataMember]
+		int seed;
+
 		double scale;
 		double speed;
 		NoiseType type;
-		[DataMember]
-		private int seed;
 
 		/// <summary>
 		/// Creates a new NoiseInputNode with default values. 
@@ -182,11 +183,11 @@ namespace YuvKA.Pipeline.Implementation
 						y * (double)Scale,
 						(double)Speed * tick) + 1) / 2;
 					double randomNumberG = (Noise((x + 42) * (double)Scale,
-						(y - 42) * (double)Scale,
-						(double)Speed * (tick + 42)) + 1) / 2;
+											(y - 42) * (double)Scale,
+											(double)Speed * (tick + 42)) + 1) / 2;
 					double randomNumberB = (Noise((x - 42) * (double)Scale,
-						(y + 42) * (double)Scale,
-						(double)Speed * (tick - 42)) + 1) / 2;
+											(y + 42) * (double)Scale,
+											(double)Speed * (tick - 42)) + 1) / 2;
 					byte randomRed = (byte)(randomNumberR * 255);
 					byte randomGreen = (byte)(randomNumberG * 255);
 					byte randomBlue = (byte)(randomNumberB * 255);

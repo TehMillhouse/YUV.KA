@@ -5,18 +5,34 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
+	/// <summary>
+	/// Represents the View Model to the corresponding VideoOutputView.
+	/// 
+	/// It generates the frames that will be drawn to the user interface.
+	/// </summary>
 	public class VideoOutputViewModel : OutputWindowViewModel
 	{
 		int widthOld;
 		int heightOld;
 
+		/// <summary>
+		/// Creates a new VideoOutputViewModel.
+		/// </summary>
+		/// <param name="output"></param>
 		public VideoOutputViewModel(Node.Output output)
 			: base(output.Node, output)
 		{
 		}
 
+		/// <summary>
+		/// The image to be drawn to the user interface.
+		/// </summary>
 		public WriteableBitmap SourceImage { get; set; }
 
+		/// <summary>
+		/// Writes the image to be drawn to the back buffer.
+		/// </summary>
+		/// <param name="message">The TickRenderedMessage received, which contains the frame to be drawn</param>
 		public override void Handle(TickRenderedMessage message)
 		{
 			base.Handle(message);
