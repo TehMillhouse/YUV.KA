@@ -14,6 +14,13 @@
 		public byte G { get; private set; }
 		public byte B { get; private set; }
 
+		/// <summary>
+		/// Overrides the == of Rgb, to compare the Rgb values.
+		/// </summary>
+		/// <param name="a">An Rgb object</param>
+		/// <param name="b">Another Rgb object </param>
+		/// <returns>True if the two Rgb Objects have the same values in R,G and B.
+		/// False otherwise.</returns>
 		public static bool operator ==(Rgb a, Rgb b)
 		{
 			// If both are null, or both are same instance, return true.
@@ -30,16 +37,33 @@
 			return a.R == b.R && a.G == b.G && a.B == b.B;
 		}
 
+		/// <summary>
+		/// Overrides the != of Rgb, to compare the Rgb values.
+		/// </summary>
+		/// <param name="a">An Rgb object</param>
+		/// <param name="b">Another Rgb object </param>
+		/// <returns>True if the two Rgb Objects have different values in R,G or B.
+		/// False otherwise.</returns>
 		public static bool operator !=(Rgb a, Rgb b)
 		{
 			return !(a == b);
 		}
 
+		/// <summary>
+		/// Serves as a hash function for a particular type.
+		/// </summary>
+		/// <returns>A hash code for the current Object.</returns>
 		public override int GetHashCode()
 		{
 			return R ^ G ^ B;
 		}
 
+		/// <summary>
+		/// Overrides the equals-method of Rgb, to compare the Rgb values.
+		/// </summary>
+		/// <param name="obj">An object</param>
+		/// <returns>True if the given Rgb Object is Rgb and has the same values in R,G and B as this object.
+		/// False otherwise.</returns>
 		public override bool Equals(object obj)
 		{
 			if (!(obj is Rgb))
