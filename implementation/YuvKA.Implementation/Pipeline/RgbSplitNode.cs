@@ -3,15 +3,29 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// This class implements the possibility to split a Frame into its RGB components.
+	/// </summary>
 	[DataContract]
 	public class RgbSplitNode : Node
 	{
+		/// <summary>
+		/// Construct a RgbSplitNode.
+		/// It has one Input and three Outputs.
+		/// </summary>
 		public RgbSplitNode()
 			: base(inputCount: 1, outputCount: 3)
 		{
 			Name = "RGB-Split";
 		}
 
+		/// <summary>
+		/// Splits the first entry of the input into its RGB components
+		/// </summary>
+		/// <param name="inputs">An array of Frames, with only the first entry regarded.</param>
+		/// <param name="tick">The index of the Frame which is processes now.</param>
+		/// <returns>An array of Frames with the red components of the input in the first,
+		/// the green component in the second and the blue component in the third entry. </returns>
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
 			Size size = inputs[0].Size;
