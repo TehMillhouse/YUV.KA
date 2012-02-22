@@ -104,7 +104,6 @@ namespace YuvKA.ViewModel
 				return;
 			}
 
-			IGetPosition getPos = IoC.Get<IGetPosition>();
 			if (draggedNode != null)
 				draggedNode.Position = e.GetPosition(relativeTo: this) - dragMouseOffset;
 			else if (DraggedEdge != null) {
@@ -165,7 +164,7 @@ namespace YuvKA.ViewModel
 			DraggedEdge = null;
 		}
 
-		public void CheckClearance(DragEventArgs e)
+		public void CheckClearance(IDragEventInfo e)
 		{
 			if (Parent.ReplayStateViewModel.IsPlaying) {
 				e.Effects = DragDropEffects.None;

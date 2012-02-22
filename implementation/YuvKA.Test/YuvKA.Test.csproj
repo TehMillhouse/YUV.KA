@@ -37,6 +37,7 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="PropertyTools, Version=2012.1.1.4171, Culture=neutral, PublicKeyToken=ea0c9f2b460934d0, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyTools.Wpf.2012.1.1.4171\lib\PropertyTools.dll</HintPath>
     </Reference>
@@ -74,6 +75,7 @@
     <Compile Include="VideoModel\YuvEncoderTest.cs" />
     <Compile Include="ViewModel\MainViewModelTest.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyEditorViewModelTest.cs" />
+    <Compile Include="ViewModel\PipelineViewModelTest.cs" />
     <Compile Include="ViewModel\ReplayStateViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
@@ -13,12 +14,15 @@ namespace YuvKA.Test.ViewModel
 	{
 		MainViewModel vm = GetInstance();
 
-		public static MainViewModel GetInstance()
+		public static MainViewModel GetInstance(Action<CompositionContainer> configure = null)
 		{
 			var catalog = new AggregateCatalog(new AssemblyCatalog("YuvKA.exe"), new AssemblyCatalog("YuvKA.Implementation.dll"));
 			var container = new CompositionContainer(catalog);
 			container.ComposeExportedValue(container);
 			container.ComposeExportedValue<IEventAggregator>(new EventAggregator());
+			if (configure != null)
+				configure(container);
+
 			IoC.GetInstance = (t, key) => AppBootstrapper.GetInstance(t, key, container);
 			IoC.BuildUp = o => container.SatisfyImportsOnce(o);
 
