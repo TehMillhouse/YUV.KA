@@ -73,6 +73,7 @@
     <Compile Include="VideoModel\RgbTest.cs" />
     <Compile Include="VideoModel\YuvEncoderTest.cs" />
     <Compile Include="ViewModel\MainViewModelTest.cs" />
+    <Compile Include="ViewModel\PropertyEditor\PropertyEditorViewModelTest.cs" />
     <Compile Include="ViewModel\ReplayStateViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
