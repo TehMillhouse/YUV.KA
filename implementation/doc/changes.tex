@@ -1,24 +1,10 @@
 \subsection{\name{YuvKA.VideoModel}}
 
-\paragraph{\name{YuvEncoder}}
-\begin{itemize}
-	\add \verb!Decode! \\
-	Neuer Parameter \verb!string motionVectorFileName = null!: Die an ein Video gebundenen Bewegungsvektoren sollen schon beim Lesen eines Videos vom Hintergrundspeicher gelesen werden, da \name{Video}-Obekte unveränderlich sind, und bei Neuwahl der entsprechenden Datei ein neues Video-Objekt erstellt werden muss.
-	\add \verb!Encode(Stream stream, IEnumerable<Frame> frames)! \\
-	Neue öffentliche statische Methode Encode, welche als Parameter einen Stream entgegennimmt. Dies ermöglicht es, zu Testzwecken auch in einen \name{MemoryStream} zu schreiben, was den Hintergrundspeicher nicht belastet und in der Regel schneller ist.
-\end{itemize}
-
-\paragraph{\name{YuvEncoder.Video}}
-\begin{itemize}
-	\remove \verb!Dispose! \\
-	Da keine Streams länger als unbedingt nötig offen gehalten werden, ist die zuvor von der \name{Video}-Klasse implementierte Schnittstelle \name{IDisposable} hier nicht mehr benötigt. Dadurch entfällt die Methode \name{Dispose}.
-\end{itemize}
-
 \paragraph{\name{Frame}}
 \begin{itemize}
-	\add \verb!GetPixelOrBlack(int x, int y)! \\
+	\add \verb!public GetPixelOrBlack(int x, int y)! \\
 	Neue öffentliche Methode, die es erleichtern soll, auf die Farbwerte innerhalb eines Frames zuzugreifen, ohne beachten zu müssen, ob die gegebenen Koordinaten tatsächlich innerhalb des \name{Frame} liegen. Falls ja, so wird der entsprechende Pixel an Stelle (x, y) als \name{Rgb}-Objekt zurückgegeben. Falls nicht, so wird ein schwarzer Farbwert für den Pixel zurückgegeben.
-	\add \verb!MaxBoundaries(Frame[] frames)! \\
+	\add \verb!public MaxBoundaries(Frame[] frames)! \\
 	Neue öffentliche Methode, welche aus einem Array von Frames jeweils das Maximum der Breite und der Höhe findet und ein \name{Size}-Objekt zurückgibt mit \name{height}- bzw. \name{width}-Wert, welcher alle gegebenen Frames umfasst.
 \end{itemize}
 
@@ -40,13 +26,42 @@
 	Der setter der B-Property wurde auf private gesetzt.
 \end{itemize}
 
+\paragraph{\name{YuvEncoder}}
+\begin{itemize}
+	\add \verb!public static Video Decode(int width, int height, string filename, string logFileName = null, string motionVectorFileName = null)! \\
+	Neuer Parameter \verb!string motionVectorFileName = null!: Die an ein Video gebundenen Bewegungsvektoren sollen schon beim Lesen eines Videos vom Hintergrundspeicher gelesen werden, da \name{Video}-Obekte unveränderlich sind, und bei Neuwahl der entsprechenden Datei ein neues Video-Objekt erstellt werden muss.
+	\add \verb!public static void Encode(Stream stream, IEnumerable<Frame> frames)! \\
+	Neue öffentliche statische Methode Encode, welche als Parameter einen Stream entgegennimmt. Dies ermöglicht es, zu Testzwecken auch in einen \name{MemoryStream} zu schreiben, was den Hintergrundspeicher nicht belastet und in der Regel schneller ist.
+\end{itemize}
+
+\paragraph{\name{YuvEncoder.Video}}
+\begin{itemize}
+	\remove \verb!public void Dispose()! \\
+	Da keine Streams länger als unbedingt nötig offen gehalten werden, ist die zuvor von der \name{Video}-Klasse implementierte Schnittstelle \name{IDisposable} hier nicht mehr benötigt. Dadurch entfällt diese Methode.
+\end{itemize}
+
+
 \subsection{\name{YuvKA.Pipeline}}
 
 \paragraph{\name{PipelineDriver}}
 \begin{itemize}
 	\change Die Klasse ist nicht mehr als statisch deklariert. Diese Änderung ermöglicht, verschiedene Graphen parallel zu berechnen, indem jeweils ein Driver instanziert wird, die einzelnen Berechnungen aber weiterhin den Parallelitätszusicherungen genügen.
-	\add \verb!RenderTicks! \\
+	\add \verb!public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(IEnumerable<Node> startNodes, int startTick = 0, int? tickCount = null, CancellationToken? token = null)! \\
 	Neuer Parameter \verb!int? tickCount = null!: Wie sich herausstellte, sollte die Berechnung der Pipeline nicht nur durch ein \name{CancellationToken} jederzeit abbrechbar sein, sondern auch von sich aus nach einer gegebenen Anzahl Ticks, nämlich bis zum Ende des gegebenen Eingabevideos, enden können. Existiert kein Eingabevideo, kann dem Parameter \name{null} zugewiesen werden (der Standardwert), um weiterhin bis zu einem manuellen Abbruch zu berechnen.
+\end{itemize}
+
+\paragraph{\name{PipelineGraph}}
+\begin{itemize}
+	\change \verb!public int? TickCount { get; }! \\
+	Die Property ist nun ein nullable int, da der Wert Null verwendet wird, um eine unbegrenzte Videolänge zu signalisieren.
+	\add \verb!public void AddNode(Node node)! \\
+	Diese Erweiterung ermöglicht es beim Hinzufügen eines Knoten diesem einen eindeutigen Namen aus der Folge Defaultname, Defaultname 2, Defaultname 3, ... zuzuordnen. Dieser Name kann nun verwendet werden, um ihn im Knoten selbst und allen seinen zugehörigen Outputfenstern anzuzeigen. Hiermit steht dem Benutzer eine leiche erkennbare eindeutige Zuordnung zur Verfügung. Weiterhin sollten auf keine andere Weise Knoten zum Graphen hinzugefügt werden.
+	\add \verb!public bool CanAddEdge(Node source, Node sink)! \\
+	Die Abfrage, ob eine Kante legal ist, ohne sie auch hinzuzufügen, ermöglicht es, Kanten in der GUI schon vor dem Drop-Event als legal oder illegal zu markieren.
+	\add \verb!public int NumberOfFramesToPrecompute(IEnumerable<Node> outputNodes)! \\
+	Da es möglich sein soll in der Pipeline zu springen und es Knoten gibt, die den aktuellen Frame aus vergangenen Ticks berechnen, muss hierzu errechnet werden wie viele Ticks vorberechnet werden sollen.
+	\add \verb!public void RemoveNode(Node node)! \\
+	Es stellte sich heraus, dass beim Entfernen eines Knoten aus dem Graphen auch alle zugehörigen Kanten entfernt werden müssen. Diese neue Methode ermöglicht dies.
 \end{itemize}
 
 \paragraph{\name{PipelineState}}
@@ -55,21 +70,6 @@
 	Besonders zu Debugzwecken und zur Demonstration wurde diese Property hinzugefügt, um die tatsächlich gemessene Abarbeitungsgeschwindigkeit in der UI anzeigen zu können.
 	\add \verb!public PipelineDriver Driver { get; }! \\
 	Nachdem in der \name{PipelineDriver}-Klasse der \name{static}-Modifier entfernt wurde, musste mit dieser neuen Property der Pipeline eine Driver-Instanz zugeordnet werden.
-
-\end{itemize}
-
-\paragraph{\name{PipelineGraph}}
-\begin{itemize}
-	\change \verb!public int? TickCount! \\
-	Die Property ist nun ein nullable int, da der Wert Null verwendet wird, um eine unbegrenzte Videolänge zu signalisieren.
-	\add \verb!public int NumberOfFramesToPrecompute(IEnumerable<Node> outputNodes)! \\
-	Da es möglich sein soll in der Pipeline zu springen und es Knoten gibt, die den aktuellen Frame aus vergangenen Ticks berechnen, muss hierzu errechnet werden wie viele Ticks vorberechnet werden sollen.
-	\add \verb!public bool CanAddEdge(Node source, Node sink)! \\
-	Die Abfrage, ob eine Kante legal ist, ohne sie auch hinzuzufügen, ermöglicht es, Kanten in der GUI schon vor dem Drop-Event als legal oder illegal zu markieren.
-	\add \verb!public void AddNode(Node node)! \\
-	Diese Erweiterung ermöglicht es beim Hinzufügen eines Knoten diesem einen eindeutigen Namen aus der Folge Defaultname, Defaultname 2, Defaultname 3, ... zuzuordnen. Dieser Name kann nun verwendet werden, um ihn im Knoten selbst und allen seinen zugehörigen Outputfenstern anzuzeigen. Hiermit steht dem Benutzer eine leiche erkennbare eindeutige Zuordnung zur Verfügung. Weiterhin sollten auf keine andere Weise Knoten zum Graphen hinzugefügt werden.
-	\add \verb!public void RemoveNode(Node node)! \\
-	Es stellte sich heraus, dass beim Entfernen eines Knoten aus dem Graphen auch alle zugehörigen Kanten entfernt werden müssen. Diese neue Methode ermöglicht dies.
 \end{itemize}
 
 
@@ -77,11 +77,10 @@
 
 \paragraph{\name{NoiseInputNode}}
 \begin{itemize}
-	\add \verb!public double? Speed { get; set; }! \\
-	Diese neu eingeführte Option erlaubt es dem Benutzer die Geschwindigkeit des angezeigten Perlin Noise einzustellen.
-	
 	\add \verb!public double? Scale { get; set; }! \\
 	Diese neu eingeführte Option erlaubt es dem Benutzer den angezeigten Perlin Noise zu skalieren.
+	\add \verb!public double? Speed { get; set; }! \\
+	Diese neu eingeführte Option erlaubt es dem Benutzer die Geschwindigkeit des angezeigten Perlin Noise einzustellen.
 \end{itemize}
 
 Desweiteren wurden zwei neue Arten von Noise eingeführt, die Abwandlungen der schon existierenden sind (siehe \name{NoiseType}).
@@ -90,7 +89,6 @@ Desweiteren wurden zwei neue Arten von Noise eingeführt, die Abwandlungen der s
 \begin{itemize}
 	\add \verb!ColoredCoherent! \\
 	Erstellt farbigen Coherent Noise.
-	
 	\add \verb!ColoredPerlin! \\
 	Erstellt farbigen Perlin Noise.
 \end{itemize}
@@ -102,14 +100,14 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 
 \paragraph{\name{EdgeViewModel}}
 \begin{itemize}
-	\add \verb!InOutputViewModel StartViewModel { get; set; }! \\
-	     \verb!InOutputViewModel EndViewModel { get; set; }! \\
+	\add \verb!public InOutputViewModel StartViewModel { get; set; }! \\
+	     \verb!public InOutputViewModel EndViewModel { get; set; }! \\
 	Legt Anfang bzw. Ende der Kante auf einen Ein-/Ausgang fest. Nach Setzen der Properties werden Start- bzw. Endpunkt der Kante automatisch entsprechend aktualisiert.
-	\add \begin{verbatim}EdgeStatus Status { get; set; }
+	\add \begin{verbatim}public EdgeStatus Status { get; set; }
 	enum EdgeStatus { Indeterminate, Invalid, Valid }
 	\end{verbatim}
 	Gibt während des Ziehens einer Kante ihren Zustand an, der in der View durch die Linienfarben schwarz/rot/grün visualisiert wird.
-	\add \verb!void Dispose()! \\
+	\add \verb!public void Dispose()! \\
 	Entfernt alle Abonnements von Positionsänderungen der verbundenen Knoten, um Speicherlecks zu verhindern.
 \end{itemize}
 
@@ -131,5 +129,6 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	\add \verb!public WriteableBitmap SourceImage { get; }! \\
 	Speichert das Bild, das als nächstes in das Ausgabefenster gezeichnet werden soll.
 \end{itemize}
+
 
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}
