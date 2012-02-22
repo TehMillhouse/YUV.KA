@@ -40,6 +40,20 @@
 
 \end{itemize}
 
+\paragraph{\name{PipelineGraph}}
+\begin{itemize}
+	\change \verb!public int? TickCount! \\
+	Die Property ist nun ein nullable int, da der Wert Null verwendet wird, um eine unbegrenzte Videolänge zu signalisieren.
+	\add \verb!public int NumberOfFramesToPrecompute(IEnumerable<Node> outputNodes)! \\
+	Da es möglich sein soll in der Pipeline zu springen und es Knoten gibt, die den aktuellen Frame aus vergangenen Ticks berechnen, muss hierzu errechnet werden wie viele Ticks vorberechnet werden sollen.
+	\add \verb!public bool CanAddEdge(Node source, Node sink)! \\
+	Die Abfrage, ob eine Kante legal ist, ohne sie auch hinzuzufügen, ermöglicht es, Kanten in der GUI schon vor dem Drop-Event als legal oder illegal zu markieren.
+	\add \verb!public void AddNode(Node node)! \\
+	Diese Erweiterung ermöglicht es beim Hinzufügen eines Knoten diesem einen eindeutigen Namen aus der Folge Defaultname, Defaultname 2, Defaultname 3, ... zuzuordnen. Dieser Name kann nun verwendet werden, um ihn im Knoten selbst und allen seinen zugehörigen Outputfenstern anzuzeigen. Hiermit steht dem Benutzer eine leiche erkennbare eindeutige Zuordnung zur Verfügung. Weiterhin sollten auf keine andere Weise Knoten zum Graphen hinzugefügt werden.
+	\add \verb!public void RemoveNode(Node node)! \\
+	Es stellte sich heraus, dass beim Entfernen eines Knoten aus dem Graphen auch alle zugehörigen Kanten entfernt werden müssen. Diese neue Methode ermöglicht dies.
+\end{itemize}
+
 \subsection{\name{YuvKA.ViewModel}}
 
 Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die zum Großteil aus dem Hinzufügen neuer Properties bestehen. Dies ist besonders der Tatsache geschuldet, dass das Viewmodel nicht wirklich Teil der grundlegenden Architektur sondern vielmehr Verknüpfungsschicht des Models und der View ist, wobei die Architektur letztgenannter Schicht, nämlich WPF, bereits gegeben war und wegen ihres unglaublichen Umfangs im Detail erst während der Implementierung Fall für Fall exakt erkundet werden konnte. Deshalb werden im Weiteren die Änderungen beschrieben, ohne einzeln auf die Gründe einzugehen, warum von der Entwurfsarchitektur abgewichen wurde.
