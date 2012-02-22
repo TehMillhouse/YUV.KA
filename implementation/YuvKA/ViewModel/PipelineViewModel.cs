@@ -9,6 +9,9 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
+	/// <summary>
+	/// View model that contains the nodes and edges shown to the user
+	/// </summary>
 	public class PipelineViewModel : ViewAware
 	{
 		NodeViewModel draggedNode;
@@ -49,13 +52,16 @@ namespace YuvKA.ViewModel
 		public EdgeViewModel DraggedEdge
 		{
 			get { return draggedEdge; }
-			set
+			private set
 			{
 				draggedEdge = value;
 				NotifyOfPropertyChange(() => DraggedEdge);
 			}
 		}
 
+		/// <summary>
+		/// Drops a NodeType on the pipeline by creating a new node of that type.
+		/// </summary>
 		public void Drop(IDragEventInfo e)
 		{
 			/* Only allow this if pipline is not rendering */
@@ -72,6 +78,9 @@ namespace YuvKA.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Begins dragging the clicked node and pushes it in front of other nodes.
+		/// </summary>
 		public void NodeMouseDown(NodeViewModel node, IMouseEventInfo e)
 		{
 			draggedNode = node;
@@ -81,6 +90,9 @@ namespace YuvKA.ViewModel
 			draggedNode.NotifyOfPropertyChange(() => draggedNode.ZIndex);
 		}
 
+		/// <summary>
+		/// Starts dragging the connected edge, if any, or a new one.
+		/// </summary>
 		public void InOutputMouseDown(InOutputViewModel inOut)
 		{
 			/* Only allow this if pipline is not rendering */
@@ -96,6 +108,9 @@ namespace YuvKA.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Updates the position of the dragged edge or node.
+		/// </summary>
 		public void MouseMove(IMouseEventInfo e)
 		{
 			if (e.LeftButton != MouseButtonState.Pressed) {
@@ -113,6 +128,9 @@ namespace YuvKA.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Lets the dragged edge snap to the in-/output hovered over.
+		/// </summary>
 		public void InOutputMouseMove(InOutputViewModel inOut, RoutedEventArgs e)
 		{
 			if (DraggedEdge == null)
@@ -126,12 +144,18 @@ namespace YuvKA.ViewModel
 			e.Handled = true; // don't bubble up into MouseMove
 		}
 
+		/// <summary>
+		/// Cancels any drag operations.
+		/// </summary>
 		public void MouseUp()
 		{
 			draggedNode = null;
 			DraggedEdge = null;
 		}
 
+		/// <summary>
+		/// Connects the dragged edge to the in-/output, if valid.
+		/// </summary>
 		public void InOutputMouseUp(InOutputViewModel inOut)
 		{
 			if (DraggedEdge == null)
@@ -164,6 +188,9 @@ namespace YuvKA.ViewModel
 			DraggedEdge = null;
 		}
 
+		/// <summary>
+		/// Prevents dropping nodes while the pipeline is playing.
+		/// </summary>
 		public void CheckClearance(IDragEventInfo e)
 		{
 			if (Parent.ReplayStateViewModel.IsPlaying) {

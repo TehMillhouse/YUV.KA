@@ -124,6 +124,25 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	Das View Model des Knotens dieses Ein-/Ausgangs
 \end{itemize}
 
+\paragraph{\name{PipelineViewModel}}
+\begin{itemize}
+	\add \verb!public EdgeViewModel DraggedEdge { get; }! \\
+	Die gerade gezogene Kante, sonst null.
+	\add \verb!public void CheckClearance(IDragEventInfo e)! \\
+	Verhindert das Droppen eines Knoten, falls die Pipeline abgespielt wird.
+	\change \verb!public void Drop(IDragEventInfo e)! \\
+	Der Parametertyp wurde von WPFs \verb!DragEventArgs! auf die eigens kreierte Klasse \name{IDragEventInfo} geändert, da erstere Klasse nicht mockbar ist.
+	\add \begin{verbatim}
+public void InOutputMouseDown(InOutputViewModel inOut)
+public void InOutputMouseMove(InOutputViewModel inOut, RoutedEventArgs e)
+public void InOutputMouseUp(InOutputViewModel inOut)
+public void MouseMove(IMouseEventInfo e)
+public void MouseUp()
+public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
+	\end{verbatim}
+	Eventhandler für Drag \& Drop
+\end{itemize}
+
 \paragraph{\name{VideoOutputViewModel}}
 \begin{itemize}
 	\add \verb!public WriteableBitmap SourceImage { get; }! \\
