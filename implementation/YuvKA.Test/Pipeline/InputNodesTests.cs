@@ -91,11 +91,16 @@ namespace YuvKA.Test.Pipeline
 			outputImage.Save("..\\..\\..\\..\\output\\sample-resized-" +
 							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
 
-			// Change only size
-			inputNode.Size = new YuvKA.VideoModel.Size(50, 400);
+			// Change size only
+			inputNode.Size = new YuvKA.VideoModel.Size(352, 200);
 			CopyFrameToOutputImage(inputNode, out outputFrame, out outputImage, 0);
 			outputImage.Save("..\\..\\..\\..\\output\\sample-resized-" +
 							inputNode.Size.Width + "-" + inputNode.Size.Height + ".png");
+
+			inputNode.Size = new YuvKA.VideoModel.Size(420, 315);
+			inputNode.OutputFrame(0);
+
+
 		}
 
 		// Output a color and write it to a file

@@ -222,7 +222,7 @@ namespace YuvKA.Test.Pipeline
 				}
 			}
 
-			bcsNode.Contrast = 2.0;
+			bcsNode.Contrast = 0.8;
 			// Process the input frame. Reuse the frames object by writing back to it
 			Frame[] outputFrames = bcsNode.Process(inputFrames, 0);
 
@@ -235,6 +235,25 @@ namespace YuvKA.Test.Pipeline
 														outputFrames[0][x, y].B));
 				}
 			}
+
+			image.Save("..\\..\\..\\..\\output\\papagei-bcs-" + (int)(bcsNode.Contrast * 10) + ".png");
+
+			// Set contrast to a negative value and brightness to the maximum
+			bcsNode.Contrast = -0.6;
+			bcsNode.Brightness = 1;
+			outputFrames = bcsNode.Process(inputFrames, 0);
+
+			for (int y = 0; y < size.Height; y++) {
+				for (int x = 0; x < size.Width; ++x) {
+					// Reuse the created image object
+					image.SetPixel(x, y, System.Drawing.Color.FromArgb(outputFrames[0][x, y].R,
+														outputFrames[0][x, y].G,
+														outputFrames[0][x, y].B));
+				}
+			}
+
+			bcsNode.Brightness = -1;
+			bcsNode.Process(inputFrames, 0);
 
 			image.Save("..\\..\\..\\..\\output\\papagei-bcs-" + (int)(bcsNode.Contrast * 10) + ".png");
 		}
