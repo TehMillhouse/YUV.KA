@@ -12,9 +12,6 @@ namespace YuvKA.ViewModel
 	/// </summary>
 	public class VideoOutputViewModel : OutputWindowViewModel
 	{
-		int widthOld;
-		int heightOld;
-
 		/// <summary>
 		/// Creates a new VideoOutputViewModel.
 		/// </summary>
@@ -27,7 +24,7 @@ namespace YuvKA.ViewModel
 		/// <summary>
 		/// The image to be drawn to the user interface.
 		/// </summary>
-		public WriteableBitmap SourceImage { get; set; }
+		public WriteableBitmap SourceImage { get; private set; }
 
 		/// <summary>
 		/// Writes the image to be drawn to the back buffer.
@@ -45,10 +42,8 @@ namespace YuvKA.ViewModel
 			if (width == 0 || height == 0)
 				return;
 
-			if (SourceImage == null || width != widthOld || height != heightOld) {
+			if (SourceImage == null || width != SourceImage.Width || height != SourceImage.Height) {
 				SourceImage = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgr32, null);
-				widthOld = width;
-				heightOld = height;
 				NotifyOfPropertyChange(() => SourceImage);
 			}
 
