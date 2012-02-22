@@ -5,10 +5,17 @@ namespace Caliburn.Micro
 {
 	public interface IDragEventInfo
 	{
+		DragDropEffects Effects { get; set; }
 		T GetData<T>();
 		Point GetPosition(IViewAware relativeTo);
-		DragDropEffects Effects { get; set; }
 	}
+
+	public interface IMouseEventInfo
+	{
+		MouseButtonState LeftButton { get; }
+		Point GetPosition(IViewAware relativeTo);
+	}
+
 
 	public class WpfDragEventInfo : IDragEventInfo
 	{
@@ -19,6 +26,8 @@ namespace Caliburn.Micro
 			this.e = e;
 		}
 
+		public DragDropEffects Effects { get { return e.Effects; } set { e.Effects = value; } }
+
 		public T GetData<T>()
 		{
 			return (T)e.Data.GetData(typeof(T));
@@ -28,15 +37,6 @@ namespace Caliburn.Micro
 		{
 			return e.GetPosition((IInputElement)relativeTo.GetView());
 		}
-
-		public DragDropEffects Effects { get { return e.Effects; } set { e.Effects = value; } }
-	}
-
-
-	public interface IMouseEventInfo
-	{
-		Point GetPosition(IViewAware relativeTo);
-		MouseButtonState LeftButton { get; }
 	}
 
 	public class WpfMouseEventInfo : IMouseEventInfo
@@ -48,11 +48,11 @@ namespace Caliburn.Micro
 			this.e = e;
 		}
 
+		public MouseButtonState LeftButton { get { return e.LeftButton; } }
+
 		public Point GetPosition(IViewAware relativeTo)
 		{
 			return e.GetPosition((IInputElement)relativeTo.GetView());
 		}
-
-		public MouseButtonState LeftButton { get { return e.LeftButton; } }
 	}
 }
