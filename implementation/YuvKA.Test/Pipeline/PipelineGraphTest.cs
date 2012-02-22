@@ -60,6 +60,7 @@ namespace YuvKA.Test.Pipeline
 			PipelineGraph graph = new PipelineGraph { Nodes = { node0, node1, node2, node3 } };
 
 			Assert.Equal(false, graph.AddEdge(node3.Outputs[0], node1.Inputs[0]));
+			Assert.Equal(true, graph.AddEdge(node2.Outputs[0], node3.Inputs[0]));
 		}
 
 		/// <summary>
@@ -182,21 +183,21 @@ namespace YuvKA.Test.Pipeline
 			BlurNode blur2 = new BlurNode();
 			BlurNode blur3 = new BlurNode();
 			BlurNode blur4 = new BlurNode();
-			DelayNode delay0 = new DelayNode();
-			DelayNode delay1 = new DelayNode();
+			NoiseInputNode noise0 = new NoiseInputNode();
+			NoiseInputNode noise1 = new NoiseInputNode();
 			PipelineGraph graph = new PipelineGraph();
 
 			graph.AddNodeWithIndex(blur0);
 			graph.AddNodeWithIndex(blur1);
-			graph.AddNodeWithIndex(delay0);
+			graph.AddNodeWithIndex(noise0);
 			graph.AddNodeWithIndex(blur2);
-			graph.AddNodeWithIndex(delay1);
+			graph.AddNodeWithIndex(noise1);
 
 			Assert.Equal("Blur", blur0.Name);
 			Assert.Equal("Blur 2", blur1.Name);
 			Assert.Equal("Blur 3", blur2.Name);
-			Assert.Equal("Delay", delay0.Name);
-			Assert.Equal("Delay 2", delay1.Name);
+			Assert.Equal("Delay", noise0.Name);
+			Assert.Equal("Delay 2", noise1.Name);
 
 			graph.RemoveNode(blur1);
 			graph.AddNodeWithIndex(blur3);
