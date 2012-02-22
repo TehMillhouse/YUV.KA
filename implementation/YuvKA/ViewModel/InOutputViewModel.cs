@@ -6,16 +6,32 @@ using Caliburn.Micro;
 
 namespace YuvKA.ViewModel
 {
+	/// <summary>
+	/// Common view model of both Node.Input and Node.Output
+	/// </summary>
 	public class InOutputViewModel : ViewAware
 	{
+		/// <summary>
+		/// Initializes an InOutputViewModel instance with a model of type Node.Input or Node.Output
+		/// and the model's node's view model.
+		/// </summary>
 		public InOutputViewModel(object model, NodeViewModel parent)
 		{
 			Model = model;
 			Parent = parent;
 		}
 
+		/// <summary>
+		/// Gets the represented model of this view model, either a Node.Input or a Node.Output
+		/// </summary>
 		public object Model { get; private set; }
+
 		public NodeViewModel Parent { get; private set; }
+
+		/// <summary>
+		/// A fake is used to represent inputs that aren't added to the model yet, i.e. for
+		/// nodes with a variable number of inputs.
+		/// </summary>
 		public bool IsFake { get { return Model == null; } }
 
 		/// <summary>

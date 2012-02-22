@@ -78,4 +78,18 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	\add \verb!void Dispose()! \\
 	Entfernt alle Abonnements von Positionsänderungen der verbundenen Knoten, um Speicherlecks zu verhindern.
 \end{itemize}
+
+\paragraph{+ InOutputViewModel}~\\
+\name{InOutputViewModel} ist eine gemeinsames View Model für Inputs und Outputs.
+\begin{itemize}
+	\add \verb!public bool IsFake { get; }! \\
+	Fake-Eingänge sind solche ohne zugrundeliegendes Model. Sie werden für das dynamische Hinzufügen von Eingängen benötigt.
+	\add \verb!public IObservable<Point> Midpoint { get; }! \\
+	Gibt den gerade jeweils aktuellen Mittelpunkt des Ein-/Ausgangs zurück.
+	\add \verb!public object Model { get; }! \\
+	Der zugrundeliegende Input oder Output
+	\add \verb!public NodeViewModel Parent { get; }! \\
+	Das View Model des Knotens dieses Ein-/Ausgangs
+\end{itemize}
+
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}
