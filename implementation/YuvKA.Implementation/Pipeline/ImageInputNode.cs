@@ -14,7 +14,7 @@ namespace YuvKA.Pipeline.Implementation
 	{
 		Bitmap inputImage;
 		Bitmap resizedInputImage;
-		FilePath fileName;
+		FilePath fileName = new FilePath(null);
 		Frame resizedFrame;
 
 		/// <summary>
