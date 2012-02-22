@@ -83,9 +83,13 @@ namespace YuvKA.Pipeline.Implementation
 		/// <summary>
 		/// Calculates the Data of each Graph for the current frame
 		/// </summary>
+		/// <param name="inputs">The frame to process.</param>
 		/// <param name="tick">The index of the current frame. It is saved to the Data of the Graph.</param>
 		public override void ProcessCore(Frame[] inputs, int tick)
 		{
+			if (!IsEnabled) {
+				return;
+			}
 			lock (graphLock) {
 				foreach (DiagramGraph g in Graphs.ToArray()) {
 					if (g.Data.Count != 0 && tick < g.Data[g.Data.Count - 1].Key)
