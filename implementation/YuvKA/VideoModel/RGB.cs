@@ -1,7 +1,16 @@
 ﻿namespace YuvKA.VideoModel
 {
+	/// <summary>
+	/// A class representing the color data inside a pixel in red, green and blue values.
+	/// </summary>
 	public struct Rgb
 	{
+		/// <summary>
+		/// A simple constructor
+		/// </summary>
+		/// <param name="r">The value for the red component</param>
+		/// <param name="g">The value for the green component</param>
+		/// <param name="b">The value for the blue component</param>
 		public Rgb(byte r, byte g, byte b)
 			: this()
 		{
@@ -62,6 +71,10 @@
 			return (R == pixel.R && G == pixel.G && B == pixel.B);
 		}
 
+		/// <summary>
+		/// Returns a human-readable representation of the pixel color value
+		/// </summary>
+		/// <returns></returns>
 		public override string ToString()
 		{
 			return string.Format("(R {0} G {1} B {2})", R, G, B);
