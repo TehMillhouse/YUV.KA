@@ -1,5 +1,8 @@
 ﻿namespace YuvKA.VideoModel
 {
+	/// <summary>
+	/// An enumeration specifying the different kinds of decisions an encoder can take for breaking up a macroblock into smaller blocks
+	/// </summary>
 	public enum MacroblockPartitioning
 	{
 		InterSkip,
