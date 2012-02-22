@@ -52,11 +52,6 @@ namespace YuvKA.Pipeline.Implementation
 		public Frame Process(Frame[] input)
 		{
 			Frame result = new Frame(input[0].Size);
-			// Make a *deep* copy of the given frame
-			for (int x = 0; x < result.Size.Width; x++)
-				for (int y = 0; y < result.Size.Height; y++)
-					result[x, y] = input[0][x, y];
-
 			AnnotatedFrame frameWithLogs = (AnnotatedFrame)input[0];
 			/* Create Bitmap to draw the vectors on */
 			using (Bitmap drawableFrame = new Bitmap(input[0].Size.Width, input[0].Size.Width)) {
