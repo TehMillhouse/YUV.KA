@@ -8,11 +8,17 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// This class implements the possibility to overlay frames while using weights for each of them. The resulting frame will also be weighted.
+	/// </summary>
 	[Description("Averages its inputs according to the given weight distribution")]
 	[DataContract]
 	public class WeightedAveragedMergeNode : Node
 	{
 		private ObservableCollection<double> weights;
+		/// <summary>
+		///	Constructs a new WeightedAverageMergeNode.
+		/// </summary>
 		public WeightedAveragedMergeNode()
 			: base(inputCount: null, outputCount: 1)
 		{
@@ -20,6 +26,10 @@ namespace YuvKA.Pipeline.Implementation
 			((ObservableCollection<Input>)Inputs).CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(OnInputsChanged);
 		}
 
+		/// <summary>
+		/// Stores the weights for each input.
+		/// Missing weights will be completed with weights of the default value 1. All values range from 0 to 1.
+		/// </summary>
 		[DataMember]
 		[Range(0.0, 1.0)]
 		[Description("Weights of inputs relative to each other")]
@@ -45,11 +55,12 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
-		public void OnInputsChanged(object sender, EventArgs e)
-		{
-			NotifyOfPropertyChange(() => Weights);
-		}
-
+		/// <summary>
+		/// Adds up the weighted frames and finally averages them according to the following formula:
+		/// If there are n frames to be merged and w_1,..., w_n are their weights, the resulting frame will be computed by using this formula:
+		/// newPixel_xy = (sum(w_i * oldValue_xy_i))/sum(w_i)
+		/// (xy represents the position of the pixel in the frame.)
+		/// </summary>
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
 			Size maxSize = Frame.MaxBoundaries(inputs);
@@ -58,12 +69,14 @@ namespace YuvKA.Pipeline.Implementation
 
 			for (int x = 0; x < maxSize.Width; x++) {
 				for (int y = 0; y < maxSize.Height; y++) {
+					// sums up the weighted values
 					double newR = 0, newG = 0, newB = 0;
 					for (int i = 0; i < inputs.Length; i++) {
 						newR += Weights[i] * inputs[i].GetPixelOrBlack(x, y).R;
 						newG += Weights[i] * inputs[i].GetPixelOrBlack(x, y).G;
 						newB += Weights[i] * inputs[i].GetPixelOrBlack(x, y).B;
 					}
+					// averages the values
 					newR = newR / sumOfWeights;
 					newG = newG / sumOfWeights;
 					newB = newB / sumOfWeights;
@@ -71,6 +84,11 @@ namespace YuvKA.Pipeline.Implementation
 				}
 			}
 			return output;
+		}
+
+		private void OnInputsChanged(object sender, EventArgs e)
+		{
+			NotifyOfPropertyChange(() => Weights);
 		}
 	}
 }
