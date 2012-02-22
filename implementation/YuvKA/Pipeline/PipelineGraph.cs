@@ -142,7 +142,7 @@ namespace YuvKA.Pipeline
 			if (startNode.Inputs != null) {
 				foreach (Node.Input input in startNode.Inputs) {
 					if (input.Source != null) {
-						framesToPrecompute = Math.Max(framesToPrecompute, NumberOfFramesToPrecompute(input.Source.Node));
+						framesToPrecompute = Math.Max(framesToPrecompute, NumberOfTicksToPrecompute(input.Source.Node));
 					}
 				}
 			}

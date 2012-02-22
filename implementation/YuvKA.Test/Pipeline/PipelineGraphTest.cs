@@ -175,7 +175,7 @@ namespace YuvKA.Test.Pipeline
 		/// Creates some nodes and checks the behaviour of the AddNodeWithIndex method.
 		/// </summary>
 		[Fact]
-		public void TestAddNodeWithIndex()
+		public void TestAddNode()
 		{
 			// create some nodes and initialize graph
 			BlurNode blur0 = new BlurNode();
@@ -196,8 +196,8 @@ namespace YuvKA.Test.Pipeline
 			Assert.Equal("Blur", blur0.Name);
 			Assert.Equal("Blur 2", blur1.Name);
 			Assert.Equal("Blur 3", blur2.Name);
-			Assert.Equal("Delay", noise0.Name);
-			Assert.Equal("Delay 2", noise1.Name);
+			Assert.Equal("Noise", noise0.Name);
+			Assert.Equal("Noise 2", noise1.Name);
 
 			graph.RemoveNode(blur1);
 			graph.AddNode(blur3);
