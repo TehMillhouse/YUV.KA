@@ -6,14 +6,24 @@ using Caliburn.Micro;
 
 namespace YuvKA.ViewModel.PropertyEditor
 {
+	/// <summary>
+	/// This class is responsible for managing the
+	/// viewmodels of the properties of one object
+	/// </summary>
 	public class PropertyEditorViewModel : PropertyChangedBase
 	{
 		private object source;
 
+		/// <summary>
+		/// Constructs a propertyeditorviewmodel without any manged object
+		/// </summary>
 		public PropertyEditorViewModel()
 		{
 		}
 
+		/// <summary>
+		/// The object, of which this object manages the propertyviewmodels
+		/// </summary>
 		public object Source
 		{
 			get { return source; }
@@ -42,6 +52,10 @@ namespace YuvKA.ViewModel.PropertyEditor
 				NotifyOfPropertyChange(() => Properties);
 			}
 		}
+
+		/// <summary>
+		/// The list of viewmodels assigned to the properties of the source object
+		/// </summary>
 		public IEnumerable<PropertyViewModel> Properties { get; private set; }
 	}
 }
