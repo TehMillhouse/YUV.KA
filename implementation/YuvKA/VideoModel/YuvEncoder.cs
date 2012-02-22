@@ -224,12 +224,15 @@ namespace YuvKA.VideoModel
 			 * First level is the Frame/line of the data
 			 * Second level is data for the vectors of each macroblock*/
 			string[] inputLines = File.ReadAllLines(fileName);
-			int[][] data = new int[inputLines.Length - 1][];
-			for (int i = 0; i < inputLines.Length - 1; i++) {
-				string[] line = inputLines[i + 1].Split(',');
+			int[][] data = new int[inputLines.Length][];
+			for (int i = 0; i < inputLines.Length; i++) {
+				string[] line = inputLines[i].Split(',');
 				data[i] = new int[line.Length];
 				for (int j = 0; j < line.Length - 1; j++) {
-					data[i][j] = int.Parse(line[j]);
+					if (line[j] == "")
+						data[i][j] = 0;
+					else
+						data[i][j] = int.Parse(line[j]);
 				}
 			}
 			return data;
