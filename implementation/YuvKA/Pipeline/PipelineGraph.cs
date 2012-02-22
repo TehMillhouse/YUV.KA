@@ -35,9 +35,9 @@ namespace YuvKA.Pipeline
 		}
 
 		/// <summary>
-		/// Returns the number of frames which are necessary to let the specified nodes process the next frame. The method assumes, that the graph does not contain any cycles.
+		/// Returns the number of ticks which are necessary to let the specified nodes process the next tick. The method assumes, that the graph does not contain any cycles.
 		/// </summary>
-		public int NumberOfFramesToPrecompute(IEnumerable<Node> outputNodes)
+		public int NumberOfTicksToPrecompute(IEnumerable<Node> outputNodes)
 		{
 			int precomputeCount = 0;
 			foreach (Node node in outputNodes) {

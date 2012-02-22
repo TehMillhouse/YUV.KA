@@ -115,7 +115,7 @@ namespace YuvKA.Pipeline
 				return false;
 
 			cts = new CancellationTokenSource();
-			int precomputeCount = Graph.NumberOfFramesToPrecompute(outputNodes);
+			int precomputeCount = Graph.NumberOfTicksToPrecompute(outputNodes);
 			Queue<DateTime> ticks = new Queue<DateTime>();
 			ticks.Enqueue(DateTime.Now);
 			int windowSize = 5;

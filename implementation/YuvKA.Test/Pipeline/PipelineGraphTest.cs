@@ -128,15 +128,15 @@ namespace YuvKA.Test.Pipeline
 
 			List<AnonymousNode> nodeList = new List<AnonymousNode>();
 			nodeList.Add(node0);
-			Assert.Equal(0, graph.NumberOfFramesToPrecompute(nodeList));
+			Assert.Equal(0, graph.NumberOfTicksToPrecompute(nodeList));
 			nodeList.Add(node1);
-			Assert.Equal(1, graph.NumberOfFramesToPrecompute(nodeList));
+			Assert.Equal(1, graph.NumberOfTicksToPrecompute(nodeList));
 			nodeList.Add(node2);
-			Assert.Equal(2, graph.NumberOfFramesToPrecompute(nodeList));
+			Assert.Equal(2, graph.NumberOfTicksToPrecompute(nodeList));
 			nodeList.Add(node3);
-			Assert.Equal(5, graph.NumberOfFramesToPrecompute(nodeList));
+			Assert.Equal(5, graph.NumberOfTicksToPrecompute(nodeList));
 			nodeList.Add(node4);
-			Assert.Equal(13, graph.NumberOfFramesToPrecompute(nodeList));
+			Assert.Equal(13, graph.NumberOfTicksToPrecompute(nodeList));
 		}
 
 		/// <summary>
