@@ -66,7 +66,7 @@ namespace YuvKA.ViewModel
 				nodeModel.Position = e.GetPosition(relativeTo: this);
 				nodeModel.ZIndex = maxZValue++;
 
-				Parent.Model.Graph.AddNodeWithIndex(node);
+				Parent.Model.Graph.AddNode(node);
 				Nodes.Add(nodeModel);
 				Parent.SaveSnapshot();
 			}

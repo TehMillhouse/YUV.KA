@@ -41,7 +41,7 @@ namespace YuvKA.Pipeline
 		{
 			int precomputeCount = 0;
 			foreach (Node node in outputNodes) {
-				precomputeCount = Math.Max(precomputeCount, NumberOfFramesToPrecompute(node));
+				precomputeCount = Math.Max(precomputeCount, NumberOfTicksToPrecompute(node));
 			}
 			return precomputeCount;
 		}
@@ -73,7 +73,7 @@ namespace YuvKA.Pipeline
 		/// <summary>
 		/// Adds an index to the specified node's name. The new name will be the first available one of the row NodeName, NodeName 2, NodeName 3, NodeName 4...
 		/// </summary>
-		public void AddNodeWithIndex(Node node)
+		public void AddNode(Node node)
 		{
 			bool nameIsFree = false;
 			// walk through nodes and look for first free index
@@ -136,7 +136,7 @@ namespace YuvKA.Pipeline
 		}
 
 		// Recursive part of NumberOfFramesToPrecompute.
-		private int NumberOfFramesToPrecompute(Node startNode)
+		private int NumberOfTicksToPrecompute(Node startNode)
 		{
 			int framesToPrecompute = 0;
 			if (startNode.Inputs != null) {

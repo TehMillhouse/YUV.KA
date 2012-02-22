@@ -50,7 +50,7 @@ namespace YuvKA.Test.ViewModel
 
 			var graphMock = new Mock<InputNode>(/*outputCount*/ (int?)1) { CallBase = true };
 			graphMock.SetupGet(n => n.TickCount).Returns(10);
-			vm.Parent.Model.Graph.AddNodeWithIndex(graphMock.Object);
+			vm.Parent.Model.Graph.AddNode(graphMock.Object);
 
 			var outputMock = new Mock<OutputWindowViewModel>(graphMock.Object, null);
 			//outputMock.Setup(o => o.Handle(It.IsAny<TickRenderedMessage>()));

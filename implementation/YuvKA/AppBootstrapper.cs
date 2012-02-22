@@ -32,8 +32,8 @@
 					var node1 = new DesignDummyNode { X = 10, Y = 10 };
 					var node2 = new DesignDummyNode { X = 200, Y = 10 };
 					node2.Inputs[1].Source = node1.Outputs[0];
-					DesignRoot.Model.Graph.AddNodeWithIndex(node1);
-					DesignRoot.Model.Graph.AddNodeWithIndex(node2);
+					DesignRoot.Model.Graph.AddNode(node1);
+					DesignRoot.Model.Graph.AddNode(node2);
 					DesignRoot.Model = DesignRoot.Model; // Force PipelineVM re-creation
 				}
 				return IoC.Get<MainViewModel>();

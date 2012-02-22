@@ -187,11 +187,11 @@ namespace YuvKA.Test.Pipeline
 			NoiseInputNode noise1 = new NoiseInputNode();
 			PipelineGraph graph = new PipelineGraph();
 
-			graph.AddNodeWithIndex(blur0);
-			graph.AddNodeWithIndex(blur1);
-			graph.AddNodeWithIndex(noise0);
-			graph.AddNodeWithIndex(blur2);
-			graph.AddNodeWithIndex(noise1);
+			graph.AddNode(blur0);
+			graph.AddNode(blur1);
+			graph.AddNode(noise0);
+			graph.AddNode(blur2);
+			graph.AddNode(noise1);
 
 			Assert.Equal("Blur", blur0.Name);
 			Assert.Equal("Blur 2", blur1.Name);
@@ -200,8 +200,8 @@ namespace YuvKA.Test.Pipeline
 			Assert.Equal("Delay 2", noise1.Name);
 
 			graph.RemoveNode(blur1);
-			graph.AddNodeWithIndex(blur3);
-			graph.AddNodeWithIndex(blur4);
+			graph.AddNode(blur3);
+			graph.AddNode(blur4);
 
 			Assert.Equal("Blur 2", blur3.Name);
 			Assert.Equal("Blur 4", blur4.Name);
