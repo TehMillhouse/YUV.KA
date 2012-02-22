@@ -22,6 +22,14 @@
 	Neue öffentliche Methode, welche aus einem Array von Frames jeweils das Maximum der Breite und der Höhe findet und ein \name{Size}-Objekt zurückgibt mit \name{height}- bzw. \name{width}-Wert, welcher alle gegebenen Frames umfasst.
 \end{itemize}
 
+\paragraph{\name{MacroblockDecision}}
+\begin{itemize}
+	\change \verb!public Vector Movement { get; set; }! \\
+	Die \name{Movement}-property wurde schreibbar gemacht, da eine korrekte Initialisierung sonst nicht möglich wäre.
+	\change \verb!public MacroblockPartitioning? Partitiondecision { get; set; }! \\
+	Die \name{Partitiondecision}-property wurde schreibbar gemacht, da eine korrekte Initialisierung sonst nicht möglich wäre.
+\end{itemize}
+
 \subsection{\name{YuvKA.Pipeline}}
 
 \paragraph{\name{PipelineDriver}}
