@@ -3,6 +3,7 @@
 namespace YuvKA.Test.Pipeline
 {
 	using Xunit;
+	using YuvKA.Pipeline;
 	using YuvKA.Pipeline.Implementation;
 	using YuvKA.VideoModel;
 
@@ -158,7 +159,17 @@ namespace YuvKA.Test.Pipeline
 			}
 
 			WeightedAveragedMergeNode node = new WeightedAveragedMergeNode();
-			node.Weights = new ObservableCollection<double> { 0, 0.25, 1 };
+			Node.Input testInput = new Node.Input();
+			node.Inputs.Add(testInput);
+			ObservableCollection<double> testGetWeights = node.Weights;
+			// node.Weights is null -> create weights with default value 1.0
+			Assert.Contains(1.0, testGetWeights);
+			node.Inputs.Add(testInput);
+			node.Inputs.Add(testInput);
+			node.Weights = new ObservableCollection<double> { 0, 0.25 };
+			testGetWeights = node.Weights;
+			// node.Weights has not enough values -> fill up missing weights with 1.0
+			Assert.Contains(1.0, testGetWeights);
 			Frame[] result = node.Process(inputs, 0);
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
