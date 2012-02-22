@@ -75,9 +75,9 @@ namespace YuvKA.Pipeline.Implementation
 		/// <summary>
 		/// Returns the index of the ReferenceVideo in the list of Inputs of this DiagramNode.
 		/// </summary>
-		private int RefIndex
+		private int? RefIndex
 		{
-			get { return Inputs.IndexOf(ReferenceVideo); }
+			get { return ReferenceVideo != null ? Inputs.IndexOf(ReferenceVideo) : (int?)null; }
 		}
 
 		/// <summary>
@@ -94,7 +94,8 @@ namespace YuvKA.Pipeline.Implementation
 				foreach (DiagramGraph g in Graphs.ToArray()) {
 					if (g.Data.Count != 0 && tick < g.Data[g.Data.Count - 1].Key)
 						g.Data = new List<KeyValuePair<int, double>>();
-					g.Data.Add(new KeyValuePair<int, double>(tick, g.Type.Process(inputs[Inputs.IndexOf(g.Video)], inputs[RefIndex])));
+					g.Data.Add(new KeyValuePair<int, double>(tick,
+						g.Type.Process(inputs[Inputs.IndexOf(g.Video)], ReferenceVideo != null ? inputs[(int)RefIndex] : null)));
 				}
 			}
 		}
