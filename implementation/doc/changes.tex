@@ -72,11 +72,35 @@
 	Es stellte sich heraus, dass beim Entfernen eines Knoten aus dem Graphen auch alle zugehörigen Kanten entfernt werden müssen. Diese neue Methode ermöglicht dies.
 \end{itemize}
 
+
+\subsection{\name{YuvKA.Pipeline.Implementation}}
+
+\paragraph{\name{NoiseInputNode}}
+\begin{itemize}
+	\add \verb!public double? Speed { get; set; }! \\
+	Diese neu eingeführte Option erlaubt es dem Benutzer die Geschwindigkeit des angezeigten Perlin Noise einzustellen.
+	
+	\add \verb!public double? Scale { get; set; }! \\
+	Diese neu eingeführte Option erlaubt es dem Benutzer den angezeigten Perlin Noise zu skalieren.
+\end{itemize}
+
+Desweiteren wurden zwei neue Arten von Noise eingeführt, die Abwandlungen der schon existierenden sind (siehe \name{NoiseType}).
+
+\paragraph{\name{NoiseType}}
+\begin{itemize}
+	\add \verb!ColoredCoherent! \\
+	Erstellt farbigen Coherent Noise.
+	
+	\add \verb!ColoredPerlin! \\
+	Erstellt farbigen Perlin Noise.
+\end{itemize}
+
+
 \subsection{\name{YuvKA.ViewModel}}
 
 Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die zum Großteil aus dem Hinzufügen neuer Properties bestehen. Dies ist besonders der Tatsache geschuldet, dass das Viewmodel nicht wirklich Teil der grundlegenden Architektur sondern vielmehr Verknüpfungsschicht des Models und der View ist, wobei die Architektur letztgenannter Schicht, nämlich WPF, bereits gegeben war und wegen ihres unglaublichen Umfangs im Detail erst während der Implementierung Fall für Fall exakt erkundet werden konnte. Deshalb werden im Weiteren die Änderungen beschrieben, ohne einzeln auf die Gründe einzugehen, warum von der Entwurfsarchitektur abgewichen wurde.
 
-\paragraph{EdgeViewModel}
+\paragraph{\name{EdgeViewModel}}
 \begin{itemize}
 	\add \verb!InOutputViewModel StartViewModel { get; set; }! \\
 	     \verb!InOutputViewModel EndViewModel { get; set; }! \\
@@ -89,7 +113,7 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	Entfernt alle Abonnements von Positionsänderungen der verbundenen Knoten, um Speicherlecks zu verhindern.
 \end{itemize}
 
-\paragraph{+ InOutputViewModel}~\\
+\paragraph{\name{+ InOutputViewModel}}~\\
 \name{InOutputViewModel} ist eine gemeinsames View Model für Inputs und Outputs.
 \begin{itemize}
 	\add \verb!public bool IsFake { get; }! \\
@@ -100,6 +124,12 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	Der zugrundeliegende Input oder Output
 	\add \verb!public NodeViewModel Parent { get; }! \\
 	Das View Model des Knotens dieses Ein-/Ausgangs
+\end{itemize}
+
+\paragraph{\name{VideoOutputViewModel}}
+\begin{itemize}
+	\add \verb!public WriteableBitmap SourceImage { get; set; }! \\
+	Speichert das Bild, das als nächstes in das Ausgabefenster gezeichnet werden soll.
 \end{itemize}
 
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}
