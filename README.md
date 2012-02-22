@@ -39,13 +39,14 @@ Writing a plugin is pretty simple. I'm going to assume you've got Visual Studio 
  2. Delete the App.xaml and MainWindow.xaml files VS creates for you. You won't be needing these.
  3. Right-click your project in the solution explorer. Choose Properties (Alt + Enter).
  4. Set the 'Output Type' to be 'Class Library'. Save the change.
- 5. Right-click your project and select 'Add Reference...'. Browse to the location of your Yuv.KA installation, and add references to the files YuvKA.Implementation.dll, YuvKA.exe, and Caliburn.Micro.dll. (Be sure to also look in the Plugins folder.)
+ 5. Right-click your project and select 'Add Reference...'. Browse to the location of your Yuv.KA installation, and add references to the files YuvKA.Implementation.dll, YuvKA.exe, and Caliburn.Micro.dll.[2] (Be sure to also look in the Plugins folder.)
  6. You're good to go! Create a new class (Shift + Alt + C).
- 7. Let your class inherit from YuvKa.Pipeline.Node (or any subclass thereof you may know), and implement the necessary methods[2].
- 8. If you want to give your node some parameters visible to the user, attach the `[Browsable(true)]` attribute[3] to the property you want to be visible to the user[4]. (Under certain circumstances, you may also specify the `[DisplayName(<YourName>)]` attribute.)
+ 7. Let your class inherit from YuvKA.Pipeline.Node (or any subclass thereof you may know), and implement the necessary methods[3].
+ 8. If you want to give your node some parameters visible to the user, attach the `[Browsable(true)]` attribute[4] to the property you want to be visible to the user[5]. (Under certain circumstances, you may also specify the `[DisplayName(<YourName>)]` attribute.)
  9. Once done with this, just build the dll and drop it into Yuv.KA's installation folder or Plugin folder - if everything went right, your node should now be detected by the program.
 
  [1] - See their [official statement](http://www.mono-project.com/WPF).  
- [2] - For the basic `Node`, this is just the `Process` method. You may want to define your own constructor in order to give the node a proper `Name`.  
- [3] - You'll need to be `using System.ComponentModel` for that.  
- [4] - Of course, you can't do this for arbitrary classes. The PropertyEditor included in YuvKA gives you quite a few things to play around with, including booleans, enumerations, file paths, colors, doubles, integers, and a few others. For the full list, check out the source. If you need more than this, you'll need to implement it yourself. To do this, you need to supply a UI for the control in XAML with proper caliburn bindings and a parametrized subclass of `PropertyViewModel<T>`.  
+ [2] - Depending on what you're trying to do, you might also need references to `System.Runtime.Serialization` (if you want to have persistent data across pipeline saving/loading) or `System.ComponentModel.DataAnnotations` (If you for example want to give numeric property value certain ranges with `[Range(,)]`).
+ [3] - For the basic `Node`, this is just the `Process` method. You may want to define your own constructor in order to give the node a proper `Name`.  
+ [4] - You'll need to be `using System.ComponentModel` for that.  
+ [5] - Of course, you can't do this for arbitrary classes. The PropertyEditor included in YuvKA gives you quite a few things to play around with, including booleans, enumerations, file paths, colors, doubles, integers, and a few others. For the full list, check out the source. If you need more than this, you'll need to implement it yourself. To do this, you need to supply a UI for the control in XAML with proper caliburn bindings and a parametrized subclass of `PropertyViewModel<T>`.  
