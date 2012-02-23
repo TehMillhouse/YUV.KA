@@ -181,16 +181,6 @@
 			{
 				return ((UIElement)element.GetView()).RenderSize;
 			}
-
-			/// <summary>
-			/// Work around weird WPF bug...
-			/// ...by rounding element width, lolwtfbbq
-			/// </summary>
-			public void FixUpWidth(IViewAware element)
-			{
-				var view = (FrameworkElement)element.GetView();
-				view.Width = (int)view.ActualWidth;
-			}
 		}
 
 		class WindowManagerEx : WindowManager, IWindowManagerEx

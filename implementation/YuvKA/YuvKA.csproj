@@ -102,6 +102,7 @@
     <Compile Include="Pipeline\FilePath.cs" />
     <Compile Include="Pipeline\TickRenderedMessage.cs" />
     <Compile Include="Pipeline\InputNode.cs" />
+    <Compile Include="RoundSizeDecorator.cs" />
     <Compile Include="VideoModel\AnnotatedFrame.cs" />
     <Compile Include="VideoModel\Frame.cs" />
     <Compile Include="VideoModel\MacroblockDecision.cs" />

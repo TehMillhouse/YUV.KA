@@ -104,7 +104,6 @@ namespace YuvKA.ViewModel
 		public void ViewLoaded()
 		{
 			viewPositionChanged.OnNext(Unit.Default);
-			IoC.Get<IGetPosition>().FixUpWidth(this);
 		}
 	}
 }

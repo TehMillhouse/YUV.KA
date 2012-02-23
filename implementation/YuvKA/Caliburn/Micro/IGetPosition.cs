@@ -12,10 +12,5 @@ namespace Caliburn.Micro
 		IObservable<Unit> ViewLoaded(IViewAware element);
 		Point? GetElementPosition(IViewAware element, IViewAware relativeTo);
 		Size GetElementSize(IViewAware element);
-
-		/// <summary>
-		/// Work around weird WPF bug
-		/// </summary>
-		void FixUpWidth(IViewAware element);
 	}
 }

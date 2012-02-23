@@ -6,10 +6,10 @@
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			xmlns:conv="http://schemas.kent.boogaart.com/converters"
 			xmlns:sys="clr-namespace:System;assembly=mscorlib"
-			xmlns:pe="clr-namespace:YuvKA.View.PropertyEditor" xmlns:converter="clr-namespace:YuvKA" mc:Ignorable="d"
+			xmlns:pe="clr-namespace:YuvKA.View.PropertyEditor" xmlns:yuvka="clr-namespace:YuvKA" mc:Ignorable="d"
 			d:DesignHeight="190" d:DesignWidth="190" Margin="{Binding Margin}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.92" cal:Message.Attach="[Event Loaded] = [Action ViewLoaded]">
 	<UserControl.Resources>
-		<converter:NodeMenuItemFormatter x:Key="NodeMenuItemFormatter"/>
+		<yuvka:NodeMenuItemFormatter x:Key="NodeMenuItemFormatter"/>
 		<conv:MapConverter x:Key="NotConverter">
 			<conv:Mapping>
 				<conv:Mapping.From>
@@ -61,26 +61,28 @@
 	<UserControl.ContextMenu>
 		<ContextMenu Style="{StaticResource MenuStyle}"/>
 	</UserControl.ContextMenu>
-	<Grid>
-		<Border Background="#A799DBFF" CornerRadius="5" BorderThickness="3" BorderBrush="LightSkyBlue" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action NodeMouseDown($dataContext, $eventArgs)]">
-			<Border.Effect>
-				<DropShadowEffect BlurRadius="13" Opacity="0.8" ShadowDepth="4"/>
-			</Border.Effect>
-			<StackPanel Orientation="Vertical">
-				<DockPanel LastChildFill="True" Height="20" Background="LightBlue" VerticalAlignment="Top">
-					<Menu DockPanel.Dock="Right" Background="LightBlue">
-						<MenuItem Style="{StaticResource MenuStyle}">
-							<MenuItem.Header>
-								<Image Width="10" Height="10" Source="context.png" />
-							</MenuItem.Header>
-						</MenuItem>
-					</Menu>
-					<TextBlock DockPanel.Dock="Left" Text="{Binding Model.Name}"/>
-				</DockPanel>
-				<pe:PropertyEditor Source="{Binding Model}" Opacity="1.0"/>
-			</StackPanel>
-		</Border>
-		<ItemsControl x:Name="Inputs" HorizontalAlignment="Left" Margin="-5,20,0,0"/>
-		<ItemsControl x:Name="Outputs" HorizontalAlignment="Right" Margin="0,20,-5,0"/>
-	</Grid>
+	<yuvka:RoundSizeDecorator>
+		<Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+			<Border Background="#A799DBFF" CornerRadius="5" BorderThickness="3" BorderBrush="LightSkyBlue" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action NodeMouseDown($dataContext, $eventArgs)]">
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="13" Opacity="0.8" ShadowDepth="4"/>
+				</Border.Effect>
+				<StackPanel Orientation="Vertical">
+					<DockPanel LastChildFill="True" Height="20" Background="LightBlue" VerticalAlignment="Top">
+						<Menu DockPanel.Dock="Right" Background="LightBlue">
+							<MenuItem Style="{StaticResource MenuStyle}">
+								<MenuItem.Header>
+									<Image Width="10" Height="10" Source="context.png" />
+								</MenuItem.Header>
+							</MenuItem>
+						</Menu>
+						<TextBlock DockPanel.Dock="Left" Text="{Binding Model.Name}"/>
+					</DockPanel>
+					<pe:PropertyEditor Source="{Binding Model}" Opacity="1.0"/>
+				</StackPanel>
+			</Border>
+			<ItemsControl x:Name="Inputs" HorizontalAlignment="Left" Margin="-5,20,0,0"/>
+			<ItemsControl x:Name="Outputs" HorizontalAlignment="Right" Margin="0,20,-5,0"/>
+		</Grid>
+	</yuvka:RoundSizeDecorator>
 </UserControl>
