@@ -98,6 +98,22 @@ Desweiteren wurden zwei neue Arten von Noise eingeführt, die Abwandlungen der s
 	Erstellt farbigen Perlin Noise.
 \end{itemize}
 
+\paragraph{\name{DiagramGraph}}
+\begin{itemize}
+	\change \verb!public IList<KeyValuePair<int, double>> Data { get; set; }! \\
+	Der Liste wurde jeweils der Tick des zugehörigen Analysedatums hinzugefügt.
+\end{itemize}
+
+\paragraph{\name{IGraphType}}
+\begin{itemize}
+	\add \verb!bool DependsOnAnnotatedReference { get; }! \\
+	Ruft ab, ob der Diagrammtyp ein Referenzvideo mit Logfile benötigt.
+	\add \verb!bool DependsOnLogfile { get; }! \\
+	Ruft ab, ob der Diagrammtyp ein Logfile benötigt.
+\end{itemize}
+
+\paragraph{\name{HistogramNode}}
+Die zur Berechnung des jeweiligen Histogrammtyps benötigten Methoden wurden als private Methoden ausgelagert.
 
 \subsection{\name{YuvKA.ViewModel}}
 
@@ -154,5 +170,101 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	Speichert das Bild, das als nächstes in das Ausgabefenster gezeichnet werden soll.
 \end{itemize}
 
+\paragraph{HistogramViewModel}
+\begin{itemize}
+	\add \verb!public EnumerableDataSource<KeyValuePair<int, double>> Data { get; private set; }! \\
+	Ruft die Analysedaten des Histogrammes ab oder setzt diese fest.
+\end{itemize}
+
+\paragraph{DiagramViewModel}
+\begin{itemize}
+	\add \verb!public ObservableCollection<LineGraphViewModel> LineGraphs { get; }! \\
+	Ruft die Kurven im Diagramm ab, die den Graphen des Dieagrammknotens entsprechen. 
+	\add \verb!public Tuple<string, Node.Input> Reference { get; set; }! \\
+	Ruft das Referenzvideo des Diagrammknotens ab oder setzt diese fest.
+	\add \verb!public ObservableCollection<Tuple<string, Node.Input>> Videos { get; }! \\
+	Ruft die Eingabevideos des Diagrammknotens ab und fügt diesen einen Index hinzu.
+	\add \verb!public public Tuple<string, Node.Input> ChosenVideo { get; set; }! \\
+	Ruft das aktuell vom Benutzer zur Analyse ausgewählte Video ab oder setzt dieses fest.
+	\add \verb!public ObservableCollection<GraphControl> GraphControls { get; set; }! \\
+	Ruft die Grapheneinstellungen ab oder setzt diese fest.
+	\add \verb!public List<Color> LineColors { get; set; }! \\
+	Ruft die zur Zeichnung schon verwendeten Farben ab oder setzt diese fest.
+	\add \verb!public List<System.Windows.Media.Color> TypeColors { get; }! \\
+	Ruft die Basisfarben der einzelnen Graphtypen ab, von denen dann die einzelnen, zur Zeichnung verwendeten Farben abgeleitet werden.
+	\change \verb!public IEnumerable<Tuple<string, IGraphType>> Types { get; set; }! \\
+	Den Diagrammtypen wird nun ein Name hinzugefügt, damit dieser in der GUI angezeigt werden kann.
+	\add \verb!public static bool IsInIntervall(double intervallCenter, double number, double intervallSize)! \\
+	Entscheidet, ob eine Zahl in einem Intervall liegt.
+	\add \verb!public void DeleteGraphControl(GraphControl graphControl)! \\
+	Löscht eine gegebene Grapheneinstellung sowie deren Graph und dessen Kurve.
+	\add \verb!public override void Handle(TickRenderedMessage message)! \\
+	Aktualisiert jede Kurve mit den jewiligen Daten eines Frames, sobald dieser berechnet wurde.
+	\change \verb!public void AddGraph(GraphControl graphControl)! \\
+	Fügt eine Graphen und dessen Kurve hinzu, der aus der gegebenen Grapheneinstellung abgerufen wurde.
+	\add \verb!public void AddLineGraphViewModel(GraphControl graphControl)! \\
+	Fügt eine Kurve zum Diagramm hinzu, welche aus der gegebenen Grapheneinstellung und deren Graph berechnet wurde.
+	\add \verb!public void AddGraphControl()! \\
+	Fügt dem Diagrammknoten eine neue Grapheneinstellung hinzu.
+	\remove \verb!DeleteGraph! \\
+	Diese Methode wird von einer entsprechenden Methode der GraphControl-Klasse übernommen.
+\end{itemize}
+
+\paragraph{+ GraphControl}~\\
+\name{GraphControl} verwaltet die vom Benutzer vorgenommenen Einstellungen an einem Graphen.
+\begin{itemize}
+	\add \verb!public DiagramViewModel Parent { get; set; }! \\
+	Ruft das DiagramViewModel, zu dem diese Grapheneinstellung gehört, ab oder setzt es fest.
+	\add \verb!public Tuple<string, Node.Input> Video { get; set; }! \\
+	Ruft das Video ab oder setzt es fest.
+	\add \verb!public DiagramGraph Graph { get; set; }! \\
+	Ruft den Diagrammgraphen ab oder setzt ihn fest.
+	\add \verb!public ObservableCollection<Tuple<string, IGraphType>> Types { get; set; }! \\
+	Ruft das alle verfügbaren Graphentypen ab oder setzt diese fest.
+	\add \verb!public ObservableCollection<Tuple<string, IGraphType>> DisplayTypes { get; set; }! \\
+	Ruft die mit den momentanen Einstellungen verfügbaren Graphentypen ab oder setzt sie fest.
+	\add \verb!public Tuple<string, IGraphType> ChosenType! \\
+	Ruft den momentan vom Benutzer gewählten Graphentypen ab oder setzt ihn fest.
+	\add \verb!public System.Drawing.Color CurrentLineColor { get; set; }! \\
+	Ruft die momentan verwendete Farbe für die Kurve ab oder setzt sie fest. Benutzt hierfür die System.Drawing.Color-Klasse.
+	\add \verb!public Color LineColor { get; set; }! \\
+	Ruft die momentan verwendete Farbe für die Kurve ab oder setzt sie fest. Benutzt hierfür die System.Windows.Media.Color-Klasse.
+	\add \verb!public bool ReferenceSet { get; set; }! \\
+	Ruft ab oder setzt fest, ob momentan ein Referenzvideo ausgewählt ist.
+	\add \verb!public bool ReferenceHasLogfile { get; set; }! \\
+	Ruft ab oder setzt fest, ob das Referenzvideo ein Logfile hat.
+	\add \verb!public SolidColorBrush GraphColor { get; set; }! \\
+	Ruft die Farbe für die Vorschau der Kurve ab oder setzt sie fest.
+	\add \verb!public void SetLineColor()! \\
+	Setzt jeweils die Farben für die verschiedenen Color-Properties fest.
+	\add \verb!public Color NewColor(Tuple<string, IGraphType> type)! \\
+	Generiert eine neue Farbe vom selben Farbon wie die Basisfarbe des gegebenen Graphentypen.
+	\add \verb!public void SetDisplayTypes()! \\
+	Entscheidet, welche Graphentypen mit den momentanen Einstellungen verfügbar sind und legt diese fest.
+\end{itemize}
+
+\paragraph{+ LineGraphViewModel}~\\
+\name{LineGraphViewModel} repräsentiert eine Kurve in einem Diagramm eines DiagramViewModels.
+\begin{itemize}
+	\add \verb!public CompositeDataSource PointDataSource { get; set; }! \\
+	Ruft die Datenquelle der Kurve ab oder setzt sie fest.
+	\add \verb!public string Name { get; set; }! \\
+	Ruft den Namen der Kurve ab oder setzt ihn fest.
+	\add \verb!public Color Color { get; set; }! \\
+	Ruft die Farbe der Kurve ab oder setzt sie fest.
+	\add \verb!public Guid EntityId { get; set; }! \\
+	Ruft die ID der Kurve ab oder setzt sie fest.
+	\add \verb!public bool LineAndMarker { get; set; }! \\
+	Ruft ab oder setzt fest, ob die Punkte der Kurve angezeigt werden sollen.
+	\add \verb!public int Thickness { get; set; }! \\
+	Ruft die Dicke der Linie der Kurve ab oder setzt sie fest.
+\end{itemize}
+
+\paragraph{+ HslHelper}~\\
+\name{HslHelper} enthält Methoen zur Konvertierung zwischen dem RGB - und dem HSL - Farbraum.
+\begin{itemize}
+	\add \verb!public static Color HslToRgb(double h, double s, double l)! \\
+	Konvertiert eine Farbe vom HSL-Farbraum zum RGB-Farbraum.
+\end{itemize}
 
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}
