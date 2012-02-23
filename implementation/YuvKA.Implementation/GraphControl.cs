@@ -57,14 +57,14 @@ namespace YuvKA.Implementation
 					chosenType = value;
 					Graph.Type = value.Item2;
 					SetLineColor();
-					Parent.LineColors.Add(ThisLineColor);
+					Parent.LineColors.Add(CurrentLineColor);
 					Parent.AddGraph(this);
 				} else {
 					chosenType = value;
 					Graph.Type = value.Item2;
 					Parent.LineColors.RemoveAll(color => color.R == LineColor.R && color.G == LineColor.G && color.B == LineColor.B);
 					SetLineColor();
-					Parent.LineColors.Add(ThisLineColor);
+					Parent.LineColors.Add(CurrentLineColor);
 				}
 			}
 		}
@@ -72,7 +72,7 @@ namespace YuvKA.Implementation
 		/// <summary>
 		/// Gets or sets the current color for the line using the System.Drawing.Color object.
 		/// </summary>
-		public System.Drawing.Color ThisLineColor { get; set; }
+		public System.Drawing.Color CurrentLineColor { get; set; }
 
 		/// <summary>
 		/// Gets or sets the current color for the line using the System.Windows.Media.Color object.
@@ -137,7 +137,7 @@ namespace YuvKA.Implementation
 				// Generate new color by using the hue of the basecolor and getting a random brightness and saturation.
 				newColor = HslHelper.HslToRgb(h, random.NextDouble(), random.NextDouble());
 			} while (Parent.LineColors.Contains(newColor) || newColor.GetHue().Equals(0.0) || newColor.GetBrightness().Equals(1.0) || newColor.GetBrightness().Equals(0.0) || Parent.LineColors.FindIndex(color => DiagramViewModel.IsInIntervall(newColor.GetBrightness(), color.GetBrightness(), 0.08) && DiagramViewModel.IsInIntervall(newColor.GetSaturation(), color.GetSaturation(), 0.08)) != -1);
-			ThisLineColor = newColor;
+			CurrentLineColor = newColor;
 
 			return Color.FromArgb(newColor.A, newColor.R, newColor.G, newColor.B);
 		}
