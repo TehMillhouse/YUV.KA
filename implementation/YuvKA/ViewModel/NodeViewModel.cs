@@ -10,6 +10,9 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
+	/// <summary>
+	/// View model for a Node instance
+	/// </summary>
 	public class NodeViewModel : ViewAware
 	{
 		InOutputViewModel fake;
@@ -41,9 +44,18 @@ namespace YuvKA.ViewModel
 		public Node Model { get; private set; }
 		public PipelineViewModel Parent { get; private set; }
 		public IObservable<Unit> ViewPositionChanged { get { return viewPositionChanged; } }
+
+		/// <summary>
+		/// Z (depth) index of this node for controlling the render order of overlapping nodes.
+		/// This property is not backed by the model because it's really not that important to serialize.
+		/// </summary>
 		public int ZIndex { get; set; }
+
 		public bool HasOutputs { get { return Model.Outputs.Count != 0; } }
 
+		/// <summary>
+		/// Inputs of the model plus a fake input if the node allows adding inputs
+		/// </summary>
 		public IEnumerable<InOutputViewModel> Inputs
 		{
 			get
@@ -80,6 +92,9 @@ namespace YuvKA.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Renders an output into a user-chosen file.
+		/// </summary>
 		public IEnumerable<IResult> SaveNodeOutput(Node.Output output)
 		{
 			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv", OpenReadOnly = false };
@@ -87,6 +102,9 @@ namespace YuvKA.ViewModel
 			IoC.Get<IWindowManager>().ShowDialog(new SaveNodeOutputViewModel(output, file.Stream(), Parent.Parent.Model));
 		}
 
+		/// <summary>
+		/// Opens a new output window for a node output.
+		/// </summary>
 		public void ShowNodeOutput(Node.Output output)
 		{
 			Parent.Parent.OpenWindow(new VideoOutputViewModel(output));

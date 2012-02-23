@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -130,6 +131,64 @@ namespace YuvKA.Test.ViewModel
 			Assert.Equal(new Point(42, 12), vm.Edges.Single().StartPoint);
 			Assert.Equal(new Point(22, 12), vm.Edges.Single().EndPoint);
 			Assert.NotNull(vm.Edges.Single().Geometry);
+		}
+
+		[Fact]
+		public void CanAddInput()
+		{
+			var posMock = new Mock<IGetPosition>();
+			posMock.Setup(p => p.GetElementSize(It.IsAny<IViewAware>())).Returns(new Size(4, 4));
+			posMock.Setup(p => p.ViewLoaded(It.IsAny<IViewAware>())).Returns(Observable.Never<Unit>());
+
+			PipelineViewModel vm = MainViewModelTest.GetInstance(
+				container => container.ComposeExportedValue<IGetPosition>(posMock.Object)
+			).PipelineViewModel;
+
+			var node0 = new NodeViewModel(new BlurNode(), vm);
+			vm.Nodes.Add(node0);
+			vm.Parent.Model.Graph.AddNode(node0.Model);
+			var node1 = new NodeViewModel(new WeightedAveragedMergeNode(), vm);
+			vm.Nodes.Add(node1);
+			vm.Parent.Model.Graph.AddNode(node1.Model);
+
+			Assert.Equal(0, node1.Model.Inputs.Count);
+			Assert.Equal(1, node1.Inputs.Count());
+
+			vm.InOutputMouseDown(node0.Outputs.First());
+			vm.InOutputMouseUp(node1.Inputs.Last());
+
+			Assert.Equal(1, node1.Model.Inputs.Count);
+			Assert.Equal(2, node1.Inputs.Count());
+			Assert.Equal(node1.Inputs.First(), vm.Edges.Single().StartViewModel);
+		}
+
+		[Fact]
+		public void CanRemoveNode()
+		{
+			PipelineViewModel vm = MainViewModelTest.GetInstance().PipelineViewModel;
+
+			var node0 = new NodeViewModel(new BlurNode(), vm);
+			vm.Nodes.Add(node0);
+			vm.Parent.Model.Graph.AddNode(node0.Model);
+
+			Assert.PropertyChanged(vm, "Edges", node0.RemoveNode);
+
+			Assert.DoesNotContain(node0, vm.Nodes);
+			Assert.DoesNotContain(node0.Model, vm.Parent.Model.Graph.Nodes);
+		}
+
+		[Fact]
+		public void NotifiesOfViewPositionChanges()
+		{
+			var obs = new Mock<IObserver<Unit>>();
+			var node = new NodeViewModel(new BlurNode(), null);
+			node.ViewPositionChanged.Subscribe(obs.Object);
+
+			node.ViewLoaded();
+			obs.Verify(o => o.OnNext(Unit.Default));
+
+			node.Position = new Point(123, 123);
+			obs.Verify(o => o.OnNext(Unit.Default), Times.Exactly(2));
 		}
 	}
 }

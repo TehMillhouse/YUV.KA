@@ -145,6 +145,29 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	Das View Model des Knotens dieses Ein-/Ausgangs
 \end{itemize}
 
+\paragraph{NodeViewModel}
+\begin{itemize}
+	\add \verb!public bool HasOutputs { get; }! \\
+	Gibt an, ob der Knoten derzeit Ausgänge besitzt.
+	\add \verb!public IEnumerable<InOutputViewModel> Inputs { get; }! \\
+	\verb!public IEnumerable<InOutputViewModel> Outputs { get; }! \\
+	Wrappen die Ein-/Ausgänge des Knotens in enstprechende View Models.
+	\add \verb!public Thickness Margin { get; }! \\
+	Gibt die durch \name{Position} angegebene Verschiebung View-verträglich zurück.
+	\add \verb!public Point Position { get; set; }! \\
+	Zusammenfassung des \name{X}- und \name{Y}-Wertes des Knotens
+	\add \verb!public IObservable<Unit> ViewPositionChanged { get; }! \\
+	Beobachtbare Sequenz von Events, in der jeder Eintrag für die Veränderung der tatsächlichen Position auf der View steht.
+	\add \verb!public int ZIndex { get; set; }! \\
+	Regelt die Zeichenabfolge von Knoten, damit der letztausgewählte Knoten nicht von anderen verdeckt ist.
+	\add \verb!public void AddInput()! \\
+	Fügt bei dynamisch um Eingänge erweiterbaren Knoten einen neuen Eingang hinzu.
+	\add \verb!public void RemoveNode()! \\
+	Entfernt diesen Knoten aus allen relevanten Listen und schließt alle Ausgabefenster des Knotens.
+	\add \verb!public void ViewLoaded()! \\
+	Eventhandler, um \name{ViewPositionChanged} initial zu triggern.
+\end{itemize}
+
 \paragraph{\name{PipelineViewModel}}
 \begin{itemize}
 	\add \verb!public EdgeViewModel DraggedEdge { get; }! \\
@@ -152,7 +175,7 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	\add \verb!public void CheckClearance(IDragEventInfo e)! \\
 	Verhindert das Droppen eines Knoten, falls die Pipeline abgespielt wird.
 	\change \verb!public void Drop(IDragEventInfo e)! \\
-	Der Parametertyp wurde von WPFs \verb!DragEventArgs! auf die eigens kreierte Klasse \name{IDragEventInfo} geändert, da erstere Klasse nicht mockbar ist.
+	Der Parametertyp wurde von WPFs \verb!DragEventArgs! auf das eigens kreierte Interface \name{IDragEventInfo} geändert, da ersterer Typ nicht mockbar ist.
 	\add \begin{verbatim}
 public void InOutputMouseDown(InOutputViewModel inOut)
 public void InOutputMouseMove(InOutputViewModel inOut, RoutedEventArgs e)
