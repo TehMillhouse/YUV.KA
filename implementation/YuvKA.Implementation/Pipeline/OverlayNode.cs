@@ -7,9 +7,18 @@ using YuvKA.ViewModel.Implementation;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// This class represents the posibility of overlaying
+	/// the input with various options, and store the result,
+	/// so other classes can fetch it.
+	/// </summary>
 	[DataContract]
 	public class OverlayNode : OutputNode
 	{
+		/// <summary>
+		/// Constructs an overlaynode.
+		/// It has 2 inputs, and standard overlay is "NoOverlay"
+		/// </summary>
 		public OverlayNode()
 			: base(inputCount: 2)
 		{
@@ -17,9 +26,15 @@ namespace YuvKA.Pipeline.Implementation
 			Type = new NoOverlay();
 		}
 
+		/// <summary>
+		/// The type of overlay that shall be applied on the input.
+		/// </summary>
 		[DataMember]
 		public IOverlayType Type { get; set; }
 
+		/// <summary>
+		/// The result of the last overlayed Frame.
+		/// </summary>
 		public Frame Data { get; private set; }
 
 		public override bool InputIsValid
@@ -30,6 +45,9 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
+		/// <summary>
+		/// The Viewmodel of the window that shall be displayed
+		/// </summary>
 		[Browsable(true)]
 		public OverlayViewModel Window { get { return new OverlayViewModel(this); } }
 
