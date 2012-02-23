@@ -7,6 +7,9 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// This overlay does not alter the frame
+	/// </summary>
 	[DisplayName("No Overlay")]
 	public class NoOverlay : IOverlayType
 	{
@@ -20,6 +23,10 @@ namespace YuvKA.Pipeline.Implementation
 		}
 	}
 
+	/// <summary>
+	/// This Overlay highlights the artifacts of the input compared to a referenceframe.
+	/// Obviously this requires a referenceframe.
+	/// </summary>
 	[DisplayName("Artifact-Overlay")]
 	public class ArtifactsOverlay : IOverlayType
 	{
@@ -42,6 +49,10 @@ namespace YuvKA.Pipeline.Implementation
 		}
 	}
 
+	/// <summary>
+	/// This Overlay prints the movementvectors of each macroblock onto the Frame.
+	/// Therefore it requires movementvectordata.
+	/// </summary>
 	[DisplayName("Movementvector-Overlay")]
 	public class MoveVectorsOverlay : IOverlayType
 	{
@@ -109,6 +120,10 @@ namespace YuvKA.Pipeline.Implementation
 		}
 	}
 
+	/// <summary>
+	/// This overlay prints the decision of macroblockpartitioning onto the frame.
+	/// Therefore this overlay requires encoderlogdata.
+	/// </summary>
 	[DisplayName("Macroblock-Overlay")]
 	public class BlocksOverlay : IOverlayType
 	{
