@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
+using System.Linq;
 using Xunit;
 using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
 using YuvKA.VideoModel;
+using YuvKA.ViewModel.Implementation;
 
 
 namespace YuvKA.Test.Pipeline
@@ -263,19 +265,22 @@ namespace YuvKA.Test.Pipeline
 		/// | 16x16 |  8x8  |  4x4  |  Un-  |
 		/// | Intra | Intra | Intra | known |
 		/// |-------------------------------|
+		/// | 8x8or |  PCM  | null  |  Un-  |
+		/// | below | Intra |       | known |
+		/// |-------------------------------|
 		///
 		/// The Result has to be inspected manually
 		/// </summary>
 		[Fact]
 		public void TestMacroBlockOverlay()
 		{
-			Frame testFrame = new Frame(new YuvKA.VideoModel.Size(64, 48));
+			Frame testFrame = new Frame(new YuvKA.VideoModel.Size(64, 64));
 			for (int x = 0; x < testFrame.Size.Width; x++) {
 				for (int y = 0; y < testFrame.Size.Height; y++) {
 					testFrame[x, y] = new Rgb(111, 111, 111);
 				}
 			}
-			MacroblockDecision[] decisions = new MacroblockDecision[12];
+			MacroblockDecision[] decisions = new MacroblockDecision[16];
 			decisions[0] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.InterSkip };
 			decisions[1] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Inter16x16 };
 			decisions[2] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Inter16x8 };
@@ -288,12 +293,16 @@ namespace YuvKA.Test.Pipeline
 			decisions[9] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Intra8x8 };
 			decisions[10] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Intra4x4 };
 			decisions[11] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Unknown };
+			decisions[12] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Inter8x8OrBelow };
+			decisions[13] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.IntraPCM };
+			decisions[14] = new MacroblockDecision { PartitioningDecision = null };
+			decisions[15] = new MacroblockDecision { PartitioningDecision = MacroblockPartitioning.Unknown };
 			Frame[] input = { new AnnotatedFrame(testFrame, decisions) };
 			OverlayNode node = new OverlayNode { Type = new BlocksOverlay() };
 			node.ProcessCore(input, 0);
 			List<Frame> output = new List<Frame>();
 			output.Add(node.Data);
-			YuvEncoder.Encode(@"..\..\..\..\output\BlockOverlayTest_64x48.yuv", output);
+			YuvEncoder.Encode(@"..\..\..\..\output\BlockOverlayTest_64x64.yuv", output);
 		}
 
 		/// <summary>
@@ -375,6 +384,48 @@ namespace YuvKA.Test.Pipeline
 		}
 
 		/// <summary>
+		/// Tests if noOverlay really has no effect
+		/// </summary>
+		[Fact]
+		public void TestNoOverlay()
+		{
+			Frame testFrame = new Frame(new YuvKA.VideoModel.Size(80, 80));
+			for (int x = 0; x < testFrame.Size.Width; x++) {
+				for (int y = 0; y < testFrame.Size.Height; y++) {
+					testFrame[x, y] = new Rgb(111, 111, 111);
+				}
+			}
+			Frame[] input = { testFrame };
+			OverlayNode node = new OverlayNode { Type = new NoOverlay() };
+			node.ProcessCore(input, 0);
+			List<Frame> output = new List<Frame>();
+			for (int x = 0; x < testFrame.Size.Width; x++) {
+				for (int y = 0; y < testFrame.Size.Height; y++) {
+					Assert.Equal(testFrame[x, y], node.Data[x, y]);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Test miscellaneous functions of OverlayNode
+		/// </summary>
+		[Fact]
+		public void TestOverlayNode()
+		{
+			OverlayNode node = new OverlayNode();
+			Assert.Equal(false, node.InputIsValid);
+			NoiseInputNode noice = new NoiseInputNode();
+			node.Inputs[0].Source = noice.Outputs[0];
+			Assert.Equal(true, node.InputIsValid);
+			Frame[] input = { new Frame(new YuvKA.VideoModel.Size(5, 5)) };
+			node.Type = new ArtifactsOverlay();
+			node.ProcessCore(input, 0);
+			node.Type = new BlocksOverlay();
+			node.ProcessCore(input, 0);
+			node.Type = new MoveVectorsOverlay();
+			node.ProcessCore(input, 0);
+		}
+
 		/// A Process method to be used by AnonymousNodes. 
 		/// Generates an array of 1 Frame and 2 AnnotatedFrame with randomly filled Data.
 		/// </summary>
