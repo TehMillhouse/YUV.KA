@@ -12,6 +12,10 @@ namespace YuvKA.Test.Pipeline
 {
 	public class OutputNodeTests
 	{
+		/// <summary>
+		/// Tests the general function of the DiagramNode by creating a DiagramNode and adding three Outputs to test 
+		/// each current Graphtype.
+		/// </summary>
 		[Fact]
 		public void TestDiagramNode()
 		{
@@ -44,35 +48,53 @@ namespace YuvKA.Test.Pipeline
 			DiagramGraph inBlFreq = new DiagramGraph();
 			inBlFreq.Video = annVid;
 			inBlFreq.Type = new IntraBlockFrequency();
+			DiagramGraph decDiff = new DiagramGraph();
+			decDiff.Video = annVid;
+			decDiff.Type = new DecisionDiff();
 			diaNode.Graphs.Add(pixDiff);
 			diaNode.Graphs.Add(pseudoNoiseRatio);
 			diaNode.Graphs.Add(inBlFreq);
+			diaNode.Graphs.Add(decDiff);
 
 			diaNode.Process(inputs, 0);
 
 			// Calculate expected results independently from DiagramGraph methods.
 			double mse = 0.0;
-			double difference = 0.0;
+			double pixDifference = 0.0;
 			for (int x = 0; x < inputs[0].Size.Width; x++) {
 				for (int y = 0; y < inputs[0].Size.Height; y++) {
-					difference += Math.Abs(inputs[0][x, y].R - inputs[1][x, y].R) + Math.Abs(inputs[0][x, y].G - inputs[1][x, y].G) +
+					pixDifference += Math.Abs(inputs[0][x, y].R - inputs[1][x, y].R) + Math.Abs(inputs[0][x, y].G - inputs[1][x, y].G) +
 						Math.Abs(inputs[0][x, y].B - inputs[1][x, y].B);
 					mse += Math.Pow(((inputs[0][x, y].R + inputs[0][x, y].G + inputs[0][x, y].B) - (inputs[1][x, y].R +
 						inputs[1][x, y].G + inputs[1][x, y].B)), 2);
 				}
 			}
-			difference = difference / (3 * inputs[0].Size.Height * inputs[0].Size.Width);
+
+			double decDifference = 0.0;
+			for (int i = 0; i < ((AnnotatedFrame)inputs[2]).Decisions.GetLength(0); i++) {
+				for (int j = 0; j < ((AnnotatedFrame)inputs[2]).Decisions.GetLength(1); j++) {
+					if (((AnnotatedFrame)inputs[2]).Decisions[i, j].Equals(((AnnotatedFrame)inputs[0]).Decisions[i, j]))
+						decDifference++;
+				}
+			}
+			decDifference /= ((AnnotatedFrame)inputs[2]).Decisions.Length;
+
+			pixDifference = pixDifference / (3 * inputs[0].Size.Height * inputs[0].Size.Width);
 			mse *= (double)1 / (3 * inputs[1].Size.Height * inputs[1].Size.Width);
 			double psnr;
 			if (mse == 0.0)
 				psnr = 0.0;
 			psnr = 10 * Math.Log10((Math.Pow((Math.Pow(2, 24) - 1), 2)) / mse);
 
-			Assert.Equal(diaNode.Graphs[0].Data[0].Value, difference);
+			Assert.Equal(diaNode.Graphs[0].Data[0].Value, pixDifference);
 			Assert.Equal(diaNode.Graphs[1].Data[0].Value, psnr);
 			Assert.Equal(diaNode.Graphs[2].Data[0].Value, 2);
+			Assert.Equal(diaNode.Graphs[3].Data[0].Value, decDifference);
 		}
 
+		/// <summary>
+		/// Tests the RGB-functions of the HistogramNode.
+		/// </summary>
 		[Fact]
 		public void TestHistogramNodeRGB()
 		{
@@ -117,6 +139,10 @@ namespace YuvKA.Test.Pipeline
 				Assert.Equal(histNodeB.Data[i], (double)intData[i, 2] / numberOfPixels);
 			}
 		}
+
+		/// <summary>
+		/// Test the Value function of the HistogramNode.
+		/// </summary>
 		[Fact]
 		public void TestHistogramNodeValue()
 		{
@@ -150,6 +176,77 @@ namespace YuvKA.Test.Pipeline
 			for (int i = 0; i < 256; i++) {
 				Assert.Equal(histNodeValue.Data[i], (double)intData[i] / numberOfPixels);
 			}
+		}
+
+		/// <summary>
+		/// Tests whether the DiagramNode works if it is not enabled.
+		/// </summary>
+		[Fact]
+		public void TestNoDrawingIfDiagramNodeNotEnabled()
+		{
+			// Add Input Node for DiagramNode with 3 Outputs.
+			AnonymousNode sourceNode = new AnonymousNode(SourceNode, 3);
+			Frame[] inputs = sourceNode.Process(null, 0);
+
+			// Generate DiagramNode and add referencevideo.
+			Node.Input reference = new Node.Input();
+			reference.Source = sourceNode.Outputs[0];
+			DiagramNode diaNode = new DiagramNode();
+			diaNode.ReferenceVideo = reference;
+			diaNode.Inputs.Add(reference);
+
+			// Add other Outputs as Inputs to DiagramNode.
+			Node.Input video = new Node.Input();
+			video.Source = sourceNode.Outputs[1];
+			diaNode.Inputs.Add(video);
+
+			// Generate sample GraphType to DiagramGraph.
+			DiagramGraph pixDiff = new DiagramGraph();
+			pixDiff.Video = video;
+			pixDiff.Type = new PixelDiff();
+			diaNode.Graphs.Add(pixDiff);
+
+			diaNode.IsEnabled = false;
+
+			diaNode.Process(inputs, 0);
+
+			Assert.Empty(diaNode.Graphs[0].Data);
+		}
+
+		/// <summary>
+		/// Tests whether the DiagramNode empties the current values of its graphs 
+		/// if the tick is set before the current point in time.
+		/// </summary>
+		[Fact]
+		public void RedrawOnTickSetBack()
+		{
+			// Add Input Node for DiagramNode with 3 Outputs.
+			AnonymousNode sourceNode = new AnonymousNode(SourceNode, 3);
+			Frame[] inputs = sourceNode.Process(null, 0);
+
+			// Generate DiagramNode and add referencevideo.
+			Node.Input reference = new Node.Input();
+			reference.Source = sourceNode.Outputs[0];
+			DiagramNode diaNode = new DiagramNode();
+			diaNode.ReferenceVideo = reference;
+			diaNode.Inputs.Add(reference);
+
+			// Add other Outputs as Inputs to DiagramNode.
+			Node.Input video = new Node.Input();
+			video.Source = sourceNode.Outputs[1];
+			diaNode.Inputs.Add(video);
+
+			// Generate sample GraphType to DiagramGraph.
+			DiagramGraph pixDiff = new DiagramGraph();
+			pixDiff.Video = video;
+			pixDiff.Type = new PixelDiff();
+			diaNode.Graphs.Add(pixDiff);
+
+			diaNode.Process(inputs, 0);
+			diaNode.Process(inputs, 1);
+			Assert.Equal(diaNode.Graphs[0].Data.Count, 2);
+			diaNode.Process(inputs, 0);
+			Assert.Equal(diaNode.Graphs[0].Data.Count, 1);
 		}
 
 		/// <summary>
@@ -277,30 +374,41 @@ namespace YuvKA.Test.Pipeline
 			YuvEncoder.Encode(@"..\..\..\..\output\ArtifactOverlayTest_80x80.yuv", output);
 		}
 
-		/* A Process method to be used by AnonymousNodes.
-		 * Generates an array of 2 Frames and 1 AnnotatedFrame with randomly filled Data */
+		/// <summary>
+		/// A Process method to be used by AnonymousNodes. 
+		/// Generates an array of 1 Frame and 2 AnnotatedFrame with randomly filled Data.
+		/// </summary>
+		/// <param name="inputs">The inputs used for processing. This parameter is not used here.</param>
+		/// <param name="tick"> The current index of the frame. This parameter is not used here.</param>
+		/// <returns> An array of generated Frames.</returns>
 		private Frame[] SourceNode(Frame[] inputs, int tick)
 		{
-			var testSize = new YuvKA.VideoModel.Size(5, 5);
-			Frame[] outputs = { new Frame(testSize), new Frame(testSize), GenerateAnnFrame() };
+			var testSize = new YuvKA.VideoModel.Size(8, 8);
+			Frame[] outputs = { GenerateAnnFrame(new MacroblockDecision[,] 
+				{ { new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Inter4x4 },
+					new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Inter4x4 },
+					new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Inter8x4 } } }),
+					new Frame(testSize), 
+				GenerateAnnFrame(new MacroblockDecision[,] { {
+					new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4 },
+					new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4 },
+					new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Inter8x4 } } }),
+				};
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
-					outputs[0][x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
 					outputs[1][x, y] = new Rgb((byte)(x * y), (byte)(x * y), (byte)(x * y));
 				}
 			}
 			return outputs;
 		}
 
-		/* Generates an AnnotatedFrame with randomly filled Data */
-		private AnnotatedFrame GenerateAnnFrame()
+		/// <summary>
+		/// Generates an AnnotatedFrame with randomly filled Data and the given Macroblock decisions.
+		/// </summary>
+		/// <returns> An annotated Frame with random Data and the given Macroblock decisions.</returns>
+		private AnnotatedFrame GenerateAnnFrame(MacroblockDecision[,] decisions)
 		{
 			var testSize = new YuvKA.VideoModel.Size(8, 8);
-			MacroblockDecision[,] decisions = {{
-				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4},
-				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4},
-				new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision =  MacroblockPartitioning.Inter8x4}
-			}};
 			AnnotatedFrame output = new AnnotatedFrame(testSize, decisions);
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
