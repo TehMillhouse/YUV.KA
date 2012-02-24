@@ -43,6 +43,12 @@
 
 \subsection{\name{YuvKA.Pipeline}}
 
+\paragraph{\name{InputNode}}
+\begin{itemize}
+	\change \verb!public int? TickCount! \\
+	Die Property \verb!TickCount! ist nun nullable. Der Wert Null steht hierbei für die Möglichkeit (theoretisch) unendlich viele Frames zu erzeugen.
+\end{itemize}
+
 \paragraph{\name{PipelineDriver}}
 \begin{itemize}
 	\change Die Klasse ist nicht mehr als statisch deklariert. Diese Änderung ermöglicht, verschiedene Graphen parallel zu berechnen, indem jeweils ein Driver instanziert wird, die einzelnen Berechnungen aber weiterhin den Parallelitätszusicherungen genügen.
