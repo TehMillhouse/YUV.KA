@@ -64,7 +64,7 @@ namespace YuvKA.ViewModel
 		/// </summary>
 		public void Drop(IDragEventInfo e)
 		{
-			/* Only allow this if pipline is not rendering */
+			/* Only allow this if pipeline is not rendering */
 			if (!Parent.ReplayStateViewModel.IsPlaying) {
 				var type = e.GetData<NodeType>();
 				var node = (Node)Activator.CreateInstance(type.Type);
@@ -95,7 +95,7 @@ namespace YuvKA.ViewModel
 		/// </summary>
 		public void InOutputMouseDown(InOutputViewModel inOut)
 		{
-			/* Only allow this if pipline is not rendering */
+			/* Only allow this if pipeline is not rendering */
 			if (!Parent.ReplayStateViewModel.IsPlaying) {
 				InOutputViewModel start = inOut;
 				// If the input is already connected, drag the existing edge
