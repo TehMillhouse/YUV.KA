@@ -22,7 +22,7 @@ namespace YuvKA.Test.Pipeline
 		public void TestDiagramNode()
 		{
 			// Add Input Node for DiagramNode with 3 Outputs.
-			AnonymousNode sourceNode = new AnonymousNode(SourceNode, 3);
+			AnonymousNode sourceNode = new AnonymousNode(AnonNodeHelper.SourceNode, 3);
 			Frame[] inputs = sourceNode.Process(null, 0);
 
 			// Generate DiagramNode and add referencevideo.
@@ -424,49 +424,6 @@ namespace YuvKA.Test.Pipeline
 			node.ProcessCore(input, 0);
 			node.Type = new MoveVectorsOverlay();
 			node.ProcessCore(input, 0);
-		}
-
-		/// A Process method to be used by AnonymousNodes. 
-		/// Generates an array of 1 Frame and 2 AnnotatedFrame with randomly filled Data.
-		/// </summary>
-		/// <param name="inputs">The inputs used for processing. This parameter is not used here.</param>
-		/// <param name="tick"> The current index of the frame. This parameter is not used here.</param>
-		/// <returns> An array of generated Frames.</returns>
-		private Frame[] SourceNode(Frame[] inputs, int tick)
-		{
-			var testSize = new YuvKA.VideoModel.Size(8, 8);
-			Frame[] outputs = { GenerateAnnFrame(new MacroblockDecision[,] 
-				{ { new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Inter4x4 },
-					new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Inter4x4 },
-					new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Inter8x4 } } }),
-					new Frame(testSize), 
-				GenerateAnnFrame(new MacroblockDecision[,] { {
-					new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4 },
-					new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Intra4x4 },
-					new MacroblockDecision { Movement = new Vector(0.0, 0.0), PartitioningDecision = MacroblockPartitioning.Inter8x4 } } }),
-				};
-			for (int x = 0; x < testSize.Width; x++) {
-				for (int y = 0; y < testSize.Height; y++) {
-					outputs[1][x, y] = new Rgb((byte)(x * y), (byte)(x * y), (byte)(x * y));
-				}
-			}
-			return outputs;
-		}
-
-		/// <summary>
-		/// Generates an AnnotatedFrame with randomly filled Data and the given Macroblock decisions.
-		/// </summary>
-		/// <returns> An annotated Frame with random Data and the given Macroblock decisions.</returns>
-		private AnnotatedFrame GenerateAnnFrame(MacroblockDecision[,] decisions)
-		{
-			var testSize = new YuvKA.VideoModel.Size(8, 8);
-			AnnotatedFrame output = new AnnotatedFrame(testSize, decisions);
-			for (int x = 0; x < testSize.Width; x++) {
-				for (int y = 0; y < testSize.Height; y++) {
-					output[x, y] = new Rgb((byte)(x + y), (byte)(x + y), (byte)(x + y));
-				}
-			}
-			return output;
 		}
 	}
 }
