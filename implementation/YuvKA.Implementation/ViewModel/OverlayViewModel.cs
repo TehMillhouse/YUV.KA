@@ -50,7 +50,7 @@ namespace YuvKA.ViewModel.Implementation
 		{
 			get
 			{
-				return null;
+				return this.TypeTuples.First(i => NodeModel.Type == i.Item2);
 			}
 			set
 			{
