@@ -34,6 +34,6 @@ namespace YuvKA.Pipeline.Implementation
 		/// the Y-values are calculated by according to the Type.
 		/// </summary>
 		[DataMember]
-		public IList<KeyValuePair<int, double>> Data { get; set; }
+		public List<KeyValuePair<int, double>> Data { get; set; }
 	}
 }

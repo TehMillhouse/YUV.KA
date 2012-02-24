@@ -16,7 +16,6 @@ namespace YuvKA.Implementation
 	public class GraphControl : PropertyChangedBase
 	{
 		private Tuple<string, IGraphType> chosenType;
-		private System.Drawing.Color thisLineColor;
 		private bool referenceSet;
 		private bool referenceHasLogfile;
 

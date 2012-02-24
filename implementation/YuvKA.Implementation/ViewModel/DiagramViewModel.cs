@@ -198,7 +198,6 @@ namespace YuvKA.ViewModel.Implementation
 		/// <summary>
 		/// Adds a line to the diagram from the given graphControl
 		/// </summary>
-		/// <param name="graphControl"></param>
 		public void AddLineGraphViewModel(GraphControl graphControl)
 		{
 			var line = new LineGraphViewModel();

@@ -33,7 +33,6 @@ namespace YuvKA.ViewModel.Implementation
 		/// Updates the graph of the histogram with the newly calculated data of the frame
 		/// once it is rendered.
 		/// </summary>
-		/// <param name="message"></param>
 		public override void Handle(Pipeline.TickRenderedMessage message)
 		{
 			Data = new EnumerableDataSource<KeyValuePair<int, double>>(

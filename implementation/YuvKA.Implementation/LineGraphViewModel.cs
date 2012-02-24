@@ -51,12 +51,18 @@ namespace YuvKA.Implementation
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets, whether athe datapoints are shown on the line.
+		/// </summary>
 		public bool LineAndMarker
 		{
 			get;
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets the thickness of the line.
+		/// </summary>
 		public int Thickness
 		{
 			get;

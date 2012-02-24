@@ -155,9 +155,8 @@ namespace YuvKA.Pipeline.Implementation
 		public double Process(Frame frame, Frame reference)
 		{
 			double difference = 0.0;
-			if (!frame.Size.Equals(reference.Size))
-				return difference;
-			if (frame is AnnotatedFrame && reference is AnnotatedFrame) {
+			if (frame is AnnotatedFrame && reference is AnnotatedFrame && frame.Size.Height == reference.Size.Height
+				&& frame.Size.Width == reference.Size.Width) {
 				AnnotatedFrame annFrame = (AnnotatedFrame)frame;
 				AnnotatedFrame annRef = (AnnotatedFrame)reference;
 				for (int i = 0; i < annFrame.Decisions.GetLength(0); i++) {

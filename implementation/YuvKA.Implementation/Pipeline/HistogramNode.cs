@@ -46,7 +46,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// </summary>
 		/// <param name="inputs">The list of inputs for the Node. In this case it is an aaray with 
 		/// one entry</param>
-		/// <param name="tick">The index of the current frame. Zhis parameter is unnused.</param>
+		/// <param name="tick">The index of the current frame. This parameter is unnused in this method.</param>
 		public override void ProcessCore(Frame[] inputs, int tick)
 		{
 			if (Type == HistogramType.R) {
