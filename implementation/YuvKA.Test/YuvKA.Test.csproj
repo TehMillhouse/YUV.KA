@@ -83,6 +83,7 @@
     <Compile Include="ViewModel\HistogramViewModelTest.cs" />
     <Compile Include="ViewModel\OverlayViewModelTest.cs" />
     <Compile Include="ViewModel\MainViewModelTest.cs" />
+    <Compile Include="ViewModel\PropertyEditor\PropertyViewModelTest.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyEditorViewModelTest.cs" />
     <Compile Include="ViewModel\PipelineViewModelTest.cs" />
     <Compile Include="ViewModel\ReplayStateViewModelTest.cs" />
