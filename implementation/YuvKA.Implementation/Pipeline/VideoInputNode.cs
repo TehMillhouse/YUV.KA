@@ -60,8 +60,12 @@ namespace YuvKA.Pipeline.Implementation
 			{
 				logFileName = value;
 				input = null;
-				OutputHasLogfile = File.Exists(logFileName.Path);
 			}
+		}
+
+		public override bool OutputHasLogfile
+		{
+			get { return File.Exists(LogFileName.Path); }
 		}
 
 		[DisplayName("(Motion Vector File)")]
@@ -74,8 +78,12 @@ namespace YuvKA.Pipeline.Implementation
 			{
 				motionVectorFileName = value;
 				input = null;
-				OutputHasMotionVectors = File.Exists(motionVectorFileName.Path);
 			}
+		}
+
+		public override bool OutputHasMotionVectors
+		{
+			get { return File.Exists(MotionVectorFileName.Path); }
 		}
 
 		public override int? TickCount

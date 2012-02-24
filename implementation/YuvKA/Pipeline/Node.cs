@@ -25,8 +25,6 @@ namespace YuvKA.Pipeline
 				Inputs = new ObservableCollection<Input>();
 				UserCanAddInputs = true;
 			}
-			OutputHasLogfile = false;
-			OutputHasMotionVectors = false;
 			if (outputCount.HasValue)
 				Outputs = Enumerable.Range(0, outputCount.Value).Select(_ => new Output(this)).ToArray();
 			else
@@ -39,8 +37,8 @@ namespace YuvKA.Pipeline
 		[DataMember]
 		public string Name { get; set; }
 
-		public bool OutputHasLogfile { get; set; }
-		public bool OutputHasMotionVectors { get; set; }
+		public virtual bool OutputHasLogfile { get { return false; } }
+		public virtual bool OutputHasMotionVectors { get { return false; } }
 
 		/// <summary>
 		/// The X coordinate of the position of this node.
