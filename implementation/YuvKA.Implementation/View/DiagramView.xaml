@@ -5,7 +5,7 @@
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:d3="clr-namespace:YuvKA.Implementation"
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-			mc:Ignorable="d"
+        xmlns:ViewportRestrictions="clr-namespace:Microsoft.Research.DynamicDataDisplay.ViewportRestrictions;assembly=DynamicDataDisplay" mc:Ignorable="d"
 			cal:Message.Attach="[Event Closed] = [Action CloseWindow()]"
 			Title="{Binding NodeModel.Name}"
 			Height="571" Width="1004" >
@@ -52,7 +52,11 @@
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
-		<d3:ChartPlotter Height="500" Width="500" Grid.Column="0" Grid.Row="1" x:Name="plotter" LegendVisibility="Hidden" LineGraphs="{Binding Path=LineGraphs}" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></d3:ChartPlotter>
+		<d3:ChartPlotter Height="500" Width="500" Grid.Column="0" Grid.Row="1" x:Name="plotter" LegendVisibility="Hidden" LineGraphs="{Binding Path=LineGraphs}" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+			<d3:ChartPlotter.FitToViewRestrictions>
+				<ViewportRestrictions:MinimalSizeRestriction MinSize="0"/>
+			</d3:ChartPlotter.FitToViewRestrictions>
+		</d3:ChartPlotter>
 		<Button Grid.Row="0" x:Name="AddGraphControl" Content="Add" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="2"/>
 		<ComboBox Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" ItemsSource="{Binding Videos}" SelectedIndex="0" SelectedItem="{Binding ChosenVideo}" Grid.Column="3" Name="Videos">
 			<ComboBox.ItemTemplate>
