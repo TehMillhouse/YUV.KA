@@ -14,6 +14,10 @@ using YuvKA.Pipeline.Implementation;
 
 namespace YuvKA.ViewModel.Implementation
 {
+	/// <summary>
+	/// This class represents prepares the Data of an
+	/// OverlayNode to be displayed by the View
+	/// </summary>
 	public class OverlayViewModel : OutputWindowViewModel
 	{
 		int widthOld;
@@ -25,9 +29,18 @@ namespace YuvKA.ViewModel.Implementation
 			NodeModel = node;
 		}
 
+		/// <summary>
+		/// The Bitmap of the resultFrame, ready to be fetched by other classes.
+		/// </summary>
 		public WriteableBitmap RenderedImage { get; private set; }
+		/// <summary>
+		/// The OverlayNode associated with this ViewModel.
+		/// </summary>
 		public new OverlayNode NodeModel { get; private set; }
 
+		/// <summary>
+		/// The collection of available Overlaynames and types.
+		/// </summary>
 		public IEnumerable<System.Tuple<string, IOverlayType>> TypeTuples
 		{
 			get
@@ -46,6 +59,9 @@ namespace YuvKA.ViewModel.Implementation
 				return overlayTypes;
 			}
 		}
+		/// <summary>
+		/// The chosen Overlayname and type.
+		/// </summary>
 		public System.Tuple<string, IOverlayType> ChosenType
 		{
 			get
