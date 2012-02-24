@@ -222,11 +222,20 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	Eventhandler für Drag \& Drop
 \end{itemize}
 
+\paragraph{\name{ReplayStateViewModel}}
+\begin{itemize}
+	\change \verb!public bool IsPlaying { get; set; }! \\
+	Der Setter wurde \verb!public! gemacht, damit das \name{MainViewModel} beim Laden einer Pipeline die Wiedergabe stoppen kann.
+\end{itemize}
+
 \paragraph{\name{VideoOutputViewModel}}
 \begin{itemize}
 	\add \verb!public WriteableBitmap SourceImage { get; }! \\
 	Speichert das Bild, das als nächstes in das Ausgabefenster gezeichnet werden soll.
 \end{itemize}
+
+
+\subsection{\name{YuvKA.ViewModel.Implementation}}
 
 \paragraph{HistogramViewModel}
 \begin{itemize}

@@ -5,6 +5,9 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
+	/// <summary>
+	/// Manages the current state of the replay.
+	/// </summary>
 	[Export]
 	public class ReplayStateViewModel : PropertyChangedBase, IHandle<TickRenderedMessage>
 	{
@@ -36,6 +39,9 @@ namespace YuvKA.ViewModel
 				Parent.Model.Speed = 1;
 		}
 
+		/// <summary>
+		/// Pauses the replay or resumes if already paused.
+		/// </summary>
 		public void PlayPause()
 		{
 			if (Parent.Model.CurrentTick == Parent.Model.Graph.TickCount)
@@ -51,6 +57,9 @@ namespace YuvKA.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Pauses the replay and resets the replay position to the start of the video.
+		/// </summary>
 		public void Stop()
 		{
 			Parent.Model.CurrentTick = 0;
@@ -63,7 +72,7 @@ namespace YuvKA.ViewModel
 			Parent.Model.Speed += 5;
 		}
 
-		public void Handle(TickRenderedMessage message)
+		void IHandle<TickRenderedMessage>.Handle(TickRenderedMessage message)
 		{
 			if (Parent.Model.CurrentTick == Parent.Model.Graph.TickCount - 1)
 				IsPlaying = false;
