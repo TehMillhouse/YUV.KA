@@ -187,7 +187,7 @@ namespace YuvKA.Test.Pipeline
 		public void TestNoDrawingIfDiagramNodeNotEnabled()
 		{
 			// Add Input Node for DiagramNode with 3 Outputs.
-			AnonymousNode sourceNode = new AnonymousNode(SourceNode, 3);
+			AnonymousNode sourceNode = new AnonymousNode(AnonNodeHelper.SourceNode, 3);
 			Frame[] inputs = sourceNode.Process(null, 0);
 
 			// Generate DiagramNode and add referencevideo.
@@ -223,7 +223,7 @@ namespace YuvKA.Test.Pipeline
 		public void RedrawOnTickSetBack()
 		{
 			// Add Input Node for DiagramNode with 3 Outputs.
-			AnonymousNode sourceNode = new AnonymousNode(SourceNode, 3);
+			AnonymousNode sourceNode = new AnonymousNode(AnonNodeHelper.SourceNode, 3);
 			Frame[] inputs = sourceNode.Process(null, 0);
 
 			// Generate DiagramNode and add referencevideo.

@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnonNodeHelper.cs" />
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="Pipeline\AnonymousNode.cs" />
     <Compile Include="Pipeline\InputNodesTests.cs" />
