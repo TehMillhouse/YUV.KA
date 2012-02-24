@@ -3,6 +3,9 @@ using System.Windows.Controls;
 
 namespace YuvKA.ViewModel
 {
+	/// <summary>
+	/// Describes a concrete subtype of Node.
+	/// </summary>
 	public class NodeType
 	{
 		public Image Icon { get { throw new NotImplementedException(); } }
