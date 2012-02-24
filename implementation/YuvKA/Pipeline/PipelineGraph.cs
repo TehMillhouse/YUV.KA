@@ -146,7 +146,7 @@ namespace YuvKA.Pipeline
 					}
 				}
 			}
-			framesToPrecompute += startNode.NumberOfFramesToPrecompute;
+			framesToPrecompute += startNode.NumberOfTicksToPrecompute;
 			return framesToPrecompute;
 		}
 

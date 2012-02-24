@@ -33,18 +33,30 @@ namespace YuvKA.Pipeline
 				Outputs = new ObservableCollection<Output>();
 		}
 
+		/// <summary>
+		/// The name of the node. In general a one-word description of what the node does.
+		/// </summary>
 		[DataMember]
 		public string Name { get; set; }
 
 		public bool OutputHasLogfile { get; set; }
 		public bool OutputHasMotionVectors { get; set; }
 
+		/// <summary>
+		/// The X coordinate of the position of this node.
+		/// </summary>
 		[DataMember]
 		public double X { get; set; }
 
+		/// <summary>
+		/// The Y coordinate of the position of this node.
+		/// </summary>
 		[DataMember]
 		public double Y { get; set; }
 
+		/// <summary>
+		/// Returns true if all of this node's inputs are directly or indirectly connected to input nodes.
+		/// </summary>
 		public virtual bool InputIsValid
 		{
 			get
@@ -56,22 +68,31 @@ namespace YuvKA.Pipeline
 		/// <summary>
 		/// Represents the number of frames the node needs to precompute before he can process the frame of the current tick.
 		/// </summary>
-		public virtual int NumberOfFramesToPrecompute
+		public virtual int NumberOfTicksToPrecompute
 		{
 			get { return 0; }
 		}
 
+		/// <summary>
+		/// This node's collection of inputs.
+		/// </summary>
 		[DataMember]
 		public IList<Input> Inputs { get; private set; }
 
 		[DataMember]
 		public bool UserCanAddInputs { get; private set; }
 
+		/// <summary>
+		/// This node's collection of outputs.
+		/// </summary>
 		[DataMember]
 		public IList<Output> Outputs { get; private set; }
 
 		public abstract Frame[] Process(Frame[] inputs, int tick);
 
+		/// <summary>
+		/// Represents an input of a node. An input is a connection to a predecessing node whose output is requested.
+		/// </summary>
 		[DataContract]
 		public class Input
 		{
@@ -79,14 +100,23 @@ namespace YuvKA.Pipeline
 			public Output Source { get; set; }
 		}
 
+		/// <summary>
+		/// Represents an output of a node. An output is the connection point a node offers, so other nodes can be chained after this output's node.
+		/// </summary>
 		[DataContract]
 		public class Output
 		{
+			/// <summary>
+			/// Constructs an output that belongs to the specified node.
+			/// </summary>
 			public Output(Node node)
 			{
 				Node = node;
 			}
 
+			/// <summary>
+			/// Represents the position of this output in this ouput's node's collection of outputs.
+			/// </summary>
 			public int Index
 			{
 				get

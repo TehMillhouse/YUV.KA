@@ -46,7 +46,33 @@
 \paragraph{\name{InputNode}}
 \begin{itemize}
 	\change \verb!public int? TickCount! \\
-	Die Property \verb!TickCount! ist nun nullable. Der Wert Null steht hierbei für die Möglichkeit (theoretisch) unendlich viele Frames zu erzeugen.
+	Die Property \verb!TickCount! ist nun nullable. Der Wert null steht hierbei für die Möglichkeit (theoretisch) unendlich viele Frames zu erzeugen.
+\end{itemize}
+
+\paragraph{\name{Node}}
+\begin{itemize}
+	\change \verb!public Node(int? inputCount, int? outputCount)! \\
+	Die Parameter des Konstruktors sind jetzt nullable, um mit dem Wert null eine Variable Anzahl von Ein-/Ausgängen zu repräsentieren.
+	\add \verb!public virtual bool InputIsValid { get; }! \\
+	Diese Property wurde eingeführt, um repräsentieren zu können, ob alle Inputs des Knotens (indirekt) mit InputNodes verbunden sind und der Knoten somit seine Berechnung auch ausführen kann.
+	\add \verb!public string Name { get; set; }! \\
+	Repräsentiert den Namen des Knoten. Der Name eines Knoten ist eine möglichst kurze Beschreibung der Funktionsweise des Knotens. Im Idealfall ist diese Beschreibung nur ein Wort lang.
+	\add \verb!public virtual int NumberOfFramesToPrecompute { get; }! \\
+	Wurde eingeführt, da manche Knoten Daten aus vergangenen Ticks zur Berechnung des aktuellen Ticks brauchen. Damit diese Knoten auch nach dem Springen in der Pipeline das korrekte Ergebnis liefern, muss man eventuell Ticks vorberechnen. Diese Property repräsentiert, wie viele vergangene Frames der Knoten kennen muss, um seine Berechnung auszuführen.
+	\add \verb!public virtual bool OutputHasLogfile { get; }! \\
+	Wurde eingeführt, um repräsentieren zu können, ob die Ausgabe des Knotens Logfiles beinhaltet.
+	\add \verb!public virtual bool OutputHasMovementVectors { get; }! \\
+	Wurde eingeführt, um repräsentieren zu können, ob die Ausgabe Movement-Vektoren beinhaltet.
+	\add \verb!public virtual bool UserCanAddInputs { get; }! \\
+	Diese Property gibt an, ob der User in der Lage sein soll Inputs zu diesem Knoten hinzuzufügen.
+	\remove \verb!public void Dispose()! \\
+	Die Methode \verb!Dispose()! wurde entfernt, da keine Streams mehr offen gehalten werden.
+\end{itemize}
+
+\paragraph{\name{Node.Input}}
+\begin{itemize}
+	\remove \verb!public int Index { get; }! \\
+	Wurde entfernt, da es nicht mehr gebraucht wurde und Node.Input keinen Zugriff auf seinen Knoten hat und daher seinen Index auch nicht berechnen kann.	
 \end{itemize}
 
 \paragraph{\name{PipelineDriver}}
