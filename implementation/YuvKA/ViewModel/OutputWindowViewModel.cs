@@ -9,20 +9,26 @@ namespace YuvKA.ViewModel
 		{
 			NodeModel = nodeModel;
 			OutputModel = outputModel;
-			IoC.Get<IEventAggregator>().Subscribe(this);
 		}
 
 		public Node NodeModel { get; private set; }
 		public Node.Output OutputModel { get; private set; }
 
-		public void CloseWindow()
-		{
-			IoC.Get<IEventAggregator>().Publish(new ClosedMessage(this));
-			IoC.Get<IEventAggregator>().Unsubscribe(this);
-		}
-
 		public virtual void Handle(TickRenderedMessage message)
 		{
+		}
+
+		protected override void OnActivate()
+		{
+			base.OnActivate();
+			IoC.Get<IEventAggregator>().Subscribe(this);
+		}
+
+		protected override void OnDeactivate(bool close)
+		{
+			base.OnDeactivate(close);
+			IoC.Get<IEventAggregator>().Publish(new ClosedMessage(this));
+			IoC.Get<IEventAggregator>().Unsubscribe(this);
 		}
 
 		public class ClosedMessage

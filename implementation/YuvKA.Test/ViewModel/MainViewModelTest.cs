@@ -142,7 +142,7 @@ namespace YuvKA.Test.ViewModel
 			vm.OpenWindow(window);
 			Assert.Equal(window, vm.OpenWindows.Single());
 
-			window.CloseWindow();
+			window.TryClose();
 			conductorMock.Verify(c => c.DeactivateItem(window, true));
 			Assert.Empty(vm.OpenWindows);
 		}
