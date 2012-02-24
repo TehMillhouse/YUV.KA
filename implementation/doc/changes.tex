@@ -366,4 +366,16 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	Konvertiert eine Farbe vom HSL-Farbraum zum RGB-Farbraum.
 \end{itemize}
 
+\subsection{\name{YuvKA.ViewModel.Implementation}}
+
+\paragraph{\name OverlayViewModel}
+\begin{itemize}
+	\add \verb!public System.Tuple<string, IOverlayType> ChosenType! \\
+	Ein Tupel, welches den Namen und den Typ des gerade verwendeten Überlagerungstyps.
+	\add \verb!public WriteableBitmap RenderedImage { get; private set; }! \\
+	Das Ergebnis der Überlagerung für die \name{View} aufbereitet. Dies ist notwendig, da die die \name{View} eine \name{Frame} nicht ohne weiteres darstellen kann.
+	\add \verb!public IEnumerable<System.Tuple<string, IOverlayType>> TypeTuples! \\
+	Eine Sammlung aller momentan verfügbaren Überlagerungstypen in Form von Tupeln mit Namen und Typ. Dies ist notwendig für die \name{View} um die Auswahl der Überlagerungen darzustellen.
+\end{itemize}
+
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}
