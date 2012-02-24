@@ -129,13 +129,17 @@ namespace YuvKA.Test.ViewModel
 			var conductorMock = new Mock<IConductor>();
 			var node = new ColorInputNode();
 			var window = new VideoOutputViewModel(node.Outputs[0]) { Parent = conductorMock.Object };
+			((IActivate)window).Activate();
+			conductorMock.Setup(c => c.DeactivateItem(window, true))
+				.Callback(() => ((IDeactivate)window).Deactivate(close: true))
+				.Verifiable();
 
 			vm.OpenWindow(window);
 			windowManMock.Verify(w => w.ShowWindow(window, vm));
 			Assert.Equal(window, vm.OpenWindows.Single());
 
 			vm.CloseWindows(node);
-			conductorMock.Verify(c => c.DeactivateItem(window, true));
+			conductorMock.Verify();
 			Assert.Empty(vm.OpenWindows);
 
 			vm.OpenWindow(window);
@@ -143,7 +147,7 @@ namespace YuvKA.Test.ViewModel
 			Assert.Equal(window, vm.OpenWindows.Single());
 
 			window.TryClose();
-			conductorMock.Verify(c => c.DeactivateItem(window, true));
+			conductorMock.Verify(c => c.DeactivateItem(window, true), Times.Exactly(2));
 			Assert.Empty(vm.OpenWindows);
 		}
 	}

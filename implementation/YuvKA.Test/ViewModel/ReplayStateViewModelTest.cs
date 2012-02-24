@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using Caliburn.Micro;
 using Moq;
 using Xunit;
 using YuvKA.Pipeline;
@@ -53,7 +54,7 @@ namespace YuvKA.Test.ViewModel
 			vm.Parent.Model.Graph.AddNode(graphMock.Object);
 
 			var outputMock = new Mock<OutputWindowViewModel>(graphMock.Object, null);
-			//outputMock.Setup(o => o.Handle(It.IsAny<TickRenderedMessage>()));
+			IoC.Get<IEventAggregator>().Subscribe(outputMock.Object);
 
 			vm.Parent.OpenWindows.Clear();
 			vm.Parent.OpenWindows.Add(outputMock.Object);
