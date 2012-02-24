@@ -18,7 +18,7 @@ namespace YuvKA.Test.ViewModel.PropertyEditor
 {
 	public class PropertyEditorViewModelTest
 	{
-		private IEnumerable<object> derp(System.Type nope) {
+		private IEnumerable<object> IoCLookAlike(System.Type nope) {
 			return new List<object>{ new IntPropertyViewModel() };
 		}
 
@@ -29,7 +29,7 @@ namespace YuvKA.Test.ViewModel.PropertyEditor
 		public void TestPEVM() {
 			PropertyEditorViewModel pevm = new PropertyEditorViewModel();
 			DelayNode node = new DelayNode { Delay = 0 };
-			IoC.GetAllInstances = derp;
+			IoC.GetAllInstances = IoCLookAlike;
 			pevm.Source = node;
 			Assert.Equal(node, pevm.Source);
 			Assert.Equal(true, pevm.Properties.Single() is IntPropertyViewModel);

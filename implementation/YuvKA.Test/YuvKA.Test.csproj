@@ -56,6 +56,7 @@
       <HintPath>..\packages\Rx-Main.1.0.11226\lib\Net4\System.Reactive.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,6 +81,7 @@
     <Compile Include="VideoModel\YuvEncoderTest.cs" />
     <Compile Include="ViewModel\DiagramViewModelTest.cs" />
     <Compile Include="ViewModel\HistogramViewModelTest.cs" />
+    <Compile Include="ViewModel\OverlayViewModelTest.cs" />
     <Compile Include="ViewModel\MainViewModelTest.cs" />
     <Compile Include="ViewModel\PropertyEditor\PropertyEditorViewModelTest.cs" />
     <Compile Include="ViewModel\PipelineViewModelTest.cs" />

@@ -414,8 +414,8 @@ namespace YuvKA.Test.Pipeline
 		{
 			OverlayNode node = new OverlayNode();
 			Assert.Equal(false, node.InputIsValid);
-			NoiseInputNode noice = new NoiseInputNode();
-			node.Inputs[0].Source = noice.Outputs[0];
+			NoiseInputNode noise = new NoiseInputNode();
+			node.Inputs[0].Source = noise.Outputs[0];
 			Assert.Equal(true, node.InputIsValid);
 			Frame[] input = { new Frame(new YuvKA.VideoModel.Size(5, 5)) };
 			node.Type = new ArtifactsOverlay();
