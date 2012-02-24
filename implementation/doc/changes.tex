@@ -164,6 +164,16 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	Das View Model des Knotens dieses Ein-/Ausgangs
 \end{itemize}
 
+\paragraph{\name{MainViewModel}}
+\begin{itemize}
+	\add \verb!public void CloseWindows(Node node)! \\
+	Erzwingt das Schließen aller Ausgabefenster dieses Knotens
+	\add \verb!public void Handle(OutputWindowViewModel.ClosedMessage message)! \\
+	Reagiert auf das Schließen eines Fensters.
+	\verb!public void Handle(ChangeCommittedMessage message)! \\
+	Reagiert auf in sich abgeschlossene Wertänderungen von Knoten-Properties.
+\end{itemize}
+
 \paragraph{NodeViewModel}
 \begin{itemize}
 	\add \verb!public bool HasOutputs { get; }! \\

@@ -3,13 +3,15 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Windows;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
 using YuvKA.ViewModel.PropertyEditor;
 
 namespace YuvKA.ViewModel
 {
+	/// <summary>
+	/// Holds the program's model & all sub view models and implements the undo/redo system.
+	/// </summary>
 	[Export]
 	public class MainViewModel : ViewAware, IHandle<OutputWindowViewModel.ClosedMessage>, IHandle<ChangeCommittedMessage>
 	{
@@ -26,7 +28,7 @@ namespace YuvKA.ViewModel
 		{
 			IoC.Get<IEventAggregator>().Subscribe(this);
 			OpenWindows = new List<OutputWindowViewModel>();
-			New();
+			Clear();
 		}
 
 		public PipelineState Model
@@ -54,7 +56,7 @@ namespace YuvKA.ViewModel
 		public PipelineViewModel PipelineViewModel
 		{
 			get { return pipelineViewModel; }
-			set
+			private set
 			{
 				pipelineViewModel = value;
 				NotifyOfPropertyChange(() => PipelineViewModel);
@@ -66,6 +68,9 @@ namespace YuvKA.ViewModel
 
 		public IList<OutputWindowViewModel> OpenWindows { get; private set; }
 
+		/// <summary>
+		/// Saves the current model in a user-chosen file.
+		/// </summary>
 		public IEnumerable<IResult> Save()
 		{
 			var file = new ChooseFileResult { OpenReadOnly = false, Filter = PipelineFilter };
@@ -75,6 +80,9 @@ namespace YuvKA.ViewModel
 				Serialize(stream, Model);
 		}
 
+		/// <summary>
+		/// Loads the model from a user-chosen file.
+		/// </summary>
 		public IEnumerable<IResult> Open()
 		{
 			var file = new ChooseFileResult { Filter = PipelineFilter };
@@ -84,7 +92,10 @@ namespace YuvKA.ViewModel
 			modelBase = Serialize(Model);
 		}
 
-		public void New()
+		/// <summary>
+		/// Discards the current model and closes all open windows.
+		/// </summary>
+		public void Clear()
 		{
 			Model = new PipelineState();
 			foreach (OutputWindowViewModel owvm in OpenWindows.ToArray()) {
@@ -131,6 +142,9 @@ namespace YuvKA.ViewModel
 				Redo();
 		}
 
+		/// <summary>
+		/// Stores the current model state as an undo step.
+		/// </summary>
 		public void SaveSnapshot()
 		{
 			byte[] serialized = Serialize(Model);
@@ -150,7 +164,7 @@ namespace YuvKA.ViewModel
 
 		public void OpenWindow(OutputWindowViewModel window)
 		{
-			if ((from openWin in OpenWindows where openWin.NodeModel == window.NodeModel && openWin.OutputModel == window.OutputModel select openWin).Count() == 0) {
+			if (!OpenWindows.Any(openWin => openWin.NodeModel == window.NodeModel && openWin.OutputModel == window.OutputModel)) {
 				OpenWindows.Add(window);
 				IoC.Get<IWindowManagerEx>().ShowWindow(window, owningModel: this);
 				if (!ReplayStateViewModel.IsPlaying) {
@@ -159,7 +173,7 @@ namespace YuvKA.ViewModel
 			}
 		}
 
-		public void CloseWindow(Node source)
+		public void CloseWindows(Node source)
 		{
 			foreach (OutputWindowViewModel owvm in OpenWindows.ToArray()) {
 				if (owvm.NodeModel == source) {

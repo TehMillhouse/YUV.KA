@@ -37,7 +37,7 @@
 			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="5,11,0,11">
 				<Button x:Name="Open" ToolTip="Ctrl+O" Margin="1,0,1,0">Open</Button>
 				<Button x:Name="Save" ToolTip="Ctrl+S" Margin="1,0,1,0">Save</Button>
-				<Button x:Name="New" ToolTip="Ctrl+N" Margin="1,0,1,0">New</Button>
+				<Button x:Name="Clear" ToolTip="Ctrl+N" Margin="1,0,1,0">New</Button>
 				<Button x:Name="Undo" ToolTip="Ctrl+Z" Margin="1,0,1,0">Undo</Button>
 				<Button x:Name="Redo" ToolTip="Ctrl+Y" Margin="1,0,1,0">Redo</Button>
 			</StackPanel>

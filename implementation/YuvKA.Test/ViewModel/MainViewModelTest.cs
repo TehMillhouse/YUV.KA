@@ -4,7 +4,9 @@ using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using Caliburn.Micro;
+using Moq;
 using Xunit;
+using YuvKA.Pipeline.Implementation;
 using YuvKA.Test.Pipeline;
 using YuvKA.ViewModel;
 
@@ -44,7 +46,7 @@ namespace YuvKA.Test.ViewModel
 		[Fact]
 		public void UndoRedoWorks()
 		{
-			vm.New();
+			vm.Clear();
 			Assert.False(vm.CanUndo);
 			Assert.False(vm.CanRedo);
 
@@ -94,7 +96,7 @@ namespace YuvKA.Test.ViewModel
 		[Fact]
 		public void OpenCreatesNodeViewModelsFromModel()
 		{
-			vm.New();
+			vm.Clear();
 			Assert.Equal(0, vm.PipelineViewModel.Nodes.Count);
 			vm.Model.Graph.Nodes.Add(new AnonymousNode());
 
@@ -108,7 +110,7 @@ namespace YuvKA.Test.ViewModel
 				serialized = stream.ToArray();
 			}
 
-			vm.New();
+			vm.Clear();
 			using (var enumerator = vm.Open().GetEnumerator()) {
 				enumerator.MoveNext();
 				((ChooseFileResult)enumerator.Current).Stream = () => new MemoryStream(serialized);
@@ -116,6 +118,33 @@ namespace YuvKA.Test.ViewModel
 			}
 
 			Assert.Equal(1, vm.PipelineViewModel.Nodes.Count);
+		}
+
+		[Fact]
+		public void CanOpenCloseOutputWindow()
+		{
+			var windowManMock = new Mock<IWindowManagerEx>();
+			var vm = GetInstance(cont => cont.ComposeExportedValue<IWindowManagerEx>(windowManMock.Object));
+
+			var conductorMock = new Mock<IConductor>();
+			var node = new ColorInputNode();
+			var window = new VideoOutputViewModel(node.Outputs[0]) { Parent = conductorMock.Object };
+
+			vm.OpenWindow(window);
+			windowManMock.Verify(w => w.ShowWindow(window, vm));
+			Assert.Equal(window, vm.OpenWindows.Single());
+
+			vm.CloseWindows(node);
+			conductorMock.Verify(c => c.DeactivateItem(window, true));
+			Assert.Empty(vm.OpenWindows);
+
+			vm.OpenWindow(window);
+			vm.OpenWindow(window);
+			Assert.Equal(window, vm.OpenWindows.Single());
+
+			window.CloseWindow();
+			conductorMock.Verify(c => c.DeactivateItem(window, true));
+			Assert.Empty(vm.OpenWindows);
 		}
 	}
 }
