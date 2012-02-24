@@ -130,13 +130,19 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 	}
 
+	/// <summary>
+	/// This class provides a way to display observable collections of doubles to the user.
+	/// </summary>
 	public class ObservableCollectionOfDoublePropertyViewModel : PropertyViewModel<ObservableCollection<double>>
 	{
 		IEnumerable<DoubleWrapper> wrapperCollection;
 
 		public ObservableCollectionOfDoublePropertyViewModel() : base(commitOnValueChanged: false) { }
 
-		public IEnumerable<DoubleWrapper> Wrapper
+		/// <summary>
+		/// The enumeration containing the actual double values (wrapped as objects).
+		/// </summary>
+		public IEnumerable<DoubleWrapper> Values
 		{
 			get
 			{
@@ -151,19 +157,31 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		protected override void OnValueChanged()
 		{
 			base.OnValueChanged();
-			NotifyOfPropertyChange(() => Wrapper);
-			TypedValue.CollectionChanged += (sender, e) => NotifyOfPropertyChange(() => Wrapper);
+			NotifyOfPropertyChange(() => Values);
+			TypedValue.CollectionChanged += (sender, e) => NotifyOfPropertyChange(() => Values);
 		}
 
+		/// <summary>
+		/// A wrapper around double values, as the "value" of a double can't be bound to via caliburn
+		/// </summary>
 		public class DoubleWrapper
 		{
 			ObservableCollection<double> source;
 			int index;
+
+			/// <summary>
+			/// Simple constructor for the wrapper around double
+			/// </summary>
+			/// <param name="source">The observable collection containing the variable to bind</param>
+			/// <param name="index">The index of said variable in the collection</param>
 			public DoubleWrapper(ObservableCollection<double> source, int index)
 			{
 				this.source = source;
 				this.index = index;
 			}
+			/// <summary>
+			/// Property representing the value bound
+			/// </summary>
 			public double Value
 			{
 				get { return source[index]; }

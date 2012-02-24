@@ -7,7 +7,7 @@
 			mc:Ignorable="d"
 			d:DesignHeight="300" d:DesignWidth="300">
 	<StackPanel>
-		<ItemsControl ItemsSource="{Binding Wrapper}">
+		<ItemsControl ItemsSource="{Binding Values}">
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
 					<Slider Value="{Binding Value}" Maximum="1.0" cal:Message.Attach="[Event LostFocus] = [Action CommitChange]"/>
