@@ -16,6 +16,9 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public class FilePathPropertyViewModel : PropertyViewModel<Pipeline.FilePath>
 	{
+		/// <summary>
+		/// The last part of the current Filepath.
+		/// </summary>
 		public string ShortPath
 		{
 			get
@@ -26,6 +29,10 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 			}
 		}
 
+		/// <summary>
+		/// Opens a dialog to choose the filepath.
+		/// </summary>
+		/// <returns>The dialog.</returns>
 		public IEnumerable<IResult> OpenDialog()
 		{
 			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv|All files (*.*)|*" };
@@ -42,6 +49,9 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public class RgbPropertyViewModel : PropertyViewModel<VideoModel.Rgb>
 	{
+		/// <summary>
+		/// The colorvalue of the property.
+		/// </summary>
 		public Color ChosenColor
 		{
 			get { return Color.FromRgb(TypedValue.R, TypedValue.G, TypedValue.B); }
@@ -51,12 +61,18 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public class SizePropertyViewModel : PropertyViewModel<Size>
 	{
+		/// <summary>
+		/// The width of this size-property.
+		/// </summary>
 		public int Width
 		{
 			get { return TypedValue.Width; }
 			set { TypedValue = new Size(value, Height); }
 		}
 
+		/// <summary>
+		/// The height of this size-property.
+		/// </summary>
 		public int Height
 		{
 			get { return TypedValue.Height; }
@@ -75,11 +91,17 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 	{
 		public NumericalPropertyViewModel() : base(commitOnValueChanged: false) { }
 
+		/// <summary>
+		/// The minimum value this numerical property can have assigned.
+		/// </summary>
 		public double Minimum
 		{
 			get { return (double)(Property.Attributes.OfType<RangeAttribute>().First().Minimum); }
 			private set { }
 		}
+		/// <summary>
+		/// The maximum value thi numerical property can have assigned.
+		/// </summary>
 		public double Maximum
 		{
 			get { return (double)(Property.Attributes.OfType<RangeAttribute>().First().Maximum); }
@@ -93,6 +115,9 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public class NullableDoublePropertyViewModel : NumericalPropertyViewModel<double?>
 	{
+		/// <summary>
+		/// The value if this property has enabled sliders.
+		/// </summary>
 		public bool SlidersAreEnabled
 		{
 			get { return TypedValue != null; }
@@ -149,6 +174,9 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 
 	public class EnumerationPropertyViewModel : PropertyViewModel<Enum>
 	{
+		/// <summary>
+		/// The possible options available in this enumeration property.
+		/// </summary>
 		public System.Array Choices
 		{
 			get { return Enum.GetValues(Property.PropertyType); }
