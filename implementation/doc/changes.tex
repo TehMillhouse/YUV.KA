@@ -115,6 +115,25 @@ Desweiteren wurden zwei neue Arten von Noise eingeführt, die Abwandlungen der s
 \paragraph{\name{HistogramNode}}
 Die zur Berechnung des jeweiligen Histogrammtyps benötigten Methoden wurden als private Methoden ausgelagert.
 
+\paragraph{\name{OverlayNode}}
+\begin{itemize}
+	\add \verb!public Frame Data { get; private set; }! \\
+	Eine Schnittstelle durch die andere Klassen das Resultat der Überlagerung abgreifen können. Dies ist notwendig, da die \name{View} die \name{Process} Methode nicht selbst aufruft.
+	\add \verb!public OverlayViewModel Window { get; }! \\
+	Ruft das \name{OverlayViewModel}, welches zu diesem Knoten gehört, auf bzw. erstellt es. Dies ist notwendig, da die \name{View} wissen muss dass dieser Knotentyp, eine eigene Ausgabefensterart besitzt und sich dies mit einem entsprechenden \name{ProperyViewModel} ohne schwerwiegende Architektureingriffe sehr gut verwirklichen lässt.
+\end{itemize}
+
+\paragraph{\name{IOverlayType}}
+\begin{itemize}
+	\add \verb!bool DependsOnReference { get; }! \\
+	Eine Wahrheitsvariable die wiedergibt, ob die Überlagerungsart auf eine Referenz angewiesen ist.
+	\add \verb!bool DependsOnVectors { get; }! \\
+	Eine Wahrheitsvariable die wiedergibt, ob die Überlagerungsart auf Bewegungsvektordaten angewiesen ist.
+\end{itemize}
+
+\paragraph{\name{+ NoOverlay}}~\\
+Diese Klasse ist ein Überlagerungstyp der nichts überlagert und somit stets verfügbar ist, unabhängig von den zusätzlichen Daten neben der obligatorischen ursprünglichen \name{Frame}.
+
 \subsection{\name{YuvKA.ViewModel}}
 
 Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die zum Großteil aus dem Hinzufügen neuer Properties bestehen. Dies ist besonders der Tatsache geschuldet, dass das Viewmodel nicht wirklich Teil der grundlegenden Architektur sondern vielmehr Verknüpfungsschicht des Models und der View ist, wobei die Architektur letztgenannter Schicht, nämlich WPF, bereits gegeben war und wegen ihres unglaublichen Umfangs im Detail erst während der Implementierung Fall für Fall exakt erkundet werden konnte. Deshalb werden im Weiteren die Änderungen beschrieben, ohne einzeln auf die Gründe einzugehen, warum von der Entwurfsarchitektur abgewichen wurde.
