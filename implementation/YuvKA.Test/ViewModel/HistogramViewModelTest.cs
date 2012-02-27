@@ -12,9 +12,13 @@ namespace YuvKA.Test.ViewModel
 {
 	public class HistogramViewModelTest
 	{
+		/// <summary>
+		/// Checks whether the calculated data is correctly relayed to the HistogramVM.
+		/// </summary>
 		[Fact]
 		public void GetsData()
 		{
+			// Get the parent PipelineVM and add DiagramNode
 			var vm = MainViewModelTest.GetInstance().PipelineViewModel;
 			var node = new NodeViewModel(new HistogramNode(), vm);
 			vm.Nodes.Add(node);
@@ -33,8 +37,8 @@ namespace YuvKA.Test.ViewModel
 
 			HVM.NodeModel.Type = HistogramType.R;
 
+			// porcess one frame with chosen type
 			HVM.NodeModel.Process(inputs, 0);
-
 			HVM.Handle(null);
 
 			Assert.NotEmpty(HVM.Data.Data);
