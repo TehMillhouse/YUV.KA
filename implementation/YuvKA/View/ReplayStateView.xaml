@@ -41,6 +41,8 @@
 				Value="{Binding Parent.Model.CurrentTick}"
 				Minimum="0"
 				TickPlacement="BottomRight"
+				SmallChange="1"
+				LargeChange="10"
 				Maximum="{Binding Parent.Model.Graph.TickCount, TargetNullValue=0}"
 				TickFrequency="2"/>
 	</DockPanel>
