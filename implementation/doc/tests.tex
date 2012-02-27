@@ -94,6 +94,29 @@ Dieser Test überprüft die Überlagerung von Bewegungsvektoren pro Makroblock, 
 
 \end{itemize}
 
+\paragraph{\name{DiagramNode}}
+\begin{itemize}
+	\item{\name{TestDiagramNode}} \\
+		Testet die allgemeine Funktion des DiagramNodes.
+	\item{\name{TestNoDrawingIfDiagramNodeNotEnabled}} \\
+		Stellt sicher, dass der DiagramNode nicht arbeitet, wenn er deaktiviert ist.
+	
+	\item{\name{RedrawOnTickSetBack}} \\
+		Stellt sicher, dass der DiagramNode die aktuellen Werte seiner Graphen löscht, sobald der Tick vor den aktuellen Zeitpunkt gesetzt wird.
+\end{itemize}
+
+
+\paragraph{\name{HistogramNode}}
+\begin{itemize}
+	\item{\name{TestHistogramNodeRGB}} \\
+		Testet die allgemeine Funktion der RGB-Methoden des HistogramNodes.
+	
+	\item{\name{TestHistogramNodeValue}} \\
+		Testet die allgemeine Funktion der Value\footnote{im HSV-Farbraum}-Methode des HistogramNodes.
+\end{itemize}
+
+
+
 \subsection{\name{YuvKA.ViewModel}}
 
 \paragraph{\name{OverlayViewModel}}
@@ -124,3 +147,39 @@ Dieser Test überprüft, ob das \name{PropertyEditorViewModel} die Properties de
 Dieser Test überprüft die allgemeinen Funktionen des \name{PropertyViewModel}s, speziell \verb#DisplayName#, auf Korrektheit.
 
 \end{itemize}
+
+\paragraph{\name{DiagramViewModel}}
+\begin{itemize}
+	\item{\name{CanAddLine}} \\
+		Stellt sicher, dass das DiagramViewModel seinem Diagramm Kurven hinzufügen kann.
+
+	\item{\name{CanDeleteLine}} \\
+		Stellt sicher, dass das DiagramViewModel Kurven von seinem Diagramm löschen kann.
+
+	\item{\name{GetsData}} \\
+		Stellt sicher, dass die berechneten Daten dem DiagramViewModel korrekt übergeben werden.
+	
+	\item{\name{ShowOnlyAvailableTypes}} \\
+		Stellt sicher, dass nur diejenigen Graphentypen angezeigt werden, die mit den aktuellen Einstellungen möglich sind.
+	
+	\item{\name{ChangeChosenType}} \\
+		Stellt sicher, dass der verwendete Graphentyp vom Benutzer geändert werden kann.
+	
+	\item{\name{ResetRefWithExistingGraphControls}} \\
+		Stellt sicher, dass die Grapheneinstellungen aktualisiert werden, wenn das Referenzvideo geändert wird.
+	
+	\item{\name{CannotAddGcWithoutChosenVid}} \\
+		Stellt sicher, dass keine Grapheneinstellungen hinzugefügt werden kann, wenn kein Video ausgewählt ist.
+\end{itemize}
+
+
+\paragraph{\name{HistogramViewModel}}
+\begin{itemize}
+	\item{\name{GetsData}} \\
+		Stellt sicher, dass die berechneten Daten dem HistogramViewModel korrekt übergeben werden.
+\end{itemize}
+
+	
+	
+
+\subsection{\name{YuvKA.ViewModel.PropertyEditor}}
