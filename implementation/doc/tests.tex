@@ -37,6 +37,24 @@ Dieser Test überprüft, ob die Überschreibung der Methode \verb#ToString# in d
 	Stellt sicher, dass die Anzahl der vorzuberechnenden Frames korrekt berechnet wird.
 \end{itemize}
 
+\paragraph{\name{PipelineDriver}}
+\begin{itemize}
+	\item \name{RenderTicksClosesObservable} \\
+	Stellt sicher, dass ein asynchroner Abbruch des Renderns den ausgegbenen Videostream auch tatsächlich beendet.
+    \item \name{RenderTicksEarlyCancellation} \\
+    Stellt sicher, dass nach einem asynchronen Abbruch kein weiterer Tick zu rendern begonnen wird.
+    \item \name{RenderTicksNonReentrant} \\
+    Stellt sicher, dass die Process-Methode für jeden Knoten nicht zweimal gleichzeitig betreten wird.
+    \item \name{RenderTicksProcessesDiamondGraph} \\
+    Stellt sicher, dass ein Graph mit Verzweigung und folgender Zusammenführung korrekt gerendert wird.
+    \item \name{RenderTicksProcessesLongGraph} \\
+    Stellt sicher, dass ein linearer Graph mit 100 Knoten korrekt gerendert wird.
+    \item \name{RenderTicksPropagatesExceptions} \\
+    Stellt sicher, dass Exceptions während des Renderns nicht verschluckt werden.
+    \item \name{RenderTicksStressTest} \\
+    Führt \name{RenderTicksLongGraph} 100-mal hintereinander aus.
+\end{itemize}
+
 \paragraph{\name{Manipulationknoten}}
 
 \begin{itemize}
@@ -114,8 +132,6 @@ Dieser Test überprüft die Überlagerung von Bewegungsvektoren pro Makroblock, 
 	\item{\name{TestHistogramNodeValue}} \\
 		Testet die allgemeine Funktion der Value\footnote{im HSV-Farbraum}-Methode des HistogramNodes.
 \end{itemize}
-
-
 
 \subsection{\name{YuvKA.ViewModel}}
 
