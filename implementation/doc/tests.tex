@@ -2,6 +2,27 @@
 
 \subsection{\name{YuvKA.Pipeline}}
 
+\paragraph{\name{PipelineGraph}}
+\begin{itemize}
+	\item{\name{DfsFindsCorrectNodes}} \\
+	Stellt sicher, dass der DFS-Algorithmus im allgemeinen Fall korrekt implementiert wurde.
+
+	\item{\name{PipelineGraphCanDetectCycles}} \\
+	Stellt sicher, dass Zyklen korrekt erkannt werden und DFS auch hier funktioniert.
+
+	\item{\name{PipelineGraphCanHandleSplits}} \\
+	Stellt sicher, dass das Spalten und Wiederzusammenführen von Pipelines im DFS korrekt behandelt wird.
+
+	\item{\name{TestAddNode}} \\
+	Stellt sicher, dass beim Hinzufügen von Knoten deren Namen korrekt gesetzt werden.
+
+	\item{\name{TestRemoveNode}} \\
+	Stellt sicher, dass beim Entfernen eines Knotens aus der Pipeline alle zugehörigen Kanten entfernt werden.
+
+	\item{\name{TestReturnNumberOfFramesToPrecompute}} \\
+	Stellt sicher, dass die Anzahl der vorzuberechnenden Frames korrekt berechnet wird.
+\end{itemize}
+
 \subsection{\name{YuvKA.Pipeline.Implementation}}
 
 \subsection{\name{YuvKA.ViewModel}}
