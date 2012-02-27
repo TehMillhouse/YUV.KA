@@ -366,7 +366,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	Konvertiert eine Farbe vom HSL-Farbraum zum RGB-Farbraum.
 \end{itemize}
 
-\paragraph{\name OverlayViewModel}
+\paragraph{\name{OverlayViewModel}}
 \begin{itemize}
 	\add \verb!public System.Tuple<string, IOverlayType> ChosenType! \\
 	Ein Tupel, welches den Namen und den Typ des gerade verwendeten Überlagerungstyps.
@@ -378,7 +378,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}
 
-\paragraph{\name PropertyViewModel}
+\paragraph{\name{PropertyViewModel}}
 \begin{itemize}
 	\add \verb!public string DisplayName { get; }! \\
 	Dies gibt das Name-Attribut der Property bzw. den Namen der Property weiter. Dies ist notwendig um der \name{View} deskriptivere Namen der Properties bereitzustellen.
@@ -388,7 +388,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	Diese Methode weist, einem PropertyViewModel eine Property und die Quelle der Property zur Verwaltung zu. Dies ist notwendig da das PropertyViewModel einen Argumentlosen Konstruktor benötigt und nur auf diese Weise sicherstellen lässt, dass die Property und deren Quelle immer gemeinsam gesetzt werden.
 \end{itemize}
 
-\paragraph{\name {PropertyViewModel<T>}}
+\paragraph{\name{PropertyViewModel<T>}}
 \begin{itemize}
 	\change \verb!public T TypedValue { get; set; }! \\
 	Der typisierte Wert der Property wurde umbenannt, um Namenskonflikte mit dem untypisierten Wert der Property der Oberklasse zu vermeiden.
@@ -418,7 +418,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	Innere Wrapper-Klasse um einen \name{double}-Wert herum. Diese wird benötigt, um von der View aus per Data Binding auf den Wert des double zuzugreifen.
 \end{itemize}
 
-\paragraph{\name{+ OutputWindowViewModelPropertyViewModel}} \\
+\paragraph{\name{+ OutputWindowViewModelPropertyViewModel}}~\\
 \name{OutputWindowViewModelPropertyViewModel} erlaubt es Wiedergabeknoten, beliebige ViewModels selbst zu liefern, welche dann vom Programm gelesen und angezeigt werden.
 
 \paragraph{\name{RgbPropertyViewModel}}
