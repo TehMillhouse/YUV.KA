@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using Caliburn.Micro;
 using Moq;
 using Xunit;
+using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
 using YuvKA.ViewModel;
 
@@ -189,6 +193,53 @@ namespace YuvKA.Test.ViewModel
 
 			node.Position = new Point(123, 123);
 			obs.Verify(o => o.OnNext(Unit.Default), Times.Exactly(2));
+		}
+
+		[Fact]
+		public void RendersNodeToFileCorrectly()
+		{
+			string input = @"..\..\..\..\resources\americanFootball_352x240_125.yuv";
+			var windowManMock = new Mock<IWindowManager>();
+			var conductorMock = new Mock<IConductor>();
+			windowManMock.Setup(w => w.ShowDialog(It.IsAny<IScreen>(), null, null)).Callback<object, object, object>((viewModel, _, __) => {
+				var screen = (Screen)viewModel;
+				screen.Parent = conductorMock.Object;
+				((IActivate)screen).Activate();
+				while (screen.IsActive)
+					Thread.Sleep(100);
+			});
+			conductorMock.Setup(c => c.DeactivateItem(It.IsAny<IScreen>(), true))
+				.Callback<object, bool>((window, _) => ((IDeactivate)window).Deactivate(close: true))
+				.Verifiable();
+			var vm = MainViewModelTest.GetInstance(cont => cont.ComposeExportedValue<IWindowManager>(windowManMock.Object)).PipelineViewModel;
+
+			var node = new NodeViewModel(new VideoInputNode { FileName = new FilePath(input) }, vm);
+			vm.Parent.Model.Graph.AddNode(node.Model);
+			var stream = new MemoryStream();
+
+			IEnumerator<IResult> result = node.SaveNodeOutput(node.Model.Outputs[0]).GetEnumerator();
+			result.MoveNext();
+			var file = (ChooseFileResult)result.Current;
+			Assert.Equal(false, file.OpenReadOnly);
+			file.Stream = () => stream;
+			result.MoveNext();
+
+			Assert.Equal(File.ReadAllBytes(input).Length, stream.ToArray().Length);
+		}
+
+		[Fact]
+		public void DisplaysDynamicallyAddedOutputs()
+		{
+			var vm = MainViewModelTest.GetInstance().PipelineViewModel;
+
+			var nodeMock = new Mock<Node>(new object[] { 0, null }); // input count, output count
+			var nodeVM = new NodeViewModel(nodeMock.Object, vm);
+			Assert.False(nodeVM.HasOutputs);
+			Assert.Empty(nodeVM.Outputs);
+
+			nodeMock.Object.Outputs.Add(new Node.Output(nodeMock.Object));
+			Assert.True(nodeVM.HasOutputs);
+			Assert.Equal(nodeMock.Object.Outputs[0], nodeVM.Outputs.Single().Model);
 		}
 	}
 }
