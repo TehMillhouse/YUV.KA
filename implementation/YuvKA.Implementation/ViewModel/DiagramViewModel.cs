@@ -97,7 +97,7 @@ namespace YuvKA.ViewModel.Implementation
 		public Tuple<string, Node.Input> ChosenVideo { get; set; }
 
 		/// <summary>
-		/// Gets or sets the GraphControls of this DiagramViewModel.
+		/// Gets the GraphControls of this DiagramViewModel.
 		/// </summary>
 		public ObservableCollection<GraphControl> GraphControls
 		{
@@ -109,16 +109,14 @@ namespace YuvKA.ViewModel.Implementation
 
 				return graphControls;
 			}
-			set { graphControls = value; }
 		}
 
 		/// <summary>
-		/// Gets or sets the list of all colors already used for drawing a line.
+		/// Gets the list of all colors already used for drawing a line.
 		/// </summary>
 		public List<Color> LineColors
 		{
 			get { return lineColors ?? (lineColors = new List<Color>()); }
-			set { lineColors = value; }
 		}
 
 		/// <summary>
@@ -210,8 +208,6 @@ namespace YuvKA.ViewModel.Implementation
 			if (graphControl.ChosenType != null) {
 				line.Name = graphControl.Video.Item1 + graphControl.ChosenType.Item1;
 				line.Name = line.Name.Replace("-", "");
-			} else {
-				line.Name = graphControl.Video.Item1;
 			}
 			line.Color = graphControl.LineColor;
 			line.EntityId = Guid.NewGuid();

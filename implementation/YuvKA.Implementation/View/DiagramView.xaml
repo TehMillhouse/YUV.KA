@@ -54,6 +54,7 @@
 		</ComboBox>
 		<d3:ChartPlotter Height="500" Width="500" Grid.Column="0" Grid.Row="1" x:Name="plotter" LegendVisibility="Hidden" LineGraphs="{Binding Path=LineGraphs}" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
 			<d3:ChartPlotter.FitToViewRestrictions>
+				<ViewportRestrictions:FollowWidthRestriction Width="15" />
 				<ViewportRestrictions:MinimalSizeRestriction MinSize="0"/>
 			</d3:ChartPlotter.FitToViewRestrictions>
 		</d3:ChartPlotter>

@@ -59,11 +59,16 @@ namespace YuvKA.Implementation
 					Parent.LineColors.Add(CurrentLineColor);
 					Parent.AddGraph(this);
 				} else {
-					chosenType = value;
-					Graph.Type = value.Item2;
-					Parent.LineColors.RemoveAll(color => color.R == LineColor.R && color.G == LineColor.G && color.B == LineColor.B);
-					SetLineColor();
-					Parent.LineColors.Add(CurrentLineColor);
+					// in case reference is set in such a way, that the current type is no longer possible.
+					// e.g. Reference with log is set to Reference without log -> EncoderDiff no longer possible
+					if (value != null)
+					{
+						chosenType = value;
+						Graph.Type = value.Item2;
+						Parent.LineColors.RemoveAll(color => color.R == LineColor.R && color.G == LineColor.G && color.B == LineColor.B);
+						SetLineColor();
+						Parent.LineColors.Add(CurrentLineColor);
+					}
 				}
 			}
 		}
