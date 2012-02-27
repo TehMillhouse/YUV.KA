@@ -206,7 +206,7 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	Reagiert auf in sich abgeschlossene Wertänderungen von Knoten-Properties.
 \end{itemize}
 
-\paragraph{NodeViewModel}
+\paragraph{\name{NodeViewModel}}
 \begin{itemize}
 	\add \verb!public bool HasOutputs { get; }! \\
 	Gibt an, ob der Knoten derzeit Ausgänge besitzt.
@@ -269,13 +269,13 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 
 \subsection{\name{YuvKA.ViewModel.Implementation}}
 
-\paragraph{HistogramViewModel}
+\paragraph{\name{HistogramViewModel}}
 \begin{itemize}
 	\add \verb!public EnumerableDataSource<KeyValuePair<int, double>> Data { get; private set; }! \\
 	Ruft die Analysedaten des Histogrammes ab oder setzt diese fest.
 \end{itemize}
 
-\paragraph{DiagramViewModel}
+\paragraph{\name{DiagramViewModel}}
 \begin{itemize}
 	\add \verb!public ObservableCollection<LineGraphViewModel> LineGraphs { get; }! \\
 	Ruft die Kurven im Diagramm ab, die den Graphen des Dieagrammknotens entsprechen. 
@@ -309,7 +309,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	Diese Methode wird von einer entsprechenden Methode der GraphControl-Klasse übernommen.
 \end{itemize}
 
-\paragraph{+ GraphControl}~\\
+\paragraph{\name{+ GraphControl}}~\\
 \name{GraphControl} verwaltet die vom Benutzer vorgenommenen Einstellungen an einem Graphen.
 \begin{itemize}
 	\add \verb!public DiagramViewModel Parent { get; set; }! \\
@@ -342,7 +342,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	Entscheidet, welche Graphentypen mit den momentanen Einstellungen verfügbar sind und legt diese fest.
 \end{itemize}
 
-\paragraph{+ LineGraphViewModel}~\\
+\paragraph{\name{+ LineGraphViewModel}}~\\
 \name{LineGraphViewModel} repräsentiert eine Kurve in einem Diagramm eines DiagramViewModels.
 \begin{itemize}
 	\add \verb!public CompositeDataSource PointDataSource { get; set; }! \\
@@ -359,7 +359,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	Ruft die Dicke der Linie der Kurve ab oder setzt sie fest.
 \end{itemize}
 
-\paragraph{+ HslHelper}~\\
+\paragraph{\name{+ HslHelper}}~\\
 \name{HslHelper} enthält eine Methode zur Konvertierung zwischen dem HSL - und dem RGB - Farbraum, sodass sie von mehreren Klassen verwendet werden kann.
 \begin{itemize}
 	\add \verb!public static Color HslToRgb(double h, double s, double l)! \\
@@ -367,6 +367,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 \end{itemize}
 
 \paragraph{\name OverlayViewModel}
+
 \begin{itemize}
 	\add \verb!public System.Tuple<string, IOverlayType> ChosenType! \\
 	Ein Tupel, welches den Namen und den Typ des gerade verwendeten Überlagerungstyps.
