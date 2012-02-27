@@ -166,7 +166,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DynamicDataDisplay.dll" />
-    <Content Include="icon48x48.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
