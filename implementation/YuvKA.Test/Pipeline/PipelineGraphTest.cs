@@ -92,10 +92,6 @@ namespace YuvKA.Test.Pipeline
 			Assert.DoesNotContain<Node>(node1, graph.DepthFirstSearch(node2));
 		}
 
-
-
-
-
 		/// <summary>
 		/// Creates a small graph and checks ReturnNumberOfFramesToPrecompute's behavior.
 		/// graph:
