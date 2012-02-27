@@ -166,14 +166,14 @@ namespace YuvKA.Test.ViewModel
 			var gcNoRefNoLog = DVM.GraphControls.ToList().Last();
 			Assert.False(gcNoRefNoLog.DisplayTypes.ToList().Exists(type => type.Item2.DependsOnReference || type.Item2.DependsOnLogfile));
 
-			DVM.Videos[2].Item2.Source.Node.OutputHasLogfile = true;
+			sourceNode.SettableOutputHasLogfile = true;
 			DVM.ChosenVideo = DVM.Videos[2];
 			DVM.AddGraphControl();
 			var gcLogNoRef = DVM.GraphControls.ToList().Last();
 			gcLogNoRef.SetDisplayTypes();
 			Assert.False(gcLogNoRef.DisplayTypes.ToList().Exists(type => type.Item2.DependsOnReference));
 			Assert.True(gcLogNoRef.DisplayTypes.ToList().Exists(type => type.Item2.DependsOnLogfile));
-			DVM.Videos[2].Item2.Source.Node.OutputHasLogfile = false;
+			sourceNode.SettableOutputHasLogfile = false;
 
 			DVM.Reference = DVM.Videos[0];
 			DVM.ChosenVideo = DVM.Videos[1];
@@ -184,7 +184,7 @@ namespace YuvKA.Test.ViewModel
 			Assert.True(gcLoggedRefNoLog.DisplayTypes.ToList().Exists(type => type.Item2.DependsOnReference));
 			Assert.False(gcLoggedRefNoLog.DisplayTypes.ToList().Exists(type => type.Item2.DependsOnLogfile));
 
-			DVM.Videos[2].Item2.Source.Node.OutputHasLogfile = true;
+			sourceNode.SettableOutputHasLogfile = true;
 			DVM.ChosenVideo = DVM.Videos[2];
 			DVM.AddGraphControl();
 			var gcLoggedRefLog = DVM.GraphControls.ToList().Last();

@@ -41,6 +41,16 @@ namespace YuvKA.Test.Pipeline
 
 		public int SettableNumberOfFramesToPrecompute { get; set; }
 
+		public override bool OutputHasLogfile
+		{
+			get
+			{
+				return SettableOutputHasLogfile;
+			}
+		}
+
+		public bool SettableOutputHasLogfile { get; set; }
+
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
 			return process(inputs, tick);
