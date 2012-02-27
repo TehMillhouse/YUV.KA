@@ -5,5 +5,8 @@ using System.Text;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// Represents the Type of a HistogramNode.
+	/// </summary>
 	public enum HistogramType { R, G, B, Value }
 }
