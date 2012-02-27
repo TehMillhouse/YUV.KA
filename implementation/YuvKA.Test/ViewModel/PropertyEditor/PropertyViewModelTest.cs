@@ -16,6 +16,18 @@ namespace YuvKA.Test.ViewModel.PropertyEditor
 {
 	public class PropertyViewModelTest : PropertyChangedBase
 	{
+		[Fact]
+		public void GeneralPropertyViewModelTest()
+		{
+			PropertyViewModel pvm = new IntPropertyViewModel();
+			DelayNode node = new DelayNode();
+			node.Delay = 3;
+			PropertyDescriptor pd = TypeDescriptor.GetProperties(node).Find("Delay", true);
+			pvm.Initialize(node, pd);
+			Assert.Equal("Delay", pvm.DisplayName);
+			pvm.Value = 1;
+			Assert.Equal(1, pvm.Value);
+		}
 
 		[Fact]
 		public void ObservableCollectionOfDoublePropertyViewModelTest() 
