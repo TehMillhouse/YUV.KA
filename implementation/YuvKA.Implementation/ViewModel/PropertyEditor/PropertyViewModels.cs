@@ -97,7 +97,6 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		public double Minimum
 		{
 			get { return (double)(Property.Attributes.OfType<RangeAttribute>().First().Minimum); }
-			private set { }
 		}
 		/// <summary>
 		/// The maximum value thi numerical property can have assigned.
@@ -105,7 +104,6 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		public double Maximum
 		{
 			get { return (double)(Property.Attributes.OfType<RangeAttribute>().First().Maximum); }
-			private set { }
 		}
 	}
 
@@ -198,7 +196,6 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		public System.Array Choices
 		{
 			get { return Enum.GetValues(Property.PropertyType); }
-			private set { }
 		}
 	}
 
