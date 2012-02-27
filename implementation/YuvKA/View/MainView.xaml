@@ -17,7 +17,7 @@
 			<cal:ActionMessage MethodName="Save"/>
 		</mycal:CommandBindingTrigger>
 		<mycal:CommandBindingTrigger Command="New">
-			<cal:ActionMessage MethodName="New"/>
+			<cal:ActionMessage MethodName="Clear"/>
 		</mycal:CommandBindingTrigger>
 		<mycal:CommandBindingTrigger Command="Undo">
 			<cal:ActionMessage MethodName="GlobalUndo"/>
