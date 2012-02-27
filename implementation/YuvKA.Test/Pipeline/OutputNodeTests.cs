@@ -15,8 +15,9 @@ namespace YuvKA.Test.Pipeline
 	public class OutputNodeTests
 	{
 		/// <summary>
-		/// Tests the general function of the DiagramNode by creating a DiagramNode and adding three Outputs to test 
-		/// each current Graphtype.
+		/// Tests the general function of the DiagramNode by creating a DiagramNode
+		///  and adding three Outputs and  recalculating the expected results 
+		/// to test each current Graphtype.
 		/// </summary>
 		[Fact]
 		public void TestDiagramNode()
@@ -95,7 +96,8 @@ namespace YuvKA.Test.Pipeline
 		}
 
 		/// <summary>
-		/// Tests the RGB-functions of the HistogramNode.
+		/// Tests the RGB-functions of the HistogramNode. Creates a sample pipeline with a HistogramNode as
+		/// output and recalculates the expected results.
 		/// </summary>
 		[Fact]
 		public void TestHistogramNodeRGB()
@@ -143,7 +145,8 @@ namespace YuvKA.Test.Pipeline
 		}
 
 		/// <summary>
-		/// Test the Value function of the HistogramNode.
+		/// Test the Value function of the HistogramNode. Creates a sample pipeline with a HistogramNode as
+		/// output and recalculates the expected results.
 		/// </summary>
 		[Fact]
 		public void TestHistogramNodeValue()
