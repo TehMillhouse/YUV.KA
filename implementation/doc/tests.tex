@@ -37,7 +37,62 @@ Dieser Test überprüft, ob die Überschreibung der Methode \verb#ToString# in d
 	Stellt sicher, dass die Anzahl der vorzuberechnenden Frames korrekt berechnet wird.
 \end{itemize}
 
-\subsection{\name{YuvKA.Pipeline.Implementation}}
+\paragraph{\name{Manipulationknoten}}
+
+\begin{itemize}
+
+\item{\name{TestAdditiveMerge}}~\\
+Dieser Test überprüft, ob der \name{AdditiveMergeNode} die Farben der Pixel der Eingabeframes korrekt addiert.
+
+\item{\name{TestDelayNode}}~\\
+Dieser Test überprüft, ob der \name{DelayNode} die Eingabeframe korrekt verzögert.
+
+\item{\name{TestDifferenceNode}}~\\
+Dieser Test überprüft, ob der \name{DifferenceNode} die Farben der Pixel der Eingabeframes korrekt voneinander abzieht.
+
+\item{\name{TestGaussianBlurMonocolor}}~\\
+Dieser Test überprüft, ob der \name{BlurNode} mit gaußschem Blur und einer einfarbigen Frame keinerlei Effekt besitzt.
+
+\item{\name{TestGaussianZeroBlur}}~\\
+Dieser Test überprüft, ob der \name{BlurNode} mit gaußschem Blur und einem Radius von 0 keinerlei Effekt auf die Frame besitzt.
+
+\item{\name{TestLinearBlurMonocolor}}~\\
+Dieser Test überprüft, ob der \name{BlurNode} mit linearem Blur und einer einfarbigen Frame keinerlei Effekt besitzt.
+
+\item{\name{TestLinearZeroBlur}}~\\
+Dieser Test überprüft, ob der \name{BlurNode} mit linearem Blur und einem Radius von 0 keinerlei Effekt auf die Frame besitzt.
+
+\item{\name{TestInverter}}~\\
+Dieser Test überprüft, ob der \name{InverterNode} die Farben der Pixel der Eingabeframe korrekt invertiert.
+
+\item{\name{TestRgbSplit}}~\\
+Dieser Test überprüft, ob der \name{RgbSplitNode} die Farben der Pixel der Eingabeframe korrekt in die drei Farbkanäle aufspaltet.
+
+\item{\name{TestWeightedAverageMerge}}~\\
+Dieser Test überprüft, ob der \name{WeightedAverageMerge} die Farben der Pixel der Eingabeframes korrekt bezüglich ihrer Gewichtung addiert.
+
+\end{itemize}
+
+\paragraph{AusgabeKnoten}
+
+\begin{itemize}
+
+\item{\name{TestArtifactOverlay}}~\\
+Dieser Test überprüft die Überlagerung von Artefakten, indem zwei Beispielframes erstellt werden und das Ergebnis der Artefaktüberlagerung zu einer manuellen Betrachtung als Bilddatei gespeichert wird.
+
+\item{\name{TestMacroBlockOverlay}}~\\
+Dieser Test überprüft die Überlagerung von Makroblockpartitionsentcheidungen, indem alle mögliche Entscheidungen auf eine Testframe gezeichnet werden und diese zur manuellen Betrachtung als Bilddatei gespeichert wird.
+
+\item{\name{TestNoOverlay}}~\\
+Dieser Test überprüft ob die Überlagerung durch \name{NoOverlay} tatsächlich keinerlei Effekt auf die Eingabeframe besitzt.
+
+\item{\name{TestOverlayNode}}~\\
+Dieser Test überprüft ob der \name{OverlayNode}, im speziellen die Property \verb#InputIsValid#, korrekt funktioniert.
+
+\item{\name{TestVecorOverlay}}~\\
+Dieser Test überprüft die Überlagerung von Bewegungsvektoren pro Makroblock, indem es verschiedenste Bewegungsvektoren auf eine Testframe zeichnet und diese zur manuellen Betrachtung als Bilddatei gespeichert wird.
+
+\end{itemize}
 
 \subsection{\name{YuvKA.ViewModel}}
 
