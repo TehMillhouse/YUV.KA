@@ -393,3 +393,38 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	\change \verb!public T TypedValue { get; set; }! \\
 	Der typisierte Wert der Property wurde umbenannt, um Namenskonflikte mit dem untypisierten Wert der Property der Oberklasse zu vermeiden.
 \end{itemize}
+\subsubsection{\name{YuvKA.ViewModel.PropertyEditor.Implementation}}
+
+\paragraph{\name{DoublePropertyViewModel}}
+\begin{itemize}
+	\change Wurde zu \name{NullableDoublePropertyViewModel} umbenannt, da der zugrundeliegende Typ zum \name{nullable double} gemacht wurde.
+	\add \verb!public bool SlidersAreEnabled { get; }! \\
+	Ruft ab, ob der zugrundeliegende Wert gültig ist, und der in der UI dargestellte Slider als Folge dessen aktiviert sein soll oder nicht.
+\end{itemize}
+
+\paragraph{\name{NumericalPropertyViewModel}}
+\begin{itemize}
+	\change \verb!public double Maximum { get; }! \\
+	Die \name{Minimum}-Property wurde auf read-only gesetzt.
+	\change \verb!public double Minimum! \\
+	Die \name{Maximum}-Property wurde auf read-only gesetzt.
+\end{itemize}
+
+\paragraph{\name{ObservableCollectionOfDoublePropertyViewModel}}
+\begin{itemize}
+	\add \verb!public IEnumerable<DoubleWrapper> Values! \\
+	Inneres \name{IEnumerable} des neu eingeführten Typs \name{DoubleWrapper} wurde eingeführt, um Data Binding von der Benutzeroberfläche her zu ermöglichen.
+	\add \verb!public class DoubleWrapper! \\
+	Innere Wrapper-Klasse um einen \name{double}-Wert herum. Diese wird benötigt, um von der View aus per Data Binding auf den Wert des double zuzugreifen.
+\end{itemize}
+
+\paragraph{\name{+ OutputWindowViewModelPropertyViewModel}} \\
+\name{OutputWindowViewModelPropertyViewModel} erlaubt es Wiedergabeknoten, beliebige ViewModels selbst zu liefern, welche dann vom Programm gelesen und angezeigt werden.
+
+\paragraph{\name{RgbPropertyViewModel}}
+\begin{itemize}
+	\remove \verb!public bool OpenDialog()! \\
+	Die \name{OpenDialog}-Methode wurde entfernt, da das Projekt jetzt den \name{ColorPicker2} aus dem \name{PropertyTools.Wpf}-Projekt benutzt
+	\add \verb!public Color ChrosenColor { get; set; }! \\
+	Stellt eine Property für die vom Benutzer gewählte Farbe bereit.
+\end{itemize}
