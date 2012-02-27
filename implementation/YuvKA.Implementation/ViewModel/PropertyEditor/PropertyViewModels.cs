@@ -10,10 +10,16 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.ViewModel.PropertyEditor.Implementation
 {
+	/// <summary>
+	/// Represents a boolean value usable by the user via the UI.
+	/// </summary>
 	public class BooleanPropertyViewModel : PropertyViewModel<bool>
 	{
 	}
 
+	/// <summary>
+	/// Repsesents a path to a file which is usable by the user via the UI.
+	/// </summary>
 	public class FilePathPropertyViewModel : PropertyViewModel<Pipeline.FilePath>
 	{
 		/// <summary>
@@ -47,10 +53,13 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 	}
 
+	/// <summary>
+	/// Represents a color variable viewable and settable by the user via the UI.
+	/// </summary>
 	public class RgbPropertyViewModel : PropertyViewModel<VideoModel.Rgb>
 	{
 		/// <summary>
-		/// The colorvalue of the property.
+		/// The color value of the property.
 		/// </summary>
 		public Color ChosenColor
 		{
@@ -87,6 +96,10 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 	}
 
+	/// <summary>
+	/// The generic superclass of all PropertyViewModels dealing with single numerical values.
+	/// </summary>
+	/// <typeparam name="T">The value Type to use.</typeparam>
 	public abstract class NumericalPropertyViewModel<T> : PropertyViewModel<T>
 	{
 		public NumericalPropertyViewModel() : base(commitOnValueChanged: false) { }
@@ -107,10 +120,18 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 	}
 
+	/// <summary>
+	/// Represents an integer variable usable by the user via the UI.
+	/// </summary>
 	public class IntPropertyViewModel : NumericalPropertyViewModel<int>
 	{
 	}
 
+	/// <summary>
+	/// Represents a nullable double variable settable by the user via the UI.
+	/// If the internal value of the nullable double is null, the slider representing
+	/// this element on the UI is disabled.
+	/// </summary>
 	public class NullableDoublePropertyViewModel : NumericalPropertyViewModel<double?>
 	{
 		/// <summary>
@@ -188,6 +209,9 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 	}
 
+	/// <summary>
+	/// Represents an enumeration made visible and usable to the user via the UI.
+	/// </summary>
 	public class EnumerationPropertyViewModel : PropertyViewModel<Enum>
 	{
 		/// <summary>
@@ -199,5 +223,8 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		}
 	}
 
+	/// <summary>
+	/// Allows nodes to show display arbitrary ViewModels as output windows.
+	/// </summary>
 	public class OutputWindowViewModelPropertyViewModel : PropertyViewModel<OutputWindowViewModel> { }
 }
