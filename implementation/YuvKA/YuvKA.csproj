@@ -214,15 +214,6 @@
     <Resource Include="View\context.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\icon128x128.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="View\icon256x256.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="View\icon16x16.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="icon256x256.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
