@@ -366,8 +366,6 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	Konvertiert eine Farbe vom HSL-Farbraum zum RGB-Farbraum.
 \end{itemize}
 
-\subsection{\name{YuvKA.ViewModel.Implementation}}
-
 \paragraph{\name OverlayViewModel}
 \begin{itemize}
 	\add \verb!public System.Tuple<string, IOverlayType> ChosenType! \\
@@ -379,3 +377,19 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 \end{itemize}
 
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}
+
+\paragraph{\name PropertyViewModel}
+\begin{itemize}
+	\add \verb!public string DisplayName { get; }! \\
+	Dies gibt das Name-Attribut der Property bzw. den Namen der Property weiter. Dies ist notwendig um der \name{View} deskriptivere Namen der Properties bereitzustellen.
+	\add \verb!public void CommitChange()! \\
+	Diese Methode benachrichtigt alle anderen Objekte dass sich diese Property geändert. Dies ist notwendig damit sich die \name{View} aktualisieren kann, sobald sich der Wert einer Property ändert.
+	\add \verb!public void Initialize(object source, PropertyDescriptor property)! \\
+	Diese Methode weist, einem PropertyViewModel eine Property und die Quelle der Property zur Verwaltung zu. Dies ist notwendig da das PropertyViewModel einen Argumentlosen Konstruktor benötigt und nur auf diese Weise sicherstellen lässt, dass die Property und deren Quelle immer gemeinsam gesetzt werden.
+\end{itemize}
+
+\paragraph{\name {PropertyViewModel<T>}}
+\begin{itemize}
+	\change \verb!public T TypedValue { get; set; }! \\
+	Der typisierte Wert der Property wurde umbenannt, um Namenskonflikte mit dem untypisierten Wert der Property der Oberklasse zu vermeiden.
+\end{itemize}
