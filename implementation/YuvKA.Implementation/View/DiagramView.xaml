@@ -7,8 +7,7 @@
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
         xmlns:ViewportRestrictions="clr-namespace:Microsoft.Research.DynamicDataDisplay.ViewportRestrictions;assembly=DynamicDataDisplay" mc:Ignorable="d"
 			cal:Message.Attach="[Event Closed] = [Action CloseWindow()]"
-			Title="{Binding NodeModel.Name}"
-			Height="571" Width="1004" >
+			Title="{Binding NodeModel.Name}" Height="330" Width="592">
 	<Window.Resources>
 		<DataTemplate x:Key="AddedVideos">
 			<Grid>
@@ -19,7 +18,7 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<Rectangle Grid.Column="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Fill="{Binding Path=GraphColor}" />
-				<Button Height="30" Width="30" Content="Delete" Grid.Column="1" cal:Message.Attach="[Event Click] = [Action DeleteGraphControl($dataContext)]" HorizontalAlignment="Left"/>
+				<Button Height="30" Width="30" Content="Del" Grid.Column="1" cal:Message.Attach="[Event Click] = [Action DeleteGraphControl($dataContext)]" HorizontalAlignment="Left"/>
 				<TextBlock Height="30" Grid.Column="2" Text="{Binding Path=Video.Item1}" />
 				<ComboBox Height="30" Grid.Column="3" ItemsSource="{Binding Path=DisplayTypes}" SelectedItem="{Binding Path=ChosenType}" HorizontalAlignment="Stretch">
 					<ComboBox.ItemTemplate>
@@ -32,17 +31,16 @@
 		</DataTemplate>
 	</Window.Resources>
 
-	<Grid Name="OuterGrid">
+	<Grid Name="OuterGrid" Width="575">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="40" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="75" />
-			<ColumnDefinition Width="425" />
+			<ColumnDefinition Width="175" />
 			<ColumnDefinition Width="75" />
-			<ColumnDefinition Width="120" />
-			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="250" />
 		</Grid.ColumnDefinitions>
 		<Label Content="Reference" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="0" Grid.Row="0"/>
 		<ComboBox Grid.Column="1" Grid.Row="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Videos}" SelectedItem="{Binding Reference}" Name="Reference">
@@ -52,7 +50,7 @@
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
-		<d3:ChartPlotter Height="500" Width="500" Grid.Column="0" Grid.Row="1" x:Name="plotter" LegendVisibility="Hidden" LineGraphs="{Binding Path=LineGraphs}" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+		<d3:ChartPlotter Height="250" Width="250" Grid.Column="0" Grid.Row="1" x:Name="plotter" LegendVisibility="Hidden" LineGraphs="{Binding Path=LineGraphs}" Grid.ColumnSpan="2" VerticalAlignment="Top">
 			<d3:ChartPlotter.FitToViewRestrictions>
 				<ViewportRestrictions:FollowWidthRestriction Width="15" />
 				<ViewportRestrictions:MinimalSizeRestriction MinSize="0"/>
@@ -66,7 +64,7 @@
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
-		<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="2" Height="490" HorizontalAlignment="Left" VerticalAlignment="Top" Width="486" Grid.ColumnSpan="3">
+		<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="2" Height="250" HorizontalAlignment="Left" VerticalAlignment="Top" Width="325" Grid.ColumnSpan="3">
 
 			<ItemsControl ItemsSource="{Binding  GraphControls}"
 	 ItemTemplate="{StaticResource AddedVideos}"/>
