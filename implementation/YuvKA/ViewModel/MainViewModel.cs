@@ -10,7 +10,7 @@ using YuvKA.ViewModel.PropertyEditor;
 namespace YuvKA.ViewModel
 {
 	/// <summary>
-	/// Holds the program's model & all sub view models and implements the undo/redo system.
+	/// Holds the program's model &amp; all sub view models and implements the undo/redo system.
 	/// </summary>
 	[Export]
 	public class MainViewModel : ViewAware, IHandle<OutputWindowViewModel.ClosedMessage>, IHandle<ChangeCommittedMessage>
