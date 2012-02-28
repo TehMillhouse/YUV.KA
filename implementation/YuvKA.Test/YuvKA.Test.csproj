@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnonNodeHelper.cs" />
+    <Compile Include="GlobalTestT30.cs" />
     <Compile Include="GlobalTestT20.cs" />
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="Pipeline\AnonymousNode.cs" />
