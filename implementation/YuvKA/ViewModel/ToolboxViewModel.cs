@@ -18,6 +18,7 @@ namespace YuvKA.ViewModel
 		{
 			NodeTypes = nodes
 				.Select(n => new NodeType { Type = n.GetType(), Name = n.Name })
+				.Where(n => n.Type.IsPublic)
 				.OrderBy(n => n.Name)
 				.ToArray();
 		}
