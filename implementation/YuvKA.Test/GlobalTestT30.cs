@@ -22,6 +22,7 @@ namespace YuvKA.Test
 {
 	public class GlobalTestT30
 	{
+		[Fact]
 		public void Test30()
 		{
 			//Step 1: Construct any Pipeline
