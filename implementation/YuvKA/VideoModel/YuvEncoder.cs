@@ -267,7 +267,7 @@ namespace YuvKA.VideoModel
 				decisions[i] = new MacroblockDecision();
 			}
 			if (macroblockPartitionData != null) {
-				for (int i = 0; i < decisions.Length && i < macroblockPartitionData.Length; i++) {
+				for (int i = 0; i < decisions.Length && macroBlockNumber * index + i < macroblockPartitionData.Length; i++) {
 					decisions[i].PartitioningDecision = (MacroblockPartitioning)macroblockPartitionData[macroBlockNumber * index + i];
 				}
 			}
