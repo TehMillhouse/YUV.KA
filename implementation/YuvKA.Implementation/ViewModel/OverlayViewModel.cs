@@ -66,7 +66,7 @@ namespace YuvKA.ViewModel.Implementation
 		{
 			get
 			{
-				return this.TypeTuples.First(i => NodeModel.Type == i.Item2);
+				return this.TypeTuples.First(i => NodeModel.Type.GetType() == i.Item2.GetType());
 			}
 			set
 			{
