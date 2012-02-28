@@ -307,6 +307,8 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	Fügt dem Diagrammknoten eine neue Grapheneinstellung hinzu.
 	\remove \verb!DeleteGraph! \\
 	Diese Methode wird von einer entsprechenden Methode der GraphControl-Klasse übernommen.
+	\add \verb!protected override void OnDeactivate(bool close)! \\
+	Löscht alle Kurven des Diagramms und alle Grapheneinstellungen, sobald das Diagrammfenster geschlossen wird.
 \end{itemize}
 
 \paragraph{\name{+ GraphControl}}~\\
