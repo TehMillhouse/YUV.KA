@@ -7,6 +7,9 @@ using YuvKA.Pipeline;
 
 namespace YuvKA.ViewModel
 {
+	/// <summary>
+	/// Shows a list of imported node subclasses.
+	/// </summary>
 	[Export]
 	public class ToolboxViewModel
 	{
