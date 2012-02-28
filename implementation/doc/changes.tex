@@ -280,7 +280,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	\add \verb!public ObservableCollection<LineGraphViewModel> LineGraphs { get; }! \\
 	Ruft die Kurven im Diagramm ab, die den Graphen des Dieagrammknotens entsprechen. 
 	\add \verb!public Tuple<string, Node.Input> Reference { get; set; }! \\
-	Ruft das Referenzvideo des Diagrammknotens ab oder setzt diese fest.
+	Ruft das Referenzvideo des Diagrammknotens ab oder setzt dieses fest.
 	\add \verb!public ObservableCollection<Tuple<string, Node.Input>> Videos { get; }! \\
 	Ruft die Eingabevideos des Diagrammknotens ab und fügt diesen einen Index hinzu.
 	\add \verb!public public Tuple<string, Node.Input> ChosenVideo { get; set; }! \\
@@ -290,17 +290,17 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	\add \verb!public List<Color> LineColors { get; }! \\
 	Ruft die zur Zeichnung schon verwendeten Farben ab.
 	\add \verb!public List<System.Windows.Media.Color> TypeColors { get; }! \\
-	Ruft die Basisfarben der einzelnen Graphtypen ab, von denen dann die einzelnen, zur Zeichnung verwendeten Farben abgeleitet werden.
+	Ruft die Basisfarben der einzelnen Graphentypen ab, von denen dann die einzelnen, zur Zeichnung verwendeten Farben abgeleitet werden.
 	\change \verb!public IEnumerable<Tuple<string, IGraphType>> Types { get; set; }! \\
-	Den Diagrammtypen wird nun ein Name hinzugefügt, damit dieser in der GUI angezeigt werden kann.
+	Den Graphentypen wird nun ein Name hinzugefügt, damit dieser in der GUI angezeigt werden kann.
 	\add \verb!public static bool IsInIntervall(double intervallCenter, double number, double intervallSize)! \\
 	Entscheidet, ob eine Zahl in einem Intervall liegt.
 	\add \verb!public void DeleteGraphControl(GraphControl graphControl)! \\
 	Löscht eine gegebene Grapheneinstellung sowie deren Graph und dessen Kurve.
 	\add \verb!public override void Handle(TickRenderedMessage message)! \\
-	Aktualisiert jede Kurve mit den jewiligen Daten eines Frames, sobald dieser berechnet wurde.
+	Aktualisiert jede Kurve mit den jeweiligen Daten eines Frames, sobald dieser berechnet wurde.
 	\change \verb!public void AddGraph(GraphControl graphControl)! \\
-	Fügt eine Graphen und dessen Kurve hinzu, der aus der gegebenen Grapheneinstellung abgerufen wurde.
+	Fügt einen Graphen und dessen Kurve hinzu, der aus der gegebenen Grapheneinstellung abgerufen wurde.
 	\add \verb!public void AddLineGraphViewModel(GraphControl graphControl)! \\
 	Fügt eine Kurve zum Diagramm hinzu, welche aus der gegebenen Grapheneinstellung und deren Graph berechnet wurde.
 	\add \verb!public void AddGraphControl()! \\
@@ -321,7 +321,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	\add \verb!public DiagramGraph Graph { get; set; }! \\
 	Ruft den Diagrammgraphen ab oder setzt ihn fest.
 	\add \verb!public ObservableCollection<Tuple<string, IGraphType>> Types { get; set; }! \\
-	Ruft das alle verfügbaren Graphentypen ab oder setzt diese fest.
+	Ruft alle verfügbaren Graphentypen ab oder setzt diese fest.
 	\add \verb!public ObservableCollection<Tuple<string, IGraphType>> DisplayTypes { get; set; }! \\
 	Ruft die mit den momentanen Einstellungen verfügbaren Graphentypen ab oder setzt sie fest.
 	\add \verb!public Tuple<string, IGraphType> ChosenType! \\
@@ -339,7 +339,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	\add \verb!public void SetLineColor()! \\
 	Setzt jeweils die Farben für die verschiedenen Color-Properties fest.
 	\add \verb!public Color NewColor(Tuple<string, IGraphType> type)! \\
-	Generiert eine neue Farbe vom selben Farbon wie die Basisfarbe des gegebenen Graphentypen.
+	Generiert eine neue Farbe vom selben Farbton wie die Basisfarbe des gegebenen Graphentypen.
 	\add \verb!public void SetDisplayTypes()! \\
 	Entscheidet, welche Graphentypen mit den momentanen Einstellungen verfügbar sind und legt diese fest.
 \end{itemize}
@@ -371,9 +371,9 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 \paragraph{\name{OverlayViewModel}}
 \begin{itemize}
 	\add \verb!public System.Tuple<string, IOverlayType> ChosenType! \\
-	Ein Tupel, welches den Namen und den Typ des gerade verwendeten Überlagerungstyps.
+	Ein Tupel, welches den Namen und den Typ des gerade verwendeten Überlagerungstyps enthält.
 	\add \verb!public WriteableBitmap RenderedImage { get; private set; }! \\
-	Das Ergebnis der Überlagerung für die \name{View} aufbereitet. Dies ist notwendig, da die die \name{View} eine \name{Frame} nicht ohne weiteres darstellen kann.
+	Das Ergebnis der Überlagerung für die \name{View} aufbereitet. Dies ist notwendig, da die \name{View} einen \name{Frame} nicht ohne weiteres darstellen kann.
 	\add \verb!public IEnumerable<System.Tuple<string, IOverlayType>> TypeTuples! \\
 	Eine Sammlung aller momentan verfügbaren Überlagerungstypen in Form von Tupeln mit Namen und Typ. Dies ist notwendig für die \name{View} um die Auswahl der Überlagerungen darzustellen.
 \end{itemize}
@@ -385,9 +385,9 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	\add \verb!public string DisplayName { get; }! \\
 	Dies gibt das Name-Attribut der Property bzw. den Namen der Property weiter. Dies ist notwendig um der \name{View} deskriptivere Namen der Properties bereitzustellen.
 	\add \verb!public void CommitChange()! \\
-	Diese Methode benachrichtigt alle anderen Objekte dass sich diese Property geändert. Dies ist notwendig damit sich die \name{View} aktualisieren kann, sobald sich der Wert einer Property ändert.
+	Diese Methode benachrichtigt alle anderen Objekte dass sich diese Property geändert hat. Dies ist notwendig damit sich die \name{View} aktualisieren kann, sobald sich der Wert einer Property ändert.
 	\add \verb!public void Initialize(object source, PropertyDescriptor property)! \\
-	Diese Methode weist, einem PropertyViewModel eine Property und die Quelle der Property zur Verwaltung zu. Dies ist notwendig da das PropertyViewModel einen Argumentlosen Konstruktor benötigt und nur auf diese Weise sicherstellen lässt, dass die Property und deren Quelle immer gemeinsam gesetzt werden.
+	Diese Methode weist einem PropertyViewModel eine Property und die Quelle der Property zur Verwaltung zu. Dies ist notwendig da das PropertyViewModel einen argumentlosen Konstruktor benötigt und sich nur auf diese Weise sicherstellen lässt, dass die Property und deren Quelle immer gemeinsam gesetzt werden.
 \end{itemize}
 
 \paragraph{\name{PropertyViewModel<T>}}
