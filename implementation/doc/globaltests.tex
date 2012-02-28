@@ -1,8 +1,6 @@
-\paragraph{\name{Testfall /T10/}}
+\paragraph{\name{/T10/ Pipeline-Konstruktion}}
 
-\paragraph{\name{Testfall /T20/ Manipulation einer Pipeline}} ~\\
-
-Der Testablauf:
+\paragraph{\name{/T20/ Manipulation einer Pipeline}} ~\\
 
 \begin{itemize}
 	\item Der Benutzer startet das Programm und erstellt eine beliebige Pipeline mit mindestens zwei Knoten, davon mindestens ein Manipulationsknoten mit Optionen und mindestens einer Kante.
@@ -13,12 +11,9 @@ Der Testablauf:
 			\item Der Benutzer löscht einen Knoten.
 \end{itemize}
 
-wird durch einen automatischen Test abgedeckt, wobei die Pipeline aus drei Weichzeichnungsknoten besteht. Das ändern einer Einstellung kann nicht vollkommen durch einen automatischen Test simuliert werden, deswegen geschieht dies nicht auf dem ViewModel, sondern direkt auf dem zugrunde liegendem Knotenmodell.
+Wird durch einen automatischen Test abgedeckt, wobei die Pipeline aus drei Weichzeichnungsknoten besteht. Das Ändern einer Einstellung kann nicht vollkommen durch einen automatischen Test simuliert werden. Deswegen geschieht dies nicht auf dem ViewModel, sondern direkt auf dem zugrundeliegendem Knotenmodell.
 
-
-\paragraph{\name{Testfall /T30/ Sicherung einer Pipeline}} ~\\
-
-Der Testablauf:
+\paragraph{\name{/T30/ Sicherung einer Pipeline}} ~\\
 
 \begin{itemize}
 	\item Der Benutzer startet das Programm und erstellt eine beliebige Pipeline.
@@ -27,8 +22,25 @@ Der Testablauf:
 	\item Der Benutzer lädt die gesicherte Pipeline.
 \end{itemize}
 
-wird durch einen automatischen Test abgedeckt, wobei der Dialog der beim Abspeichern und Laden der Pipeline aufgerufen nicht vollkommen durch einen automatisierten Test simuliert werden kann.
+Wird durch einen automatischen Test abgedeckt, wobei der Dialog, der beim Abspeichern und Laden der Pipeline aufgerufen wird, nicht vollkommen durch einen automatisierten Test simuliert werden kann.
 
-\paragraph{\name{Testfall /T40/}}
+\paragraph{\name{/T40/ Videoverarbeitung}}
 
-\paragraph{\name{Testfall /T50/}}
+\paragraph{\name{/T50/ Videoanalyse}} ~\\
+ 
+\begin{itemize}
+	\item Der Benutzer startet das Programm und erstellt eine beliebige, zusammenhängende, zyklenfreie Pipeline mit mindestens einem Eingabe-, Überlagerungs-, sowie Diagrammknoten.
+	\item Der Benutzer deaktiviert einen Diagrammknoten.
+	\item Der Benutzer öffnet einen Überlagerungsknoten.
+	\item Der Benutzer beginnt die Videowiedergabe.
+	\item Der Benutzer fügt einen Überlagerungsoption hinzu, während das Video abgespielt wird.
+	\item Der Benutzer entfernt die hinzugefügte Überlagerungsoption.
+	\item Der Benutzer setzt die Videowiedergabe zurück und schließt den Überlagerungsknoten.
+	\item Der Benutzer reaktiviert den deaktivierten Diagrammknoten und öffnet diesen.
+	\item Der Benutzer wählt ein Referenzvideo aus und fügt einen Analysegraphen hinzu.
+	\item Der Benutzer startet erneut die Videowiedergabe.
+	\item Der Benutzer ändert den Typ des Analysegraphen.
+	\item Der Benutzer löscht den Analysegraphen.
+\end{itemize}
+
+Auch dieser Test wird durch eine automatische Version abgedeckt. Der Test dient dem Abtesten der grundlegenden Funktion von Überlagerungs- und Diagrammknoten.
