@@ -135,6 +135,18 @@ Dieser Test überprüft die Überlagerung von Bewegungsvektoren pro Makroblock, 
 
 \subsection{\name{YuvKA.ViewModel}}
 
+\paragraph{\name{MainViewModel}}
+\begin{itemize}
+	\item \name{CanOpenCloseOutputWindow} \\
+	Stellt sicher, dass das View Model nach Öffnen und Schließen eines Ausgabefenster jeweils den korrekten Zustand annimmt.
+	\item \name{OpenCreatesNodeViewModelsFromModel} \\
+	Stellt sicher, dass die Pipeline in Model und View Model nach Sichern und Laden korrekt wiederhergestellt wurde.
+	\item \name{ToolboxCanHasBlurNode} \\
+	Stellt sicher, dass die Plugin-Knoten korrekt in die Toolbox geladen werden.
+	\item \name{UndoRedoWorks} \\
+	Überprüft den Undo-/Redo-Mechanismus anhand einer festgelegten Abfolge von Kommandos.
+\end{itemize}
+
 \paragraph{\name{OverlayViewModel}}
 
 \begin{itemize}
