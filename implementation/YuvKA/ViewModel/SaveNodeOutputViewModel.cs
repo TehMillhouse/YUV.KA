@@ -9,6 +9,9 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.ViewModel
 {
+	/// <summary>
+	/// Displays a modal dialog that shows the progress of rendering a given node output to disk.
+	/// </summary>
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "CancellationTokenSource should generally not be disposed")]
 	public class SaveNodeOutputViewModel : Screen
 	{
@@ -30,7 +33,14 @@ namespace YuvKA.ViewModel
 			});
 		}
 
+		/// <summary>
+		/// Current progress: the number of render ticks
+		/// </summary>
 		public int CurrentTick { get; private set; }
+
+		/// <summary>
+		/// Total number of ticks to render to disk
+		/// </summary>
 		public int TickCount { get { return model.Graph.TickCount ?? 100; } }
 
 		public void Cancel()
