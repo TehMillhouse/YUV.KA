@@ -14,6 +14,17 @@ Dieser Test überprüft, ob die Überschreibung der Methode \verb#GetHashCode# i
 Dieser Test überprüft, ob die Überschreibung der Methode \verb#ToString# in dem Rgb-Struct korrekt funktioniert.
 \end{itemize}
 
+\paragraph{\name{YuvEncoder}}
+Wegen der fundamental verlustbehafteten Konvertierung zwischen den YCbCr- und RGB-Farmräumen ist es hier nur begrenzt möglich, die Korrektheit der Konvertierung zu zeigen. Deswegen sind die Tests im YuvEncoder manuell zu untersuchen. Hierzu speichern die Tests ihre Ausgabe in einem bestimmten Ordner, wo die Resultate weiterhin untersucht werden können.
+\begin{itemize}
+	\item \name{TestVideoFunctionality}~\\
+	Testet die Funktionalität der internen \name{Video}-Klasse des YuvEncoders, beispielsweise das Einlesen einer Datei, das Konvertieren in ein gültiges Video-Objekt und das Ansprechen der sich darin befindlichen Frames.
+	\item \name{TestYuvEncoder}~\\
+	Testet die Konvertierung aus dem yuv420-Format ins RGB-Format und zurück.
+	\item \name{YuvEncoderSpeedTest}~\\
+	Konvertiert alle Frames eines Videos in den RGB-Farbraum, und gibt die dafür benötigte Zeit auf der Konsole aus.
+\end{itemize}
+
 \subsection{\name{YuvKA.Pipeline}}
 
 \paragraph{\name{PipelineGraph}}
