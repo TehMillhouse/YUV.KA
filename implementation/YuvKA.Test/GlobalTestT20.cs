@@ -19,7 +19,7 @@ namespace YuvKA.Test
 	public class GlobalTestT20
 	{
 		[Fact]
-		public void GlobalTestCaseT20()
+		public void Test20()
 		{
 			var posMock = new Mock<IGetPosition>();
 			posMock.Setup(p => p.GetElementSize(It.IsAny<IViewAware>())).Returns(new Size(4, 4));
