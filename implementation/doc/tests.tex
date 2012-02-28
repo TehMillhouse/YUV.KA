@@ -156,6 +156,26 @@ Dieser Test überprüft die Funktionalitäten von \name{OverlayViewModel}, im sp
 
 \end{itemize}
 
+\paragraph{\name{PipelineViewModel}}
+\begin{itemize}
+	\item \name{CanAddInput} \\
+	Stellt sicher, dass beim Droppen einer Kante auf einen Knoten mit dynamischer Inputzahl ein neuer Input hinzugefügt wird.
+	\item \name{CanDragEdge} \\
+	Stellt sicher, dass eine Kante beim Ziehen jeweils den korrekten Zustand und die korrekte Position annimmt.
+	\item \name{CanDropNode} \\
+	Stellt sicher, dass ein Knoten beim Drop auf die Pipeline korrekt erstellt und hinzugefügt wird.
+	\item \name{CanMoveNode} \\
+	Stellt sicher, dass ein Knoten beim Ziehen jeweils die richtige Position annimmt.
+	\item \name{CanRemoveNode} \\
+	Stellt sicher, dass sich Model und View Model nach Löschen eines Knotens im korrekten Zustand befinden.
+	\item \name{DisplaysDynamicallyAddedOutputs} \\
+	Stellt sicher, dass sich das View Model nach Hinzufügen eines Outputs im Model im korrekten Zustand befindet.
+	\item \name{NotifiesOfViewPositionChanges} \\
+	Stellt sicher, dass das Setzen der Position eines Knotens die \name{ViewPositionChanged}-Observable triggert.
+	\item \name{RendersNodeToFileCorrectly} \\
+	Stellt sicher, dass der Output eines Knotens korrekt gerendert und gespeichert wird.
+\end{itemize}
+
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}
 
 \paragraph{\name{PropertyEditorViewModel}}
