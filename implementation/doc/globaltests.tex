@@ -1,6 +1,20 @@
 \paragraph{\name{Testfall /T10/}}
 
-\paragraph{\name{Testfall /T20/}}
+\paragraph{\name{Testfall /T20/ Manipulation einer Pipeline}} ~\\
+
+Der Testablauf:
+
+\begin{itemize}
+	\item Der Benutzer startet das Programm und erstellt eine beliebige Pipeline mit mindestens zwei Knoten, davon mindestens ein Manipulationsknoten mit Optionen und mindestens einer Kante.
+			\item Der Benutzer bewegt einen gesetzten Knoten innerhalb der Pipeline per ``Drag-and-Drop''.
+			\item Der Benutzer verändert das Ziel einer gesetzten Kante per ``Drag-and-Drop''.
+			\item Der Benutzer löscht eine Kante.
+			\item Der Benutzer verändert eine Einstellung eines Manipulationsknotens.
+			\item Der Benutzer löscht einen Knoten.
+\end{itemize}
+
+wird durch einen automatischen Test abgedeckt, wobei die Pipeline aus drei Weichzeichnungsknoten besteht. Das ändern einer Einstellung kann nicht vollkommen durch einen automatischen Test simuliert werden, deswegen geschieht dies nicht auf dem ViewModel, sondern direkt auf dem zugrunde liegendem Knotenmodell.
+
 
 \paragraph{\name{Testfall /T30/ Sicherung einer Pipeline}} ~\\
 
