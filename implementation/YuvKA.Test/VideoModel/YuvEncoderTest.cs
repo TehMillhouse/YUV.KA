@@ -72,31 +72,6 @@ namespace YuvKA.Test.VideoModel
 		}
 
 		/// <summary>
-		/// Does several passes of Decode/Encode over the same image.
-		/// The point of this is to see how much distortion comes in and
-		/// how much information is lost when en- or decoding.
-		/// Reuires YuvEncoder.YuvToRgb and YuvEncoder.RgbToYuv to be made public
-		/// </summary>
-		[Fact]
-		public void YuvEncoderStresstest()
-		{
-			// processes the same image many times
-			int width = 352;
-			int height = 240;
-			var size = new YuvKA.VideoModel.Size(width, height);
-			string source = "..\\..\\..\\..\\resources\\americanFootball_352x240_125.yuv";
-			string finalFile = "..\\..\\..\\..\\output\\multipass.png";
-
-			YuvEncoder.Video video = new YuvEncoder.Video(size, source, null, null);
-			Frame frame = video[79];
-			for (int i = 0; i < 20; i++) {
-				// herp = YuvEncoder.YuvToRgb(YuvEncoder.RgbToYuv(herp), width, height);
-			}
-			Bitmap bmp = FrameToBitmap(frame);
-			bmp.Save(finalFile);
-		}
-
-		/// <summary>
 		/// Print out the time for Encoding one whole video,
 		/// to have comparevalues when modifying the encoder
 		/// </summary>
