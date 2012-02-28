@@ -118,8 +118,6 @@ namespace YuvKA.ViewModel.Implementation
 		{
 			get { return lineColors ?? (lineColors = new List<Color>()); }
 		}
-		
-		
 
 		/// <summary>
 		/// Gets the base colors of the types.
@@ -245,18 +243,6 @@ namespace YuvKA.ViewModel.Implementation
 			outData.SetXMapping(k => k.X);
 			outData.SetYMapping(k => k.Y);
 			return outData;
-		}
-
-		/// <summary>
-		/// Clears all GraphControls and lines from the diagram once the DiagramViewModel is closed.
-		/// </summary>
-		/// <param name="close"></param>
-		protected override void OnDeactivate(bool close)
-		{
-			GraphControls.Clear();
-			LineGraphs.Clear();
-			LineColors.Clear();
-			base.OnDeactivate(close);
 		}
 	}
 }
