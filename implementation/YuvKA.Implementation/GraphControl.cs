@@ -140,7 +140,7 @@ namespace YuvKA.Implementation
 			do {
 				// Generate new color by using the hue of the basecolor and getting a random brightness and saturation.
 				newColor = HslHelper.HslToRgb(h, random.NextDouble(), random.NextDouble());
-			} while (Parent.LineColors.Contains(newColor) || newColor.GetHue().Equals(0.0) || newColor.GetBrightness().Equals(1.0) || newColor.GetBrightness().Equals(0.0) || Parent.LineColors.FindIndex(color => DiagramViewModel.IsInIntervall(newColor.GetBrightness(), color.GetBrightness(), 0.08) && DiagramViewModel.IsInIntervall(newColor.GetSaturation(), color.GetSaturation(), 0.08)) != -1);
+			} while (Parent.LineColors.Contains(newColor) || !DiagramViewModel.IsInIntervall(0.5, newColor.GetSaturation(), 0.3) || !DiagramViewModel.IsInIntervall(0.5, newColor.GetBrightness(), 0.3) || Parent.LineColors.FindIndex(color => DiagramViewModel.IsInIntervall(newColor.GetBrightness(), color.GetBrightness(), 0.12) && DiagramViewModel.IsInIntervall(newColor.GetSaturation(), color.GetSaturation(), 0.12)) != -1);
 			CurrentLineColor = newColor;
 
 			return Color.FromArgb(newColor.A, newColor.R, newColor.G, newColor.B);
