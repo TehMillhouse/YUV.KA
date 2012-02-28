@@ -66,7 +66,7 @@ Wegen der fundamental verlustbehafteten Konvertierung zwischen den YCbCr- und RG
     Führt \name{RenderTicksLongGraph} 100-mal hintereinander aus.
 \end{itemize}
 
-\paragraph{Manipulationsknoten}
+\paragraph{\name{Manipulationsknoten}}
 
 \begin{itemize}
 
@@ -100,9 +100,25 @@ Dieser Test überprüft, ob der \name{RgbSplitNode} die Farben der Pixel der Ein
 \item{\name{TestWeightedAverageMerge}}~\\
 Dieser Test überprüft, ob der \name{WeightedAverageMerge} die Farben der Pixel der Eingabeframes korrekt bezüglich ihrer Gewichtung addiert.
 
+\item{\name{TestBrightnessContrastSaturation}}~\\
+Der Test liest ein Bild aus einer Datei ein und wendet die Effekte des BCS-Nodes an. Da die Wirkung dieser Effekte nicht automatisch testbar ist, gehört ihre Prüfung zu den Aufgaben des Testers, der durch ``Hinsehen'' die Qualität der verarbeiteten Bilder bewertet.
+
 \end{itemize}
 
-\paragraph{AusgabeKnoten}
+\paragraph{\name{Eingabeknoten}}
+\begin{itemize}
+	\item{\name{NoiseInputTest}}~\\
+	Dieser Test erstellt ein Bild von jedem der vier Noise-Typen. Da die erhaltenen Bilder bzw. der Nichtdeterminismus des Noises nicht automatisch getestet werden können, gehört ihre Prüfung zu den Aufgaben des Testers, der durch ``Hinsehen'' die Qualität der verarbeiteten Bilder bewertet. Dieser Test überprüft nur, ob für das Erstellen eines Noise-Frames höchstens 200ms gebraucht werden.
+	
+	\item{\name{ColorInputTest}}~\\
+	Testet die Reihenfolge von Größenänderung und Farbänderung des generierten Frames. Dafür wird jeweils ein Bild in eine PNG-Datei geschrieben. Es soll hier auch visuelles Testen erfolgen.
+	
+	\item{\name{ImageInputTest}}~\\
+	Liest ein Bild aus einer PNG-Datei ein, verändert seine Größe mehrere Male und speichert es jedes Mal als PNG-Datei. Wie bei den beiden Tests weiter oben soll auch hier visuelles Testen erfolgen.
+	
+\end{itemize}
+
+\paragraph{\name{AusgabeKnoten}}
 
 \begin{itemize}
 

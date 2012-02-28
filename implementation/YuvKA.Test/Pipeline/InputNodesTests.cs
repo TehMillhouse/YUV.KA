@@ -9,7 +9,10 @@ namespace YuvKA.Test.Pipeline
 {
 	public class InputNodesTests
 	{
-		// Create images with the two supported noise types: Perlin and Coherent noise
+
+		/// <summary>
+		/// Create images with the four supported noise types: Perlin/Colored-Perlin and Coherent/Colored-Coherent noise
+		/// </summary>
 		[Fact]
 		public static void NoiseInputTest()
 		{
@@ -61,8 +64,10 @@ namespace YuvKA.Test.Pipeline
 			outputImage.Save("..\\..\\..\\..\\output\\noise-" + noiseInput.Type + "-tick-" + tick + "-352x240.png");
 		}
 
-		// Read a PNG file and resize it using the methods in ImageInputNode.
-		// This test does no verification. It's intended to generate a result to be visualized.
+		/// <summary>
+		/// Read a PNG file and resize it using the methods in ImageInputNode.
+		/// This test does no verification. It's intended to generate a result to be visualized.
+		/// </summary>
 		[Fact]
 		public void ImageInputTest()
 		{
@@ -99,12 +104,12 @@ namespace YuvKA.Test.Pipeline
 
 			inputNode.Size = new YuvKA.VideoModel.Size(420, 315);
 			inputNode.OutputFrame(0);
-
-
 		}
 
-		// Output a color and write it to a file
-		// Test the order of resize and color change operations
+		/// <summary>
+		/// Test the order of resize and color change operations.
+		/// Output a color and write it to a file.
+		/// </summary>
 		[Fact]
 		public void ColorInputTest()
 		{

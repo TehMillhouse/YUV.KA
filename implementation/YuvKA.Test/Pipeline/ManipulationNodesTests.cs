@@ -215,7 +215,9 @@ namespace YuvKA.Test.Pipeline
 			}
 		}
 
-		// Reads an image and applies the contrast effect of the BCS-Node to it, then saves it back to file
+		/// <summary>
+		/// Reads an image and applies the contrast effect of the BCS-Node to it, then saves it back to file
+		/// </summary>
 		[Fact]
 		public void TestBrightnessContrastSaturation()
 		{
