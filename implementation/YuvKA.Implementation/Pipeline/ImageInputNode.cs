@@ -30,6 +30,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// Gets or sets the path of the PNG image file to be streamed into the pipeline
 		/// </summary>
 		[DisplayName("File Name")]
+		[FilePath.ExtensionFilter("PNG File|*.png|All files (*.*)|*")]
 		[DataMember]
 		[Browsable(true)]
 		public FilePath FileName

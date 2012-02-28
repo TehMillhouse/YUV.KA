@@ -24,6 +24,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DisplayName("Video File")]
+		[IODescription("YUV-Video|*.yuv|All files (*.*)|*")]
 		[DataMember]
 		[Browsable(true)]
 		public FilePath FileName
@@ -51,6 +52,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DisplayName("(Log File)")]
+		[FilePath.ExtensionFilter("Log File|*.dat|All files (*.*)|*")]
 		[DataMember]
 		[Browsable(true)]
 		public FilePath LogFileName
@@ -69,6 +71,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DisplayName("(Motion Vector File)")]
+		[FilePath.ExtensionFilter("Motion Vector File|*.csv|All files (*.*)|*")]
 		[DataMember]
 		[Browsable(true)]
 		public FilePath MotionVectorFileName

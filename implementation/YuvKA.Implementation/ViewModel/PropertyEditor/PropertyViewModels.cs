@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using Caliburn.Micro;
+using YuvKA.Pipeline;
 using YuvKA.VideoModel;
 
 namespace YuvKA.ViewModel.PropertyEditor.Implementation
@@ -20,7 +21,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 	/// <summary>
 	/// Repsesents a path to a file which is usable by the user via the UI.
 	/// </summary>
-	public class FilePathPropertyViewModel : PropertyViewModel<Pipeline.FilePath>
+	public class FilePathPropertyViewModel : PropertyViewModel<FilePath>
 	{
 		/// <summary>
 		/// The last part of the current Filepath.
@@ -30,7 +31,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 			get
 			{
 				if (TypedValue.Path != null)
-					return TypedValue.Path.Split(new char[] { '\\' }).Last();
+					return Path.GetFileName(TypedValue.Path);
 				return "Choose File...";
 			}
 		}
@@ -41,7 +42,8 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		/// <returns>The dialog.</returns>
 		public IEnumerable<IResult> OpenDialog()
 		{
-			var file = new ChooseFileResult { Filter = "YUV-Video|*.yuv|All files (*.*)|*" };
+			var filter = Property.Attributes.OfType<FilePath.ExtensionFilterAttribute>().FirstOrDefault();
+			var file = new ChooseFileResult { Filter = filter != null ? filter.Filter : "All files (*.*)|*" };
 			yield return file;
 
 			string currentDir = Directory.GetCurrentDirectory();
