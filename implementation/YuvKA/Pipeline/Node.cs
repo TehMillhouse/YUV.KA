@@ -41,6 +41,11 @@ namespace YuvKA.Pipeline
 		public virtual bool OutputHasMotionVectors { get { return false; } }
 
 		/// <summary>
+		/// Specifies if the node should be processed even if it doesn't have any output windows.
+		/// </summary>
+		public virtual bool ProcessNodeInBackground { get { return false; } }
+
+		/// <summary>
 		/// The X coordinate of the position of this node.
 		/// </summary>
 		[DataMember]

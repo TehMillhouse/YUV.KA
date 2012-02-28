@@ -40,6 +40,8 @@ namespace YuvKA.Pipeline.Implementation
 		[Browsable(true)]
 		public bool IsEnabled { get; set; }
 
+		public override bool ProcessNodeInBackground { get { return IsEnabled; } }
+
 		/// <summary>
 		/// Gets or sets the video to which all other videos are compared.
 		/// </summary>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
@@ -48,7 +49,7 @@ namespace YuvKA.ViewModel
 				Stop();
 
 			if (!IsPlaying) {
-				if (Parent.Model.Start(Parent.OpenWindows.Select(w => w.NodeModel)))
+				if (Parent.Model.Start(GetNodesToProcess()))
 					IsPlaying = !IsPlaying;
 			}
 			else {
@@ -76,6 +77,12 @@ namespace YuvKA.ViewModel
 		{
 			if (Parent.Model.CurrentTick == Parent.Model.Graph.TickCount - 1)
 				IsPlaying = false;
+		}
+
+		IEnumerable<Node> GetNodesToProcess()
+		{
+			return Parent.OpenWindows.Select(w => w.NodeModel)
+				.Concat(Parent.Model.Graph.Nodes.Where(n => n.ProcessNodeInBackground));
 		}
 	}
 }
