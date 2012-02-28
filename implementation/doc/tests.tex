@@ -176,6 +176,16 @@ Dieser Test überprüft die Funktionalitäten von \name{OverlayViewModel}, im sp
 	Stellt sicher, dass der Output eines Knotens korrekt gerendert und gespeichert wird.
 \end{itemize}
 
+\paragraph{ReplayStateViewModel}
+\begin{itemize}
+	\item \name{CantPlayInvalidPipeline} \\
+	Stellt sicher, dass eine ungültige Pipeline nicht abgespielt werden kann.
+	\item \name{PlayPauseWorks} \\
+	Stellt sicher, dass ein Aufruf von \name{PlayPause} zum Starten des PipelineDrivers und ein zweiter Aufruf zu dessen Abbruch führt.
+	\item \name{StopsAtEndThenStartsAnew} \\
+	Stellt sicher, dass die Wiedergabe am Ende des Videos automatisch stoppt und ein Aufruf von \name{PlayPause} das Video wieder vom Anfang an abspielt.
+\end{itemize}
+
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}
 
 \paragraph{\name{PropertyEditorViewModel}}
