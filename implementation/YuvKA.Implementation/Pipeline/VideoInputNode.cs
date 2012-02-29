@@ -24,7 +24,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[DisplayName("Video File")]
-		[IODescription("YUV-Video|*.yuv|All files (*.*)|*")]
+		[FilePath.ExtensionFilter("YUV-Video|*.yuv|All files (*.*)|*")]
 		[DataMember]
 		[Browsable(true)]
 		public FilePath FileName
