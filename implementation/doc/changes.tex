@@ -39,7 +39,16 @@
 	\remove \verb!public void Dispose()! \\
 	Da keine Streams länger als unbedingt nötig offen gehalten werden, ist die zuvor von der \name{Video}-Klasse implementierte Schnittstelle \name{IDisposable} hier nicht mehr benötigt. Dadurch entfällt diese Methode.
 \end{itemize}
+\newpage
 
+\subsubsection*{Aktuelles Klassendiagramm}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[height=0.7\textheight]{classdiagram/videomodel.png}
+\end{center}
+\end{figure}
+Das VideoModel repräsentiert ein eingelesenes Video, ggf. mit zugehörigen Log-Daten. Da es die Daten im RGB-Format speichert, müssen diese bei Eingabe und Ausgabe von einem YUV-Encoder konvertiert werden.
+\newpage
 
 \subsection{\name{YuvKA.Pipeline}}
 
@@ -103,7 +112,16 @@
 	\add \verb!public PipelineDriver Driver { get; }! \\
 	Nachdem in der \name{PipelineDriver}-Klasse der \name{static}-Modifier entfernt wurde, musste mit dieser neuen Property der Pipeline eine Driver-Instanz zugeordnet werden.
 \end{itemize}
+\newpage
 
+\subsubsection*{Aktuelles Klassendiagramm}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=\textwidth]{classdiagram/pipe.png}
+\end{center}
+\end{figure}
+Die Pipeline-Schicht repräsentiert den UI-unabhängigen Aufbau des Analyse-DAGs\footnote{\emph{directed acyclic graph}}. Sie besteht einerseits aus den unterschiedlichen Knoten-Klassen, die unabhängig voneinander ihren jeweiligen Algorithmus auf Frame-für-Frame-Basis implementieren, und andererseits aus dem Pipeline Driver, der für die Abhängigkeitsauflösung und letztendliche Abarbeitung der Pipeline zuständig ist.
+\newpage
 
 \subsection{\name{YuvKA.Pipeline.Implementation}}
 
@@ -165,6 +183,16 @@ Die zur Berechnung des jeweiligen Histogrammtyps benötigten Methoden wurden als
 
 \paragraph{\name{+ NoOverlay}}~\\
 Diese Klasse ist ein Überlagerungstyp der nichts überlagert und somit stets verfügbar ist, unabhängig von den zusätzlichen Daten neben der obligatorischen ursprünglichen \name{Frame}.
+\newpage
+
+\subsubsection*{Aktuelles Klassendiagramm}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.76\textheight,angle=90]{classdiagram/pipe-imp.png}
+\end{center}
+\end{figure}
+Namespace der vordefinierten Knotentypen. Diese werden dynamisch bei Programmstart ermittelt und geladen.
+\newpage
 
 \subsection{\name{YuvKA.ViewModel}}
 
@@ -265,7 +293,16 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	\add \verb!public WriteableBitmap SourceImage { get; }! \\
 	Speichert das Bild, das als nächstes in das Ausgabefenster gezeichnet werden soll.
 \end{itemize}
+\newpage
 
+\subsubsection*{Aktuelles Klassendiagramm}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{classdiagram/viewmodel.png}
+\end{center}
+\end{figure}
+Nach dem MVVM-Pattern ist es Aufgabe der ViewModel-Schicht, der View das Model in einer für sie verarbeitbaren Form zu präsentieren. Bezogen auf das Projekt bedeutet dies vor allem, die Model-Klassen um View-spezifische Daten und Methoden zu ergänzen.
+\newpage
 
 \subsection{\name{YuvKA.ViewModel.Implementation}}
 
@@ -377,6 +414,16 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	\add \verb!public IEnumerable<System.Tuple<string, IOverlayType>> TypeTuples! \\
 	Eine Sammlung aller momentan verfügbaren Überlagerungstypen in Form von Tupeln mit Namen und Typ. Dies ist notwendig für die \name{View} um die Auswahl der Überlagerungen darzustellen.
 \end{itemize}
+\newpage
+
+\subsubsection*{Aktuelles Klassendiagramm}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{classdiagram/viewmodel-imp.png}
+\end{center}
+\end{figure}
+Namespace der ViewModels der vordefinierten Knotentypen.
+\newpage
 
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}
 
@@ -430,3 +477,12 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 	\add \verb!public Color ChrosenColor { get; set; }! \\
 	Stellt eine Property für die vom Benutzer gewählte Farbe bereit.
 \end{itemize}
+\newpage
+
+\subsubsection*{Aktuelles Klassendiagramm}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[height=0.7\textheight]{classdiagram/propertyeditorvm.png}
+\end{center}
+\end{figure}
+Die Klassen des PropertyEditor-Namespaces erzeugen für ein beliebiges Objekt dynamisch eine Oberfläche zum Anzeigen und Ändern seiner Property-Werte. Die Menge der darstellbaren Property-Typen ist dynamisch erweiterbar.
