@@ -77,6 +77,7 @@
     <Compile Include="ChartPlotter.cs" />
     <Compile Include="HslHelper.cs" />
     <Compile Include="LineGraphViewModel.cs" />
+    <Compile Include="Pipeline\DisplayNode.cs" />
     <Compile Include="Pipeline\NoiseType.cs" />
     <Compile Include="ViewModel\DiagramViewModel.cs" />
     <Compile Include="ViewModel\HistogramViewModel.cs" />
