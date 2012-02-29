@@ -80,7 +80,7 @@ namespace YuvKA.VideoModel
 				throw new IndexOutOfRangeException();
 			}
 			byte[] data = new byte[yuvFrameSize * frameCount];
-			using (FileStream stream = new FileStream(fileName, FileMode.Open)) {
+			using (FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read)) {
 				stream.Seek(yuvFrameSize * startFrame, SeekOrigin.Begin);
 				stream.Read(data, 0, yuvFrameSize * frameCount);
 			}
@@ -195,7 +195,7 @@ namespace YuvKA.VideoModel
 			}
 			//Reads the whole File into that byte array
 			byte[] data = new byte[logFile.Length];
-			using (FileStream stream = new FileStream(logFileName, FileMode.Open)) {
+			using (FileStream stream = new FileStream(logFileName, FileMode.Open, FileAccess.Read, FileShare.Read)) {
 				stream.Read(data, 0, (int)logFile.Length);
 			}
 			return data;
