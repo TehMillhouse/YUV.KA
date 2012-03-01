@@ -9,6 +9,16 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class DifferenceNode : Node
 	{
+		public override bool InputIsValid
+		{
+			get
+			{
+				return ((Inputs[1].Source != null || Inputs[0].Source != null)
+					&& (Inputs[0].Source == null || Inputs[0].Source.Node.InputIsValid)
+					&& (Inputs[1].Source == null || Inputs[1].Source.Node.InputIsValid));
+			}
+		}
+
 		/// <summary>
 		/// Construct a differencenode.
 		/// It has two Inputs and one Output.
@@ -28,6 +38,15 @@ namespace YuvKA.Pipeline.Implementation
 		/// <returns>An array of Frames whose only entry is the subtraction of the second entry of input from the first entry.</returns>
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
+			if (inputs.Length < 2) {
+				// We act as if the unconnected input were a black frame
+				if (Inputs[0].Source != null) {
+					inputs = new[] { inputs[0], new Frame(new Size(1, 1)) };
+				}
+				else {
+					inputs = new[] { new Frame(new Size(1, 1)), inputs[0] };
+				}
+			}
 			Size maxSize = Frame.MaxBoundaries(inputs);
 			Frame[] output = { new Frame(new Size(maxSize.Width, maxSize.Height)) };
 			for (int x = 0; x < maxSize.Width; x++) {
