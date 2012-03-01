@@ -87,12 +87,18 @@ namespace YuvKA.Test.ViewModel
 			Assert.True(vm.CanRedo);
 		}
 
+		/// <summary>
+		/// Asserts that the node plugins are correctly loaded into the toolbox
+		/// </summary>
 		[Fact]
 		public void ToolboxCanHasBlurNode()
 		{
 			Assert.Equal(1, vm.ToolboxViewModel.NodeTypes.Count(t => t.Type == typeof(YuvKA.Pipeline.Implementation.BlurNode)));
 		}
 
+		/// <summary>
+		/// Asserts that the pipeline is correctly instantiated after saving and loading
+		/// </summary>
 		[Fact]
 		public void OpenCreatesNodeViewModelsFromModel()
 		{
@@ -120,6 +126,9 @@ namespace YuvKA.Test.ViewModel
 			Assert.Equal(1, vm.PipelineViewModel.Nodes.Count);
 		}
 
+		/// <summary>
+		/// Asserts that the program state is correct after opening and closing an output window
+		/// </summary>
 		[Fact]
 		public void CanOpenCloseOutputWindow()
 		{

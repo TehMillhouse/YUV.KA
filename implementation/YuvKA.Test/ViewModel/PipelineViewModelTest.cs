@@ -19,6 +19,9 @@ namespace YuvKA.Test.ViewModel
 {
 	public class PipelineViewModelTest
 	{
+		/// <summary>
+		/// Asserts that dropping nodes into the pipeline works as intended
+		/// </summary>
 		[Fact]
 		public void CanDropNode()
 		{
@@ -40,6 +43,9 @@ namespace YuvKA.Test.ViewModel
 			Assert.Equal(21, node.Y);
 		}
 
+		/// <summary>
+		/// Asserts that moving nodes around the pipeline works as intended
+		/// </summary>
 		[Fact]
 		public void CanMoveNode()
 		{
@@ -61,6 +67,9 @@ namespace YuvKA.Test.ViewModel
 			Assert.Equal(new Point(20, 10), node0.Position);
 		}
 
+		/// <summary>
+		/// Asserts that dragging an edge in the pipeline works yields a consistent program and edge state and works as intended
+		/// </summary>
 		[Fact]
 		public void CanDragEdge()
 		{
@@ -137,6 +146,9 @@ namespace YuvKA.Test.ViewModel
 			Assert.NotNull(vm.Edges.Single().Geometry);
 		}
 
+		/// <summary>
+		/// Asserts that a node with a dynamic number of inputs actually expands its node collection when the user tries to add an edge
+		/// </summary>
 		[Fact]
 		public void CanAddInput()
 		{
@@ -166,6 +178,9 @@ namespace YuvKA.Test.ViewModel
 			Assert.Equal(node1.Inputs.First(), vm.Edges.Single().StartViewModel);
 		}
 
+		/// <summary>
+		/// Asserts that the program state is still consistent after removing a node from the pipeline
+		/// </summary>
 		[Fact]
 		public void CanRemoveNode()
 		{
@@ -181,6 +196,9 @@ namespace YuvKA.Test.ViewModel
 			Assert.DoesNotContain(node0.Model, vm.Parent.Model.Graph.Nodes);
 		}
 
+		/// <summary>
+		/// Asserts that changing the position of a node in the pipeline triggers the ViewPositionChanges
+		/// </summary>
 		[Fact]
 		public void NotifiesOfViewPositionChanges()
 		{
@@ -195,6 +213,9 @@ namespace YuvKA.Test.ViewModel
 			obs.Verify(o => o.OnNext(Unit.Default), Times.Exactly(2));
 		}
 
+		/// <summary>
+		/// Asserts that node output is correctly saved to file
+		/// </summary>
 		[Fact]
 		public void RendersNodeToFileCorrectly()
 		{
@@ -227,6 +248,9 @@ namespace YuvKA.Test.ViewModel
 			Assert.Equal(File.ReadAllBytes(input).Length, stream.ToArray().Length);
 		}
 
+		/// <summary>
+		/// Asserts that dynamically added outputs are correctly displayed
+		/// </summary>
 		[Fact]
 		public void DisplaysDynamicallyAddedOutputs()
 		{

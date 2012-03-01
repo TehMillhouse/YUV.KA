@@ -13,6 +13,9 @@ namespace YuvKA.Test.ViewModel
 	{
 		ReplayStateViewModel vm = MainViewModelTest.GetInstance().ReplayStateViewModel;
 
+		/// <summary>
+		/// Asserts that the program detects invalid pipelines and thus disallows the user from playing it
+		/// </summary>
 		[Fact]
 		public void CantPlayInvalidPipeline()
 		{
@@ -26,6 +29,9 @@ namespace YuvKA.Test.ViewModel
 			Assert.False(vm.IsPlaying);
 		}
 
+		/// <summary>
+		/// Asserts that pausing/resuming execution of the pipeline works
+		/// </summary>
 		[Fact]
 		public void PlayPauseWorks()
 		{
@@ -44,6 +50,9 @@ namespace YuvKA.Test.ViewModel
 			Assert.Equal(vm.Parent.Model.CurrentTick, 1);
 		}
 
+		/// <summary>
+		/// Asserts that stopping and then playing the pipeline corretly starts the pipeline at the beginning of the video.
+		/// </summary>
 		[Fact]
 		public void StopsAtEndThenStartsAnew()
 		{

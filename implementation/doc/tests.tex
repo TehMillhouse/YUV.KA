@@ -164,6 +164,31 @@ Dieser Test überprüft die Überlagerung von Bewegungsvektoren pro Makroblock, 
 
 \subsection{\name{YuvKA.ViewModel}}
 
+\paragraph{\name{DiagramViewModel}}
+\begin{itemize}
+	\item{\name{CanAddLine}} \\
+		Stellt sicher, dass das DiagramViewModel seinem Diagramm Kurven hinzufügen kann.
+	\item{\name{CanDeleteLine}} \\
+		Stellt sicher, dass das DiagramViewModel Kurven von seinem Diagramm löschen kann.
+	\item{\name{GetsData}} \\
+		Stellt sicher, dass die berechneten Daten dem DiagramViewModel korrekt übergeben werden.
+	\item{\name{ShowOnlyAvailableTypes}} \\
+		Stellt sicher, dass nur diejenigen Graphentypen angezeigt werden, die mit den aktuellen Einstellungen möglich sind.
+	\item{\name{ChangeChosenType}} \\
+		Stellt sicher, dass der verwendete Graphentyp vom Benutzer geändert werden kann.
+	\item{\name{ResetRefWithExistingGraphControls}} \\
+		Stellt sicher, dass die Grapheneinstellungen aktualisiert werden, wenn das Referenzvideo geändert wird.
+	\item{\name{CannotAddGcWithoutChosenVid}} \\
+		Stellt sicher, dass keine Grapheneinstellungen hinzugefügt werden kann, wenn kein Video ausgewählt ist.
+\end{itemize}
+
+
+\paragraph{\name{HistogramViewModel}}
+\begin{itemize}
+	\item{\name{GetsData}} \\
+		Stellt sicher, dass die berechneten Daten dem HistogramViewModel korrekt übergeben werden.
+\end{itemize}
+
 \paragraph{\name{MainViewModel}}
 \begin{itemize}
 	\item \name{CanOpenCloseOutputWindow} \\
@@ -240,37 +265,6 @@ Dieser Test überprüft, ob das \name{PropertyEditorViewModel} die Properties de
 	\name{ObservableCollectionOfDoublePropertyViewModel} \\
 	Dieser Tests überprüfen ob die Bindung der dem User zugänglichen Property an den jeweiligen Repräsentanten im ViewModel erfolgreich war.
 
-\end{itemize}
-
-\paragraph{\name{DiagramViewModel}}
-\begin{itemize}
-	\item{\name{CanAddLine}} \\
-		Stellt sicher, dass das DiagramViewModel seinem Diagramm Kurven hinzufügen kann.
-
-	\item{\name{CanDeleteLine}} \\
-		Stellt sicher, dass das DiagramViewModel Kurven von seinem Diagramm löschen kann.
-
-	\item{\name{GetsData}} \\
-		Stellt sicher, dass die berechneten Daten dem DiagramViewModel korrekt übergeben werden.
-	
-	\item{\name{ShowOnlyAvailableTypes}} \\
-		Stellt sicher, dass nur diejenigen Graphentypen angezeigt werden, die mit den aktuellen Einstellungen möglich sind.
-	
-	\item{\name{ChangeChosenType}} \\
-		Stellt sicher, dass der verwendete Graphentyp vom Benutzer geändert werden kann.
-	
-	\item{\name{ResetRefWithExistingGraphControls}} \\
-		Stellt sicher, dass die Grapheneinstellungen aktualisiert werden, wenn das Referenzvideo geändert wird.
-	
-	\item{\name{CannotAddGcWithoutChosenVid}} \\
-		Stellt sicher, dass keine Grapheneinstellungen hinzugefügt werden kann, wenn kein Video ausgewählt ist.
-\end{itemize}
-
-
-\paragraph{\name{HistogramViewModel}}
-\begin{itemize}
-	\item{\name{GetsData}} \\
-		Stellt sicher, dass die berechneten Daten dem HistogramViewModel korrekt übergeben werden.
 \end{itemize}
 
 \subsection{\name{Codeüberdeckung}}

@@ -134,6 +134,9 @@ namespace YuvKA.Test.ViewModel.PropertyEditor
 			Assert.Equal(new YuvKA.VideoModel.Size(13, 37).Width, clr.Size.Width);
 		}
 
+		/// <summary>
+		/// Asserts that the general functions of the property viewmodels work as intended
+		/// </summary>
 		[Fact]
 		public void GeneralPropertyViewModelTest()
 		{

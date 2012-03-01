@@ -5,7 +5,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
 using Caliburn.Micro;
-using Moq;      
+using Moq;
 using Xunit;
 using YuvKA;
 using YuvKA.Implementation;

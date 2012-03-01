@@ -101,6 +101,9 @@ namespace YuvKA.Test.Pipeline
 			}
 		}
 
+		/// <summary>
+		/// Ensures that the RGB Split node works correctly and that it doesn't mix up the color channels
+		/// </summary>
 		[Fact]
 		public void TestRgbSplit()
 		{
@@ -122,6 +125,9 @@ namespace YuvKA.Test.Pipeline
 			}
 		}
 
+		/// <summary>
+		/// Asserts that the additive merge node works correctly
+		/// </summary>
 		[Fact]
 		public void TestAdditiveMerge()
 		{
@@ -144,7 +150,9 @@ namespace YuvKA.Test.Pipeline
 			}
 		}
 
-
+		/// <summary>
+		/// Asserts that the weighted averaged merge node uses the correct weighting when combining input data
+		/// </summary>
 		[Fact]
 		public void TestWeightedAverageMerge()
 		{
@@ -194,6 +202,9 @@ namespace YuvKA.Test.Pipeline
 			}
 		}
 
+		/// <summary>
+		/// Asserts that the inverter node works correctly
+		/// </summary>
 		[Fact]
 		public void TestInverter()
 		{

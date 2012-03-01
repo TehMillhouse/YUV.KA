@@ -10,6 +10,9 @@
 
 	public class RgbTest
 	{
+		/// <summary>
+		/// Asserts that the overloaded operators work as intended
+		/// </summary>
 		[Fact]
 		public void TestEquality()
 		{
@@ -31,6 +34,9 @@
 			Assert.Equal(false, a.Equals(e));
 		}
 
+		/// <summary>
+		/// Insures that the hashing works correctly in the Rgb class
+		/// </summary>
 		[Fact]
 		public void TestHashing()
 		{
@@ -41,6 +47,9 @@
 			Assert.NotEqual(a.GetHashCode(), c.GetHashCode());
 		}
 
+		/// <summary>
+		/// Asserts that the String representation works as intended
+		/// </summary>
 		[Fact]
 		public void TestToString()
 		{

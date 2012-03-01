@@ -34,6 +34,9 @@ namespace YuvKA.Test.Pipeline
 			Assert.Equal(new[] { 0, 2, 4, 6, 8 }, frames.ToArray());
 		}
 
+		/// <summary>
+		/// Asserts that the pipeline driver correctly executes a pipeline made of 100 linearly connected nodes
+		/// </summary>
 		[Fact]
 		public void RenderTicksProcessesLongGraph()
 		{
@@ -45,6 +48,9 @@ namespace YuvKA.Test.Pipeline
 			Assert.Equal(Enumerable.Range(100, 20).ToArray(), RenderTicksAnonIntNodes(new PipelineDriver(), graph).Take(20).ToEnumerable().ToArray());
 		}
 
+		/// <summary>
+		/// A stress test which processes 10000 nodes in total by running RenderTicksProcessesLongGraph 100 times
+		/// </summary>
 		[Fact]
 		public void RenderTicksStressTest()
 		{
@@ -52,6 +58,9 @@ namespace YuvKA.Test.Pipeline
 				RenderTicksProcessesLongGraph();
 		}
 
+		/// <summary>
+		/// Asserts that cancelling the execution of a pipeline correctly halts the pipeline driver
+		/// </summary>
 		[Fact]
 		public void RenderTicksClosesObservable()
 		{
@@ -63,7 +72,9 @@ namespace YuvKA.Test.Pipeline
 			GC.WaitForPendingFinalizers();
 		}
 
-
+		/// <summary>
+		/// Checks whether exceptions thrown during pipeline execution are propagated properly
+		/// </summary>
 		[Fact]
 		public void RenderTicksPropagatesExceptions()
 		{
@@ -127,13 +138,6 @@ namespace YuvKA.Test.Pipeline
 			Assert.Equal(0, new PipelineDriver().RenderTicks(new[] { graph }, token: tokenSource.Token).Count().Last());
 			// Looks like the InvalidOperationException hasn't been thrown. Yay!
 		}
-
-		//[Fact]
-		//public void IsFullyParallel()
-		//{
-		//    var graph = new AnonymousNode(
-
-
 
 		// Catch free-flying non-observed Tasks
 		public void Dispose()

@@ -27,6 +27,9 @@ namespace YuvKA.Test.ViewModel
 			return new EventAggregator();
 		}
 
+		/// <summary>
+		/// This test is a general all-round test for the OverlayViewModel
+		/// </summary>
 		[Fact]
 		public void TestGeneralFunctions()
 		{
