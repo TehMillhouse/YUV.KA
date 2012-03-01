@@ -10,12 +10,12 @@ using YuvKA.ViewModel;
 namespace YuvKA.Pipeline.Implementation
 {
 	/// <summary>
-	/// Implements the possibility to delay a Frame.
+	/// Gives the user another way of displaying a video stream.
+	/// Though considered duplicate functionality, this node exists for usability reasons.
 	/// </summary>
 	[DataContract]
 	public class DisplayNode : Node
 	{
-
 		/// <summary>
 		/// Constructs a DisplayNode.
 		/// It has one In- and no Outputs.
@@ -27,7 +27,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		[Browsable(true)]
-		public VideoOutputViewModel outputViewModel { get { return new VideoOutputViewModel(this.Outputs[0]); } }
+		public VideoOutputViewModel OutputViewModel { get { return new VideoOutputViewModel(this.Outputs[0]); } }
 
 		/// <summary>
 		/// Displays the input.

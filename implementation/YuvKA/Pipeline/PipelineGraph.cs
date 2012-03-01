@@ -24,7 +24,7 @@ namespace YuvKA.Pipeline
 		public IList<Node> Nodes { get; private set; }
 
 		/// <summary>
-		/// Represents the number of frames of the longest finit video input in the pipeline. If all inputs have infinite length the value is null.
+		/// Represents the number of frames of the longest finite video input in the pipeline. If all inputs have infinite length the value is null.
 		/// </summary>
 		public int? TickCount
 		{
