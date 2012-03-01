@@ -35,6 +35,20 @@ Wird durch einen automatischen Test abgedeckt, wobei der Dialog, der beim Abspei
 
 \paragraph{\name{/T40/ Videoverarbeitung}}
 
+\begin{itemize}
+	\item Der Benutzer startet das Programm und erstellt eine beliebige, zusammenhängende, zyklenfreie Pipeline mit mindestens einem Eingabe-, Wiedergabe- sowie Manipulationsknoten mit Optionen.
+	\item Der Benutzer ändert die Quelle eines Eingabeknotens.
+	\item Der Benutzer öffnet den Wiedergabeknoten und beginnt das Video abzuspielen.
+	\item Der Benutzer ändert eine Option eines Manipulationsknotens, während das Video abspielt.
+	\item Der Benutzer ändert die Abspielgeschwindigkeit des Videos.
+	\item Der Benutzer pausiert die Videowiedergabe.
+	\item Der Benutzer setzt die Videowiedergabe fort.
+	\item Der Benutzer setzt die Videowiedergabe zurück.
+	\item Der Benutzer speichert das manipulierte Video als YUV-Datei.
+\end{itemize}
+
+Dieser Test soll die Videoverarbeitungsfunktionalität prüfen. Er wird durch einen automatisierten Test abgedeckt. Bei der automatisierten Version besteht die Pipeline aus einem \name{VideoInputNode}, einem \name{BlurNode} und einem \name{DisplayNode}.
+
 \paragraph{\name{/T50/ Videoanalyse}} ~\\
  
 \begin{itemize}
