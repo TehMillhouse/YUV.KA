@@ -73,13 +73,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GraphControl.cs" />
+    <Compile Include="ViewModel\DiagramGraphViewModel.cs" />
     <Compile Include="ChartPlotter.cs" />
     <Compile Include="HslHelper.cs" />
-    <Compile Include="LineGraphViewModel.cs" />
     <Compile Include="Pipeline\DisplayNode.cs" />
     <Compile Include="Pipeline\NoiseType.cs" />
     <Compile Include="ViewModel\DiagramViewModel.cs" />
+    <Compile Include="ViewModel\GraphTypeViewModel.cs" />
     <Compile Include="ViewModel\HistogramViewModel.cs" />
     <Compile Include="ViewModel\OverlayViewModel.cs" />
     <Compile Include="Pipeline\AdditiveMergeNode.cs" />

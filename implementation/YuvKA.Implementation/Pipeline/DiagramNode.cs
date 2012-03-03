@@ -13,14 +13,6 @@ namespace YuvKA.Pipeline.Implementation
 	public class DiagramNode : OutputNode
 	{
 		/// <summary>
-		/// An object which is used to lock the access to the graphs of the DiagramNode.
-		/// Only one thread can use the graphs at a given time.
-		/// </summary>
-		static readonly object graphLock = new object();
-
-		private List<DiagramGraph> graphs;
-
-		/// <summary>
 		/// Creates a new diagram node. By default it is enabled and contains an empty
 		/// list of graphs.
 		/// </summary>
@@ -52,21 +44,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// Gets or sets the list of graphs the DiagramNode is displaying.
 		/// </summary>
 		[DataMember]
-		public List<DiagramGraph> Graphs
-		{
-			get
-			{
-				lock (graphLock) {
-					return graphs;
-				}
-			}
-			set
-			{
-				lock (graphLock) {
-					graphs = value;
-				}
-			}
-		}
+		public List<DiagramGraph> Graphs { get; private set; }
 
 		/// <summary>
 		/// Returns a new DiagramViewModel corresponding to this DiagramNode.
@@ -92,13 +70,12 @@ namespace YuvKA.Pipeline.Implementation
 			if (!IsEnabled) {
 				return;
 			}
-			lock (graphLock) {
-				foreach (DiagramGraph g in Graphs.ToArray()) {
-					if (g.Data.Count != 0 && tick < g.Data[g.Data.Count - 1].Key)
-						g.Data = new List<KeyValuePair<int, double>>();
-					g.Data.Add(new KeyValuePair<int, double>(tick,
-						g.Type.Process(inputs[Inputs.IndexOf(g.Video)], ReferenceVideo != null ? inputs[(int)RefIndex] : null)));
-				}
+
+			foreach (DiagramGraph g in Graphs.ToArray()) {
+				if (g.Data.Count != 0 && tick < g.Data[g.Data.Count - 1].Key)
+					g.Data.Clear();
+				g.Data.Add(new KeyValuePair<int, double>(tick,
+					g.Type.Process(inputs[Inputs.IndexOf(g.Video)], ReferenceVideo != null ? inputs[(int)RefIndex] : null)));
 			}
 		}
 	}

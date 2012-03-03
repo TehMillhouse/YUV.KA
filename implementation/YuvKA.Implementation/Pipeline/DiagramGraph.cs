@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Caliburn.Micro;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -14,7 +15,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// </summary>
 		public DiagramGraph()
 		{
-			Data = new List<KeyValuePair<int, double>>();
+			Data = new BindableCollection<KeyValuePair<int, double>>();
 		}
 
 		/// <summary>
@@ -33,7 +34,12 @@ namespace YuvKA.Pipeline.Implementation
 		/// Gets or sets the values of the graph. The X-values are the frames and
 		/// the Y-values are calculated by according to the Type.
 		/// </summary>
-		[DataMember]
-		public List<KeyValuePair<int, double>> Data { get; set; }
+		public BindableCollection<KeyValuePair<int, double>> Data { get; private set; }
+
+		[OnDeserialized]
+		public void OnDeserialized(StreamingContext ctx)
+		{
+			Data = new BindableCollection<KeyValuePair<int, double>>();
+		}
 	}
 }
