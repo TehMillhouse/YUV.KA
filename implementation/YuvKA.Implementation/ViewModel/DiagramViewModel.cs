@@ -58,7 +58,7 @@ namespace YuvKA.ViewModel.Implementation
 		/// </summary>
 		public Tuple<string, Node.Input> Reference
 		{
-			get { return new Tuple<string, Node.Input>(GetVideoName(NodeModel.ReferenceVideo), NodeModel.ReferenceVideo); }
+			get { return NodeModel.ReferenceVideo != null ? new Tuple<string, Node.Input>(GetVideoName(NodeModel.ReferenceVideo), NodeModel.ReferenceVideo) : null; }
 			set { NodeModel.ReferenceVideo = value.Item2; }
 		}
 
