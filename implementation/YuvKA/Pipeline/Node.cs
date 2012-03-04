@@ -104,6 +104,19 @@ namespace YuvKA.Pipeline
 		}
 
 		/// <summary>
+		/// Can be used to remove unnecessary inputs. By default it removes all inputs whose source is null.
+		/// </summary>
+		public virtual void CullInputs()
+		{
+			if (UserCanAddInputs) {
+				foreach (Node.Input input in Inputs.ToArray()) {
+					if (input.Source == null)
+						Inputs.Remove(input);
+				}
+			}
+		}
+
+		/// <summary>
 		/// Represents an output of a node. An output is the connection point a node offers, so other nodes can be chained after this output's node.
 		/// </summary>
 		[DataContract]

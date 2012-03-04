@@ -119,9 +119,25 @@ namespace YuvKA.ViewModel
 			return input;
 		}
 
+		public void CullInputs()
+		{
+			Model.CullInputs();
+			DeleteCulledInputs();
+			NotifyOfPropertyChange(() => Inputs);
+		}
+
 		public void ViewLoaded()
 		{
 			viewPositionChanged.OnNext(Unit.Default);
+		}
+
+		private void DeleteCulledInputs()
+		{
+			foreach (InOutputViewModel inputVM in inputs.ToArray()) {
+				if (!Model.Inputs.Contains((Node.Input) inputVM.Model)) {
+					inputs.Remove(inputVM);
+				}
+			}
 		}
 	}
 }

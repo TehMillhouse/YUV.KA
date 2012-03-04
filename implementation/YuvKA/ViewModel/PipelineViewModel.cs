@@ -16,6 +16,7 @@ namespace YuvKA.ViewModel
 	{
 		NodeViewModel draggedNode;
 		EdgeViewModel draggedEdge;
+		NodeViewModel draggedEdgeEndNodeVM;
 		Vector dragMouseOffset;
 		IEnumerable<EdgeViewModel> edges = Enumerable.Empty<EdgeViewModel>();
 		int maxZValue;
@@ -103,6 +104,8 @@ namespace YuvKA.ViewModel
 					start = GetOutputViewModel(((Node.Input)inOut.Model).Source) ?? start;
 					((Node.Input)inOut.Model).Source = null;
 					NotifyOfPropertyChange(() => Edges);
+					// remember the end of the grabbed edge
+					draggedEdgeEndNodeVM = FindInputsNodeViewModel(((Node.Input)inOut.Model));
 				}
 				DraggedEdge = new EdgeViewModel { StartViewModel = start, EndViewModel = inOut };
 			}
@@ -163,6 +166,10 @@ namespace YuvKA.ViewModel
 
 			DraggedEdge.EndViewModel = inOut;
 			InOutputViewModel inputVM, outputVM;
+
+			// removes unnecessary inputs
+			CullInputs();
+
 			if (!DraggedEdge.GetInOut(out inputVM, out outputVM)) {
 				DraggedEdge = null;
 				return;
@@ -201,6 +208,25 @@ namespace YuvKA.ViewModel
 		InOutputViewModel GetOutputViewModel(Node.Output output)
 		{
 			return output == null ? null : Nodes.SelectMany(n => n.Outputs).Single(o => o.Model == output);
+		}
+
+		private void CullInputs()
+		{
+			if (draggedEdgeEndNodeVM != null)
+				draggedEdgeEndNodeVM.CullInputs();
+			draggedEdgeEndNodeVM = null;
+		}
+
+		private NodeViewModel FindInputsNodeViewModel(Node.Input input) 
+		{
+			foreach (NodeViewModel nodeViewModel in Nodes) {
+				foreach (InOutputViewModel iovm in nodeViewModel.Inputs) {
+					if (((Node.Input) iovm.Model) == input) 
+						return nodeViewModel;
+				}
+			}
+			// this should never happen
+			return null;
 		}
 	}
 }
