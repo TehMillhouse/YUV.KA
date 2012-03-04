@@ -38,8 +38,9 @@ namespace YuvKA.Implementation
 			get
 			{
 				return Parent.Types.Where(t => (Parent.Reference != null || !t.Model.DependsOnReference)
-					&& (Parent.Reference.Item2.Source.Node.OutputHasLogfile || !t.Model.DependsOnAnnotatedReference)
+					&& (Parent.Reference != null && Parent.Reference.Item2.Source.Node.OutputHasLogfile || !t.Model.DependsOnAnnotatedReference)
 					&& (Model.Video.Source.Node.OutputHasLogfile || !t.Model.DependsOnLogfile)
+					&& (Parent.Reference != null && Parent.Reference.Item2.Source.Node.OutputHasLogfile || !t.Model.DependsOnAnnotatedReference)
 				);
 			}
 		}
