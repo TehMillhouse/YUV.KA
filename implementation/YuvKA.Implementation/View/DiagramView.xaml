@@ -8,68 +8,63 @@
 			xmlns:ViewportRestrictions="clr-namespace:Microsoft.Research.DynamicDataDisplay.ViewportRestrictions;assembly=DynamicDataDisplay" mc:Ignorable="d"
 			xmlns:my="clr-namespace:YuvKA.ViewModel.Implementation"
 			Title="{Binding NodeModel.Name}" Height="330" Width="592">
-	<Window.Resources>
-		<!--<DataTemplate x:Key="{x:Type my:GraphTypeViewModel}">
-			<TextBlock Text="{Binding Name}"/>
-		</DataTemplate>-->
-		<DataTemplate x:Key="AddedVideos">
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="30"/>
-					<ColumnDefinition Width="50"/>
-					<ColumnDefinition Width="75"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Rectangle Grid.Column="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Fill="{Binding Path=GraphColor}" />
-				<Button Height="30" Width="30" Content="Del" Grid.Column="1" cal:Message.Attach="[Event Click] = [Action DeleteGraph($dataContext)]" HorizontalAlignment="Left"/>
-				<TextBlock Height="30" Grid.Column="2" Text="{Binding Path=Name}" />
-				<ComboBox Height="30" Grid.Column="3" ItemsSource="{Binding AvailableTypes}" SelectedItem="{Binding CurrentType}" HorizontalAlignment="Stretch">
-					<ComboBox.ItemTemplate>
-						<DataTemplate>
-							<TextBlock Text="{Binding Name}" />
-						</DataTemplate>
-					</ComboBox.ItemTemplate>
-				</ComboBox>
-			</Grid>
-		</DataTemplate>
-	</Window.Resources>
-
-	<Grid Name="OuterGrid" Width="575">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="40" />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="75" />
-			<ColumnDefinition Width="175" />
-			<ColumnDefinition Width="75" />
-			<ColumnDefinition Width="250" />
-		</Grid.ColumnDefinitions>
-		<Label Content="Reference" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="0" Grid.Row="0"/>
-		<ComboBox Grid.Column="1" Grid.Row="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Videos}" SelectedItem="{Binding Reference}" Name="Reference">
-			<ComboBox.ItemTemplate>
-				<DataTemplate>
-					<TextBlock Text="{Binding Item1}" />
-				</DataTemplate>
-			</ComboBox.ItemTemplate>
-		</ComboBox>
-		<d3:ChartPlotter Height="250" Width="250" Grid.Column="0" Grid.Row="1" x:Name="plotter" LegendVisibility="Hidden" LineGraphs="{Binding Path=Lines}" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+	<DockPanel>
+		<Expander DockPanel.Dock="Right" ExpandDirection="Right" IsExpanded="True">
+			<Expander.Header>
+				<TextBlock Text="Graph Definitions">
+					<TextBlock.LayoutTransform>
+						<RotateTransform Angle="90"/>
+					</TextBlock.LayoutTransform>
+				</TextBlock>
+			</Expander.Header>
+			<DockPanel>
+				<StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
+					<ComboBox ItemsSource="{Binding Videos}" SelectedItem="{Binding ChosenVideo}" Width="150">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Item1}" />
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+					<Button x:Name="AddGraph" Width="25" Content="+"/>
+				</StackPanel>
+				<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+					<ItemsControl ItemsSource="{Binding Graphs}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal" Margin="5">
+									<Rectangle Width="25" Fill="{Binding Path=GraphColor}" />
+									<Button Width="25" Content="Del" cal:Message.Attach="[Event Click] = [Action DeleteGraph($dataContext)]"/>
+									<TextBlock Text="{Binding Path=Name}" Margin="10 0" Width="100" />
+									<ComboBox ItemsSource="{Binding AvailableTypes}" SelectedItem="{Binding CurrentType}" Width="150">
+										<ComboBox.ItemTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding Name}" />
+											</DataTemplate>
+										</ComboBox.ItemTemplate>
+									</ComboBox>
+								</StackPanel>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</DockPanel>
+		</Expander>
+		<StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
+			<Label Content="Reference:"/>
+			<ComboBox ItemsSource="{Binding Videos}" SelectedItem="{Binding Reference}" Width="150">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Item1}" />
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+		</StackPanel>
+		<d3:ChartPlotter LegendVisibility="Hidden" LineGraphs="{Binding Path=Lines}">
 			<d3:ChartPlotter.FitToViewRestrictions>
 				<ViewportRestrictions:FollowWidthRestriction Width="15" />
 				<ViewportRestrictions:MinimalSizeRestriction MinSize="0"/>
 			</d3:ChartPlotter.FitToViewRestrictions>
 		</d3:ChartPlotter>
-		<Button Grid.Row="0" x:Name="AddGraph" Content="Add" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="2"/>
-		<ComboBox Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" ItemsSource="{Binding Videos}" SelectedIndex="0" SelectedItem="{Binding ChosenVideo}" Grid.Column="3" Name="Videos">
-			<ComboBox.ItemTemplate>
-				<DataTemplate>
-					<TextBlock Text="{Binding Item1}" />
-				</DataTemplate>
-			</ComboBox.ItemTemplate>
-		</ComboBox>
-		<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="2" Height="250" HorizontalAlignment="Left" VerticalAlignment="Top" Width="325" Grid.ColumnSpan="3">
-
-			<ItemsControl ItemsSource="{Binding Graphs}" ItemTemplate="{StaticResource AddedVideos}"/>
-		</ScrollViewer>
-	</Grid>
+	</DockPanel>
 </Window>
