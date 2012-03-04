@@ -8,18 +8,44 @@
 			d:DesignHeight="200" d:DesignWidth="600">
 	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
 		<ItemsControl ItemsSource="{Binding NodeTypes}">
-			<ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<Border CornerRadius="2" BorderBrush="CornflowerBlue" Padding="10" Opacity="0.8" Background="LightBlue" Margin="3" BorderThickness="3" cal:Message.Attach="[Event MouseDown] = [Action BeginDrag($dataContext)]">
-						<TextBlock Text="{Binding Name}"/>
-					</Border>
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
-					<StackPanel Orientation="Horizontal"/>
+					<WrapPanel/>
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Expander Header="{Binding Key}" IsExpanded="True">
+						<ItemsControl ItemsSource="{Binding Value}">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<StackPanel Orientation="Horizontal"/>
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<GroupBox Header="{Binding Key}">
+										<ItemsControl ItemsSource="{Binding Value}">
+											<ItemsControl.ItemsPanel>
+												<ItemsPanelTemplate>
+													<StackPanel Orientation="Horizontal"/>
+												</ItemsPanelTemplate>
+											</ItemsControl.ItemsPanel>
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Border CornerRadius="2" BorderBrush="CornflowerBlue" Padding="10" Opacity="0.8" Background="LightBlue" Margin="3" BorderThickness="3" cal:Message.Attach="[Event MouseDown] = [Action BeginDrag($dataContext)]">
+														<TextBlock Text="{Binding Name}"/>
+													</Border>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</GroupBox>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</Expander>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
 		</ItemsControl>
 	</ScrollViewer>
 </UserControl>

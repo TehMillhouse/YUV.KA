@@ -19,11 +19,16 @@ namespace YuvKA.ViewModel
 			NodeTypes = nodes
 				.Select(n => new NodeType { Type = n.GetType(), Name = n.Name })
 				.Where(n => n.Type.IsPublic)
-				.OrderBy(n => n.Name)
-				.ToArray();
+				.GroupBy(n => n.Type.Assembly)
+				.Select(g => new KeyValuePair<string, IEnumerable<KeyValuePair<string, IEnumerable<NodeType>>>>(g.Key.GetAssemblyName(),
+					g.GroupBy(n => typeof(InputNode).IsAssignableFrom(n.Type) ? "Input" : typeof(OutputNode).IsAssignableFrom(n.Type) ? "Output" : "Manipulation")
+					.OrderBy(gg => gg.Key)
+					.Select(gg => new KeyValuePair<string, IEnumerable<NodeType>>(gg.Key, gg.OrderBy(n => n.Name).ToArray()))
+					.ToArray()
+				)).ToArray();
 		}
 
-		public IList<NodeType> NodeTypes { get; private set; }
+		public IEnumerable<KeyValuePair<string, IEnumerable<KeyValuePair<string, IEnumerable<NodeType>>>>> NodeTypes { get; private set; }
 
 		public IResult BeginDrag(NodeType element)
 		{

@@ -93,7 +93,7 @@ namespace YuvKA.Test.ViewModel
 		[Fact]
 		public void ToolboxCanHasBlurNode()
 		{
-			Assert.Equal(1, vm.ToolboxViewModel.NodeTypes.Count(t => t.Type == typeof(YuvKA.Pipeline.Implementation.BlurNode)));
+			Assert.Equal(1, vm.ToolboxViewModel.NodeTypes.Single(asm => asm.Key == typeof(BlurNode).Assembly.GetAssemblyName()).Value.Single(nodeTypeType => nodeTypeType.Key == "Manipulation").Value.Count(n => n.Type == typeof(YuvKA.Pipeline.Implementation.BlurNode)));
 		}
 
 		/// <summary>
