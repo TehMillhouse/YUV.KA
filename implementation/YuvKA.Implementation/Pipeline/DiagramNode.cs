@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 using YuvKA.ViewModel.Implementation;
+using System.Linq;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -21,7 +23,7 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			Name = "Diagram";
 			IsEnabled = true;
-			Graphs = new List<DiagramGraph>();
+			Graphs = new ObservableCollection<DiagramGraph>();
 		}
 
 		/// <summary>
@@ -44,7 +46,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// Gets or sets the list of graphs the DiagramNode is displaying.
 		/// </summary>
 		[DataMember]
-		public List<DiagramGraph> Graphs { get; private set; }
+		public ObservableCollection<DiagramGraph> Graphs { get; private set; }
 
 		/// <summary>
 		/// Returns a new DiagramViewModel corresponding to this DiagramNode.
@@ -77,6 +79,19 @@ namespace YuvKA.Pipeline.Implementation
 				g.Data.Add(new KeyValuePair<int, double>(tick,
 					g.Type.Process(inputs[Inputs.IndexOf(g.Video)], ReferenceVideo != null ? inputs[(int)RefIndex] : null)));
 			}
+		}
+
+		// Remove references to culled inputs
+		public override void CullInputs()
+		{
+			base.CullInputs();
+
+			if (!Inputs.Contains(ReferenceVideo))
+				ReferenceVideo = null;
+
+			foreach (DiagramGraph graph in Graphs.ToArray())
+				if (!Inputs.Contains(graph.Video))
+					Graphs.Remove(graph);
 		}
 	}
 }

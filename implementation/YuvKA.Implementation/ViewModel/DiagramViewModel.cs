@@ -28,6 +28,19 @@ namespace YuvKA.ViewModel.Implementation
 			Types = IoC.GetAllInstances(typeof(IGraphType)).Select(o => new GraphTypeViewModel((IGraphType)o)).ToList();
 			Graphs = new ObservableCollection<DiagramGraphViewModel>();
 			NodeModel.Graphs.Select(g => new DiagramGraphViewModel(g, this)).Apply(Graphs.Add);
+
+			NodeModel.Graphs.CollectionChanged += (_, e) => {
+				if (e.Action == NotifyCollectionChangedAction.Remove) {
+					foreach (DiagramGraph graph in e.OldItems)
+						Graphs.Remove(Graphs.Single(g => g.Model == graph));
+					NotifyOfPropertyChange(() => Lines);
+				}
+			};
+
+			NodeModel.PropertyChanged += (_, e) => {
+				if (e.PropertyName == "ReferenceVideo")
+					NotifyOfPropertyChange(() => Reference);
+			};
 		}
 
 		/// <summary>
