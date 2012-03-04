@@ -58,7 +58,7 @@ namespace YuvKA.ViewModel.PropertyEditor
 		/// </summary>
 		/// <param name="source">The source.</param>
 		/// <param name="property">The Property.</param>
-		public void Initialize(object source, PropertyDescriptor property)
+		public virtual void Initialize(object source, PropertyDescriptor property)
 		{
 			Source = source;
 			Property = property;

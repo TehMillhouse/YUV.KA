@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,7 +15,6 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class WeightedAveragedMergeNode : Node
 	{
-		private ObservableCollection<double> weights;
 		/// <summary>
 		///	Constructs a new WeightedAverageMergeNode.
 		/// </summary>
@@ -23,7 +22,14 @@ namespace YuvKA.Pipeline.Implementation
 			: base(inputCount: null, outputCount: 1)
 		{
 			Name = "Weighted Merge";
-			((ObservableCollection<Input>)Inputs).CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(OnInputsChanged);
+			Weights = new ObservableCollection<double>();
+
+			((ObservableCollection<Input>)Inputs).CollectionChanged += (_, e) => {
+				if (e.Action == NotifyCollectionChangedAction.Add)
+					Weights.Add(1.0);
+				else if (e.Action == NotifyCollectionChangedAction.Remove)
+					Weights.RemoveAt(e.OldStartingIndex);
+			};
 		}
 
 		/// <summary>
@@ -34,26 +40,7 @@ namespace YuvKA.Pipeline.Implementation
 		[Range(0.0, 1.0)]
 		[Description("Weights of inputs relative to each other")]
 		[Browsable(true)]
-		public ObservableCollection<double> Weights
-		{
-			get
-			{
-				if (weights == null) {
-					weights = new ObservableCollection<double>(Inputs.Select(i => 1.0));
-				}
-				else if (weights.Count < Inputs.Count) {
-					for (int i = 0; i < Inputs.Count - weights.Count; i++) {
-						weights.Add(1.0);
-					}
-				}
-
-				return weights;
-			}
-			set
-			{
-				weights = value;
-			}
-		}
+		public ObservableCollection<double> Weights { get; private set; }
 
 		/// <summary>
 		/// Adds up the weighted frames and finally averages them according to the following formula:
@@ -84,24 +71,6 @@ namespace YuvKA.Pipeline.Implementation
 				}
 			}
 			return output;
-		}
-
-		/// <summary>
-		/// Removes all inputs whose source is null and their weights.
-		/// </summary>
-		public override void CullInputs()
-		{
-			foreach (Node.Input input in Inputs.ToArray()) {
-				if (input.Source == null) {
-					Weights.RemoveAt(Inputs.IndexOf(input));
-					Inputs.Remove(input);
-				}
-			}
-		}
-
-		private void OnInputsChanged(object sender, EventArgs e)
-		{
-			NotifyOfPropertyChange(() => Weights);
 		}
 	}
 }

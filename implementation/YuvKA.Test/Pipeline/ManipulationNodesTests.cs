@@ -172,12 +172,15 @@ namespace YuvKA.Test.Pipeline
 			ObservableCollection<double> testGetWeights = node.Weights;
 			// node.Weights is null -> create weights with default value 1.0
 			Assert.Contains(1.0, testGetWeights);
+
 			node.Inputs.Add(testInput);
+			node.Weights[0] = 0;
+			node.Weights[1] = 0.25;
 			node.Inputs.Add(testInput);
-			node.Weights = new ObservableCollection<double> { 0, 0.25 };
 			testGetWeights = node.Weights;
 			// node.Weights has not enough values -> fill up missing weights with 1.0
 			Assert.Contains(1.0, testGetWeights);
+
 			Frame[] result = node.Process(inputs, 0);
 			for (int x = 0; x < testSize.Width; x++) {
 				for (int y = 0; y < testSize.Height; y++) {
@@ -187,9 +190,8 @@ namespace YuvKA.Test.Pipeline
 				}
 			}
 
-			WeightedAveragedMergeNode secondNode = new WeightedAveragedMergeNode();
-			node.Weights = new ObservableCollection<double> { 0.5, 0.5, 0.5 };
-			secondNode.Weights = new ObservableCollection<double> { 0.75, 0.75, 0.75 };
+			WeightedAveragedMergeNode secondNode = new WeightedAveragedMergeNode { Weights = { 0.75, 0.75, 0.75 } };
+			node.Weights[0] = node.Weights[1] = node.Weights[2] = 0.5;
 			result = node.Process(inputs, 0);
 			Frame[] secondResult = secondNode.Process(inputs, 0);
 

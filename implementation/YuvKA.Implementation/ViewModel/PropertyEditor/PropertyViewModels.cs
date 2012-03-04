@@ -175,10 +175,9 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 			}
 		}
 
-		protected override void OnValueChanged()
+		public override void Initialize(object source, System.ComponentModel.PropertyDescriptor property)
 		{
-			base.OnValueChanged();
-			NotifyOfPropertyChange(() => Values);
+			base.Initialize(source, property);
 			TypedValue.CollectionChanged += (sender, e) => NotifyOfPropertyChange(() => Values);
 		}
 
