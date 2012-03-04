@@ -89,9 +89,6 @@ namespace YuvKA.ViewModel
 				Parent.Parent.Model.Graph.RemoveNode(this.Model);
 				Parent.Parent.CullAllInputs();
 				Parent.Parent.SaveSnapshot();
-				foreach (NodeViewModel nvm in Parent.Parent.PipelineViewModel.Nodes) {
-					nvm.NotifyOfPropertyChange(() => Inputs);
-				}
 				Parent.NotifyOfPropertyChange(() => Parent.Edges);
 			}
 		}
