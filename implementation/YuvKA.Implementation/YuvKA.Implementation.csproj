@@ -100,7 +100,6 @@
     <Compile Include="Pipeline\InverterNode.cs" />
     <Compile Include="Pipeline\IOverlayType.cs" />
     <Compile Include="Pipeline\NoiseInputNode.cs" />
-    <Compile Include="Pipeline\OutputNode.cs" />
     <Compile Include="Pipeline\OverlayNode.cs" />
     <Compile Include="Pipeline\OverlayTypes.cs" />
     <Compile Include="Pipeline\RgbSplitNode.cs" />

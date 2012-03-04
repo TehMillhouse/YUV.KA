@@ -103,6 +103,7 @@
     <Compile Include="NodeMenuItemFormatter.cs" />
     <Compile Include="Caliburn\Micro\IWindowManagerEx.cs" />
     <Compile Include="Pipeline\FilePath.cs" />
+    <Compile Include="Pipeline\OutputNode.cs" />
     <Compile Include="Pipeline\TickRenderedMessage.cs" />
     <Compile Include="Pipeline\InputNode.cs" />
     <Compile Include="RoundSizeDecorator.cs" />

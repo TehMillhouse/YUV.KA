@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
-namespace YuvKA.Pipeline.Implementation
+namespace YuvKA.Pipeline
 {
 	[DataContract]
 	public abstract class OutputNode : Node
