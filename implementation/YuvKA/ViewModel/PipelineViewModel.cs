@@ -152,6 +152,7 @@ namespace YuvKA.ViewModel
 		/// </summary>
 		public void MouseUp()
 		{
+			CullInputs();
 			draggedNode = null;
 			DraggedEdge = null;
 		}
