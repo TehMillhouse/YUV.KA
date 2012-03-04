@@ -184,7 +184,7 @@ namespace YuvKA.ViewModel
 		}
 
 		/// <summary>
-		/// Culls all unnecessary inputs in all nodes.
+		/// Culls inputs in all nodes.
 		/// </summary>
 		public void CullAllInputs()
 		{

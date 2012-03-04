@@ -86,6 +86,19 @@ namespace YuvKA.Pipeline.Implementation
 			return output;
 		}
 
+		/// <summary>
+		/// Removes all inputs whose source is null and their weights.
+		/// </summary>
+		public override void CullInputs()
+		{
+			foreach (Node.Input input in Inputs.ToArray()) {
+				if (input.Source == null) {
+					Weights.RemoveAt(Inputs.IndexOf(input));
+					Inputs.Remove(input);
+				}
+			}
+		}
+
 		private void OnInputsChanged(object sender, EventArgs e)
 		{
 			NotifyOfPropertyChange(() => Weights);

@@ -94,17 +94,7 @@ namespace YuvKA.Pipeline
 		public abstract Frame[] Process(Frame[] inputs, int tick);
 
 		/// <summary>
-		/// Represents an input of a node. An input is a connection to a predecessing node whose output is requested.
-		/// </summary>
-		[DataContract]
-		public class Input
-		{
-			[DataMember]
-			public Output Source { get; set; }
-		}
-
-		/// <summary>
-		/// Can be used to remove unnecessary inputs. By default it removes all inputs whose source is null.
+		/// Removes all inputs whose source is null.
 		/// </summary>
 		public virtual void CullInputs()
 		{
@@ -114,6 +104,16 @@ namespace YuvKA.Pipeline
 						Inputs.Remove(input);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Represents an input of a node. An input is a connection to a predecessing node whose output is requested.
+		/// </summary>
+		[DataContract]
+		public class Input
+		{
+			[DataMember]
+			public Output Source { get; set; }
 		}
 
 		/// <summary>

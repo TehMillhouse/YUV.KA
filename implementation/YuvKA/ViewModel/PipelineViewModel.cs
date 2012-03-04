@@ -170,7 +170,9 @@ namespace YuvKA.ViewModel
 			DraggedEdge.EndViewModel = inOut;
 			InOutputViewModel inputVM, outputVM;
 
-			// removes unnecessary inputs
+			// prevent removal of reused input
+			if (draggedEdgeEndNodeVM != null &&	draggedEdgeEndNodeVM.Inputs.Contains(inOut))
+				draggedEdgeEndNodeVM = null;
 			CullInputs();
 
 			if (!DraggedEdge.GetInOut(out inputVM, out outputVM)) {

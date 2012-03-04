@@ -123,25 +123,24 @@ namespace YuvKA.ViewModel
 			return input;
 		}
 
+		/// <summary>
+		/// Culls inputs of this view model's node and their counterparts in this view model.
+		/// </summary>
 		public void CullInputs()
 		{
 			Model.CullInputs();
-			DeleteCulledInputs();
+			// cull inputs in this view model
+			foreach (InOutputViewModel inputVM in inputs.ToArray()) {
+				if (!Model.Inputs.Contains((Node.Input)inputVM.Model)) {
+					inputs.Remove(inputVM);
+				}
+			}
 			NotifyOfPropertyChange(() => Inputs);
 		}
 
 		public void ViewLoaded()
 		{
 			viewPositionChanged.OnNext(Unit.Default);
-		}
-
-		private void DeleteCulledInputs()
-		{
-			foreach (InOutputViewModel inputVM in inputs.ToArray()) {
-				if (!Model.Inputs.Contains((Node.Input) inputVM.Model)) {
-					inputs.Remove(inputVM);
-				}
-			}
 		}
 	}
 }
