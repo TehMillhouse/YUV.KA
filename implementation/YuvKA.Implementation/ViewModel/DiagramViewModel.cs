@@ -145,7 +145,7 @@ namespace YuvKA.ViewModel.Implementation
 
 		public string GetVideoName(Node.Input input)
 		{
-			return "Input " + (NodeModel.Inputs.IndexOf(input) + 1);
+			return "Input " + (NodeModel.Inputs.IndexOf(input) + 1) + " | " + (input.Source == null ? "" : input.Source.Node.Name);
 		}
 
 		/// <summary>
