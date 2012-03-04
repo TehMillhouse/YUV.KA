@@ -105,7 +105,7 @@ namespace YuvKA.ViewModel
 					((Node.Input)inOut.Model).Source = null;
 					NotifyOfPropertyChange(() => Edges);
 					// remember the end of the grabbed edge
-					draggedEdgeEndNodeVM = FindInputsNodeViewModel(((Node.Input)inOut.Model));
+					draggedEdgeEndNodeVM = inOut.Parent;
 				}
 				DraggedEdge = new EdgeViewModel { StartViewModel = start, EndViewModel = inOut };
 			}
@@ -119,6 +119,8 @@ namespace YuvKA.ViewModel
 			if (e.LeftButton != MouseButtonState.Pressed) {
 				draggedNode = null;
 				DraggedEdge = null;
+				// removes unnecessary inputs
+				CullInputs();
 				return;
 			}
 
@@ -216,18 +218,6 @@ namespace YuvKA.ViewModel
 			if (draggedEdgeEndNodeVM != null)
 				draggedEdgeEndNodeVM.CullInputs();
 			draggedEdgeEndNodeVM = null;
-		}
-
-		private NodeViewModel FindInputsNodeViewModel(Node.Input input) 
-		{
-			foreach (NodeViewModel nodeViewModel in Nodes) {
-				foreach (InOutputViewModel iovm in nodeViewModel.Inputs) {
-					if (((Node.Input) iovm.Model) == input) 
-						return nodeViewModel;
-				}
-			}
-			// this should never happen
-			return null;
 		}
 	}
 }
