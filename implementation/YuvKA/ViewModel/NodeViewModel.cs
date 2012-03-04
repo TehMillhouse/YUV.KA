@@ -114,9 +114,9 @@ namespace YuvKA.ViewModel
 			Parent.Parent.OpenWindow(new VideoOutputViewModel(output));
 		}
 
-		public Node.Input AddInput()
+		public Node.Input AddInput(Node.Output source)
 		{
-			var input = new Node.Input();
+			var input = new Node.Input { Source = source };
 			Model.Inputs.Add(input);
 			inputs.Add(new InOutputViewModel(input, this));
 			NotifyOfPropertyChange(() => Inputs);

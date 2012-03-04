@@ -185,8 +185,9 @@ namespace YuvKA.ViewModel
 			Node.Input input;
 			if (inputVM.IsFake) {
 				// realize substitute input
-				if (Parent.Model.Graph.CanAddEdge(output.Node, inputVM.Parent.Model))
-					input = inputVM.Parent.AddInput();
+				if (Parent.Model.Graph.CanAddEdge(output.Node, inputVM.Parent.Model)) {
+					input = inputVM.Parent.AddInput(output);
+				}
 				else
 					return;
 			}

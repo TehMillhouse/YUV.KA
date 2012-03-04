@@ -42,6 +42,10 @@ namespace YuvKA.ViewModel.Implementation
 				if (e.PropertyName == "ReferenceVideo")
 					NotifyOfPropertyChange(() => Reference);
 			};
+
+			((ObservableCollection<Node.Input>)NodeModel.Inputs).CollectionChanged += (_, e) => {
+				NotifyOfPropertyChange(() => Videos);
+			};
 		}
 
 		/// <summary>
