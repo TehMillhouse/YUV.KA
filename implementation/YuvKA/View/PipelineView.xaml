@@ -31,8 +31,8 @@
 			</DrawingBrush.Drawing>
 		</DrawingBrush>
 	</UserControl.Background>
-	<Grid VerticalAlignment="Top" HorizontalAlignment="Left">
-		<Image Source="Guide.png" Visibility="{Binding PipelineIsEmpty, Converter={StaticResource conv}}"/>
+	<Grid>
+		<Image Source="Guide.png" Visibility="{Binding PipelineIsEmpty, Converter={StaticResource conv}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 		<ItemsControl x:Name="Edges">
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
