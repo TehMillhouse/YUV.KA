@@ -29,6 +29,21 @@ Wegen der fundamental verlustbehafteten Konvertierung zwischen den YCbCr- und RG
 
 \subsection{\name{YuvKA.Pipeline}}
 
+\paragraph{\name{CullInputTest}}
+\begin{itemize}
+	\item \name{WAMNDeleteEdge} \\
+	Stellt sicher, dass die Eingänge eines Knotens entfernt werden, wenn die dazugehörige Kante entfernt wird. Im Test wird der WeightedAveragedMergeNode verwendet.
+	\item \name{WAMNRelocateEdge} \\
+	Stellt sicher, dass die Eingänge eines Knotens entfernt werden, wenn die dazugehörige Kante auf den Eingang eines anderen Knotens gezogen wird. Im Test wird der WeightedAveragedMergeNode verwendet.
+	\item \name{WAMNDeleteNode} \\
+	Stellt sicher, dass die Eingänge eines Knotens entfernt werden, wenn der Quellknoten des Eingangs entfernt wird. Im Test wird der WeightedAveragedMergeNode verwendet.
+	\item \name{DiagramNodeDeleteEdge} \\
+	Stellt sicher, dass die Eingänge eines DiagramNodes entfernt werden, wenn die dazugehörige Kante entfernt wird. Es wird zusätzlich sicher gestellt, dass das Referenzvideo und Graphen entfernt werden, falls nötig.
+	\item \name{DiagramNodeRelocateEdge} \\
+	Stellt sicher, dass die Eingänge eines DiagramNodes entfernt werden, wenn die dazugehörige Kante auf den Eingang eines anderen DiagramNodes gezogen wird. Es wird zusätzlich sicher gestellt, dass das Referenzvideo und Graphen entfernt werden, falls nötig.
+	\item \name{DiagramNodeDeleteNode} \\
+	Stellt sicher, dass die Eingänge eines DiagramNodes entfernt werden, wenn der Quellknoten des Eingangs entfernt wird. Es wird zusätzlich sicher gestellt, dass das Referenzvideo und Graphen entfernt werden, falls nötig.
+\end{itemize}
 \paragraph{\name{PipelineGraph}}
 \begin{itemize}
 	\item \name{DfsFindsCorrectNodes} \\
