@@ -46,6 +46,7 @@
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="PropertyTools, Version=2012.1.1.4171, Culture=neutral, PublicKeyToken=ea0c9f2b460934d0, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyTools.Wpf.2012.1.1.4171\lib\PropertyTools.dll</HintPath>
     </Reference>
@@ -90,6 +91,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VideoModel\RgbTest.cs" />
     <Compile Include="VideoModel\YuvEncoderTest.cs" />
+    <Compile Include="ViewModel\DiagramViewModelTest.cs" />
     <Compile Include="ViewModel\HistogramViewModelTest.cs" />
     <Compile Include="ViewModel\OverlayViewModelTest.cs" />
     <Compile Include="ViewModel\MainViewModelTest.cs" />
