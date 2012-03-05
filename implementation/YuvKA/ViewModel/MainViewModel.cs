@@ -168,8 +168,11 @@ namespace YuvKA.ViewModel
 			if (!OpenWindows.Any(openWin => openWin.NodeModel == window.NodeModel && openWin.OutputModel == window.OutputModel)) {
 				OpenWindows.Add(window);
 				IoC.Get<IWindowManagerEx>().ShowWindow(window, owningModel: this);
+
 				// Forward key presses
-				((System.Windows.Window)window.GetView()).KeyUp += (_, e) => ((System.Windows.Window)GetView()).RaiseEvent(e);
+				if (window.GetView() is System.Windows.Window)
+					((System.Windows.Window)window.GetView()).KeyUp += (_, e) => ((System.Windows.Window)GetView()).RaiseEvent(e);
+
 				if (!ReplayStateViewModel.IsPlaying) {
 					Model.RenderTick(new[] { window.NodeModel });
 				}
