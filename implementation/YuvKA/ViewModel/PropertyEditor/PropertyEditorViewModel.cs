@@ -42,7 +42,9 @@ namespace YuvKA.ViewModel.PropertyEditor
 				foreach (PropertyDescriptor pd in properties) {
 					var browsable = pd.Attributes.OfType<BrowsableAttribute>().SingleOrDefault();
 					if (browsable != null && browsable.Browsable) {
-						System.Type fittingPVM = viewModels.Single(pvm => (pvm.BaseType.GetGenericArguments()[0].IsAssignableFrom(pd.PropertyType)));
+						System.Type fittingPVM = viewModels.SingleOrDefault(pvm => (pvm.BaseType.GetGenericArguments()[0].IsAssignableFrom(pd.PropertyType)));
+						if (fittingPVM == null)
+							return;
 						PropertyViewModel vm = (PropertyViewModel)Activator.CreateInstance(fittingPVM);
 						vm.Initialize(source, pd);
 						pvmList.Add(vm);
