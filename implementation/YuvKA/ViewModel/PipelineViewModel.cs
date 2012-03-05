@@ -170,33 +170,19 @@ namespace YuvKA.ViewModel
 			DraggedEdge.EndViewModel = inOut;
 			InOutputViewModel inputVM, outputVM;
 
-			// prevent removal of reused input
-			if (draggedEdgeEndNodeVM != null &&	draggedEdgeEndNodeVM.Inputs.Contains(inOut))
-				draggedEdgeEndNodeVM = null;
-			CullInputs();
 
-			if (!DraggedEdge.GetInOut(out inputVM, out outputVM)) {
-				DraggedEdge = null;
-				return;
-			}
-			DraggedEdge = null;
-
-			var output = (Node.Output)outputVM.Model;
-			Node.Input input;
-			if (inputVM.IsFake) {
-				// realize substitute input
+			if (DraggedEdge.GetInOut(out inputVM, out outputVM)) {
+				var output = (Node.Output)outputVM.Model;
 				if (Parent.Model.Graph.CanAddEdge(output.Node, inputVM.Parent.Model)) {
-					input = inputVM.Parent.AddInput(output);
-				}
-				else
-					return;
-			}
-			else
-				input = (Node.Input)inputVM.Model;
+					if (inputVM.IsFake)
+						inputVM.Parent.AddInput(output);
+					else
+						((Node.Input)inputVM.Model).Source = output;
 
-			if (Parent.Model.Graph.AddEdge(output, input)) {
-				NotifyOfPropertyChange(() => Edges);
-				Parent.SaveSnapshot();
+					CullInputs();
+					NotifyOfPropertyChange(() => Edges);
+					Parent.SaveSnapshot();
+				}
 			}
 			DraggedEdge = null;
 		}
