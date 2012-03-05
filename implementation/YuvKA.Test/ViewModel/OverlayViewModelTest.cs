@@ -9,6 +9,7 @@ using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
 using YuvKA.VideoModel;
 using YuvKA.ViewModel.Implementation;
+using YuvKA.ViewModel;
 namespace YuvKA.Test.ViewModel
 {
 	public class OverlayViewModelTest
@@ -35,11 +36,13 @@ namespace YuvKA.Test.ViewModel
 			Assert.Equal("No Overlay", vm.TypeTuples.First().Item1);
 
 			//Test altering the chosen Type
-			node.Type = noOverlay;
-			Assert.Equal("No Overlay", vm.ChosenType.Item1);
-			vm.ChosenType = new System.Tuple<string, IOverlayType>("BlockOverlay", blockOverlay);
+			node.Type = blockOverlay;
 			Assert.Equal("Macroblock-Overlay", vm.ChosenType.Item1);
-
+			ColorInputNode color = new ColorInputNode();
+			color.Size = new Size(512, 512);
+			node.Inputs[0].Source = color.Outputs[0];
+			vm.ChosenType = new System.Tuple<string, IOverlayType>("No Overlay", noOverlay);
+			Assert.Equal("No Overlay", vm.ChosenType.Item1);
 			//Test "Handling" a message(The result has be inspected manually)
 			node.Type = noOverlay;
 			Frame[] input = { new Frame(new Size(512, 512)) };
@@ -58,8 +61,11 @@ namespace YuvKA.Test.ViewModel
 			return new List<object> { new NoOverlay(), new BlocksOverlay() };
 		}
 
-		private IEventAggregator IoCAggregator(System.Type type, string str)
+		private object IoCAggregator(System.Type type, string str)
 		{
+			if (type == typeof(MainViewModel)) {
+				return MainViewModelTest.GetInstance();
+			}
 			return new EventAggregator();
 		}
 	}
