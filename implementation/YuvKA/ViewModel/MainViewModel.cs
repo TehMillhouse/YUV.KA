@@ -37,6 +37,9 @@ namespace YuvKA.ViewModel
 			get { return model; }
 			set
 			{
+				foreach (OutputWindowViewModel owvm in OpenWindows.ToArray())
+					owvm.TryClose();
+
 				model = value;
 				IoC.BuildUp(model);
 				if (ReplayStateViewModel != null)
@@ -99,9 +102,6 @@ namespace YuvKA.ViewModel
 		public void Clear()
 		{
 			Model = new PipelineState();
-			foreach (OutputWindowViewModel owvm in OpenWindows.ToArray()) {
-				owvm.TryClose();
-			}
 			modelBase = Serialize(Model);
 
 			OpenWindows.Clear();
@@ -234,7 +234,6 @@ namespace YuvKA.ViewModel
 
 		PipelineState Deserialize(byte[] data)
 		{
-			OpenWindows.Clear();
 			using (var stream = new MemoryStream(data))
 				return Deserialize(stream);
 		}
