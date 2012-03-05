@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 using YuvKA.ViewModel.Implementation;
-using System.Linq;
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -14,6 +14,8 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class DiagramNode : OutputNode
 	{
+		Input referenceVideo;
+
 		/// <summary>
 		/// Creates a new diagram node. By default it is enabled and contains an empty
 		/// list of graphs.
@@ -40,7 +42,15 @@ namespace YuvKA.Pipeline.Implementation
 		/// Gets or sets the video to which all other videos are compared.
 		/// </summary>
 		[DataMember]
-		public Input ReferenceVideo { get; set; }
+		public Input ReferenceVideo
+		{
+			get { return referenceVideo; }
+			set
+			{
+				referenceVideo = value;
+				NotifyOfPropertyChange(() => ReferenceVideo);
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets the list of graphs the DiagramNode is displaying.
@@ -77,8 +87,8 @@ namespace YuvKA.Pipeline.Implementation
 				if (g.Data.Count != 0 && tick < g.Data[g.Data.Count - 1].Key)
 					g.Data.Clear();
 				if (g.Type != null)
-				g.Data.Add(new KeyValuePair<int, double>(tick,
-					g.Type.Process(inputs[Inputs.IndexOf(g.Video)], ReferenceVideo != null ? inputs[(int)RefIndex] : null)));
+					g.Data.Add(new KeyValuePair<int, double>(tick,
+						g.Type.Process(inputs[Inputs.IndexOf(g.Video)], ReferenceVideo != null ? inputs[(int)RefIndex] : null)));
 			}
 		}
 

@@ -39,12 +39,17 @@ namespace YuvKA.ViewModel.Implementation
 			};
 
 			NodeModel.PropertyChanged += (_, e) => {
-				if (e.PropertyName == "ReferenceVideo")
+				if (e.PropertyName == "ReferenceVideo") {
 					NotifyOfPropertyChange(() => Reference);
+					foreach (DiagramGraphViewModel graph in Graphs)
+						graph.NotifyOfPropertyChange(() => graph.AvailableTypes);
+				}
 			};
 
 			((ObservableCollection<Node.Input>)NodeModel.Inputs).CollectionChanged += (_, e) => {
 				NotifyOfPropertyChange(() => Videos);
+				foreach (DiagramGraphViewModel graph in Graphs)
+					graph.NotifyOfPropertyChange(() => graph.Name);
 			};
 		}
 
