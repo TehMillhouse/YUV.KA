@@ -63,6 +63,9 @@ namespace YuvKA.Test
 
 			// Step 2: Disable diagram node and open overlay node.
 			diagram.IsEnabled = false;
+			IGraphType pixelDiff = new PixelDiff();
+			IGraphType psnr = new PeakSignalNoiseRatio();
+			IoC.GetAllInstances = type => new List<IGraphType> { pixelDiff, psnr };
 			var overlayWindow = new OverlayViewModel(overlay) { Parent = conductorMock.Object };
 			var diagramWindow = new DiagramViewModel(diagram) { Parent = conductorMock.Object };
 			((IActivate)overlayWindow).Activate();
@@ -91,19 +94,19 @@ namespace YuvKA.Test
 			Assert.Contains(diagramWindow, mvm.OpenWindows);
 
 			// Step 7: Choose a reference video and add a diagram graph.
-			diagram.ReferenceVideo = diagram.Inputs[0];
-			DiagramGraph diagramGraph = new DiagramGraph();
-			diagram.Graphs.Add(diagramGraph);
-			diagramGraph.Video = diagram.Inputs[1];
-			diagramGraph.Type = new PixelDiff();
+			diagramWindow.Reference = new Tuple<string, Node.Input>(diagramWindow.GetVideoName(diagram.Inputs[0]), diagram.Inputs[0]);
+			diagramWindow.ChosenVideo = new Tuple<string, Node.Input>(diagramWindow.GetVideoName(diagram.Inputs[1]), diagram.Inputs[1]);
+			diagramWindow.AddGraph();
+			diagramWindow.Graphs.ElementAt(0).CurrentType = new GraphTypeViewModel(pixelDiff);
 
 			// Step 8: Start pipeline again and change diagram graph type.
 			mvm.Model.Start(mvm.Model.Graph.Nodes);
-			diagramGraph.Type = new PeakSignalNoiseRatio();
+			diagramWindow.Graphs.ElementAt(0).CurrentType = new GraphTypeViewModel(psnr);
 
 			// Step 9: Remove the diagram graph.
-			diagram.Graphs.Remove(diagramGraph);
-			Assert.DoesNotContain(diagramGraph, diagram.Graphs);
+			DiagramGraphViewModel dgvm = diagramWindow.Graphs.ElementAt(0);
+			diagramWindow.DeleteGraph(dgvm);
+			Assert.DoesNotContain(dgvm, diagramWindow.Graphs);
 		}
 	}
 }
