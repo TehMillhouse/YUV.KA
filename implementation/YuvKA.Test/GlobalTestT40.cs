@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Linq;
-using Moq;
+using Xunit;
 using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
-using YuvKA.Test;
 using YuvKA.Test.ViewModel;
 using YuvKA.ViewModel;
-using Xunit;
 using YuvKA.ViewModel.Implementation;
 
 namespace YuvKA.Test

@@ -31,7 +31,7 @@ namespace YuvKA.Implementation
 		public string Name { get { return Parent.GetVideoName(Model.Video); } }
 
 		/// <summary>
-		/// Gets or sets the types available with the current configuration
+		/// Gets the types available with the current configuration
 		/// </summary>
 		public IEnumerable<GraphTypeViewModel> AvailableTypes
 		{
@@ -84,7 +84,7 @@ namespace YuvKA.Implementation
 		public Color LineColor { get; private set; }
 
 		/// <summary>
-		/// Gets or sets the current color for the preview of the line.
+		/// Gets the current color for the preview of the line.
 		/// </summary>
 		public SolidColorBrush GraphColor { get { return new SolidColorBrush(LineColor); } }
 	}

@@ -19,10 +19,12 @@ namespace YuvKA.Pipeline.Implementation
 		/// additionally to the regular inputframe
 		/// </summary>
 		bool DependsOnReference { get; }
+
 		/// <summary>
 		/// The value if this type of overlay requires encoderlogdata
 		/// </summary>
 		bool DependsOnLogfiles { get; }
+
 		/// <summary>
 		/// The value if this type of overlay requires movevectordata
 		/// </summary>

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using Caliburn.Micro;
@@ -79,16 +76,14 @@ namespace YuvKA.Test
 			Assert.Equal(10, node2.Model.Y);
 
 			//Add Edge
-			
+
 			posMock.Setup(p => p.GetElementPosition(node0.Outputs.Single(), vm)).Returns(new Point(10, 10));
 			posMock.Setup(p => p.GetElementPosition(node0.Inputs.Single(), vm)).Returns(new Point(30, 10));
 			posMock.Setup(p => p.GetElementPosition(node1.Inputs.Single(), vm)).Returns(new Point(40, 10));
 			posMock.Setup(p => p.GetElementPosition(node2.Inputs.Single(), vm)).Returns(new Point(0, 10));
 
 			// Start edge from node0 output
-			Assert.PropertyChanged(vm, "DraggedEdge",
-				() => vm.InOutputMouseDown(node0.Outputs.First())
-			);
+			Assert.PropertyChanged(vm, "DraggedEdge", () => vm.InOutputMouseDown(node0.Outputs.First()));
 
 			var edge = vm.DraggedEdge;
 			Assert.Equal(new Point(12, 12), edge.StartPoint);
@@ -121,9 +116,7 @@ namespace YuvKA.Test
 			// Step 3: User changes the end of an edge via drag-and-drop
 
 			// Pick up edge from node1 input
-			Assert.PropertyChanged(vm, "DraggedEdge",
-				() => vm.InOutputMouseDown(node1.Inputs.First())
-			);
+			Assert.PropertyChanged(vm, "DraggedEdge", () => vm.InOutputMouseDown(node1.Inputs.First()));
 
 			edge = vm.DraggedEdge;
 			Assert.Equal(new Point(22, 12), edge.StartPoint);
@@ -148,10 +141,8 @@ namespace YuvKA.Test
 			// Step 4: user removes an edge
 
 			// Pick up edge from node2 input
-			Assert.PropertyChanged(vm, "DraggedEdge",
-				() => vm.InOutputMouseDown(node2.Inputs.First())
-			);
-			
+			Assert.PropertyChanged(vm, "DraggedEdge", () => vm.InOutputMouseDown(node2.Inputs.First()));
+
 			edge = vm.DraggedEdge;
 			Assert.Equal(new Point(22, 12), edge.StartPoint);
 			Assert.Equal(new Point(2, 12), edge.EndPoint);
@@ -171,7 +162,7 @@ namespace YuvKA.Test
 			Assert.Equal(0, vm.Edges.Count());
 
 			// Step 5: user changes the configuration of a manipulation-node
-			((BlurNode) node0.Model).Radius = 2;
+			((BlurNode)node0.Model).Radius = 2;
 
 			// Step 6: user deletes a node
 			Assert.PropertyChanged(vm, "Edges", node0.RemoveNode);

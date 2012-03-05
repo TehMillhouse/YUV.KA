@@ -159,11 +159,13 @@ namespace YuvKA.Test.Pipeline
 
 			graph.RemoveNode(node2);
 
-			foreach(Node.Input input in node3.Inputs) 
+			foreach (Node.Input input in node3.Inputs) {
 				Assert.Equal(null, input.Source);
+			}
 
-			foreach (Node.Input input in node4.Inputs)
+			foreach (Node.Input input in node4.Inputs) {
 				Assert.Equal(null, input.Source);
+			}
 		}
 
 

@@ -25,13 +25,13 @@ namespace YuvKA.Pipeline.Implementation
 		public YuvKA.Pipeline.Node.Input Video { get; set; }
 
 		/// <summary>
-		/// Gets or sets the type of the diagram graph
+		/// Gets the type of the diagram graph
 		/// </summary>
 		[DataMember]
 		public IGraphType Type { get; set; }
 
 		/// <summary>
-		/// Gets or sets the values of the graph. The X-values are the frames and
+		/// Gets the values of the graph. The X-values are the frames and
 		/// the Y-values are calculated by according to the Type.
 		/// </summary>
 		public BindableCollection<KeyValuePair<int, double>> Data { get; private set; }

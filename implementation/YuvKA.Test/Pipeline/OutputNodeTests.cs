@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
-using System.Linq;
 using Xunit;
 using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
 using YuvKA.VideoModel;
-using YuvKA.ViewModel.Implementation;
 
 
 namespace YuvKA.Test.Pipeline

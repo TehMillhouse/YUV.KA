@@ -29,6 +29,7 @@ namespace YuvKA.ViewModel.Implementation
 		/// The Bitmap of the resultFrame, ready to be fetched by other classes.
 		/// </summary>
 		public WriteableBitmap RenderedImage { get; private set; }
+
 		/// <summary>
 		/// The OverlayNode associated with this ViewModel.
 		/// </summary>
@@ -55,6 +56,7 @@ namespace YuvKA.ViewModel.Implementation
 				return overlayTypes;
 			}
 		}
+
 		/// <summary>
 		/// The chosen Overlayname and type.
 		/// </summary>

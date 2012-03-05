@@ -4,7 +4,6 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline
 {
-
 	/// <summary>
 	/// This abstract class represents the structure an input node should have.
 	/// </summary>

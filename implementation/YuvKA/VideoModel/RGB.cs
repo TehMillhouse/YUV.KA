@@ -74,7 +74,7 @@
 		/// <summary>
 		/// Returns a human-readable representation of the pixel color value
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>A string representation of this RGB object</returns>
 		public override string ToString()
 		{
 			return string.Format("(R {0} G {1} B {2})", R, G, B);

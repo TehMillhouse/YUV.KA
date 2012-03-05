@@ -53,8 +53,10 @@ namespace YuvKA.Pipeline
 								ticks.Add(task, tokenSource.Token);
 								new Func<object>(() => task.Value)(); // force evaluation
 							}
-						}, tokenSource.Token, TaskCreationOptions.AttachedToParent, TaskScheduler.Current)
-						.ContinueWith(__ => ticks.CompleteAdding());
+						},
+						tokenSource.Token,
+						TaskCreationOptions.AttachedToParent,
+						TaskScheduler.Current).ContinueWith(__ => ticks.CompleteAdding());
 
 						try {
 							foreach (Lazy<Task<FrameDic>> tick in ticks.GetConsumingEnumerable())
@@ -62,7 +64,8 @@ namespace YuvKA.Pipeline
 						} finally {
 							tokenSource.Cancel(); // Cancel producer
 						}
-					}, tokenSource.Token)
+					},
+					tokenSource.Token)
 
 					.ContinueWith(t => {
 						// Handle all OCEs. If there are no other exceptions, we're done.

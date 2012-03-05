@@ -1,22 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.IO;
-using System.Linq;
-using System.Reactive;
-using System.Reactive.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Input;
-using Caliburn.Micro;
-using Microsoft.Win32;
-using Moq;
+﻿using System.IO;
+using System.Runtime.Serialization;
 using Xunit;
 using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
 using YuvKA.Test.ViewModel;
 using YuvKA.ViewModel;
-using System.Runtime.Serialization;
 
 namespace YuvKA.Test
 {
@@ -35,16 +23,16 @@ namespace YuvKA.Test
 			Assert.Contains(colorInput, mvm.Model.Graph.Nodes);
 			Assert.Contains(inverter, mvm.Model.Graph.Nodes);
 			Assert.Equal(colorInput.Outputs[0], inverter.Inputs[0].Source);
-			
+
 			//Step 2: Save Pipeline
 			using (var stream = File.Create(@"..\..\..\..\output\test30.yuvka"))
 				new NetDataContractSerializer().Serialize(stream, mvm.Model);
 			Assert.True(File.Exists(@"..\..\..\..\output\test30.yuvka"));
-			
+
 			//Step 3: Clear Pipeline
 			mvm.Clear();
 			Assert.Empty(mvm.Model.Graph.Nodes);
-			
+
 			//Step 4: Reload Pipeline
 			using (var stream = File.OpenRead(@"..\..\..\..\output\test30.yuvka"))
 				mvm.Model = (PipelineState)new NetDataContractSerializer().Deserialize(stream);

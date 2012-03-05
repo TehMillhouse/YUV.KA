@@ -29,6 +29,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// <summary>
 		/// Calculates the Data by counting the number of IntraBlocks in the given frame.
 		/// </summary>
+		/// <param name="frame">The frame to be compared to the reference frame</param>
 		/// <param name="reference">The frame against which the given frame is compared. This parameter is unnused.</param>
 		public double Process(Frame frame, Frame reference)
 		{
@@ -69,6 +70,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// <summary>
 		/// Calculates the Data by computing the Peak-Signal-to-Noise-Ratio.
 		/// </summary>
+		/// <param name="frame">The frame to be compared to thxe reference frame</param>
 		/// <param name="reference">The frame against which the given frame is compared</param>
 		public double Process(Frame frame, Frame reference)
 		{
@@ -113,6 +115,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// <summary>
 		/// Calculates the Data by computing color difference between two frames pixel-by-pixel.
 		/// </summary>
+		/// <param name="frame">The frame to be compared to xthe reference frame</param>
 		/// <param name="reference">The frame against which the given frame is compared</param>
 		public double Process(Frame frame, Frame reference)
 		{
@@ -157,6 +160,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// Calculates the Data by computing the number
 		/// of similar Encoderdecisions between two frames.
 		/// </summary>
+		/// <param name="frame">The frame to be compared to the reference frame</param>
 		/// <param name="reference">The frame against which the given frame is compared</param>
 		public double Process(Frame frame, Frame reference)
 		{

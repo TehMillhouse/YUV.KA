@@ -15,7 +15,6 @@ namespace YuvKA.ViewModel
 		/// <summary>
 		/// Creates a new VideoOutputViewModel.
 		/// </summary>
-		/// <param name="output"></param>
 		public VideoOutputViewModel(Node.Output output)
 			: base(output.Node, output)
 		{

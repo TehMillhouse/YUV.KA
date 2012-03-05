@@ -1,32 +1,18 @@
-﻿using System;
-using System.Diagnostics;
-using System.Reactive.Linq;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Windows.Media.Imaging;
 using Caliburn.Micro;
+using Moq;
 using Xunit;
 using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
 using YuvKA.VideoModel;
-using YuvKA.ViewModel;
 using YuvKA.ViewModel.Implementation;
-using System.Collections.Generic;
-using Moq;
-using System.IO;
-using System.Windows.Media.Imaging;
 namespace YuvKA.Test.ViewModel
 {
 	public class OverlayViewModelTest
 	{
-		private IEnumerable<object> IoCOverlayInstances(System.Type nope)
-		{
-			return new List<object>{ new NoOverlay(), new BlocksOverlay() };
-		}
-
-		private IEventAggregator IoCAggregator(System.Type type, string str)
-		{
-			return new EventAggregator();
-		}
-
 		/// <summary>
 		/// This test is a general all-round test for the OverlayViewModel
 		/// </summary>
@@ -65,6 +51,16 @@ namespace YuvKA.Test.ViewModel
 				encoder.Frames.Add(BitmapFrame.Create(vm.RenderedImage));
 				encoder.Save(fileStream);
 			}
+		}
+
+		private IEnumerable<object> IoCOverlayInstances(System.Type nope)
+		{
+			return new List<object> { new NoOverlay(), new BlocksOverlay() };
+		}
+
+		private IEventAggregator IoCAggregator(System.Type type, string str)
+		{
+			return new EventAggregator();
 		}
 	}
 }

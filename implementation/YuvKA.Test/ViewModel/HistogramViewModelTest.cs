@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Xunit;
 using YuvKA.Pipeline.Implementation;
 using YuvKA.VideoModel;
@@ -24,7 +21,7 @@ namespace YuvKA.Test.ViewModel
 			vm.Nodes.Add(node);
 			vm.Parent.Model.Graph.AddNode(node.Model);
 
-			var HVM = new HistogramViewModel((HistogramNode)vm.Nodes.Single().Model);
+			var hvm = new HistogramViewModel((HistogramNode)vm.Nodes.Single().Model);
 
 			// Generates an array of 1 Frame with randomly filled Data
 			var testSize = new Size(5, 5);
@@ -35,13 +32,13 @@ namespace YuvKA.Test.ViewModel
 				}
 			}
 
-			HVM.NodeModel.Type = HistogramType.R;
+			hvm.NodeModel.Type = HistogramType.R;
 
 			// porcess one frame with chosen type
-			HVM.NodeModel.Process(inputs, 0);
-			HVM.Handle(null);
+			hvm.NodeModel.Process(inputs, 0);
+			hvm.Handle(null);
 
-			Assert.NotEmpty(HVM.Data.Data);
+			Assert.NotEmpty(hvm.Data.Data);
 		}
 	}
 }

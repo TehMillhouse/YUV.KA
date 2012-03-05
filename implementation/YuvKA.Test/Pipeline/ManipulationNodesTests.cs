@@ -256,9 +256,7 @@ namespace YuvKA.Test.Pipeline
 			for (int y = 0; y < size.Height; y++) {
 				for (int x = 0; x < size.Width; ++x) {
 					// Reuse the created image object
-					image.SetPixel(x, y, System.Drawing.Color.FromArgb(outputFrames[0][x, y].R,
-														outputFrames[0][x, y].G,
-														outputFrames[0][x, y].B));
+					image.SetPixel(x, y, System.Drawing.Color.FromArgb(outputFrames[0][x, y].R, outputFrames[0][x, y].G, outputFrames[0][x, y].B));
 				}
 			}
 
@@ -272,9 +270,7 @@ namespace YuvKA.Test.Pipeline
 			for (int y = 0; y < size.Height; y++) {
 				for (int x = 0; x < size.Width; ++x) {
 					// Reuse the created image object
-					image.SetPixel(x, y, System.Drawing.Color.FromArgb(outputFrames[0][x, y].R,
-														outputFrames[0][x, y].G,
-														outputFrames[0][x, y].B));
+					image.SetPixel(x, y, System.Drawing.Color.FromArgb(outputFrames[0][x, y].R, outputFrames[0][x, y].G, outputFrames[0][x, y].B));
 				}
 			}
 

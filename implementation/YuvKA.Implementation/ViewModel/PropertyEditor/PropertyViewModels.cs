@@ -113,6 +113,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 		{
 			get { return (double)(Property.Attributes.OfType<RangeAttribute>().First().Minimum); }
 		}
+
 		/// <summary>
 		/// The maximum value thi numerical property can have assigned.
 		/// </summary>
@@ -199,6 +200,7 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 				this.source = source;
 				this.index = index;
 			}
+
 			/// <summary>
 			/// Property representing the value bound
 			/// </summary>

@@ -23,10 +23,12 @@ namespace YuvKA.ViewModel.PropertyEditor
 		/// The object that is the owner of the property.
 		/// </summary>
 		public object Source { get; private set; }
+
 		/// <summary>
 		/// The descriptor of the property.
 		/// </summary>
 		public PropertyDescriptor Property { get; private set; }
+
 		/// <summary>
 		/// The value of this property.
 		/// </summary>
@@ -85,10 +87,10 @@ namespace YuvKA.ViewModel.PropertyEditor
 	/// <summary>
 	/// This class derives the PropertyVideModel for every PropertyType.
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
 	public abstract class PropertyViewModel<T> : PropertyViewModel
 	{
 		protected PropertyViewModel(bool commitOnValueChanged = true) : base(commitOnValueChanged) { }
+
 		/// <summary>
 		/// The value of the property in an appropriate type for the value.
 		/// </summary>

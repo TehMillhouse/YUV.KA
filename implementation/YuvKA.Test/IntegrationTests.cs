@@ -38,12 +38,12 @@ namespace YuvKA.Test
 			var input = new VideoInputNode {
 				FileName = new FilePath(@"..\..\..\..\resources\americanFootball_352x240_125.yuv")
 			};
-			Func<Node, Node> mkNode = n => {
+			Func<Node, Node> makeNode = n => {
 				Node n2 = new InverterNode();
 				n2.Inputs[0].Source = n.Outputs[0];
 				return n2;
 			};
-			Node graph = mkNode(mkNode(mkNode(input)));
+			Node graph = makeNode(makeNode(makeNode(input)));
 
 			IoC.GetInstance = delegate { return new EventAggregator(); };
 			var output = new VideoOutputViewModel(graph.Outputs[0]);

@@ -9,7 +9,6 @@ namespace YuvKA.Test.Pipeline
 {
 	public class InputNodesTests
 	{
-
 		/// <summary>
 		/// Create images with the four supported noise types: Perlin/Colored-Perlin and Coherent/Colored-Coherent noise
 		/// </summary>
@@ -38,9 +37,11 @@ namespace YuvKA.Test.Pipeline
 			outputImage = new Bitmap(noiseInput.Size.Width, noiseInput.Size.Height);
 			for (int y = 0; y < outputFrame.Size.Height; ++y) {
 				for (int x = 0; x < outputFrame.Size.Width; ++x) {
-					outputImage.SetPixel(x, y, Color.FromArgb(outputFrame[x, y].R,
-															  outputFrame[x, y].G,
-															  outputFrame[x, y].B));
+					outputImage.SetPixel(x,
+										 y,
+										Color.FromArgb(outputFrame[x, y].R,
+													   outputFrame[x, y].G,
+													   outputFrame[x, y].B));
 				}
 			}
 			outputImage.Save("..\\..\\..\\..\\output\\noise-" + noiseInput.Type + "-tick-" + tick + "-352x240.png");
@@ -142,9 +143,11 @@ namespace YuvKA.Test.Pipeline
 			outputImage = new Bitmap(inputNode.Size.Width, inputNode.Size.Height);
 			for (int y = 0; y < outputFrame.Size.Height; ++y) {
 				for (int x = 0; x < outputFrame.Size.Width; ++x) {
-					outputImage.SetPixel(x, y, Color.FromArgb(outputFrame[x, y].R,
-															  outputFrame[x, y].G,
-															  outputFrame[x, y].B));
+					outputImage.SetPixel(x, 
+										 y, 
+										 Color.FromArgb(outputFrame[x, y].R,
+														outputFrame[x, y].G,
+														outputFrame[x, y].B));
 				}
 			}
 		}

@@ -53,7 +53,7 @@ namespace YuvKA.Pipeline.Implementation
 		}
 
 		/// <summary>
-		/// Gets or sets the list of graphs the DiagramNode is displaying.
+		/// Gets the list of graphs the DiagramNode is displaying.
 		/// </summary>
 		[DataMember]
 		public ObservableCollection<DiagramGraph> Graphs { get; private set; }

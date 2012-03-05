@@ -9,16 +9,6 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class DifferenceNode : Node
 	{
-		public override bool InputIsValid
-		{
-			get
-			{
-				return ((Inputs[1].Source != null || Inputs[0].Source != null)
-					&& (Inputs[0].Source == null || Inputs[0].Source.Node.InputIsValid)
-					&& (Inputs[1].Source == null || Inputs[1].Source.Node.InputIsValid));
-			}
-		}
-
 		/// <summary>
 		/// Construct a differencenode.
 		/// It has two Inputs and one Output.
@@ -27,6 +17,16 @@ namespace YuvKA.Pipeline.Implementation
 			: base(inputCount: 2, outputCount: 1)
 		{
 			Name = "Difference";
+		}
+
+		public override bool InputIsValid
+		{
+			get
+			{
+				return ((Inputs[1].Source != null || Inputs[0].Source != null)
+					&& (Inputs[0].Source == null || Inputs[0].Source.Node.InputIsValid)
+					&& (Inputs[1].Source == null || Inputs[1].Source.Node.InputIsValid));
+			}
 		}
 
 		/// <summary>
