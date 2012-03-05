@@ -15,6 +15,7 @@ namespace YuvKA.Test
 		/// pipeline:
 		/// [video]--->[blur]--->[display]
 		/// </summary>
+		[Fact]
 		public void Test40()
 		{
 			// Step 1: create an arbitrary acyclical pipeline with an input and a manipulation node
