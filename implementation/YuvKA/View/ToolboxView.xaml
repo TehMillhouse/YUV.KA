@@ -15,7 +15,7 @@
 			</ItemsControl.ItemsPanel>
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-					<Expander IsExpanded="True" ExpandDirection="Left">
+					<Expander IsExpanded="True" ExpandDirection="Right">
 						<Expander.Header>
 							<TextBlock Text="{Binding Key}" MaxWidth="60">
 								<TextBlock.LayoutTransform>
