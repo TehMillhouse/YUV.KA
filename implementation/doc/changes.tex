@@ -232,6 +232,8 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 \begin{itemize}
 	\add \verb!public void CloseWindows(Node node)! \\
 	Erzwingt das Schließen aller Ausgabefenster dieses Knotens
+	\add \verb!public void CullAllInputs()! \\
+	In manchen Fällen, wie zum Beispiel beim entfernen eines Knotens, ist es nötig die Eingänge aller Knoten des Graphen zu überprüfen und ggf. zu entfernen.
 	\add \verb!public void Handle(OutputWindowViewModel.ClosedMessage message)! \\
 	Reagiert auf das Schließen eines Fensters.
 	\verb!public void Handle(ChangeCommittedMessage message)! \\
@@ -254,9 +256,9 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	\add \verb!public int ZIndex { get; set; }! \\
 	Regelt die Zeichenabfolge von Knoten, damit der letztausgewählte Knoten nicht von anderen verdeckt ist.
 	\add \verb!public void AddInput()! \\
-	\add \verb!publiv void CullAllInputs()! \\
-	In manchen Fällen, wie zum Beispiel beim entfernen eines Knotens, ist es nötig die Eingänge aller Knoten des Graphen zu überprüfen und ggf. zu entfernen.
 	Fügt bei dynamisch um Eingänge erweiterbaren Knoten einen neuen Eingang hinzu.
+	\add \verb!public void CullInputs()! \\
+	Führt CullInputs auf ViewModel-Ebene und anschießend im dargestellten Node aus.
 	\add \verb!public void RemoveNode()! \\
 	Entfernt diesen Knoten aus allen relevanten Listen und schließt alle Ausgabefenster des Knotens.
 	\add \verb!public void ViewLoaded()! \\
