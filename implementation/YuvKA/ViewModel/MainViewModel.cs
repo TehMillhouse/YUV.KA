@@ -3,6 +3,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Windows.Input;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
 using YuvKA.ViewModel.PropertyEditor;
@@ -167,6 +168,8 @@ namespace YuvKA.ViewModel
 			if (!OpenWindows.Any(openWin => openWin.NodeModel == window.NodeModel && openWin.OutputModel == window.OutputModel)) {
 				OpenWindows.Add(window);
 				IoC.Get<IWindowManagerEx>().ShowWindow(window, owningModel: this);
+				// Forward key presses
+				((System.Windows.Window)window.GetView()).KeyUp += (_, e) => ((System.Windows.Window)GetView()).RaiseEvent(e);
 				if (!ReplayStateViewModel.IsPlaying) {
 					Model.RenderTick(new[] { window.NodeModel });
 				}
@@ -201,6 +204,14 @@ namespace YuvKA.ViewModel
 		public void Handle(ChangeCommittedMessage message)
 		{
 			SaveSnapshot();
+		}
+
+		public void KeyUp(KeyEventArgs e)
+		{
+			if (e.Key == Key.MediaPlayPause)
+				ReplayStateViewModel.PlayPause();
+			else if (e.Key == Key.MediaStop)
+				ReplayStateViewModel.Stop();
 		}
 
 		void Serialize(Stream stream, PipelineState state)
