@@ -11,6 +11,7 @@ namespace YuvKA.Pipeline.Implementation
 	{
 		static readonly Size Cif = new Size(352, 288);
 		static readonly Size Sif = new Size(352, 240);
+		static readonly Size Qcif = new Size(176, 144);
 
 		FilePath fileName = new FilePath(null);
 		FilePath logFileName = new FilePath(null);
@@ -44,6 +45,8 @@ namespace YuvKA.Pipeline.Implementation
 						Size = Cif;
 					else if (Regex.IsMatch(fileName.Path, @"[_.]sif[_.]"))
 						Size = Sif;
+					else if (Regex.IsMatch(fileName.Path, @"[_.]qcif[_.]"))
+						Size = Qcif;
 					NotifyOfPropertyChange(() => FileName);
 					NotifyOfPropertyChange(() => Size);
 					NotifyOfPropertyChange(() => TickCount);

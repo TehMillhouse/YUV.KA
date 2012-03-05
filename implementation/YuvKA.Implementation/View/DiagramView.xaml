@@ -34,7 +34,7 @@
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal" Margin="5">
 									<Rectangle Width="25" Fill="{Binding Path=GraphColor}" />
-									<Button Width="25" Content="Del" cal:Message.Attach="[Event Click] = [Action DeleteGraph($dataContext)]"/>
+									<Button Width="25" Content="X" cal:Message.Attach="[Event Click] = [Action DeleteGraph($dataContext)]"/>
 									<TextBlock Text="{Binding Path=Name}" Margin="10 0" Width="100" />
 									<ComboBox ItemsSource="{Binding AvailableTypes}" SelectedItem="{Binding CurrentType}" Width="150">
 										<ComboBox.ItemTemplate>

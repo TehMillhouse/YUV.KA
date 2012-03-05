@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnonNodeHelper.cs" />
-    <Compile Include="CullInputTest.cs" />
     <Compile Include="GlobalTestT10.cs" />
     <Compile Include="GlobalTestT20.cs" />
     <Compile Include="GlobalTestT30.cs" />
@@ -83,6 +82,7 @@
     <Compile Include="GlobalTestT50.cs" />
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="Pipeline\AnonymousNode.cs" />
+    <Compile Include="Pipeline\CullInputTest.cs" />
     <Compile Include="Pipeline\InputNodesTests.cs" />
     <Compile Include="Pipeline\OutputNodeTests.cs" />
     <Compile Include="Pipeline\ManipulationNodesTests.cs" />
