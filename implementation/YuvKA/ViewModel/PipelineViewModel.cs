@@ -50,6 +50,11 @@ namespace YuvKA.ViewModel
 			}
 		}
 
+		public bool PipelineIsEmpty
+		{
+			get { return !Nodes.Any(); }
+		}
+
 		public EdgeViewModel DraggedEdge
 		{
 			get { return draggedEdge; }
@@ -76,6 +81,7 @@ namespace YuvKA.ViewModel
 				Parent.Model.Graph.AddNode(node);
 				Nodes.Add(nodeModel);
 				Parent.SaveSnapshot();
+				NotifyOfPropertyChange("PipelineIsEmpty");
 			}
 		}
 

@@ -7,6 +7,9 @@
 			xmlns:yuv="clr-namespace:YuvKA"
 			mc:Ignorable="d"
 			d:DesignHeight="300" d:DesignWidth="300" AllowDrop="True" cal:Message.Attach="[Event Drop] = [Action Drop($eventArgs)]; [Event MouseMove] = [Action MouseMove($eventArgs)]; [Event MouseLeftButtonUp] = [Action MouseUp]; [Event DragOver] = [Action CheckClearance($eventArgs)]">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="conv"/>
+	</UserControl.Resources>
 	<UserControl.Background>
 		<ImageBrush ImageSource="PipelineGridBackdrop.png"
 						Stretch="None"
@@ -18,6 +21,7 @@
 						AlignmentY="Top"/>
 	</UserControl.Background>
 	<Grid VerticalAlignment="Top" HorizontalAlignment="Left">
+		<Image Source="Guide.png" Visibility="{Binding PipelineIsEmpty, Converter={StaticResource conv}}"/>
 		<ItemsControl x:Name="Edges">
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>

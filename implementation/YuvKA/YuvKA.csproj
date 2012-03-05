@@ -217,6 +217,9 @@
   <ItemGroup>
     <Resource Include="icon256x256.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Guide.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProgramFiles)\MSBuild\StyleCop\v4.6\StyleCop.targets" Condition="Exists('$(ProgramFiles)\MSBuild\StyleCop\v4.6\StyleCop.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
