@@ -1,8 +1,8 @@
-﻿<Window x:Class="YuvKA.View.Implementation.OverlayView"
+﻿<Window x:Class="YuvKA.View.Implementation.DisplayView"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-		Title="OverlayNode" Height="300" Width="300"
+		Title="DisplayNode" Height="300" Width="300"
 		cal:Message.Attach="[Event Closed] = [Action CloseWindow()]">
-		<Image Source="{Binding RenderedImage}" />
+	<Image Source="{Binding RenderedImage}" />
 </Window>

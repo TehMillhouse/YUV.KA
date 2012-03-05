@@ -1,43 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
-using YuvKA.ViewModel;
+using YuvKA.ViewModel.Implementation;
 
 namespace YuvKA.Pipeline.Implementation
 {
 	/// <summary>
-	/// Gives the user another way of displaying a video stream.
-	/// Though considered duplicate functionality, this node exists for usability reasons.
+	/// This node simply displays its input. Though every node has that functionality already,
+	/// this is duplicated here for usability reasons
 	/// </summary>
 	[DataContract]
-	public class DisplayNode : Node
+	public class DisplayNode : OutputNode
 	{
 		/// <summary>
-		/// Constructs a DisplayNode.
-		/// It has one In- and no Outputs.
+		/// Constructs a DisplayNode
 		/// </summary>
 		public DisplayNode()
-			: base(inputCount: 1, outputCount: 1)
+			: base(inputCount: 1)
 		{
 			Name = "Display";
 		}
 
-		[Browsable(true)]
-		public VideoOutputViewModel OutputViewModel { get { return new VideoOutputViewModel(this.Outputs[0]); } }
+		public Frame Data { get; private set; }
 
 		/// <summary>
-		/// Displays the input.
+		/// The Viewmodel of the window that shall be displayed
 		/// </summary>
-		/// <param name="inputs">An array of Frames, with only the first entry regarded.</param>
-		/// <param name="tick">The index of the Frame which is processed now.</param>
-		/// <returns>The Frame it was given.</returns>
-		public override Frame[] Process(Frame[] inputs, int tick)
+		[Browsable(true)]
+		public DisplayViewModel Window { get { return new DisplayViewModel(this); } }
+
+		public override void ProcessCore(Frame[] inputs, int tick)
 		{
-			return inputs;
+			Data = inputs[0];
 		}
 	}
 }

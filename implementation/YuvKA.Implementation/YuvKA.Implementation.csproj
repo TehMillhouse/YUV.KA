@@ -79,6 +79,7 @@
     <Compile Include="Pipeline\DisplayNode.cs" />
     <Compile Include="Pipeline\NoiseType.cs" />
     <Compile Include="ViewModel\DiagramViewModel.cs" />
+    <Compile Include="ViewModel\DisplayViewModel.cs" />
     <Compile Include="ViewModel\GraphTypeViewModel.cs" />
     <Compile Include="ViewModel\HistogramViewModel.cs" />
     <Compile Include="ViewModel\OverlayViewModel.cs" />
@@ -115,6 +116,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\DisplayView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\PropertyEditor\BooleanPropertyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -7,6 +7,7 @@ using YuvKA.Test;
 using YuvKA.Test.ViewModel;
 using YuvKA.ViewModel;
 using Xunit;
+using YuvKA.ViewModel.Implementation;
 
 namespace YuvKA.Test
 {
@@ -45,7 +46,7 @@ namespace YuvKA.Test
 			Assert.True(display.InputIsValid);
 
 			// Step 3: open the DisplayNode's output and play the video
-			VideoOutputViewModel output = display.OutputViewModel;
+			DisplayViewModel output = display.Window;
 			Assert.Equal(display, output.NodeModel);
 
 			Assert.False(mvm.ReplayStateViewModel.IsPlaying);
@@ -85,7 +86,7 @@ namespace YuvKA.Test
 			System.Threading.Thread.Sleep(100000);
 			try {
 				Assert.NotEqual(0, stream.Position);
-			} catch (ObjectDisposedException e) {
+			} catch (ObjectDisposedException) {
 				// This means the SaveNodeOutputViewModel is already done and has disposed of its stream
 				// That's just another possibility that's just as valid, and signifies proper execution
 			}

@@ -8,10 +8,6 @@ using Caliburn.Micro;
 using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
 
-
-
-
-
 namespace YuvKA.ViewModel.Implementation
 {
 	/// <summary>
