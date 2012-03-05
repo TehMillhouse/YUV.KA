@@ -72,7 +72,9 @@
 						<Menu DockPanel.Dock="Right" Background="LightBlue">
 							<MenuItem Style="{StaticResource MenuStyle}">
 								<MenuItem.Header>
-									<Image Width="10" Height="10" Source="context.png" />
+									<Viewbox Width="13" Margin="2">
+										<Path Fill="Black" Data="M 0,0 L 2,0 L 1,1 Z"/>
+									</Viewbox>
 								</MenuItem.Header>
 							</MenuItem>
 						</Menu>

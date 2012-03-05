@@ -207,14 +207,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\PipelineGridBackdrop.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="View\context.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="icon256x256.ico" />
   </ItemGroup>
   <ItemGroup>
