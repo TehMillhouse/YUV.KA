@@ -53,8 +53,15 @@ namespace YuvKA.Implementation
 			get { return Model.Type == null ? null : Parent.Types.Single(t => t.Model.GetType() == Model.Type.GetType()); }
 			set
 			{
-				Model.Type = value.Model;
-				LineColor = Parent.NewColor(Model.Type);
+				if (value != null) {
+					Model.Type = value.Model;
+					LineColor = Parent.NewColor(Model.Type);
+				}
+				else {
+					Model.Type = null;
+					LineColor = Colors.Transparent;
+				}
+
 				NotifyOfPropertyChange(() => LineColor);
 				NotifyOfPropertyChange(() => GraphColor);
 				Parent.NotifyOfPropertyChange(() => Parent.Lines);

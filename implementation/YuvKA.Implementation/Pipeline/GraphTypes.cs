@@ -72,6 +72,9 @@ namespace YuvKA.Pipeline.Implementation
 		/// <param name="reference">The frame against which the given frame is compared</param>
 		public double Process(Frame frame, Frame reference)
 		{
+			if (reference == null)
+				return 0;
+
 			double mse = 0.0;
 			for (int i = 0; i < frame.Size.Width; i++) {
 				for (int j = 0; j < frame.Size.Height; j++) {
@@ -113,6 +116,9 @@ namespace YuvKA.Pipeline.Implementation
 		/// <param name="reference">The frame against which the given frame is compared</param>
 		public double Process(Frame frame, Frame reference)
 		{
+			if (reference == null)
+				return 0;
+
 			double difference = 0.0;
 			for (int x = 0; x < frame.Size.Width; x++) {
 				for (int y = 0; y < frame.Size.Height; y++) {
