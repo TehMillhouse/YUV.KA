@@ -100,7 +100,7 @@ namespace YuvKA.Pipeline.Implementation
 					EnsureInputLoaded();
 					return input.FrameCount;
 				}
-				return 0;
+				return null;
 			}
 		}
 
