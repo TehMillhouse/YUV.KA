@@ -76,6 +76,10 @@ namespace YuvKA.Pipeline.Implementation
 
 		private void EnsureInputLoaded()
 		{
+			if (inputImage != null && resizedInputImage != null) {
+				// The data we've got is still valid
+				return;
+			}
 			// If the path was changed, we have to load the new image
 			if (inputImage == null) {
 				inputImage = new Bitmap(FileName.Path);
