@@ -63,7 +63,6 @@
 		<d3:ChartPlotter LegendVisibility="Hidden" LineGraphs="{Binding Path=Lines}">
 			<d3:ChartPlotter.FitToViewRestrictions>
 				<ViewportRestrictions:FollowWidthRestriction Width="15" />
-				<ViewportRestrictions:MinimalSizeRestriction MinSize="0"/>
 			</d3:ChartPlotter.FitToViewRestrictions>
 		</d3:ChartPlotter>
 	</DockPanel>
