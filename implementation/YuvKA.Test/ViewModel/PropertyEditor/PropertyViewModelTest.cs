@@ -92,25 +92,25 @@ namespace YuvKA.Test.ViewModel.PropertyEditor
 			Assert.Equal(pd.Attributes.OfType<RangeAttribute>().First().Minimum, en.Minimum);
 		}
 
-		/// <summary>
-		/// Test for the binding and validity of the RgbPropertyViewModel
-		/// </summary>
+		 ///<summary>
+		 ///Test for the binding and validity of the RgbPropertyViewModel
+		 ///</summary>
 		[Fact]
 		public void RgbPropertyViewModelTest()
 		{
-			// Since this property viewmodel commits its change as soon as the change is made, the commitChange method
-			// is executed, which requires a working IoC
-			IoC.GetInstance = IoCAggregator;
+		    // Since this property viewmodel commits its change as soon as the change is made, the commitChange method
+		    // is executed, which requires a working IoC
+		    IoC.GetInstance = IoCAggregator;
 
-			RgbPropertyViewModel en = new RgbPropertyViewModel();
-			ColorInputNode clr = new ColorInputNode();
-			PropertyDescriptor pd = TypeDescriptor.GetProperties(clr).Find("color", true);
-			en.Initialize(clr, pd);
+		    ColorPropertyViewModel en = new ColorPropertyViewModel();
+		    ColorInputNode clr = new ColorInputNode();
+		    PropertyDescriptor pd = TypeDescriptor.GetProperties(clr).Find("color", true);
+		    en.Initialize(clr, pd);
 
-			clr.Color = new YuvKA.VideoModel.Rgb(1, 33, 7);
-			Assert.Equal(new YuvKA.VideoModel.Rgb(1, 33, 7), new YuvKA.VideoModel.Rgb(en.ChosenColor.R, en.ChosenColor.G, en.ChosenColor.B));
-			en.ChosenColor = System.Windows.Media.Color.FromRgb(42, 24, 22);
-			Assert.Equal(new YuvKA.VideoModel.Rgb(42, 24, 22), clr.Color);
+			clr.Color = System.Windows.Media.Color.FromRgb(1, 33, 7);
+		    Assert.Equal(new YuvKA.VideoModel.Rgb(1, 33, 7), new YuvKA.VideoModel.Rgb(en.ChosenColor.R, en.ChosenColor.G, en.ChosenColor.B));
+		    en.ChosenColor = System.Windows.Media.Color.FromRgb(42, 24, 22);
+			Assert.Equal(System.Windows.Media.Color.FromRgb(42, 24, 22), clr.Color);
 		}
 
 		/// <summary>

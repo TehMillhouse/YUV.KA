@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Windows.Media;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
@@ -58,15 +59,21 @@ namespace YuvKA.ViewModel.PropertyEditor.Implementation
 	/// <summary>
 	/// Represents a color variable viewable and settable by the user via the UI.
 	/// </summary>
-	public class RgbPropertyViewModel : PropertyViewModel<VideoModel.Rgb>
+	public class ColorPropertyViewModel : PropertyViewModel<Color>
 	{
 		/// <summary>
 		/// The color value of the property.
 		/// </summary>
 		public Color ChosenColor
 		{
-			get { return Color.FromRgb(TypedValue.R, TypedValue.G, TypedValue.B); }
-			set { TypedValue = new Rgb(value.R, value.G, value.B); }
+			get { return TypedValue; }
+			set { TypedValue = value; }
+		}
+
+		protected override void OnValueChanged()
+		{
+			base.OnValueChanged();
+			NotifyOfPropertyChange(() => ChosenColor);
 		}
 	}
 

@@ -107,33 +107,33 @@ namespace YuvKA.Test.Pipeline
 			inputNode.OutputFrame(0);
 		}
 
-		/// <summary>
-		/// Test the order of resize and color change operations.
-		/// Output a color and write it to a file.
-		/// </summary>
+		 ///<summary>
+		 /// Test the order of resize and color change operations.
+		 /// Output a color and write it to a file.
+		 /// </summary>
 		[Fact]
 		public void ColorInputTest()
 		{
-			Frame outputFrame;
-			Bitmap outputImage;
-			ColorInputNode colorInput = new ColorInputNode();
+		    Frame outputFrame;
+		    Bitmap outputImage;
+		    ColorInputNode colorInput = new ColorInputNode();
 
-			colorInput.Size = new YuvKA.VideoModel.Size(200, 200);
-			colorInput.Color = new Rgb(50, 92, 177);
-			CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage, 0);
-			outputImage.Save("..\\..\\..\\..\\output\\color-50-92-177-200x200.png");
+		    colorInput.Size = new YuvKA.VideoModel.Size(200, 200);
+		    colorInput.Color = System.Windows.Media.Color.FromRgb(50, 92, 177);
+		    CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage, 0);
+		    outputImage.Save("..\\..\\..\\..\\output\\color-50-92-177-200x200.png");
 
-			// Change the size
-			colorInput.Size = new YuvKA.VideoModel.Size(100, 50);
-			CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage, 0);
-			outputImage.Save("..\\..\\..\\..\\output\\color-50-92-177-100x50.png");
+		    // Change the size
+		    colorInput.Size = new YuvKA.VideoModel.Size(100, 50);
+		    CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage, 0);
+		    outputImage.Save("..\\..\\..\\..\\output\\color-50-92-177-100x50.png");
 
-			// Change the color
-			Color c = Color.Crimson;
-			byte r = c.R, g = c.G, b = c.B;
-			colorInput.Color = new Rgb(r, g, b);
-			CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage, 0);
-			outputImage.Save("..\\..\\..\\..\\output\\color-" + r + "-" + g + "-" + b + "177-100x50.png");
+		    // Change the color
+		    Color c = Color.Crimson;
+		    byte r = c.R, g = c.G, b = c.B;
+			colorInput.Color = System.Windows.Media.Color.FromRgb(r, g, b);
+		    CopyFrameToOutputImage(colorInput, out outputFrame, out outputImage, 0);
+		    outputImage.Save("..\\..\\..\\..\\output\\color-" + r + "-" + g + "-" + b + "177-100x50.png");
 		}
 
 		// A helper method to save the frame to a PNG image file

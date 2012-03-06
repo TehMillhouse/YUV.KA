@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="YuvKA.View.PropertyEditor.Implementation.RgbPropertyView"
+﻿<UserControl x:Class="YuvKA.View.PropertyEditor.Implementation.ColorPropertyView"
 			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"

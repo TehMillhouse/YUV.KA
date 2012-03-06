@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Runtime.Serialization;
+using System.Windows.Media;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
@@ -10,7 +12,7 @@ namespace YuvKA.Pipeline.Implementation
 	[DataContract]
 	public class ColorInputNode : InputNode
 	{
-		Rgb color;
+		Color color = Color.FromRgb(0,0,0);
 		Frame outputFrame;
 		bool colorChanged;
 
@@ -28,7 +30,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// </summary>
 		[DataMember]
 		[Browsable(true)]
-		public Rgb Color
+		public Color Color
 		{
 			get { return color; }
 			set
@@ -70,7 +72,7 @@ namespace YuvKA.Pipeline.Implementation
 				// Fill the frame with the selected color
 				for (int x = 0; x < outputFrame.Size.Width; x++) {
 					for (int y = 0; y < outputFrame.Size.Height; y++) {
-						outputFrame[x, y] = Color;
+						outputFrame[x, y] = new Rgb(Color.R, Color.G, Color.B);
 					}
 				}
 				colorChanged = false;
