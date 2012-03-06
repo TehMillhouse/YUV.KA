@@ -171,7 +171,7 @@ namespace YuvKA.Pipeline.Implementation
 				AnnotatedFrame annRef = (AnnotatedFrame)reference;
 				for (int i = 0; i < annFrame.Decisions.GetLength(0); i++) {
 					for (int j = 0; j < annFrame.Decisions.GetLength(1); j++) {
-						if (annFrame.Decisions[i, j].Equals(annRef.Decisions[i, j]))
+						if (annFrame.Decisions[i, j].PartitioningDecision == annRef.Decisions[i, j].PartitioningDecision)
 							difference++;
 					}
 				}
