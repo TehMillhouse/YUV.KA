@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YuvKA.Test", "YuvKA.Test\Yu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Circuitry", "Circuitry\Circuitry.csproj", "{001DFE7A-DDE6-4498-A804-4911D0CF2F2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleFrame", "SingleFrame\SingleFrame\SingleFrame.csproj", "{E6264245-0A51-4EE0-9837-520D4CF1D8AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,16 @@ Global
 		{001DFE7A-DDE6-4498-A804-4911D0CF2F2B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{001DFE7A-DDE6-4498-A804-4911D0CF2F2B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{001DFE7A-DDE6-4498-A804-4911D0CF2F2B}.Release|x86.ActiveCfg = Release|Any CPU
+		{E6264245-0A51-4EE0-9837-520D4CF1D8AA}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E6264245-0A51-4EE0-9837-520D4CF1D8AA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{E6264245-0A51-4EE0-9837-520D4CF1D8AA}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{E6264245-0A51-4EE0-9837-520D4CF1D8AA}.Debug|x86.ActiveCfg = Debug|x86
+		{E6264245-0A51-4EE0-9837-520D4CF1D8AA}.Debug|x86.Build.0 = Debug|x86
+		{E6264245-0A51-4EE0-9837-520D4CF1D8AA}.Release|Any CPU.ActiveCfg = Release|x86
+		{E6264245-0A51-4EE0-9837-520D4CF1D8AA}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{E6264245-0A51-4EE0-9837-520D4CF1D8AA}.Release|Mixed Platforms.Build.0 = Release|x86
+		{E6264245-0A51-4EE0-9837-520D4CF1D8AA}.Release|x86.ActiveCfg = Release|x86
+		{E6264245-0A51-4EE0-9837-520D4CF1D8AA}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

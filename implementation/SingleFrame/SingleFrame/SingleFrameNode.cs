@@ -1,14 +1,9 @@
 ﻿namespace YuvKA.Implementation
 {
-	using System;
-	using System.Collections.Generic;
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
-	using System.Linq;
-	using System.Text;
-	using YuvKA;
-	using YuvKA.VideoModel;
 	using System.Runtime.Serialization;
+	using YuvKA.VideoModel;
 
 	public class SingleFrameNode : YuvKA.Pipeline.Node
 	{
