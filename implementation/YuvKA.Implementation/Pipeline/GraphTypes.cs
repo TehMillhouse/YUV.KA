@@ -7,7 +7,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// <summary>
 	/// Provides an IGraphType calculating the Data by counting the number of Intra-Blocks.
 	/// </summary>
-	[DisplayName("Intra-Block-Frequency")]
+	[DisplayName("Intra-Block-Frequency in percent")]
 	public class IntraBlockFrequency : IGraphType
 	{
 		/// <summary>
@@ -41,6 +41,8 @@ namespace YuvKA.Pipeline.Implementation
 						intraBlocks++;
 					}
 				}
+				intraBlocks /= annFrame.Decisions.Length;
+				intraBlocks *= 100;
 			}
 			return intraBlocks;
 		}
