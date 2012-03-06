@@ -24,6 +24,7 @@ namespace YuvKA.Pipeline.Implementation
 			: base(outputCount: 1)
 		{
 			Name = "Image";
+			fileName = new FilePath(null);
 		}
 
 		/// <summary>
@@ -43,6 +44,14 @@ namespace YuvKA.Pipeline.Implementation
 				inputImage = null;
 				// and the resized image recreated
 				resizedInputImage = null;
+			}
+		}
+
+		public override bool InputIsValid
+		{
+			get
+			{
+				return fileName.Path != null;
 			}
 		}
 
