@@ -1,0 +1,149 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usetheme{Copenhagen}
+\useinnertheme{rectangles}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+\title{YUV.KA \\ Praxis der Softwareentwicklung 2011/2012}
+\author{Max Wagner $\cdot$ Patrick Gemander $\cdot$ Sebastian Ullrich \\ Michael Vollmer $\cdot$ Robert Hangu $\cdot$ Daniel Lebert}
+\titlegraphic{\includegraphics[height=2.5cm]{logo.png}}
+\begin{document}
+\frame{\titlepage}
+
+\frame{\tableofcontents}
+
+\section{Einleitung}
+\frame{\frametitle{Aufgabenstellung}
+Multimedia-Framework zur Evaluation von Videoencodern \pause
+\begin{itemize}
+	\item Einlesen von unkomprimierten Videos \pause
+	\item Manipulation durch Syntheseoptionen \pause
+	\item Enkodierung der Videodateien \pause
+	\item Vergleich mit Referenzvideos
+\end{itemize}
+}
+
+\section{Benutzeroberfläche}
+\subsection{Hauptanzeige}
+\frame{
+\frametitle{Benutzeroberfläche I}
+\begin{columns}
+        \column{.55\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{main-screen}} \pause
+        \column{.45\textwidth}
+                \begin{itemize}
+		\item Eingabe von Videos, Bildern, Farbe, Noise \pause
+		\item Speichern von Videos und Pipeline \pause
+		\item Anzeigen von Videos \pause
+		\item Abspielgeschwindigkeit verändern \pause
+		\item Im Video springen \pause
+		\item Videos zusammenführen \pause
+		\item Videos trennen \pause
+		\item Videos weichzeichnen
+                \end{itemize}
+\end{columns}
+}
+
+\frame{
+\frametitle{Benutzeroberfläche II}
+\begin{columns}
+        \column{.55\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{main-screen}}
+        \column{.45\textwidth}
+                \begin{itemize}
+		\item Videos invertieren \pause
+		\item Kontrast, Sättigung, Helligkeit verändern \pause
+		\item Verzögern eines Videos \pause
+		\item Differenzvideos bilden \pause
+		\item Videos per Testencoder enkodieren \pause
+		\item Analyse der Videos \pause
+		\item Video mit Overlayoptionen abspielen
+                \end{itemize}
+\end{columns}
+}
+
+\subsection{Analyseansicht}
+\frame{
+\frametitle{Analyseknoten I}
+\begin{columns}
+        \column{.55\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{diagram-screen}} \pause
+        \column{.45\textwidth}
+                \begin{itemize}
+		\item Inter/Intra-Block-Verhältnis \pause
+		\item Helligkeitverlauf \pause
+		\item Histogramm \pause
+		\item PSNR
+                \end{itemize}
+\end{columns}
+}
+
+\frame{
+\frametitle{Analyseknoten II}
+\begin{columns}
+        \column{.55\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{diagram-screen}}
+        \column{.45\textwidth}
+                \begin{itemize}
+		\item Differenzen der Pixelfarben \pause
+		\item Differenz der Encoder-Entscheidungen \pause
+		\item Anzahl der Artefakte
+                \end{itemize}
+\end{columns}
+}
+
+\section{Wunschkriterien}
+\frame{
+\frametitle{Wunschkriterien I}
+\begin{columns}
+        \column{.55\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{main-screen}} \pause
+        \column{.45\textwidth}
+                \begin{itemize}
+		\item Plugins \pause
+		\item Quantisieren der Farbpalette \pause
+		\item Undo/Redo-Funktion \pause
+		\item Tabs im Interface \pause
+		\item asynchrone, nichtblockende UI
+                \end{itemize}
+\end{columns}
+}
+
+\frame{
+\frametitle{Wunschkriterien II} \pause
+                \begin{itemize}
+		\item autom. Auflösungserkennung \pause
+		\item Multithreading \pause
+		\item Motionvektoren verarbeiten
+                \end{itemize}
+}
+
+\section{Systemmodell}
+\frame{
+\frametitle{Systemmodell}
+\begin{columns}
+        \column{.40\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{Layers}} \pause
+        \column{.60\textwidth}
+                \begin{description}
+		\item[View Model] eingelesenes Video mit Log-Daten \pause
+		\item[Encoder] der zu testende Encoder \pause
+		\item[Pipeline] Aufbau und Abarbeitung der Pipeline, bestend aus \pause
+			\begin{itemize}
+				\item Knoten-Klassen \pause
+				\item Pipeline Driver \pause
+			\end{itemize}
+		\item[ViewModel] Abarbeitung von Benutzereingaben \pause
+		\item[View] Aufbau und Anzeige der Benutzeroberfläche
+                \end{description}
+\end{columns}
+}
+
+\section{Fragen}
+\frame{\frametitle{Fragen}}
+
+\end{document}

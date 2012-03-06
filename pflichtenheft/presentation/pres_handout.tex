@@ -1,0 +1,148 @@
+\documentclass{beamer}
+\usepackage{handoutWithNotes}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usetheme{Copenhagen}
+\useinnertheme{rectangles}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+\pgfpagesuselayout{1 on 1 with notes}[a4paper,border shrink=5mm]
+\title{YUV.KA \\ Praxis der Softwareentwicklung 2011/2012}
+\author{Max Wagner $\cdot$ Patrick Gemander $\cdot$ Sebastian Ullrich \\ Michael Vollmer $\cdot$ Robert Hangu $\cdot$ Daniel Lebert}
+\titlegraphic{\includegraphics[height=2.5cm]{logo.png}}
+\begin{document}
+\frame{\titlepage}
+
+\frame{\tableofcontents}
+
+\section{Einleitung}
+\frame{\frametitle{Aufgabenstellung}
+Multimedia-Framework zur Evaluation von Videoencodern 
+\begin{itemize}
+	\item Einlesen von unkomprimierten Videos 
+	\item Manipulation durch Syntheseoptionen 
+	\item Enkodierung der Videodateien 
+	\item Vergleich mit Referenzvideos
+\end{itemize}
+}
+
+\section{Benutzeroberfläche}
+\subsection{Hauptanzeige}
+\frame{
+\frametitle{Benutzeroberfläche I}
+\begin{columns}
+        \column{.55\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{main-screen}} 
+        \column{.45\textwidth}
+                \begin{itemize}
+		\item Eingabe von Videos, Bildern, Farbe, Noise 
+		\item Speichern von Videos und Pipeline 
+		\item Anzeigen von Videos 
+		\item Abspielgeschwindigkeit verändern 
+		\item Im Video springen 
+		\item Videos zusammenführen 
+		\item Videos trennen 
+		\item Videos weichzeichnen
+                \end{itemize}
+\end{columns}
+}
+
+\frame{
+\frametitle{Benutzeroberfläche II}
+\begin{columns}
+        \column{.55\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{main-screen}}
+        \column{.45\textwidth}
+                \begin{itemize}
+		\item Videos invertieren 
+		\item Kontrast, Sättigung, Helligkeit verändern 
+		\item Verzögern eines Videos 
+		\item Differenzvideos bilden 
+		\item Videos per Testencoder enkodieren 
+		\item Analyse der Videos 
+		\item Video mit Overlayoptionen abspielen
+                \end{itemize}
+\end{columns}
+}
+
+\subsection{Analyseansicht}
+\frame{
+\frametitle{Analyseknoten I}
+\begin{columns}
+        \column{.55\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{diagram-screen}} 
+        \column{.45\textwidth}
+                \begin{itemize}
+		\item Inter/Intra-Block-Verhältnis 
+		\item Helligkeitverlauf 
+		\item Histogramm 
+		\item PSNR
+                \end{itemize}
+\end{columns}
+}
+
+\frame{
+\frametitle{Analyseknoten II}
+\begin{columns}
+        \column{.55\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{diagram-screen}}
+        \column{.45\textwidth}
+                \begin{itemize}
+		\item Differenzen der Pixelfarben 
+		\item Differenz der Encoder-Entscheidungen 
+		\item Anzahl der Artefakte
+                \end{itemize}
+\end{columns}
+}
+
+\section{Wunschkriterien}
+\frame{
+\frametitle{Wunschkriterien I}
+\begin{columns}
+        \column{.55\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{main-screen}} 
+        \column{.45\textwidth}
+                \begin{itemize}
+		\item Plugins 
+		\item Quantisieren der Farbpalette 
+		\item Undo/Redo-Funktion 
+		\item Tabs im Interface 
+		\item asynchrone, nichtblockende UI
+                \end{itemize}
+\end{columns}
+}
+
+\frame{
+\frametitle{Wunschkriterien II} 
+                \begin{itemize}
+		\item autom. Auflösungserkennung 
+		\item Multithreading 
+		\item Motionvektoren verarbeiten
+                \end{itemize}
+}
+
+\section{Systemmodell}
+\frame{
+\frametitle{Systemmodell}
+\begin{columns}
+        \column{.40\textwidth}
+                \fbox{\pgfimage[width=\textwidth]{Layers}} 
+        \column{.60\textwidth}
+                \begin{description}
+		\item[View Model] eingelesenes Video mit Log-Daten 
+		\item[Encoder] der zu testende Encoder 
+		\item[Pipeline] Aufbau und Abarbeitung der Pipeline, bestend aus 
+			\begin{itemize}
+				\item Knoten-Klassen 
+				\item Pipeline Driver 
+			\end{itemize}
+		\item[ViewModel] Abarbeitung von Benutzereingaben 
+		\item[View] Aufbau und Anzeige der Benutzeroberfläche
+                \end{description}
+\end{columns}
+}
+
+\end{document}
