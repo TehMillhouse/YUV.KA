@@ -96,7 +96,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// <summary>
 	/// Providing an IGraphType calculating the Data by computing color difference between two frames pixel-by-pixel.
 	/// </summary>
-	[DisplayName("Pixel-Difference")]
+	[DisplayName("Color-Difference in percent")]
 	public class PixelDiff : IGraphType
 	{
 		/// <summary>
@@ -131,7 +131,10 @@ namespace YuvKA.Pipeline.Implementation
 						Math.Abs(frame[x, y].B - reference[x, y].B);
 				}
 			}
-			return difference / (3 * frame.Size.Height * frame.Size.Width);
+			difference /= (frame.Size.Height * frame.Size.Width);
+			difference *= 100;
+			difference /= 765;
+			return difference;
 		}
 	}
 
