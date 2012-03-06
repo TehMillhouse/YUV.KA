@@ -155,7 +155,7 @@
 					Observable.FromEventPattern(element, "ViewAttached").Select(_ => Unit.Default).Take(1);
 				return
 					from gotView in getView
-					from loaded in Observable.FromEventPattern(element.GetView(), "Loaded").Take(1)
+					from loaded in Observable.FromEventPattern(element.GetView(), "SizeChanged")
 					select Unit.Default;
 			}
 

@@ -48,7 +48,8 @@ namespace YuvKA.ViewModel
 				return Observable.Merge(
 					Observable.Return(Unit.Default),
 					Parent.ViewPositionChanged,
-					IoC.Get<IGetPosition>().ViewLoaded(this)
+					IoC.Get<IGetPosition>().ViewLoaded(this),
+					IoC.Get<IGetPosition>().ViewLoaded(Parent)
 				)
 					// ...compute the new midpoint
 				.Select(_ => {
