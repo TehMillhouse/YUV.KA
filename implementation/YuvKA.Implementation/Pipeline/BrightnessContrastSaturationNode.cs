@@ -81,9 +81,9 @@ namespace YuvKA.Pipeline.Implementation
 					int green = pixel.G;
 					int blue = pixel.B;
 
-					red += (int)(255 * Brightness);
-					green += (int)(255 * Brightness);
-					blue += (int)(255 * Brightness);
+					red += (int)(127 * Brightness);
+					green += (int)(127 * Brightness);
+					blue += (int)(127 * Brightness);
 
 					red = (red > 255 ? 255 : (red < 0 ? 0 : red));
 					green = (green > 255 ? 255 : (green < 0 ? 0 : green));
