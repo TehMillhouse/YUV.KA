@@ -24,7 +24,7 @@ namespace YuvKA.Test
 			BlurNode blur = new BlurNode() { Type = BlurType.Gaussian, Radius = 3 };
 			DisplayNode display = new DisplayNode();
 			// We'll have to dump this node's output later, so we need a ViewModel
-			NodeViewModel displayVM = new NodeViewModel(display, mvm.PipelineViewModel);
+			NodeViewModel blurVM = new NodeViewModel(blur, mvm.PipelineViewModel);
 
 			mvm.Model.Graph.AddNode(video);
 			mvm.Model.Graph.AddNode(blur);
@@ -75,15 +75,15 @@ namespace YuvKA.Test
 			Assert.False(mvm.ReplayStateViewModel.IsPlaying);
 
 			// Step 9: save the video as yuv file
-			displayVM.SaveNodeOutput(display.Outputs[0]);
+			blurVM.SaveNodeOutput(blur.Outputs[0]);
 			// Since we can't create a FileChooser here, we'll have to invoke the SaveNodeOutputViewModel directly
 			System.IO.MemoryStream stream = new System.IO.MemoryStream();
-			SaveNodeOutputViewModel saveVM = new SaveNodeOutputViewModel(display.Outputs[0], stream, mvm.Model);
+			SaveNodeOutputViewModel saveVM = new SaveNodeOutputViewModel(blur.Outputs[0], stream, mvm.Model);
 			Assert.Equal(mvm.Model.Graph.TickCount, saveVM.TickCount);
 			// I'm sorry for this. I really am. I found no better way of testing this.
-			System.Threading.Thread.Sleep(100000);
+			System.Threading.Thread.Sleep(1000);
 			try {
-				Assert.NotEqual(0, stream.Position);
+				Assert.NotEqual(0, stream.Capacity);
 			} catch (ObjectDisposedException) {
 				// This means the SaveNodeOutputViewModel is already done and has disposed of its stream
 				// That's just another possibility that's just as valid, and signifies proper execution
