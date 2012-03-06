@@ -89,7 +89,7 @@ namespace YuvKA.ViewModel
 			{
 				Vector delta = EndPoint - StartPoint;
 				Vector horizDelta = new Vector(Math.Abs(delta.X), 0);
-				if (StartViewModel.Model is Node.Input)
+				if (!(StartViewModel.Model is Node.Output))
 					horizDelta *= -1;
 
 				var geo = new StreamGeometry();
