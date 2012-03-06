@@ -191,7 +191,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// Providing an IGraphType calculating the Data by computing the number
 	/// of artifacts between two frames.
 	/// </summary>
-	[DisplayName("Artifacts per Pixel")]
+	[DisplayName("Artifacts in percent")]
 	public class Artifacts : IGraphType
 	{
 		/// <summary>
@@ -229,7 +229,7 @@ namespace YuvKA.Pipeline.Implementation
 						result += 1;
 				}
 			}
-			return result / (reference.Size.Height * reference.Size.Width);
+			return 100 * result / (reference.Size.Height * reference.Size.Width);
 		}
 	}
 }
