@@ -33,7 +33,7 @@ namespace Circuitry
 		public DigitalInputNode(int? outputCount) : base(outputCount) { }
 
 		[Browsable(false)]
-		public Size Size { get; private set; }
+		public new Size Size { get; private set; }
 
 		public sealed override Frame OutputFrame(int tick)
 		{
@@ -92,7 +92,7 @@ namespace Circuitry
 		}
 
 		[Browsable(true)]
-		public ReadOnlyObservableCollection<bool?> Output { get; private set; }
+		public new ReadOnlyObservableCollection<bool?> Output { get; private set; }
 
 		public override bool ProcessNodeInBackground { get { return true; } }
 
@@ -106,7 +106,7 @@ namespace Circuitry
 		}
 
 		[OnDeserialized]
-		public void OnDeserialized(StreamingContext ctx)
+		public new void OnDeserialized(StreamingContext ctx)
 		{
 			output = new ObservableCollection<bool?>();
 			Output = new ReadOnlyObservableCollection<bool?>(output);
