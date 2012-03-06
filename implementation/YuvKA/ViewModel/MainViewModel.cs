@@ -189,16 +189,6 @@ namespace YuvKA.ViewModel
 			OpenWindows = (from window in OpenWindows where window.NodeModel != source select window).ToList();
 		}
 
-		/// <summary>
-		/// Culls inputs in all nodes.
-		/// </summary>
-		public void CullAllInputs()
-		{
-			foreach (NodeViewModel nodeViewModel in pipelineViewModel.Nodes) {
-				nodeViewModel.CullInputs();
-			}
-		}
-
 		public void Handle(OutputWindowViewModel.ClosedMessage message)
 		{
 			OpenWindows.Remove(message.Window);

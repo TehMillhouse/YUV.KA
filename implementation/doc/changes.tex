@@ -232,8 +232,6 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 \begin{itemize}
 	\add \verb!public void CloseWindows(Node node)! \\
 	Erzwingt das Schließen aller Ausgabefenster dieses Knotens
-	\add \verb!public void CullAllInputs()! \\
-	In manchen Fällen, wie zum Beispiel beim entfernen eines Knotens, ist es nötig die Eingänge aller Knoten des Graphen zu überprüfen und ggf. zu entfernen.
 	\add \verb!public void Handle(OutputWindowViewModel.ClosedMessage message)! \\
 	Reagiert auf das Schließen eines Fensters.
 	\verb!public void Handle(ChangeCommittedMessage message)! \\
@@ -277,6 +275,8 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	Die gerade gezogene Kante, sonst null.
 	\add \verb!public void CheckClearance(IDragEventInfo e)! \\
 	Verhindert das Droppen eines Knoten, falls die Pipeline abgespielt wird.
+	\add \verb!public void CullAllInputs()! \\
+	In manchen Fällen, wie zum Beispiel beim Entfernen eines Knotens, ist es nötig die Eingänge aller Knoten des Graphen zu überprüfen und ggf. zu entfernen.
 	\change \verb!public void Drop(IDragEventInfo e)! \\
 	Der Parametertyp wurde von WPFs \verb!DragEventArgs! auf das eigens kreierte Interface \name{IDragEventInfo} geändert, da ersterer Typ nicht mockbar ist.
 	\add \begin{verbatim}

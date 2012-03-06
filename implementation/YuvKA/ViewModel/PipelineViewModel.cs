@@ -194,6 +194,16 @@ namespace YuvKA.ViewModel
 		}
 
 		/// <summary>
+		/// Culls inputs in all nodes.
+		/// </summary>
+		public void CullAllInputs()
+		{
+			foreach (NodeViewModel nodeViewModel in Nodes) {
+				nodeViewModel.CullInputs();
+			}
+		}
+
+		/// <summary>
 		/// Prevents dropping nodes while the pipeline is playing.
 		/// </summary>
 		public void CheckClearance(IDragEventInfo e)
