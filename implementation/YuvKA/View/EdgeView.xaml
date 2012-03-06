@@ -4,29 +4,32 @@
 			xmlns:conv="http://schemas.kent.boogaart.com/converters"
 			xmlns:my="clr-namespace:YuvKA.ViewModel"
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
-	<Path Data="{Binding Geometry}">
-		<Path.Stroke>
-			<Binding Path="Status">
-				<Binding.Converter>
-					<conv:MapConverter>
-						<conv:Mapping From="{x:Static my:EdgeStatus.Indeterminate}">
-							<conv:Mapping.To>
-								<SolidColorBrush Color="Black"/>
-							</conv:Mapping.To>
-						</conv:Mapping>
-						<conv:Mapping From="{x:Static my:EdgeStatus.Invalid}">
-							<conv:Mapping.To>
-								<SolidColorBrush Color="Red"/>
-							</conv:Mapping.To>
-						</conv:Mapping>
-						<conv:Mapping From="{x:Static my:EdgeStatus.Valid}">
-							<conv:Mapping.To>
-								<SolidColorBrush Color="Green"/>
-							</conv:Mapping.To>
-						</conv:Mapping>
-					</conv:MapConverter>
-				</Binding.Converter>
-			</Binding>
-		</Path.Stroke>
-	</Path>
+	<Grid>
+		<Path Data="{Binding Geometry}" StrokeThickness="4" Stroke="Black"/>
+		<Path Data="{Binding Geometry}" StrokeThickness="2">
+			<Path.Stroke>
+				<Binding Path="Status">
+					<Binding.Converter>
+						<conv:MapConverter>
+							<conv:Mapping From="{x:Static my:EdgeStatus.Indeterminate}">
+								<conv:Mapping.To>
+									<SolidColorBrush Color="White"/>
+								</conv:Mapping.To>
+							</conv:Mapping>
+							<conv:Mapping From="{x:Static my:EdgeStatus.Invalid}">
+								<conv:Mapping.To>
+									<SolidColorBrush Color="Red"/>
+								</conv:Mapping.To>
+							</conv:Mapping>
+							<conv:Mapping From="{x:Static my:EdgeStatus.Valid}">
+								<conv:Mapping.To>
+									<SolidColorBrush Color="#00CC00"/>
+								</conv:Mapping.To>
+							</conv:Mapping>
+						</conv:MapConverter>
+					</Binding.Converter>
+				</Binding>
+			</Path.Stroke>
+		</Path>
+	</Grid>
 </UserControl>
