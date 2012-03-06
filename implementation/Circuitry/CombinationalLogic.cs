@@ -32,6 +32,9 @@ namespace Circuitry
 	{
 		public DigitalInputNode(int? outputCount) : base(outputCount) { }
 
+		[Browsable(false)]
+		public Size Size { get; private set; }
+
 		public sealed override Frame OutputFrame(int tick)
 		{
 			return DigitalNode.BoolToFrame(OutputDigital(tick));
