@@ -1,35 +1,45 @@
 \subsection{\name{YuvKA.VideoModel}}
 
+\subsubsection*{Aktuelles Klassendiagramm}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[height=0.7\textheight]{classdiagram/videomodel.png}
+\end{center}
+\end{figure}
+Das VideoModel repräsentiert ein eingelesenes Video, ggf. mit zugehörigen Log-Daten. Da es die Daten im RGB-Format speichert, müssen diese bei Eingabe und Ausgabe von einem YUV-Encoder konvertiert werden.
+\newpage
+
 \paragraph{\name{Frame}}
 \begin{itemize}
 	\add \verb!public GetPixelOrBlack(int x, int y)! \\
 	Neue öffentliche Methode, die es erleichtern soll, auf die Farbwerte innerhalb eines Frames zuzugreifen, ohne beachten zu müssen, ob die gegebenen Koordinaten tatsächlich innerhalb des \name{Frame} liegen. Falls ja, so wird der entsprechende Pixel an Stelle (x, y) als \name{Rgb}-Objekt zurückgegeben. Falls nicht, so wird ein schwarzer Farbwert für den Pixel zurückgegeben.
 	\add \verb!public MaxBoundaries(Frame[] frames)! \\
-	Neue öffentliche Methode, welche aus einem Array von Frames jeweils das Maximum der Breite und der Höhe findet und ein \name{Size}-Objekt zurückgibt mit \name{height}- bzw. \name{width}-Wert, welcher alle gegebenen Frames umfasst.
+	Neue öffentliche Methode, welche aus einem Array von Frames jeweils das Maximum der Breite und der Höhe findet und ein \name{Size}-Objekt zurückgibt mit \name{Height}- bzw. \name{Width}-Wert, welcher alle gegebenen Frames umfasst.
 \end{itemize}
 
 \paragraph{\name{MacroblockDecision}}
 \begin{itemize}
 	\change \verb!public Vector Movement { get; set; }! \\
-	Die \name{Movement}-property wurde schreibbar gemacht, da eine korrekte Initialisierung sonst nicht möglich wäre.
-	\change \verb!public MacroblockPartitioning? Partitiondecision { get; set; }! \\
-	Die \name{Partitiondecision}-property wurde schreibbar gemacht, da eine korrekte Initialisierung sonst nicht möglich wäre.
+	Die \name{Movement}-Property wurde schreibbar gemacht, da eine korrekte Initialisierung sonst nicht möglich wäre.
+	\change \verb!public MacroblockPartitioning? PartitionDecision { get; set; }! \\
+	Die \name{PartitionDecision}-Property wurde schreibbar gemacht, da eine korrekte Initialisierung sonst nicht möglich wäre.
 \end{itemize}
 
 \paragraph{\name{Rgb}}
 \begin{itemize}
-	\change \verb!public byte R { get; private set; }! \\
-	Der setter der R-Property wurde auf private gesetzt.
-	\change \verb!public byte G { get; private set; }! \\
-	Der setter der G-Property wurde auf private gesetzt.
-	\change \verb!public byte B { get; private set; }! \\
-	Der setter der B-Property wurde auf private gesetzt.
+	\change \verb!public byte R { get; }! \\
+	Der Setter der R-Property wurde auf private gesetzt.
+	\change \verb!public byte G { get; }! \\
+	Der Setter der G-Property wurde auf private gesetzt.
+	\change \verb!public byte B { get; }! \\
+	Der Setter der B-Property wurde auf private gesetzt.
 \end{itemize}
 
 \paragraph{\name{YuvEncoder}}
 \begin{itemize}
-	\add \verb!public static Video Decode(int width, int height, string filename, string logFileName = null, string motionVectorFileName = null)! \\
-	Neuer Parameter \verb!string motionVectorFileName = null!: Die an ein Video gebundenen Bewegungsvektoren sollen schon beim Lesen eines Videos vom Hintergrundspeicher gelesen werden, da \name{Video}-Obekte unveränderlich sind, und bei Neuwahl der entsprechenden Datei ein neues Video-Objekt erstellt werden muss.
+	\add \begin{verbatim}public static Video Decode(int width, int height, string filename,
+    string logFileName = null, string motionVectorFileName = null)\end{verbatim} \\
+	Neuer Parameter \verb!string motionVectorFileName = null!: Die an ein Video gebundenen Bewegungsvektoren sollen schon beim Lesen eines Videos vom Hintergrundspeicher gelesen werden, da \name{Video}-Objekte unveränderlich sind, und bei Neuauswahl der entsprechenden Datei ein neues Video-Objekt erstellt werden muss.
 	\add \verb!public static void Encode(Stream stream, IEnumerable<Frame> frames)! \\
 	Neue öffentliche statische Methode Encode, welche als Parameter einen Stream entgegennimmt. Dies ermöglicht es, zu Testzwecken auch in einen \name{MemoryStream} zu schreiben, was den Hintergrundspeicher nicht belastet und in der Regel schneller ist.
 \end{itemize}
@@ -41,29 +51,29 @@
 \end{itemize}
 \newpage
 
+\subsection{\name{YuvKA.Pipeline}}
+
 \subsubsection*{Aktuelles Klassendiagramm}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[height=0.7\textheight]{classdiagram/videomodel.png}
+\includegraphics[width=\textwidth]{classdiagram/pipe.png}
 \end{center}
 \end{figure}
-Das VideoModel repräsentiert ein eingelesenes Video, ggf. mit zugehörigen Log-Daten. Da es die Daten im RGB-Format speichert, müssen diese bei Eingabe und Ausgabe von einem YUV-Encoder konvertiert werden.
+Die Pipeline-Schicht repräsentiert den UI-unabhängigen Aufbau des Analyse-DAGs\footnote{\emph{directed acyclic graph}}. Sie besteht einerseits aus den unterschiedlichen Knoten-Klassen, die unabhängig voneinander ihren jeweiligen Algorithmus auf Frame-für-Frame-Basis implementieren, und andererseits aus dem Pipeline Driver, der für die Abhängigkeitsauflösung und letztendliche Abarbeitung der Pipeline zuständig ist.
 \newpage
-
-\subsection{\name{YuvKA.Pipeline}}
 
 \paragraph{\name{InputNode}}
 \begin{itemize}
 	\change \verb!public int? TickCount! \\
-	Die Property \verb!TickCount! ist nun nullable. Der Wert null steht hierbei für die Möglichkeit (theoretisch) unendlich viele Frames zu erzeugen.
+	Die Property \verb!TickCount! ist nun nullable. Der Wert null steht hierbei für die Möglichkeit beliebig viele Frames zu erzeugen.
 \end{itemize}
 
 \paragraph{\name{Node}}
 \begin{itemize}
 	\change \verb!public Node(int? inputCount, int? outputCount)! \\
-	Die Parameter des Konstruktors sind jetzt nullable, um mit dem Wert null eine Variable Anzahl von Ein-/Ausgängen zu repräsentieren.
+	Die Parameter des Konstruktors sind jetzt nullable, um mit dem Wert null eine variable Anzahl von Ein-/Ausgängen zu repräsentieren.
 	\add \verb!public virtual bool InputIsValid { get; }! \\
-	Diese Property wurde eingeführt, um repräsentieren zu können, ob alle Inputs des Knotens (indirekt) mit InputNodes verbunden sind und der Knoten somit seine Berechnung auch ausführen kann.
+	Diese Property wurde eingeführt, um repräsentieren zu können, ob alle Inputs des Knotens (indirekt) mit validen InputNodes verbunden sind und der Knoten somit seine Berechnung auch ausführen kann.
 	\add \verb!public string Name { get; set; }! \\
 	Repräsentiert den Namen des Knoten. Der Name eines Knoten ist eine möglichst kurze Beschreibung der Funktionsweise des Knotens. Im Idealfall ist diese Beschreibung nur ein Wort lang.
 	\add \verb!public virtual int NumberOfFramesToPrecompute { get; }! \\
@@ -98,13 +108,13 @@ Das VideoModel repräsentiert ein eingelesenes Video, ggf. mit zugehörigen Log-
 	\change \verb!public int? TickCount { get; }! \\
 	Die Property ist nun ein nullable int, da der Wert Null verwendet wird, um eine unbegrenzte Videolänge zu signalisieren.
 	\add \verb!public void AddNode(Node node)! \\
-	Diese Erweiterung ermöglicht es beim Hinzufügen eines Knoten diesem einen eindeutigen Namen aus der Folge Defaultname, Defaultname 2, Defaultname 3, ... zuzuordnen. Dieser Name kann nun verwendet werden, um ihn im Knoten selbst und allen seinen zugehörigen Outputfenstern anzuzeigen. Hiermit steht dem Benutzer eine leiche erkennbare eindeutige Zuordnung zur Verfügung. Weiterhin sollten auf keine andere Weise Knoten zum Graphen hinzugefügt werden.
+	Diese Erweiterung ermöglicht es beim Hinzufügen eines Knoten diesem einen eindeutigen Namen aus der Folge Defaultname, Defaultname 2, Defaultname 3, ... zuzuordnen. Dieser Name kann nun verwendet werden, um ihn im Knoten selbst und allen seinen zugehörigen Outputfenstern anzuzeigen. Hiermit steht dem Benutzer eine leichte erkennbare eindeutige Zuordnung zur Verfügung. Weiterhin sollten auf keine andere Weise Knoten zum Graphen hinzugefügt werden.
 	\add \verb!public bool CanAddEdge(Node source, Node sink)! \\
 	Die Abfrage, ob eine Kante legal ist, ohne sie auch hinzuzufügen, ermöglicht es, Kanten in der GUI schon vor dem Drop-Event als legal oder illegal zu markieren.
 	\add \verb!public int NumberOfFramesToPrecompute(IEnumerable<Node> outputNodes)! \\
-	Da es möglich sein soll in der Pipeline zu springen und es Knoten gibt, die den aktuellen Frame aus vergangenen Ticks berechnen, muss hierzu errechnet werden wie viele Ticks vorberechnet werden sollen.
+	Da es möglich sein soll in der Pipeline zu springen und es Knoten gibt, die den aktuellen Frame aus vergangenen Ticks berechnen, muss hierzu errechnet werden, wie viele Ticks vorberechnet werden sollen.
 	\add \verb!public void RemoveNode(Node node)! \\
-	Es stellte sich heraus, dass beim Entfernen eines Knoten aus dem Graphen auch alle zugehörigen Kanten entfernt werden müssen. Diese neue Methode ermöglicht dies.
+	Es stellte sich heraus, dass beim Entfernen eines Knotens aus dem Graphen auch alle zugehörigen Kanten entfernt werden müssen. Diese neue Methode ermöglicht dies.
 \end{itemize}
 
 \paragraph{\name{PipelineState}}
@@ -116,30 +126,28 @@ Das VideoModel repräsentiert ein eingelesenes Video, ggf. mit zugehörigen Log-
 \end{itemize}
 \newpage
 
+\subsection{\name{YuvKA.Pipeline.Implementation}}
+
 \subsubsection*{Aktuelles Klassendiagramm}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=\textwidth]{classdiagram/pipe.png}
+\includegraphics[width=0.8\textheight,angle=90]{classdiagram/pipe-imp.png}
 \end{center}
 \end{figure}
-Die Pipeline-Schicht repräsentiert den UI-unabhängigen Aufbau des Analyse-DAGs\footnote{\emph{directed acyclic graph}}. Sie besteht einerseits aus den unterschiedlichen Knoten-Klassen, die unabhängig voneinander ihren jeweiligen Algorithmus auf Frame-für-Frame-Basis implementieren, und andererseits aus dem Pipeline Driver, der für die Abhängigkeitsauflösung und letztendliche Abarbeitung der Pipeline zuständig ist.
+Namespace der vordefinierten Knotentypen. Diese werden dynamisch bei Programmstart ermittelt und geladen.
 \newpage
-
-\subsection{\name{YuvKA.Pipeline.Implementation}}
 
 \paragraph{\name{AveragedMergeNode}}
 \begin{itemize}
-	\change Wurde zu WeightedAveragedMergeNode umbenannt, da es die Funktion des Knotens besser beschreibt.
-	\add \verb!public void CullInputs()! \\
-	Da der WeightedAveragedMergeNode zu seinen Inputs auch eine Liste mit den jeweiligen Gewichten hat, muss in dieser bei Entfernen eines Inputs auch das zugehörige Gewicht entfernt werden.
+	\change Wurde zu \name{WeightedAveragedMergeNode}  umbenannt, da es die Funktion des Knotens besser beschreibt.
 \end{itemize}
 
 \paragraph{\name{NoiseInputNode}}
 \begin{itemize}
 	\add \verb!public double? Scale { get; set; }! \\
-	Diese neu eingeführte Option erlaubt es dem Benutzer den angezeigten Perlin Noise zu skalieren.
+	Diese neu eingeführte Option erlaubt es, dem Benutzer den angezeigten Perlin Noise zu skalieren.
 	\add \verb!public double? Speed { get; set; }! \\
-	Diese neu eingeführte Option erlaubt es dem Benutzer die Geschwindigkeit des angezeigten Perlin Noise einzustellen.
+	Diese neu eingeführte Option erlaubt es, dem Benutzer die Geschwindigkeit des angezeigten Perlin Noise einzustellen.
 \end{itemize}
 
 Desweiteren wurden zwei neue Arten von Noise eingeführt, die Abwandlungen der schon existierenden sind (siehe \name{NoiseType}).
@@ -167,7 +175,9 @@ Desweiteren wurden zwei neue Arten von Noise eingeführt, die Abwandlungen der s
 \end{itemize}
 
 \paragraph{\name{HistogramNode}}
-Die zur Berechnung des jeweiligen Histogrammtyps benötigten Methoden wurden als private Methoden ausgelagert.
+\begin{itemize}
+	\change Die zur Berechnung des jeweiligen Histogrammtyps benötigten Methoden wurden als private Methoden ausgelagert.
+\end{itemize}
 
 \paragraph{\name{OverlayNode}}
 \begin{itemize}
@@ -189,16 +199,16 @@ Die zur Berechnung des jeweiligen Histogrammtyps benötigten Methoden wurden als
 Diese Klasse ist ein Überlagerungstyp der nichts überlagert und somit stets verfügbar ist, unabhängig von den zusätzlichen Daten neben der obligatorischen ursprünglichen \name{Frame}.
 \newpage
 
+\subsection{\name{YuvKA.ViewModel}}
+
 \subsubsection*{Aktuelles Klassendiagramm}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.85\textheight,angle=90]{classdiagram/pipe-imp.png}
+\includegraphics[width=\textwidth]{classdiagram/viewmodel.png}
 \end{center}
 \end{figure}
-Namespace der vordefinierten Knotentypen. Diese werden dynamisch bei Programmstart ermittelt und geladen.
+Nach dem MVVM-Pattern ist es Aufgabe der ViewModel-Schicht, der View das Model in einer für sie verarbeitbaren Form zu präsentieren. Bezogen auf das Projekt bedeutet dies vor allem, die Model-Klassen um View-spezifische Daten und Methoden zu ergänzen.
 \newpage
-
-\subsection{\name{YuvKA.ViewModel}}
 
 Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die zum Großteil aus dem Hinzufügen neuer Properties bestehen. Dies ist besonders der Tatsache geschuldet, dass das Viewmodel nicht wirklich Teil der grundlegenden Architektur sondern vielmehr Verknüpfungsschicht des Models und der View ist, wobei die Architektur letztgenannter Schicht, nämlich WPF, bereits gegeben war und wegen ihres unglaublichen Umfangs im Detail erst während der Implementierung Fall für Fall exakt erkundet werden konnte. Deshalb werden im Weiteren die Änderungen beschrieben, ohne einzeln auf die Gründe einzugehen, warum von der Entwurfsarchitektur abgewichen wurde.
 
@@ -303,20 +313,21 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 \end{itemize}
 \newpage
 
+\subsection{\name{YuvKA.ViewModel.Implementation}}
+
 \subsubsection*{Aktuelles Klassendiagramm}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=\textwidth]{classdiagram/viewmodel.png}
+\includegraphics[width=\textwidth]{classdiagram/viewmodel-imp.png}
 \end{center}
 \end{figure}
-Nach dem MVVM-Pattern ist es Aufgabe der ViewModel-Schicht, der View das Model in einer für sie verarbeitbaren Form zu präsentieren. Bezogen auf das Projekt bedeutet dies vor allem, die Model-Klassen um View-spezifische Daten und Methoden zu ergänzen.
+Namespace der ViewModels der vordefinierten Knotentypen.
 \newpage
-
-\subsection{\name{YuvKA.ViewModel.Implementation}}
 
 \paragraph{\name{HistogramViewModel}}
 \begin{itemize}
-	\add \verb!public EnumerableDataSource<KeyValuePair<int, double>> Data { get; private set; }! \\
+	\add \begin{verbatim}public EnumerableDataSource<KeyValuePair<int, double>> Data {
+    get; }\end{verbatim} \\
 	Ruft die Analysedaten des Histogrammes ab oder setzt diese fest.
 \end{itemize}
 
@@ -332,8 +343,6 @@ Nach dem MVVM-Pattern ist es Aufgabe der ViewModel-Schicht, der View das Model i
 	Ruft die Graphen des Diagramms ab.
 		\add \verb!public public IEnumerable<LineGraph> Lines { get; }! \\
 	Ruft die Kurven im Diagramm ab, die den Graphen des Diagrammknotens entsprechen. 
-	\add \verb!public List<System.Windows.Media.Color> TypeColors { get; }! \\
-	Ruft die Basisfarben der einzelnen Graphentypen ab, von denen dann die einzelnen, zur Zeichnung verwendeten Farben abgeleitet werden.
 	\add \verb!public bool CanAddGraph { get; }! \\
 	Ruft ab, ob ein neuer Graph hinzugefügt werden kann.
 	\change \verb!public void AddGraph()! \\
@@ -342,38 +351,34 @@ Nach dem MVVM-Pattern ist es Aufgabe der ViewModel-Schicht, der View das Model i
 	Erzeugt eine neue Farbe, die vom Grundfarbton des angegebenen IGraphTypes abgeleitet wird.
 	\add \verb!public string GetVideoName(Node.Input input)! \\
 	Gibt den Namen eines Eingabevideos zurück, der aus seinem Index und seinem Quellknoten erzeugt wird.
-	\add \verb!public static bool IsInIntervall(double intervallCenter, double number, double intervallSize)! \\
-	Entscheidet, ob eine Zahl in einem Intervall liegt.
-	\add \verb!static bool SimilarColor(Color c1, Color c2)! \\
-	Entscheidet ob die zwei angegebenen Farben ähnlich sind, indem es deren Helligkeit und Sättigung vergleicht.
 \end{itemize}
 
 \paragraph{\name{+ DiagramGraphViewModel}}~\\
-\name{DiagramGraphViewModel} repräsentiert das Objekt, mit dem die Einstellungen des Graphen im Ausgabefenster verwaltet werden.
+Repräsentiert das Objekt, mit dem die Einstellungen des Graphen im Ausgabefenster verwaltet werden.
 \begin{itemize}
 	\add \verb!public DiagramViewModel Parent { get; }! \\
 	Ruft das DiagramViewModel, das diesem DiagramGraphViewModel zugrunde liegt, ab.
 	
-	\add \verb!public DiagramGraph Model { get; private set; }! \\
+	\add \verb!public DiagramGraph Model { get; }! \\
 	Ruft den Diagrammgraphen ab oder setzt ihn fest.
-	\add \verb!public string Name { get { return Parent.GetVideoName(Model.Video); } }! \\
+	\add \verb!public string Name { get; }! \\
 	Ruft den Namen des Videos des Graphen ab.
-	\add \verb!public IEnumerable<GraphTypeViewModel> AvailableTypes! \\
-	Ruft die mit den momentanen Einstellungen verfügbaren Graphentypen ab oder setzt sie fest.
-	\add \verb!public GraphTypeViewModel CurrentType! \\
+	\add \verb!public IEnumerable<GraphTypeViewModel> AvailableTypes { get; }! \\
+	Ruft die mit den momentanen Einstellungen verfügbaren Graphentypen ab.
+	\add \verb!public GraphTypeViewModel CurrentType { get; set; }! \\
 	Ruft den momentan vom Benutzer gewählten Graphentypen ab oder setzt ihn fest.
-	\add \verb!public IEnumerable<GraphTypeViewModel> AvailableTypes! \\
-	Ruft alle verfügbaren Graphentypen ab oder setzt diese fest.
+	\add \verb!public IEnumerable<GraphTypeViewModel> AvailableTypes { get; }! \\
+	Ruft alle verfügbaren Graphentypen ab.
 	\add \verb!public LineGraph Line { get; }! \\
 	Ruft die Kurve des Diagrammgraphen ab.
 	\add \verb!public Color LineColor { get; }! \\
-	Ruft die momentan verwendete Farbe für die Kurve ab.	
+	Ruft die momentan verwendete Farbe für die Kurve ab.
 	\add \verb!public SolidColorBrush GraphColor { get; }! \\
 	Ruft die Farbe für die Vorschau der Kurve ab.
 \end{itemize}
 
 \paragraph{\name{+ GraphTypeViewModel}}~\\
-\name{GraphTypeViewModel} repräsentiert das Objekt, mit dem die Graphentypen im Ausgabefenster angezeigt werden.
+Repräsentiert das Objekt, mit dem die Graphentypen im Ausgabefenster angezeigt werden.
 \begin{itemize}
 	\add \verb!public IGraphType Model { get; }! \\
 	Ruft den GraphenTypen ab.
@@ -382,7 +387,7 @@ Nach dem MVVM-Pattern ist es Aufgabe der ViewModel-Schicht, der View das Model i
 \end{itemize}
 
 \paragraph{\name{+ HslHelper}}~\\
-\name{HslHelper} enthält eine Methode zur Konvertierung zwischen dem HSL - und dem RGB - Farbraum, sodass sie von mehreren Klassen verwendet werden kann.
+Enthält eine Methode zur Konvertierung zwischen dem HSL- und dem RGB-Farbraum, sodass sie von mehreren Klassen verwendet werden kann.
 \begin{itemize}
 	\add \verb!public static Color HslToRgb(double h, double s, double l)! \\
 	Konvertiert eine Farbe vom HSL-Farbraum zum RGB-Farbraum.
@@ -390,34 +395,34 @@ Nach dem MVVM-Pattern ist es Aufgabe der ViewModel-Schicht, der View das Model i
 
 \paragraph{\name{OverlayViewModel}}
 \begin{itemize}
-	\add \verb!public System.Tuple<string, IOverlayType> ChosenType! \\
+	\add \verb!public System.Tuple<string, IOverlayType> ChosenType { get; set; }! \\
 	Ein Tupel, welches den Namen und den Typ des gerade verwendeten Überlagerungstyps enthält.
-	\add \verb!public WriteableBitmap RenderedImage { get; private set; }! \\
-	Das Ergebnis der Überlagerung für die \name{View} aufbereitet. Dies ist notwendig, da die \name{View} einen \name{Frame} nicht ohne weiteres darstellen kann.
-	\add \verb!public IEnumerable<System.Tuple<string, IOverlayType>> TypeTuples! \\
-	Eine Sammlung aller momentan verfügbaren Überlagerungstypen in Form von Tupeln mit Namen und Typ. Dies ist notwendig für die \name{View} um die Auswahl der Überlagerungen darzustellen.
+	\add \verb!public WriteableBitmap RenderedImage { get; }! \\
+	Das Ergebnis der Überlagerung für die View aufbereitet. Dies ist notwendig, da die View einen \name{Frame} nicht ohne weiteres darstellen kann.
+	\add \verb!public IEnumerable<System.Tuple<string, IOverlayType>> TypeTuples { get; }! \\
+	Eine Sammlung aller momentan verfügbaren Überlagerungstypen in Form von Tupeln mit Namen und Typ. Dies ist notwendig für die View, um die Auswahl der Überlagerungen darzustellen.
 \end{itemize}
-\newpage
-
-\subsubsection*{Aktuelles Klassendiagramm}
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=\textwidth]{classdiagram/viewmodel-imp.png}
-\end{center}
-\end{figure}
-Namespace der ViewModels der vordefinierten Knotentypen.
 \newpage
 
 \subsection{\name{YuvKA.ViewModel.PropertyEditor}}
 
+\subsubsection*{Aktuelles Klassendiagramm}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=\textwidth]{classdiagram/propertyeditorvm.png}
+\end{center}
+\end{figure}
+Die Klassen des PropertyEditor-Namespaces erzeugen für ein beliebiges Objekt dynamisch eine Oberfläche zum Anzeigen und Ändern seiner Property-Werte. Die Menge der darstellbaren Property-Typen ist dynamisch erweiterbar.
+\newpage
+
 \paragraph{\name{PropertyViewModel}}
 \begin{itemize}
 	\add \verb!public string DisplayName { get; }! \\
-	Dies gibt das Name-Attribut der Property bzw. den Namen der Property weiter. Dies ist notwendig um der \name{View} deskriptivere Namen der Properties bereitzustellen.
+	Gibt das \name{DescriptionAttribute} der Property bzw. den Namen der Property weiter. Dies ist notwendig, um der View deskriptivere Namen der Properties bereitzustellen.
 	\add \verb!public void CommitChange()! \\
-	Diese Methode benachrichtigt alle anderen Objekte dass sich diese Property geändert hat. Dies ist notwendig damit sich die \name{View} aktualisieren kann, sobald sich der Wert einer Property ändert.
+	Diese Methode benachrichtigt alle anderen Objekte, dass sich diese Property geändert hat. Dies ist notwendig, damit ein Undo-Schritt erstellt werden kann.
 	\add \verb!public void Initialize(object source, PropertyDescriptor property)! \\
-	Diese Methode weist einem PropertyViewModel eine Property und die Quelle der Property zur Verwaltung zu. Dies ist notwendig da das PropertyViewModel einen argumentlosen Konstruktor benötigt und sich nur auf diese Weise sicherstellen lässt, dass die Property und deren Quelle immer gemeinsam gesetzt werden.
+	Diese Methode weist einem PropertyViewModel eine Property und die Quelle der Property zur Verwaltung zu. Dies ist notwendig, da das PropertyViewModel einen argumentlosen Konstruktor benötigt und sich nur auf diese Weise sicherstellen lässt, dass die Property und deren Quelle immer gemeinsam gesetzt werden.
 \end{itemize}
 
 \paragraph{\name{PropertyViewModel<T>}}
@@ -429,9 +434,9 @@ Namespace der ViewModels der vordefinierten Knotentypen.
 
 \paragraph{\name{DoublePropertyViewModel}}
 \begin{itemize}
-	\change Wurde zu \name{NullableDoublePropertyViewModel} umbenannt, da der zugrundeliegende Typ zum \name{nullable double} gemacht wurde.
+	\change Wurde zu \name{NullableDoublePropertyViewModel} umbenannt, da der zugrundeliegende Typ zu \name{Nullable<double>} geändert wurde.
 	\add \verb!public bool SlidersAreEnabled { get; }! \\
-	Ruft ab, ob der zugrundeliegende Wert gültig ist, und der in der UI dargestellte Slider als Folge dessen aktiviert sein soll oder nicht.
+	Ruft ab, ob der zugrundeliegende Wert gültig ist und der in der UI dargestellte Slider als Folge dessen aktiviert sein soll oder nicht.
 \end{itemize}
 
 \paragraph{\name{NumericalPropertyViewModel}}
@@ -445,13 +450,13 @@ Namespace der ViewModels der vordefinierten Knotentypen.
 \paragraph{\name{ObservableCollectionOfDoublePropertyViewModel}}
 \begin{itemize}
 	\add \verb!public IEnumerable<DoubleWrapper> Values! \\
-	Inneres \name{IEnumerable} des neu eingeführten Typs \name{DoubleWrapper} wurde eingeführt, um Data Binding von der Benutzeroberfläche her zu ermöglichen.
+	\name{IEnumerable} des neu eingeführten Typs \name{DoubleWrapper}. Wurde eingeführt, um Data Binding von der Benutzeroberfläche her zu ermöglichen.
 	\add \verb!public class DoubleWrapper! \\
 	Innere Wrapper-Klasse um einen \name{double}-Wert herum. Diese wird benötigt, um von der View aus per Data Binding auf den Wert des double zuzugreifen.
 \end{itemize}
 
 \paragraph{\name{+ OutputWindowViewModelPropertyViewModel}}~\\
-\name{OutputWindowViewModelPropertyViewModel} erlaubt es Wiedergabeknoten, beliebige ViewModels selbst zu liefern, welche dann vom Programm gelesen und angezeigt werden.
+Erlaubt es Wiedergabeknoten, beliebige ViewModels selbst zu liefern, welche dann vom Programm gelesen und angezeigt werden.
 
 \paragraph{\name{RgbPropertyViewModel}}
 \begin{itemize}
@@ -460,15 +465,6 @@ Namespace der ViewModels der vordefinierten Knotentypen.
 	\add \verb!public Color ChrosenColor { get; set; }! \\
 	Stellt eine Property für die vom Benutzer gewählte Farbe bereit.
 \end{itemize}
-\newpage
-
-\subsubsection*{Aktuelles Klassendiagramm}
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=\textwidth]{classdiagram/propertyeditorvm.png}
-\end{center}
-\end{figure}
-Die Klassen des PropertyEditor-Namespaces erzeugen für ein beliebiges Objekt dynamisch eine Oberfläche zum Anzeigen und Ändern seiner Property-Werte. Die Menge der darstellbaren Property-Typen ist dynamisch erweiterbar.
 \newpage
 
 \subsection*{Fazit}

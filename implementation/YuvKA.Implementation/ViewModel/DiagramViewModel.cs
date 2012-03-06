@@ -27,6 +27,7 @@ namespace YuvKA.ViewModel.Implementation
 			: base(nodeModel, null)
 		{
 			Types = IoC.GetAllInstances(typeof(IGraphType)).Select(o => new GraphTypeViewModel((IGraphType)o)).ToList();
+			FillTypeColors();
 			Graphs = new ObservableCollection<DiagramGraphViewModel>();
 			NodeModel.Graphs.Select(g => new DiagramGraphViewModel(g, this)).Apply(Graphs.Add);
 
@@ -110,31 +111,6 @@ namespace YuvKA.ViewModel.Implementation
 		}
 
 		/// <summary>
-		/// Gets the base colors of the types.
-		/// </summary>
-		public List<System.Windows.Media.Color> TypeColors
-		{
-			get
-			{
-				if (typeColors == null) {
-					var random = new Random();
-					var randomColors = new List<Color>();
-					var randomColorsMedia = new List<System.Windows.Media.Color>();
-					Color newColor;
-					for (var i = 0; i < Types.Count(); i++) {
-						do {
-							newColor = Color.FromArgb(255, (byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256));
-						} while (randomColors.FindIndex(color => IsInInterval(color.GetHue(), newColor.GetHue(), 25.0)) != -1 || newColor.GetHue().Equals(0.0) || newColor.GetBrightness().Equals(1.0) || newColor.GetBrightness().Equals(0.0));
-						randomColors.Add(newColor);
-						randomColorsMedia.Add(System.Windows.Media.Color.FromArgb(newColor.A, newColor.R, newColor.G, newColor.B));
-					}
-					typeColors = randomColorsMedia;
-				}
-				return typeColors;
-			}
-		}
-
-		/// <summary>
 		/// Gets, whether a new graph can be added to the DiagramNode, i.e. if there is a ChosenVideo
 		/// </summary>
 		public bool CanAddGraph { get { return ChosenVideo != null; } }
@@ -167,7 +143,7 @@ namespace YuvKA.ViewModel.Implementation
 		{
 			System.Drawing.Color newColor;
 			// Get basecolor of the type
-			var baseColorWpf = TypeColors[Types.IndexOf(Types.Single(t => t.Model.GetType() == type.GetType()))];
+			var baseColorWpf = typeColors[Types.IndexOf(Types.Single(t => t.Model.GetType() == type.GetType()))];
 			var baseColor = System.Drawing.Color.FromArgb(baseColorWpf.R, baseColorWpf.G, baseColorWpf.B);
 
 			var h = baseColor.GetHue();
@@ -204,6 +180,22 @@ namespace YuvKA.ViewModel.Implementation
 		static bool SimilarColor(Color c1, Color c2)
 		{
 			return IsInInterval(c1.GetBrightness(), c2.GetBrightness(), 0.12) && IsInInterval(c1.GetSaturation(), c2.GetSaturation(), 0.12);
+		}
+
+		private void FillTypeColors()
+		{
+			var random = new Random();
+			var randomColors = new List<Color>();
+			var randomColorsMedia = new List<System.Windows.Media.Color>();
+			Color newColor;
+			for (var i = 0; i < Types.Count(); i++) {
+				do {
+					newColor = Color.FromArgb(255, (byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256));
+				} while (randomColors.FindIndex(color => IsInInterval(color.GetHue(), newColor.GetHue(), 25.0)) != -1 || newColor.GetHue().Equals(0.0) || newColor.GetBrightness().Equals(1.0) || newColor.GetBrightness().Equals(0.0));
+				randomColors.Add(newColor);
+				randomColorsMedia.Add(System.Windows.Media.Color.FromArgb(newColor.A, newColor.R, newColor.G, newColor.B));
+			}
+			typeColors = randomColorsMedia;
 		}
 	}
 }

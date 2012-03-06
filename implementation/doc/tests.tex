@@ -1,4 +1,4 @@
-Die folgenden Testfälle überprüfen das korrekte Verhalten innerhalb der der einzelnen Schichten und Klassen. Hierbei wurden sowohl automatische als auch manuelle Tests durchgeführt die vom Programm komplett bestanden wurden.
+Die folgenden Testfälle überprüfen das korrekte Verhalten innerhalb der der einzelnen Schichten und Klassen. Hierbei wurden sowohl automatische als auch manuelle Tests durchgeführt, die vom Programm komplett bestanden wurden.
 
 \subsection{\name{YuvKA.VideoModel}}
 
@@ -16,7 +16,7 @@ Dieser Test überprüft, ob die Überschreibung der Methode \verb#GetHashCode# i
 Dieser Test überprüft, ob die Überschreibung der Methode \verb#ToString# in dem Rgb-Struct korrekt funktioniert.
 \end{itemize}
 
-\paragraph{\name{YuvEncoder}}
+\paragraph{\name{YuvEncoder}}~\\
 Wegen der fundamental verlustbehafteten Konvertierung zwischen den YCbCr- und RGB-Farmräumen ist es hier nur begrenzt möglich, die Korrektheit der Konvertierung zu zeigen. Deswegen sind die Tests im YuvEncoder manuell zu untersuchen. Hierzu speichern die Tests ihre Ausgabe in einem bestimmten Ordner, wo die Resultate weiterhin untersucht werden können.
 \begin{itemize}
 	\item \name{TestVideoFunctionality}~\\
@@ -24,7 +24,7 @@ Wegen der fundamental verlustbehafteten Konvertierung zwischen den YCbCr- und RG
 	\item \name{TestYuvEncoder}~\\
 	Testet die Konvertierung aus dem yuv420-Format ins RGB-Format und zurück.
 	\item \name{YuvEncoderSpeedTest}~\\
-	Konvertiert alle Frames eines Videos in den RGB-Farbraum, und gibt die dafür benötigte Zeit auf der Konsole aus.
+	Konvertiert alle Frames eines Videos in den RGB-Farbraum und gibt die dafür benötigte Zeit auf der Konsole aus.
 \end{itemize}
 
 \subsection{\name{YuvKA.Pipeline}}
@@ -97,19 +97,19 @@ Dieser Test überprüft, ob der \name{DelayNode} die Eingabeframe korrekt verzö
 Dieser Test überprüft, ob der \name{DifferenceNode} die Farben der Pixel der Eingabeframes korrekt voneinander abzieht.
 
 \item{\name{TestGaussianBlurMonocolor}}~\\
-Dieser Test überprüft, ob der \name{BlurNode} mit gaußschem Blur und einer einfarbigen Frame keinerlei Effekt besitzt.
+Dieser Test überprüft, ob der \name{BlurNode} mit gaußschem Blur und einem einfarbigen Frame keinerlei Effekt besitzt.
 
 \item{\name{TestGaussianZeroBlur}}~\\
-Dieser Test überprüft, ob der \name{BlurNode} mit gaußschem Blur und einem Radius von 0 keinerlei Effekt auf die Frame besitzt.
+Dieser Test überprüft, ob der \name{BlurNode} mit gaußschem Blur und einem Radius von 0 keinerlei Effekt auf den Frame besitzt.
 
 \item{\name{TestLinearBlurMonocolor}}~\\
-Dieser Test überprüft, ob der \name{BlurNode} mit linearem Blur und einer einfarbigen Frame keinerlei Effekt besitzt.
+Dieser Test überprüft, ob der \name{BlurNode} mit linearem Blur und einem einfarbigen Frame keinerlei Effekt besitzt.
 
 \item{\name{TestLinearZeroBlur}}~\\
-Dieser Test überprüft, ob der \name{BlurNode} mit linearem Blur und einem Radius von 0 keinerlei Effekt auf die Frame besitzt.
+Dieser Test überprüft, ob der \name{BlurNode} mit linearem Blur und einem Radius von 0 keinerlei Effekt auf den Frame besitzt.
 
 \item{\name{TestInverter}}~\\
-Dieser Test überprüft, ob der \name{InverterNode} die Farben der Pixel der Eingabeframe korrekt invertiert.
+Dieser Test überprüft, ob der \name{InverterNode} die Farben der Pixel des Eingabeframes korrekt invertiert.
 
 \item{\name{TestRgbSplit}}~\\
 Dieser Test überprüft, ob der \name{RgbSplitNode} die Farben der Pixel der Eingabeframe korrekt in die drei Farbkanäle aufspaltet.
