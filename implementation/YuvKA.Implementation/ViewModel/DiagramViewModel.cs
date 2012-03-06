@@ -96,8 +96,14 @@ namespace YuvKA.ViewModel.Implementation
 			}
 		}
 
+		/// <summary>
+		/// Gets the graphs of the DiagramNode
+		/// </summary>
 		public ObservableCollection<DiagramGraphViewModel> Graphs { get; private set; }
 
+		/// <summary>
+		/// Gets the lines of the graphs of the DiagramNode
+		/// </summary>
 		public IEnumerable<LineGraph> Lines
 		{
 			get { return Graphs.Select(g => g.Line); }
@@ -128,8 +134,14 @@ namespace YuvKA.ViewModel.Implementation
 			}
 		}
 
+		/// <summary>
+		/// Gets, whether a new graph can be added to the DiagramNode, i.e. if there is a ChosenVideo
+		/// </summary>
 		public bool CanAddGraph { get { return ChosenVideo != null; } }
 
+		/// <summary>
+		/// Adds a graph to the DiagramNode
+		/// </summary>
 		public void AddGraph()
 		{
 			var graph = new DiagramGraph { Video = ChosenVideo.Item2 };
@@ -138,6 +150,9 @@ namespace YuvKA.ViewModel.Implementation
 			NotifyOfPropertyChange(() => Lines);
 		}
 
+		/// <summary>
+		/// Delete a graph from the DiagramNode
+		/// </summary>
 		public void DeleteGraph(DiagramGraphViewModel graph)
 		{
 			NodeModel.Graphs.Remove(graph.Model);
@@ -166,6 +181,9 @@ namespace YuvKA.ViewModel.Implementation
 			return System.Windows.Media.Color.FromRgb(newColor.R, newColor.G, newColor.B);
 		}
 
+		/// <summary>
+		/// Generates the name of a Video by adding a number and its source node.
+		/// </summary>
 		public string GetVideoName(Node.Input input)
 		{
 			return "Input " + (NodeModel.Inputs.IndexOf(input) + 1) + " | " + (input.Source == null ? "" : input.Source.Node.Name);
@@ -180,6 +198,9 @@ namespace YuvKA.ViewModel.Implementation
 			return Math.Abs(difference).CompareTo(intervalSize) < 0;
 		}
 
+		/// <summary>
+		/// Determines, whether to colors are similar by comparing their brightness and saturation.
+		/// </summary>
 		static bool SimilarColor(Color c1, Color c2)
 		{
 			return IsInInterval(c1.GetBrightness(), c2.GetBrightness(), 0.12) && IsInInterval(c1.GetSaturation(), c2.GetSaturation(), 0.12);

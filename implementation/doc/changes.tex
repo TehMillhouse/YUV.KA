@@ -192,7 +192,7 @@ Diese Klasse ist ein Überlagerungstyp der nichts überlagert und somit stets ve
 \subsubsection*{Aktuelles Klassendiagramm}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.76\textheight,angle=90]{classdiagram/pipe-imp.png}
+\includegraphics[width=0.85\textheight,angle=90]{classdiagram/pipe-imp.png}
 \end{center}
 \end{figure}
 Namespace der vordefinierten Knotentypen. Diese werden dynamisch bei Programmstart ermittelt und geladen.
@@ -306,7 +306,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 \subsubsection*{Aktuelles Klassendiagramm}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{classdiagram/viewmodel.png}
+\includegraphics[width=\textwidth]{classdiagram/viewmodel.png}
 \end{center}
 \end{figure}
 Nach dem MVVM-Pattern ist es Aufgabe der ViewModel-Schicht, der View das Model in einer für sie verarbeitbaren Form zu präsentieren. Bezogen auf das Projekt bedeutet dies vor allem, die Model-Klassen um View-spezifische Daten und Methoden zu ergänzen.
@@ -322,86 +322,63 @@ Nach dem MVVM-Pattern ist es Aufgabe der ViewModel-Schicht, der View das Model i
 
 \paragraph{\name{DiagramViewModel}}
 \begin{itemize}
-	\add \verb!public ObservableCollection<LineGraphViewModel> LineGraphs { get; }! \\
-	Ruft die Kurven im Diagramm ab, die den Graphen des Dieagrammknotens entsprechen. 
 	\add \verb!public Tuple<string, Node.Input> Reference { get; set; }! \\
 	Ruft das Referenzvideo des Diagrammknotens ab oder setzt dieses fest.
-	\add \verb!public ObservableCollection<Tuple<string, Node.Input>> Videos { get; }! \\
+	\add \verb!public IEnumerable<Tuple<string, Node.Input>> Videos { get; }! \\
 	Ruft die Eingabevideos des Diagrammknotens ab und fügt diesen einen Index hinzu.
 	\add \verb!public public Tuple<string, Node.Input> ChosenVideo { get; set; }! \\
 	Ruft das aktuell vom Benutzer zur Analyse ausgewählte Video ab oder setzt dieses fest.
-	\add \verb!public ObservableCollection<GraphControl> GraphControls { get; }! \\
-	Ruft die Grapheneinstellungen ab.
-	\add \verb!public List<Color> LineColors { get; }! \\
-	Ruft die zur Zeichnung schon verwendeten Farben ab.
+	\add \verb!public public ObservableCollection<DiagramGraphViewModel> Graphs { get; }! \\
+	Ruft die Graphen des Diagramms ab.
+		\add \verb!public public IEnumerable<LineGraph> Lines { get; }! \\
+	Ruft die Kurven im Diagramm ab, die den Graphen des Diagrammknotens entsprechen. 
 	\add \verb!public List<System.Windows.Media.Color> TypeColors { get; }! \\
 	Ruft die Basisfarben der einzelnen Graphentypen ab, von denen dann die einzelnen, zur Zeichnung verwendeten Farben abgeleitet werden.
-	\change \verb!public IEnumerable<Tuple<string, IGraphType>> Types { get; set; }! \\
-	Den Graphentypen wird nun ein Name hinzugefügt, damit dieser in der GUI angezeigt werden kann.
+	\add \verb!public bool CanAddGraph { get; }! \\
+	Ruft ab, ob ein neuer Graph hinzugefügt werden kann.
+	\change \verb!public void AddGraph()! \\
+	Der Node.Input-Parameter wurde entfernt, diese Funktion wurde von ChosenVideo übernommen.
+	\add \verb!public System.Windows.Media.Color NewColor(IGraphType type)! \\
+	Erzeugt eine neue Farbe, die vom Grundfarbton des angegebenen IGraphTypes abgeleitet wird.
+	\add \verb!public string GetVideoName(Node.Input input)! \\
+	Gibt den Namen eines Eingabevideos zurück, der aus seinem Index und seinem Quellknoten erzeugt wird.
 	\add \verb!public static bool IsInIntervall(double intervallCenter, double number, double intervallSize)! \\
 	Entscheidet, ob eine Zahl in einem Intervall liegt.
-	\add \verb!public void DeleteGraphControl(GraphControl graphControl)! \\
-	Löscht eine gegebene Grapheneinstellung sowie deren Graph und dessen Kurve.
-	\add \verb!public override void Handle(TickRenderedMessage message)! \\
-	Aktualisiert jede Kurve mit den jeweiligen Daten eines Frames, sobald dieser berechnet wurde.
-	\change \verb!public void AddGraph(GraphControl graphControl)! \\
-	Fügt einen Graphen und dessen Kurve hinzu, der aus der gegebenen Grapheneinstellung abgerufen wurde.
-	\add \verb!public void AddLineGraphViewModel(GraphControl graphControl)! \\
-	Fügt eine Kurve zum Diagramm hinzu, welche aus der gegebenen Grapheneinstellung und deren Graph berechnet wurde.
-	\add \verb!public void AddGraphControl()! \\
-	Fügt dem Diagrammknoten eine neue Grapheneinstellung hinzu.
-	\remove \verb!DeleteGraph! \\
-	Diese Methode wird von einer entsprechenden Methode der GraphControl-Klasse übernommen.
+	\add \verb!static bool SimilarColor(Color c1, Color c2)! \\
+	Entscheidet ob die zwei angegebenen Farben ähnlich sind, indem es deren Helligkeit und Sättigung vergleicht.
 \end{itemize}
 
-\paragraph{\name{+ GraphControl}}~\\
-\name{GraphControl} verwaltet die vom Benutzer vorgenommenen Einstellungen an einem Graphen.
+\paragraph{\name{+ DiagramGraphViewModel}}~\\
+\name{DiagramGraphViewModel} repräsentiert das Objekt, mit dem die Einstellungen des Graphen im Ausgabefenster verwaltet werden.
 \begin{itemize}
-	\add \verb!public DiagramViewModel Parent { get; set; }! \\
-	Ruft das DiagramViewModel, zu dem diese Grapheneinstellung gehört, ab oder setzt es fest.
-	\add \verb!public Tuple<string, Node.Input> Video { get; set; }! \\
-	Ruft das Video ab oder setzt es fest.
-	\add \verb!public DiagramGraph Graph { get; set; }! \\
+	\add \verb!public DiagramViewModel Parent { get; }! \\
+	Ruft das DiagramViewModel, das diesem DiagramGraphViewModel zugrunde liegt, ab.
+	
+	\add \verb!public DiagramGraph Model { get; private set; }! \\
 	Ruft den Diagrammgraphen ab oder setzt ihn fest.
-	\add \verb!public ObservableCollection<Tuple<string, IGraphType>> Types { get; set; }! \\
-	Ruft alle verfügbaren Graphentypen ab oder setzt diese fest.
-	\add \verb!public ObservableCollection<Tuple<string, IGraphType>> DisplayTypes { get; set; }! \\
+	\add \verb!public string Name { get { return Parent.GetVideoName(Model.Video); } }! \\
+	Ruft den Namen des Videos des Graphen ab.
+	\add \verb!public IEnumerable<GraphTypeViewModel> AvailableTypes! \\
 	Ruft die mit den momentanen Einstellungen verfügbaren Graphentypen ab oder setzt sie fest.
-	\add \verb!public Tuple<string, IGraphType> ChosenType! \\
+	\add \verb!public GraphTypeViewModel CurrentType! \\
 	Ruft den momentan vom Benutzer gewählten Graphentypen ab oder setzt ihn fest.
-	\add \verb!public System.Drawing.Color CurrentLineColor { get; set; }! \\
-	Ruft die momentan verwendete Farbe für die Kurve ab oder setzt sie fest. Benutzt hierfür die System.Drawing.Color-Klasse.
-	\add \verb!public Color LineColor { get; set; }! \\
-	Ruft die momentan verwendete Farbe für die Kurve ab oder setzt sie fest. Benutzt hierfür die System.Windows.Media.Color-Klasse.
-	\add \verb!public bool ReferenceSet { get; set; }! \\
-	Ruft ab oder setzt fest, ob momentan ein Referenzvideo ausgewählt ist.
-	\add \verb!public bool ReferenceHasLogfile { get; set; }! \\
-	Ruft ab oder setzt fest, ob das Referenzvideo ein Logfile hat.
-	\add \verb!public SolidColorBrush GraphColor { get; set; }! \\
-	Ruft die Farbe für die Vorschau der Kurve ab oder setzt sie fest.
-	\add \verb!public void SetLineColor()! \\
-	Setzt jeweils die Farben für die verschiedenen Color-Properties fest.
-	\add \verb!public Color NewColor(Tuple<string, IGraphType> type)! \\
-	Generiert eine neue Farbe vom selben Farbton wie die Basisfarbe des gegebenen Graphentypen.
-	\add \verb!public void SetDisplayTypes()! \\
-	Entscheidet, welche Graphentypen mit den momentanen Einstellungen verfügbar sind und legt diese fest.
+	\add \verb!public IEnumerable<GraphTypeViewModel> AvailableTypes! \\
+	Ruft alle verfügbaren Graphentypen ab oder setzt diese fest.
+	\add \verb!public LineGraph Line { get; }! \\
+	Ruft die Kurve des Diagrammgraphen ab.
+	\add \verb!public Color LineColor { get; }! \\
+	Ruft die momentan verwendete Farbe für die Kurve ab.	
+	\add \verb!public SolidColorBrush GraphColor { get; }! \\
+	Ruft die Farbe für die Vorschau der Kurve ab.
 \end{itemize}
 
-\paragraph{\name{+ LineGraphViewModel}}~\\
-\name{LineGraphViewModel} repräsentiert eine Kurve in einem Diagramm eines DiagramViewModels.
+\paragraph{\name{+ GraphTypeViewModel}}~\\
+\name{GraphTypeViewModel} repräsentiert das Objekt, mit dem die Graphentypen im Ausgabefenster angezeigt werden.
 \begin{itemize}
-	\add \verb!public CompositeDataSource PointDataSource { get; set; }! \\
-	Ruft die Datenquelle der Kurve ab oder setzt sie fest.
-	\add \verb!public string Name { get; set; }! \\
-	Ruft den Namen der Kurve ab oder setzt ihn fest.
-	\add \verb!public Color Color { get; set; }! \\
-	Ruft die Farbe der Kurve ab oder setzt sie fest.
-	\add \verb!public Guid EntityId { get; set; }! \\
-	Ruft die ID der Kurve ab oder setzt sie fest.
-	\add \verb!public bool LineAndMarker { get; set; }! \\
-	Ruft ab oder setzt fest, ob die Punkte der Kurve angezeigt werden sollen.
-	\add \verb!public int Thickness { get; set; }! \\
-	Ruft die Dicke der Linie der Kurve ab oder setzt sie fest.
+	\add \verb!public IGraphType Model { get; }! \\
+	Ruft den GraphenTypen ab.
+	\add \verb!public string Name { get; }! \\
+	Ruft den Namen des GraphenTypen ab.
 \end{itemize}
 
 \paragraph{\name{+ HslHelper}}~\\
@@ -425,7 +402,7 @@ Nach dem MVVM-Pattern ist es Aufgabe der ViewModel-Schicht, der View das Model i
 \subsubsection*{Aktuelles Klassendiagramm}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{classdiagram/viewmodel-imp.png}
+\includegraphics[width=\textwidth]{classdiagram/viewmodel-imp.png}
 \end{center}
 \end{figure}
 Namespace der ViewModels der vordefinierten Knotentypen.

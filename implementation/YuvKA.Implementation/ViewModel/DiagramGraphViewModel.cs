@@ -10,11 +10,16 @@ using YuvKA.ViewModel.Implementation;
 namespace YuvKA.Implementation
 {
 	/// <summary>
-	/// Represents the the object usd to modify a graph's color
+	/// Represents the object used to modify a graph's color
 	/// and type in the diagram output window.
 	/// </summary>
 	public class DiagramGraphViewModel : PropertyChangedBase
 	{
+		/// <summary>
+		/// Creates a new DiagramGraphViewModel
+		/// </summary>
+		/// <param name="model">The DiagramGraph of this DGVM</param>
+		/// <param name="parent">The DiagramVM from which this DGVM is called</param>
 		public DiagramGraphViewModel(DiagramGraph model, DiagramViewModel parent)
 		{
 			Model = model;
@@ -24,10 +29,19 @@ namespace YuvKA.Implementation
 				LineColor = Parent.NewColor(Model.Type);
 		}
 
+		/// <summary>
+		/// Gets or sets the DiagramVM from which this DGVM is called
+		/// </summary>
 		public DiagramViewModel Parent { get; private set; }
 
+		/// <summary>
+		/// Gets this DGVM's DiagramGraph
+		/// </summary>
 		public DiagramGraph Model { get; private set; }
 
+		/// <summary>
+		/// Gets the name of the Video of the DiagramGraph
+		/// </summary>
 		public string Name { get { return Parent.GetVideoName(Model.Video); } }
 
 		/// <summary>
@@ -68,6 +82,9 @@ namespace YuvKA.Implementation
 			}
 		}
 
+		/// <summary>
+		/// Gets this DiagramGraph's line
+		/// </summary>
 		public LineGraph Line
 		{
 			get
