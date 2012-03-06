@@ -70,7 +70,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// <summary>
 		/// Calculates the Data by computing the Peak-Signal-to-Noise-Ratio.
 		/// </summary>
-		/// <param name="frame">The frame to be compared to thxe reference frame</param>
+		/// <param name="frame">The frame to be compared to the reference frame</param>
 		/// <param name="reference">The frame against which the given frame is compared</param>
 		public double Process(Frame frame, Frame reference)
 		{
@@ -178,6 +178,52 @@ namespace YuvKA.Pipeline.Implementation
 				difference /= annFrame.Decisions.Length;
 			}
 			return difference;
+		}
+	}
+
+	/// <summary>
+	/// Providing an IGraphType calculating the Data by computing the number
+	/// of artifacts between two frames.
+	/// </summary>
+	[DisplayName("Artifacts per Pixel")]
+	public class Artifacts : IGraphType
+	{
+		/// <summary>
+		/// Creates a new Artifacts IGraphtype.
+		/// This IGraphType requires a reference frame
+		/// </summary>
+		public Artifacts()
+		{
+			DependsOnReference = true;
+			DependsOnLogfile = false;
+			DependsOnAnnotatedReference = false;
+		}
+
+		public bool DependsOnReference { get; private set; }
+		public bool DependsOnLogfile { get; private set; }
+		public bool DependsOnAnnotatedReference { get; private set; }
+
+		/// <summary>
+		/// Calculates the Data by computing the number
+		/// of artifacts between two frames.
+		/// </summary>
+		/// <param name="frame">The frame to be compared to the reference frame</param>
+		/// <param name="reference">The frame against which the given frame is compared</param>
+		public double Process(Frame frame, Frame reference)
+		{
+			var result = 0.0;
+			if (reference == null)
+				return result;
+			for (var x = 0; x < reference.Size.Width; x++) {
+				for (var y = 0; y < reference.Size.Height; y++) {
+					var difference = Math.Abs(reference[x, y].R - frame.GetPixelOrBlack(x, y).R);
+					difference += Math.Abs(reference[x, y].G - frame.GetPixelOrBlack(x, y).G);
+					difference += Math.Abs(reference[x, y].B - frame.GetPixelOrBlack(x, y).B);
+					if (difference >= 40)
+						result += 1;
+				}
+			}
+			return result / (reference.Size.Height * reference.Size.Width);
 		}
 	}
 }
