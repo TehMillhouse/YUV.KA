@@ -142,7 +142,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// Providing an IGraphType calculating the Data by computing the number
 	/// of similar Encoderdecisions between two frames.
 	/// </summary>
-	[DisplayName("Encoderdecision-Difference")]
+	[DisplayName("Encoderdecision-Difference in percent")]
 	public class DecisionDiff : IGraphType
 	{
 		/// <summary>
@@ -181,6 +181,7 @@ namespace YuvKA.Pipeline.Implementation
 					}
 				}
 				difference /= annFrame.Decisions.Length;
+				difference *= 100;
 			}
 			return difference;
 		}
