@@ -6,7 +6,7 @@
 			xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
 			mc:Ignorable="d"
 			d:DesignHeight="200" d:DesignWidth="600">
-	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+	<ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
 		<ItemsControl ItemsSource="{Binding NodeTypes}">
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
