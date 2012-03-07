@@ -37,10 +37,15 @@ Das VideoModel repräsentiert ein eingelesenes Video, ggf. mit zugehörigen Log-
 
 \paragraph{\name{YuvEncoder}}
 \begin{itemize}
-	\add \verb!public static Video Decode(int width, int height, string filename, string logFileName = null, string motionVectorFileName = null)! \\
+	\add \begin{verbatim}public static Video Decode(int width, int height,
+	    string filename, string logFileName = null,
+	    string motionVectorFileName = null)
+		\end{verbatim}
 	Neuer Parameter: \verb!string motionVectorFileName = null!\\
 	Die an ein Video gebundenen Bewegungsvektoren sollen schon beim Lesen eines Videos vom Hintergrundspeicher gelesen werden, da \name{Video}-Obekte unveränderlich sind, und bei Neuwahl der entsprechenden Datei ein neues Video-Objekt erstellt werden muss.
-	\add \verb!public static void Encode(Stream stream, IEnumerable<Frame> frames)! \\
+	\add \begin{verbatim}public static void Encode(Stream stream, 
+	    IEnumerable<Frame> frames)
+	\end{verbatim}
 	Neue öffentliche statische Methode Encode, welche als Parameter einen Stream entgegennimmt. Dies ermöglicht es, zu Testzwecken auch in einen \name{MemoryStream} zu schreiben, was den Hintergrundspeicher nicht belastet und in der Regel schneller ist.
 \end{itemize}
 
@@ -100,8 +105,8 @@ Die Pipeline-Schicht repräsentiert den UI-unabhängigen Aufbau des Analyse-DAGs
 \begin{itemize}
 	\change Die Klasse ist nicht mehr als statisch deklariert. Diese Änderung ermöglicht es, verschiedene Graphen parallel zu berechnen, indem jeweils ein Driver instanziiert wird, die einzelnen Berechnungen aber weiterhin den Parallelitätszusicherungen genügen.
 	\add \begin{verbatim}public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(
-	IEnumerable<Node> startNodes, int startTick = 0,
-	int? tickCount = null, CancellationToken? token = null)
+	    IEnumerable<Node> startNodes, int startTick = 0,
+	    int? tickCount = null, CancellationToken? token = null)
 	\end{verbatim}
 	Neuer Parameter: \verb!int? tickCount = null! \\ 
 	Wie sich herausstellte, sollte die Berechnung der Pipeline nicht nur durch ein \name{CancellationToken} jederzeit abbrechbar sein, sondern auch von sich aus nach einer gegebenen Anzahl Ticks, nämlich bis zum Ende des gegebenen Eingabevideos, enden können. Existiert kein Eingabevideo, kann dem Parameter \name{null} zugewiesen werden (der Standardwert), um weiterhin bis zu einem manuellen Abbruch zu berechnen.
@@ -341,11 +346,11 @@ Namespace der ViewModels der vordefinierten Knotentypen.
 	Ruft das Referenzvideo des Diagrammknotens ab oder setzt dieses fest.
 	\add \verb!public IEnumerable<Tuple<string, Node.Input>> Videos { get; }! \\
 	Ruft die Eingabevideos des Diagrammknotens ab und fügt diesen einen Index hinzu.
-	\add \verb!public public Tuple<string, Node.Input> ChosenVideo { get; set; }! \\
+	\add \verb!public Tuple<string, Node.Input> ChosenVideo { get; set; }! \\
 	Ruft das aktuell vom Benutzer zur Analyse ausgewählte Video ab oder setzt dieses fest.
-	\add \verb!public public ObservableCollection<DiagramGraphViewModel> Graphs { get; }! \\
+	\add \verb!public ObservableCollection<DiagramGraphViewModel> Graphs { get; }! \\
 	Ruft die Graphen des Diagramms ab.
-		\add \verb!public public IEnumerable<LineGraph> Lines { get; }! \\
+		\add \verb!public IEnumerable<LineGraph> Lines { get; }! \\
 	Ruft die Kurven im Diagramm ab, die den Graphen des Diagrammknotens entsprechen. 
 	\add \verb!public bool CanAddGraph { get; }! \\
 	Ruft ab, ob ein neuer Graph hinzugefügt werden kann.
@@ -403,7 +408,9 @@ Enthält eine Methode zur Konvertierung zwischen dem HSL- und dem RGB-Farbraum, 
 	Ein Tupel, welches den Namen und den Typ des gerade verwendeten Überlagerungstyps enthält.
 	\add \verb!public WriteableBitmap RenderedImage { get; }! \\
 	Das Ergebnis der Überlagerung für die View aufbereitet. Dies ist notwendig, da die View einen \name{Frame} nicht ohne weiteres darstellen kann.
-	\add \verb!public IEnumerable<System.Tuple<string, IOverlayType>> TypeTuples { get; }! \\
+	\add \begin{verbatim}public IEnumerable<System.Tuple<string, IOverlayType>>
+	     TypeTuples { get; }
+	     \end{verbatim}
 	Eine Sammlung aller momentan verfügbaren Überlagerungstypen in Form von Tupeln mit Namen und Typ. Dies ist notwendig für die View, um die Auswahl der Überlagerungen darzustellen.
 \end{itemize}
 \newpage
