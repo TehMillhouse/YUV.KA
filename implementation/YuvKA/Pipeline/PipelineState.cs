@@ -93,13 +93,15 @@ namespace YuvKA.Pipeline
 		/// <returns>True iff outputNodes can be rendered</returns>
 		public bool Start(IEnumerable<Node> outputNodes)
 		{
-			if (RenderTicks(outputNodes, Graph.TickCount - CurrentTick, isPreviewFrame: false)) {
-				nodesRendering = outputNodes.ToArray();
+			nodesRendering = outputNodes.ToArray();
+			if (RenderTicks(nodesRendering, Graph.TickCount - CurrentTick, isPreviewFrame: false)) {
 				NotifyOfPropertyChange(() => IsPlaying);
 				return true;
 			}
-			else
+			else {
+				nodesRendering = null;
 				return false;
+			}
 		}
 
 		/// <summary>
