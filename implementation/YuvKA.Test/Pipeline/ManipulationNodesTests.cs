@@ -154,7 +154,7 @@ namespace YuvKA.Test.Pipeline
 		/// Asserts that the weighted averaged merge node uses the correct weighting when combining input data
 		/// </summary>
 		[Fact]
-		public void TestWeightedAverageMerge()
+		public void TestWeightedAveragedMerge()
 		{
 			YuvKA.VideoModel.Size testSize = new YuvKA.VideoModel.Size(5, 5);
 			Frame[] inputs = { new Frame(testSize), new Frame(testSize), new Frame(testSize) };
