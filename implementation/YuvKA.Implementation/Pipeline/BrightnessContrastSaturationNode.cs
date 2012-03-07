@@ -11,7 +11,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// Enables the modification of brightness, contrast and saturation of an input frame.
 	/// </summary>
 	[DataContract]
-	[Description("this Node changes brightness, contrast, and/or saturation of the input")]
+	[Description("This Node changes brightness, contrast, and/or saturation of the input")]
 	public class BrightnessContrastSaturationNode : Node
 	{
 		/// <summary>

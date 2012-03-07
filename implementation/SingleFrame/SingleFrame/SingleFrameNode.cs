@@ -5,6 +5,7 @@
 	using System.Runtime.Serialization;
 	using YuvKA.VideoModel;
 
+	[Description("This Node provides only black Frames except for the nth Frame of the input, where n is the specified number")]
 	public class SingleFrameNode : YuvKA.Pipeline.Node
 	{
 		public SingleFrameNode()

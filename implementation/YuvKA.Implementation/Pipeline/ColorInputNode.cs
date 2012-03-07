@@ -10,6 +10,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// Provides a video stream consisting of a single constant color.
 	/// </summary>
 	[DataContract]
+	[Description("This Node provides an input stream containing a specified color")]
 	public class ColorInputNode : InputNode
 	{
 		Color color = Color.FromRgb(0,0,0);
