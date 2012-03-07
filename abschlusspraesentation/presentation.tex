@@ -103,12 +103,64 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Implementierung I}
-
-		
-	
-	% TODO: Statistiken
+    \frametitle{Implementierung}
+    \noindent
+    \begin{minipage}{3.5cm}
+        \includegraphics[scale=0.37]{Layers.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{8cm}
+    \begin{itemize}
+        \item<+-> Architektur größtenteils beibehalten
+        \item<+-> Entwurf stellte sich als gut machbar heraus
+        \item<+-> Änderungen bestehen größtenteils aus Implementierungsdetails ~\\ ~\\
+        Darunter fallen:
+        \begin{itemize}
+            \item<+-> View-spezifische Klassen
+            \item<+-> Framework-spezifische Klassen
+            \item<+-> Schwer vorhersehbare Properties und Methoden, die sich erst bei der Implementierung als notwendig herausgestellt haben
+        \end{itemize}
+    \end{itemize}
+    \end{minipage}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Testphase I}
+    \begin{itemize}
+        \item<+-> Großteil des Projektcodes durch Tests abgedeckt
+        \item<+-> Aufbereitung der Daten für die View auf Korrektheit überprüft
+        \item<+-> Darstellung der View jedoch nicht abgedeckt, da die View keine Logik enthält
+        \item<+-> Korrektheit mancher Klassen nicht automatisch verifizierbar
+        \item<+-> Manuelle Überprüfung der Resultate solcher Klassen (bsp. YuvEncoder)
+    \end{itemize}
+\end{frame}
 
-\end{document}
+\begin{frame}
+    \frametitle{Testphase II}
+    \vspace{1cm}
+	\begin{tabular}{@{\extracolsep{\fill}} |l|c|}
+		\hline
+		Namespace &  Überdeckung in \% \\ \hline
+		YuvKA.Pipeline  &  98,32  \\ \hline
+		YuvKA.VideoModel  & 86,50 \\ \hline
+		YuvKA.ViewModel  & 92,77  \\ \hline
+		YuvKA.ViewModel.PropertyEditor  & 98,15  \\ \hline
+		YuvKA.Implementation  &  72,15 \\ \hline
+		YuvKA.Pipeline.Implementation  &  92,39  \\ \hline
+		YuvKA.ViewModel.Implementation  & 84,70 \\ \hline
+		YuvKA.ViewModel.PropertyEditor.Implementation  & 76,28  \\ \hline
+		\hline
+		\textbf{Overall} & \textbf{90,79} \\ \hline
+	\end{tabular}
+	~\\
+	Zeilen eigener Code insgesamt: ca. 7300 ~\\ % actual 7318   
+	Zeilen Testcode insgesamt: ca. 3900    % actual 3860
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+		\textbf{Live-Demo}
+	\end{center}
+\end{frame}
+
+\end{document} 
