@@ -69,40 +69,44 @@ namespace YuvKA.Pipeline.Implementation
 			for (int y = 0; y < inputs[0].Size.Height; ++y) {
 				for (int x = 0; x < inputs[0].Size.Width; ++x) {
 					Color pixel = Color.FromArgb(inputs[0][x, y].R, inputs[0][x, y].G, inputs[0][x, y].B);
+					if (Saturation != 0) {
+						// Apply Saturation
+						// For the pixel, get its HSL values, modify the Saturation and convert it back to RGB
+						double newSaturation = (double)pixel.GetSaturation();
+						newSaturation += Saturation * newSaturation;
+						pixel = HslHelper.HslToRgb((double)pixel.GetHue(), newSaturation, (double)pixel.GetBrightness());
+					}
 
-					// Apply Saturation
-					// For the pixel, get its HSL values, modify the Saturation and convert it back to RGB
-					double newSaturation = (double)pixel.GetSaturation();
-					newSaturation += Saturation * newSaturation;
-					pixel = HslHelper.HslToRgb((double)pixel.GetHue(), newSaturation, (double)pixel.GetBrightness());
-
-					// Apply Brightness
 					int red = pixel.R;
 					int green = pixel.G;
 					int blue = pixel.B;
 
-					red += (int)(127 * Brightness);
-					green += (int)(127 * Brightness);
-					blue += (int)(127 * Brightness);
+					if (Brightness != 0) {
+						// Apply Brightness
+						red += (int)(127 * Brightness);
+						green += (int)(127 * Brightness);
+						blue += (int)(127 * Brightness);
 
-					red = (red > 255 ? 255 : (red < 0 ? 0 : red));
-					green = (green > 255 ? 255 : (green < 0 ? 0 : green));
-					blue = (blue > 255 ? 255 : (blue < 0 ? 0 : blue));
-
-					// Apply Contrast
-					double contrast;
-					if (Contrast <= 0) {
-						contrast = Contrast + 1;
+						red = (red > 255 ? 255 : (red < 0 ? 0 : red));
+						green = (green > 255 ? 255 : (green < 0 ? 0 : green));
+						blue = (blue > 255 ? 255 : (blue < 0 ? 0 : blue));
 					}
-					else {
-						contrast = Contrast * 2 + 1;
+
+					if (Contrast != 0) {
+						// Apply Contrast
+						double contrast;
+						if (Contrast <= 0) {
+							contrast = Contrast + 1;
+						}
+						else {
+							contrast = Contrast * 2 + 1;
+						}
+						contrast *= contrast;
+
+						red = (int)(((((double)red) / 255.0 - 0.5) * contrast + 0.5) * 255.0);
+						green = (int)(((((double)green) / 255.0 - 0.5) * contrast + 0.5) * 255.0);
+						blue = (int)(((((double)blue) / 255.0 - 0.5) * contrast + 0.5) * 255.0);
 					}
-					contrast *= contrast;
-
-					red = (int)(((((double)red) / 255.0 - 0.5) * contrast + 0.5) * 255.0);
-					green = (int)(((((double)green) / 255.0 - 0.5) * contrast + 0.5) * 255.0);
-					blue = (int)(((((double)blue) / 255.0 - 0.5) * contrast + 0.5) * 255.0);
-
 					red = (red > 255 ? 255 : (red < 0 ? 0 : red));
 					green = (green > 255 ? 255 : (green < 0 ? 0 : green));
 					blue = (blue > 255 ? 255 : (blue < 0 ? 0 : blue));
