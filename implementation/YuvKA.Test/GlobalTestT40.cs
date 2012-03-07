@@ -47,13 +47,13 @@ namespace YuvKA.Test
 			DisplayViewModel output = display.Window;
 			Assert.Equal(display, output.NodeModel);
 
-			Assert.False(mvm.ReplayStateViewModel.IsPlaying);
+			Assert.False(mvm.Model.IsPlaying);
 			mvm.ReplayStateViewModel.PlayPause();
-			Assert.True(mvm.ReplayStateViewModel.IsPlaying);
+			Assert.True(mvm.Model.IsPlaying);
 
 			// Step 4: Change a node's options while the video is playing
 			blur.Radius = 0;
-			Assert.True(mvm.ReplayStateViewModel.IsPlaying);
+			Assert.True(mvm.Model.IsPlaying);
 			Assert.True(display.InputIsValid);
 
 			// Step 5: change replay speed while video is playing
@@ -63,16 +63,16 @@ namespace YuvKA.Test
 
 			// Step 6: pause the video
 			mvm.ReplayStateViewModel.PlayPause();
-			Assert.False(mvm.ReplayStateViewModel.IsPlaying);
+			Assert.False(mvm.Model.IsPlaying);
 
 			// Step 7: resumes the video
 			mvm.ReplayStateViewModel.PlayPause();
-			Assert.True(mvm.ReplayStateViewModel.IsPlaying);
+			Assert.True(mvm.Model.IsPlaying);
 
 			// Step 8: resets the video playing state
 			mvm.ReplayStateViewModel.Stop();
 			Assert.Equal(0, mvm.Model.CurrentTick);
-			Assert.False(mvm.ReplayStateViewModel.IsPlaying);
+			Assert.False(mvm.Model.IsPlaying);
 
 			// Step 9: save the video as yuv file
 			blurVM.SaveNodeOutput(blur.Outputs[0]);

@@ -10,23 +10,11 @@ namespace YuvKA.ViewModel
 	/// Manages the current state of the replay.
 	/// </summary>
 	[Export]
-	public class ReplayStateViewModel : PropertyChangedBase, IHandle<TickRenderedMessage>
+	public class ReplayStateViewModel : PropertyChangedBase
 	{
-		bool isPlaying;
-
 		public ReplayStateViewModel()
 		{
 			IoC.Get<IEventAggregator>().Subscribe(this);
-		}
-
-		public bool IsPlaying
-		{
-			get { return isPlaying; }
-			set
-			{
-				isPlaying = value;
-				NotifyOfPropertyChange(() => IsPlaying);
-			}
 		}
 
 		[Import]
@@ -48,14 +36,10 @@ namespace YuvKA.ViewModel
 			if (Parent.Model.CurrentTick == Parent.Model.Graph.TickCount)
 				Stop();
 
-			if (!IsPlaying) {
-				if (Parent.Model.Start(GetNodesToProcess()))
-					IsPlaying = !IsPlaying;
-			}
-			else {
+			if (!Parent.Model.IsPlaying)
+				Parent.Model.Start(GetNodesToProcess());
+			else
 				Parent.Model.Stop();
-				IsPlaying = !IsPlaying;
-			}
 		}
 
 		/// <summary>
@@ -64,19 +48,12 @@ namespace YuvKA.ViewModel
 		public void Stop()
 		{
 			Parent.Model.CurrentTick = 0;
-			IsPlaying = false;
 			Parent.Model.Stop();
 		}
 
 		public void Faster()
 		{
 			Parent.Model.Speed += 5;
-		}
-
-		void IHandle<TickRenderedMessage>.Handle(TickRenderedMessage message)
-		{
-			if (Parent.Model.CurrentTick == Parent.Model.Graph.TickCount - 1)
-				IsPlaying = false;
 		}
 
 		IEnumerable<Node> GetNodesToProcess()

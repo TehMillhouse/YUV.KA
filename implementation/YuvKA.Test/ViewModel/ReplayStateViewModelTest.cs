@@ -19,14 +19,14 @@ namespace YuvKA.Test.ViewModel
 		[Fact]
 		public void CantPlayInvalidPipeline()
 		{
-			Assert.False(vm.IsPlaying);
+			Assert.False(vm.Parent.Model.IsPlaying);
 
 			Node graph = new BlurNode();
 			Assert.False(graph.InputIsValid);
 			vm.Parent.OpenWindows.Clear();
 			vm.Parent.OpenWindows.Add(new VideoOutputViewModel(graph.Outputs[0]));
 			vm.PlayPause();
-			Assert.False(vm.IsPlaying);
+			Assert.False(vm.Parent.Model.IsPlaying);
 		}
 
 		/// <summary>
@@ -36,17 +36,17 @@ namespace YuvKA.Test.ViewModel
 		public void PlayPauseWorks()
 		{
 			vm.Stop();
-			Assert.False(vm.IsPlaying);
+			Assert.False(vm.Parent.Model.IsPlaying);
 			Assert.Equal(vm.Parent.Model.CurrentTick, 0);
 
 			Node graph = new AnonymousNode(() => Thread.Sleep(1000));
 			vm.Parent.OpenWindows.Clear();
 			vm.Parent.OpenWindows.Add(new VideoOutputViewModel(graph.Outputs[0]));
 			vm.PlayPause();
-			Assert.True(vm.IsPlaying);
+			Assert.True(vm.Parent.Model.IsPlaying);
 			Thread.Sleep(1500);
 			vm.PlayPause();
-			Assert.False(vm.IsPlaying);
+			Assert.False(vm.Parent.Model.IsPlaying);
 			Assert.Equal(vm.Parent.Model.CurrentTick, 1);
 		}
 
@@ -69,13 +69,13 @@ namespace YuvKA.Test.ViewModel
 			vm.Parent.OpenWindows.Add(outputMock.Object);
 			vm.PlayPause();
 			Thread.Sleep(2000);
-			Assert.False(vm.IsPlaying);
+			Assert.False(vm.Parent.Model.IsPlaying);
 			Assert.Equal(10, vm.Parent.Model.CurrentTick);
 			outputMock.Verify(o => o.Handle(It.IsAny<TickRenderedMessage>()), Times.Exactly(10));
 
 			vm.PlayPause();
 			Thread.Sleep(1000);
-			Assert.False(vm.IsPlaying);
+			Assert.False(vm.Parent.Model.IsPlaying);
 			outputMock.Verify(o => o.Handle(It.IsAny<TickRenderedMessage>()), Times.Exactly(20));
 		}
 

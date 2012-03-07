@@ -39,11 +39,11 @@ namespace YuvKA.ViewModel
 			{
 				foreach (OutputWindowViewModel owvm in OpenWindows.ToArray())
 					owvm.TryClose();
+				if (model != null)
+					model.Stop();
 
 				model = value;
 				IoC.BuildUp(model);
-				if (ReplayStateViewModel != null)
-					ReplayStateViewModel.IsPlaying = false;
 				PipelineViewModel = new PipelineViewModel(this);
 				NotifyOfPropertyChange(() => Model);
 				NotifyOfPropertyChange(() => CanUndo);
@@ -173,7 +173,7 @@ namespace YuvKA.ViewModel
 				if (window.GetView() is System.Windows.Window)
 					((System.Windows.Window)window.GetView()).KeyUp += (_, e) => ((System.Windows.Window)GetView()).RaiseEvent(e);
 
-				if (!ReplayStateViewModel.IsPlaying) {
+				if (!Model.IsPlaying) {
 					Model.RenderTick(new[] { window.NodeModel });
 				}
 			}

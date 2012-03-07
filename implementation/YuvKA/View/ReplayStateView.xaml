@@ -11,7 +11,7 @@
 	<DockPanel Margin="0,5,0,5">
 		<Button Name="PlayPause" Width="35" Height="35">
 			<Button.Content>
-				<Binding Path="IsPlaying">
+				<Binding Path="Parent.Model.IsPlaying">
 					<Binding.Converter>
 						<kent:MapConverter>
 							<kent:Mapping To="{DynamicResource ResourceKey=PlayTriangle}">

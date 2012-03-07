@@ -70,7 +70,7 @@ namespace YuvKA.ViewModel.Implementation
 			{
 				NodeModel.Type = value.Item2;
 				MainViewModel mvm = (MainViewModel)IoC.Get<MainViewModel>();
-				if (!mvm.ReplayStateViewModel.IsPlaying) {
+				if (!mvm.Model.IsPlaying) {
 					mvm.Model.RenderTick(new[] { this.NodeModel });
 				}
 			}

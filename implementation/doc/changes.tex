@@ -311,8 +311,8 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 
 \paragraph{\name{ReplayStateViewModel}}
 \begin{itemize}
-	\remove \verb!public bool IsPlaying { get; set; }! \\
-	Der Setter wurde \verb!public! gemacht, damit das \name{MainViewModel} beim Laden einer Pipeline die Wiedergabe stoppen kann.
+	\remove \verb!public bool IsPlaying { get; }! \\
+	Verschoben in \name{PipelineState}, damit dort der gesamte Wiedergabezustand gehalten wird.
 \end{itemize}
 
 \paragraph{\name{VideoOutputViewModel}}

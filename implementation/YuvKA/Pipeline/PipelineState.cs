@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
 using Caliburn.Micro;
@@ -17,6 +17,7 @@ namespace YuvKA.Pipeline
 	public class PipelineState : PropertyChangedBase
 	{
 		CancellationTokenSource cts;
+		Node[] nodesRendering;
 		int currentTick;
 		int speed;
 
@@ -37,10 +38,19 @@ namespace YuvKA.Pipeline
 			set
 			{
 				if (value != currentTick) {
+					Node[] nodesRendering = this.nodesRendering;
+					Stop();
 					currentTick = value;
+					if (nodesRendering != null)
+						Start(nodesRendering);
 					NotifyOfPropertyChange(() => CurrentTick);
 				}
 			}
+		}
+
+		public bool IsPlaying
+		{
+			get { return nodesRendering != null; }
 		}
 
 		/// <summary>
@@ -83,7 +93,13 @@ namespace YuvKA.Pipeline
 		/// <returns>True iff outputNodes can be rendered</returns>
 		public bool Start(IEnumerable<Node> outputNodes)
 		{
-			return RenderTicks(outputNodes, Graph.TickCount - CurrentTick, isPreviewFrame: false);
+			if (RenderTicks(outputNodes, Graph.TickCount - CurrentTick, isPreviewFrame: false)) {
+				nodesRendering = outputNodes.ToArray();
+				NotifyOfPropertyChange(() => IsPlaying);
+				return true;
+			}
+			else
+				return false;
 		}
 
 		/// <summary>
@@ -95,6 +111,8 @@ namespace YuvKA.Pipeline
 				cts.Cancel();
 				ActualSpeed = 0;
 				NotifyOfPropertyChange(() => ActualSpeed);
+				nodesRendering = null;
+				NotifyOfPropertyChange(() => IsPlaying);
 			}
 		}
 
@@ -117,39 +135,47 @@ namespace YuvKA.Pipeline
 			if (!outputNodes.All(node => node.InputIsValid))
 				return false;
 
+			Node[] nodesRendering = this.nodesRendering;
 			cts = new CancellationTokenSource();
 			int precomputeCount = Graph.NumberOfTicksToPrecompute(outputNodes);
 			Queue<DateTime> ticks = new Queue<DateTime>();
 			ticks.Enqueue(DateTime.Now);
 			int windowSize = 5;
 
-			Driver.RenderTicks(outputNodes, CurrentTick - precomputeCount, tickCount + precomputeCount, cts.Token).Subscribe(dic => {
-				DateTime now = DateTime.Now;
-				if (ticks.Count == windowSize) {
-					// Compute "virtual" tick from average of tick window
-					DateTime midTick = new DateTime((long)ticks.Average(t => t.Ticks));
-					// tick count between virtual and current tick
-					double midDelta = (windowSize + 1) / 2.0;
-					DateTime nextTick = midTick + TimeSpan.FromSeconds(midDelta / Speed);
-					if (now < nextTick) {
-						Thread.Sleep(nextTick - now);
-						now = DateTime.Now;
-					}
-					if (!cts.IsCancellationRequested) {
+			Driver.RenderTicks(outputNodes, CurrentTick - precomputeCount, tickCount + precomputeCount, cts.Token)
+				.Do(dic => {
+					IoC.Get<IEventAggregator>().Publish(new TickRenderedMessage(dic));
+					DateTime now = DateTime.Now;
+					if (ticks.Count == windowSize) {
+						// Compute "virtual" tick from average of tick window
+						DateTime midTick = new DateTime((long)ticks.Average(t => t.Ticks));
+						// tick count between virtual and current tick
+						double midDelta = (windowSize + 1) / 2.0;
+						DateTime nextTick = midTick + TimeSpan.FromSeconds(midDelta / Speed);
+						if (now < nextTick) {
+							Thread.Sleep(nextTick - now);
+							if (cts.IsCancellationRequested)
+								return;
+
+							now = DateTime.Now;
+						}
 						ActualSpeed = (int)(midDelta / (now - midTick).TotalSeconds);
 						NotifyOfPropertyChange(() => ActualSpeed);
+						ticks.Dequeue();
 					}
-					ticks.Dequeue();
-				}
-				ticks.Enqueue(now);
-
-				IoC.Get<IEventAggregator>().Publish(new TickRenderedMessage(dic));
-				if (!isPreviewFrame && !cts.IsCancellationRequested) {
-					CurrentTick++;
-				}
-			},
-			// Rethrow exceptions on UI thread for easier debugging
-			onError: e => Execute.OnUIThread(() => { throw e; }));
+					ticks.Enqueue(now);
+				})
+				.ObserveOnDispatcher()
+				.Subscribe(_ => {
+					if (!isPreviewFrame) {
+						currentTick++;
+						NotifyOfPropertyChange(() => CurrentTick);
+					}
+				},
+				onCompleted: () => {
+					if (nodesRendering == this.nodesRendering)
+						Stop();
+				});
 			return true;
 		}
 	}

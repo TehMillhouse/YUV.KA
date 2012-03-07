@@ -71,7 +71,7 @@ namespace YuvKA.ViewModel
 		public void Drop(IDragEventInfo e)
 		{
 			/* Only allow this if pipeline is not rendering */
-			if (!Parent.ReplayStateViewModel.IsPlaying) {
+			if (!Parent.Model.IsPlaying) {
 				var type = e.GetData<NodeType>();
 				var node = (Node)Activator.CreateInstance(type.Type);
 				var nodeModel = new NodeViewModel(node, this);
@@ -103,7 +103,7 @@ namespace YuvKA.ViewModel
 		public void InOutputMouseDown(InOutputViewModel inOut)
 		{
 			/* Only allow this if pipeline is not rendering */
-			if (!Parent.ReplayStateViewModel.IsPlaying) {
+			if (!Parent.Model.IsPlaying) {
 				InOutputViewModel start = inOut;
 				// If the input is already connected, drag the existing edge
 				if (inOut.Model is Node.Input) {
@@ -208,7 +208,7 @@ namespace YuvKA.ViewModel
 		/// </summary>
 		public void CheckClearance(IDragEventInfo e)
 		{
-			if (Parent.ReplayStateViewModel.IsPlaying) {
+			if (Parent.Model.IsPlaying) {
 				e.Effects = DragDropEffects.None;
 			}
 		}

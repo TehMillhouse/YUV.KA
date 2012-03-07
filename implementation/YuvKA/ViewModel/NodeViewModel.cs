@@ -83,7 +83,7 @@ namespace YuvKA.ViewModel
 		public void RemoveNode()
 		{
 			/* Only allow this if pipeline is not rendering */
-			if (!Parent.Parent.ReplayStateViewModel.IsPlaying) {
+			if (!Parent.Parent.Model.IsPlaying) {
 				Parent.Parent.CloseWindows(this.Model);
 				Parent.Nodes.Remove(this);
 				Parent.Parent.Model.Graph.RemoveNode(this.Model);
