@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
 using YuvKA.Pipeline;
@@ -20,7 +22,7 @@ namespace YuvKA.ViewModel
 				.Select(n => new NodeType { Type = n.GetType(), Name = n.Name })
 				.Where(n => n.Type.IsPublic)
 				.GroupBy(n => n.Type.Assembly)
-				.Select(g => new KeyValuePair<string, IEnumerable<KeyValuePair<string, IEnumerable<NodeType>>>>(g.Key.GetAssemblyName(),
+				.Select(g => new KeyValuePair<Tuple<string, Assembly>, IEnumerable<KeyValuePair<string, IEnumerable<NodeType>>>>(Tuple.Create(g.Key.GetAssemblyName(), g.Key),
 					g.GroupBy(n => typeof(InputNode).IsAssignableFrom(n.Type) ? "Input" : typeof(OutputNode).IsAssignableFrom(n.Type) ? "Output" : "Manipulation")
 					.OrderBy(gg => gg.Key)
 					.Select(gg => new KeyValuePair<string, IEnumerable<NodeType>>(gg.Key, gg.OrderBy(n => n.Name).ToArray()))
@@ -28,7 +30,7 @@ namespace YuvKA.ViewModel
 				)).ToArray();
 		}
 
-		public IEnumerable<KeyValuePair<string, IEnumerable<KeyValuePair<string, IEnumerable<NodeType>>>>> NodeTypes { get; private set; }
+		public IEnumerable<KeyValuePair<Tuple<string, Assembly>, IEnumerable<KeyValuePair<string, IEnumerable<NodeType>>>>> NodeTypes { get; private set; }
 
 		public IResult BeginDrag(NodeType element)
 		{

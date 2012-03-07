@@ -17,7 +17,7 @@
 				<DataTemplate>
 					<Expander IsExpanded="True" ExpandDirection="Right">
 						<Expander.Header>
-							<TextBlock Text="{Binding Key}" MaxWidth="60">
+							<TextBlock Text="{Binding Key.Item1}" MaxWidth="60" ToolTip="{Binding Key.Item2.FullName}">
 								<TextBlock.LayoutTransform>
 									<RotateTransform Angle="90"/>
 								</TextBlock.LayoutTransform>
