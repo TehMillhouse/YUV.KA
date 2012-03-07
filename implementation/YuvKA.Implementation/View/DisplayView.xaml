@@ -2,7 +2,6 @@
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-		Title="{Binding NodeModel.Name}" Height="300" Width="300"
-		cal:Message.Attach="[Event Closed] = [Action CloseWindow()]">
+		Title="{Binding NodeModel.Name}" Height="300" Width="300">
 	<Image Source="{Binding RenderedImage}" />
 </Window>

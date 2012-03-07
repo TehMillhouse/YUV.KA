@@ -5,7 +5,6 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:local="clr-namespace:YuvKA.ViewModel.Implementation"
 		xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-		cal:Message.Attach="[Event Closed] = [Action CloseWindow()]"
 		xmlns:DynamicDataDisplay="clr-namespace:Microsoft.Research.DynamicDataDisplay;assembly=DynamicDataDisplay" Title="{Binding NodeModel.Name}" mc:Ignorable="d" Height="200" Width="400">
 	<Grid>
 		<DynamicDataDisplay:ChartPlotter x:Name="histogram" LegendVisibility="Hidden">
