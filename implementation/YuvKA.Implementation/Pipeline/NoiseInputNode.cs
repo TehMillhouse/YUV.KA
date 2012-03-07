@@ -54,7 +54,7 @@ namespace YuvKA.Pipeline.Implementation
 		{
 			Name = "Noise";
 			Speed = 0.05;
-			Scale = 0.05;
+			Granularity = 0.05;
 			seed = (new Random()).Next();
 		}
 
@@ -70,7 +70,7 @@ namespace YuvKA.Pipeline.Implementation
 			{
 				type = value;
 				NotifyOfPropertyChange(() => Type);
-				NotifyOfPropertyChange(() => Scale);
+				NotifyOfPropertyChange(() => Granularity);
 				NotifyOfPropertyChange(() => Speed);
 			}
 		}
@@ -99,7 +99,7 @@ namespace YuvKA.Pipeline.Implementation
 		[DataMember]
 		[Browsable(true)]
 		[Range(0.0, 1.0)]
-		public double? Scale
+		public double? Granularity
 		{
 			get
 			{
@@ -166,7 +166,7 @@ namespace YuvKA.Pipeline.Implementation
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
 					// Generate a noise function value, which is also tick-dependent
-					double randomNumber = (Noise(x * (double)Scale, y * (double)Scale, (double)Speed * tick) + 1) / 2;
+					double randomNumber = (Noise(x * (double)Granularity, y * (double)Granularity, (double)Speed * tick) + 1) / 2;
 					byte randomColor = (byte)(randomNumber * 255);
 					frame[x, y] = new Rgb(randomColor, randomColor, randomColor);
 				}
@@ -179,14 +179,14 @@ namespace YuvKA.Pipeline.Implementation
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
 					// Generate noise function values, which is also tick-dependent
-					double randomNumberR = (Noise(x * (double)Scale,
-						y * (double)Scale,
+					double randomNumberR = (Noise(x * (double)Granularity,
+						y * (double)Granularity,
 						(double)Speed * tick) + 1) / 2;
-					double randomNumberG = (Noise((x + 42) * (double)Scale,
-											(y - 42) * (double)Scale,
+					double randomNumberG = (Noise((x + 42) * (double)Granularity,
+											(y - 42) * (double)Granularity,
 											(double)Speed * (tick + 42)) + 1) / 2;
-					double randomNumberB = (Noise((x - 42) * (double)Scale,
-											(y + 42) * (double)Scale,
+					double randomNumberB = (Noise((x - 42) * (double)Granularity,
+											(y + 42) * (double)Granularity,
 											(double)Speed * (tick - 42)) + 1) / 2;
 					byte randomRed = (byte)(randomNumberR * 255);
 					byte randomGreen = (byte)(randomNumberG * 255);
