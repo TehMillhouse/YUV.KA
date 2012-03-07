@@ -52,45 +52,68 @@ namespace YuvKA.Test.Pipeline
 			DiagramGraph decDiff = new DiagramGraph();
 			decDiff.Video = annVid;
 			decDiff.Type = new DecisionDiff();
+			DiagramGraph art = new DiagramGraph();
+			art.Video = video;
+			art.Type = new Artifacts();
 			diaNode.Graphs.Add(pixDiff);
 			diaNode.Graphs.Add(pseudoNoiseRatio);
 			diaNode.Graphs.Add(inBlFreq);
 			diaNode.Graphs.Add(decDiff);
-
+			diaNode.Graphs.Add(art);
 			diaNode.Process(inputs, 0);
 
 			// Calculate expected results independently from DiagramGraph methods.
 			double mse = 0.0;
 			double pixDifference = 0.0;
+			double intrablocks = 0.0;
+			double artifacts = 0.0;
 			for (int x = 0; x < inputs[0].Size.Width; x++) {
 				for (int y = 0; y < inputs[0].Size.Height; y++) {
-					pixDifference += Math.Abs(inputs[0][x, y].R - inputs[1][x, y].R) + Math.Abs(inputs[0][x, y].G - inputs[1][x, y].G) +
-						Math.Abs(inputs[0][x, y].B - inputs[1][x, y].B);
+					pixDifference += Math.Abs(inputs[0][x, y].R - inputs[1][x, y].R) + Math.Abs(inputs[0][x, y].G - inputs[1][x, y].G) + Math.Abs(inputs[0][x, y].B - inputs[1][x, y].B);
 					mse += Math.Pow(((inputs[0][x, y].R + inputs[0][x, y].G + inputs[0][x, y].B) - (inputs[1][x, y].R +
 						inputs[1][x, y].G + inputs[1][x, y].B)), 2);
+					var difference = Math.Abs(inputs[0][x, y].R - inputs[1].GetPixelOrBlack(x, y).R);
+					difference += Math.Abs(inputs[0][x, y].G - inputs[1].GetPixelOrBlack(x, y).G);
+					difference += Math.Abs(inputs[0][x, y].B - inputs[1].GetPixelOrBlack(x, y).B);
+					if (difference >= 40)
+						artifacts += 1;
+				}
+			}
+
+			foreach (MacroblockDecision d in ((AnnotatedFrame)inputs[2]).Decisions)
+			{
+				if (d.PartitioningDecision == MacroblockPartitioning.Intra16x16 | d.PartitioningDecision == MacroblockPartitioning.Intra4x4 | d.PartitioningDecision == MacroblockPartitioning.Intra8x8 | d.PartitioningDecision == MacroblockPartitioning.IntraPCM) {
+					intrablocks++;
 				}
 			}
 
 			double decDifference = 0.0;
-			for (int i = 0; i < ((AnnotatedFrame)inputs[2]).Decisions.GetLength(0); i++) {
-				for (int j = 0; j < ((AnnotatedFrame)inputs[2]).Decisions.GetLength(1); j++) {
-					if (((AnnotatedFrame)inputs[2]).Decisions[i, j].Equals(((AnnotatedFrame)inputs[0]).Decisions[i, j]))
-						decDifference++;
+			if (((AnnotatedFrame)inputs[0]) is AnnotatedFrame && ((AnnotatedFrame)inputs[2]) is AnnotatedFrame && ((AnnotatedFrame)inputs[0]).Size.Height == ((AnnotatedFrame)inputs[2]).Size.Height
+				&& ((AnnotatedFrame)inputs[0]).Size.Width == ((AnnotatedFrame)inputs[2]).Size.Width) {
+				AnnotatedFrame annFrame = ((AnnotatedFrame)inputs[0]);
+				AnnotatedFrame annRef = ((AnnotatedFrame)inputs[2]);
+				for (int i = 0; i < annFrame.Decisions.GetLength(0); i++) {
+					for (int j = 0; j < annFrame.Decisions.GetLength(1); j++) {
+						if (annFrame.Decisions[i, j].PartitioningDecision == annRef.Decisions[i, j].PartitioningDecision)
+							decDifference++;
+					}
 				}
+				decDifference /= annFrame.Decisions.Length;
+				decDifference *= 100;
 			}
-			decDifference /= ((AnnotatedFrame)inputs[2]).Decisions.Length;
-
-			pixDifference = pixDifference / (3 * inputs[0].Size.Height * inputs[0].Size.Width);
+			intrablocks = 100 * intrablocks / ((AnnotatedFrame) inputs[2]).Decisions.Length;
+			pixDifference = 100 * pixDifference / (765 * inputs[0].Size.Height * inputs[0].Size.Width);
 			mse *= (double)1 / (3 * inputs[1].Size.Height * inputs[1].Size.Width);
 			double psnr;
 			if (mse == 0.0)
 				psnr = 0.0;
 			psnr = 10 * Math.Log10((Math.Pow((Math.Pow(2, 24) - 1), 2)) / mse);
-
-			Assert.Equal(diaNode.Graphs[0].Data[0].Value, pixDifference);
-			Assert.Equal(diaNode.Graphs[1].Data[0].Value, psnr);
-			Assert.Equal(diaNode.Graphs[2].Data[0].Value, 2);
-			Assert.Equal(diaNode.Graphs[3].Data[0].Value, decDifference);
+			artifacts = 100 * artifacts / (inputs[0].Size.Height * inputs[0].Size.Width);
+			Assert.Equal(pixDifference, diaNode.Graphs[0].Data[0].Value);
+			Assert.Equal(psnr, diaNode.Graphs[1].Data[0].Value);
+			Assert.Equal(intrablocks, diaNode.Graphs[2].Data[0].Value, 7);
+			Assert.Equal(decDifference, diaNode.Graphs[3].Data[0].Value, 7);
+			Assert.Equal(artifacts, diaNode.Graphs[4].Data[0].Value, 7);
 		}
 
 		/// <summary>
