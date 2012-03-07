@@ -87,6 +87,12 @@
 				</Border.Effect>
 				<StackPanel Orientation="Vertical">
 					<DockPanel LastChildFill="True" Height="20" Background="LightBlue" VerticalAlignment="Top">
+						<FrameworkElement.ToolTip>
+							<TextBlock>
+								<Run Text="{Binding NodeType.Type.FullName, Mode=OneTime}" FontWeight="Bold"/><LineBreak/>
+								<Run Text="{Binding NodeType.Description, Mode=OneTime}"/>
+							</TextBlock>
+						</FrameworkElement.ToolTip>
 						<Menu DockPanel.Dock="Right" Background="LightBlue">
 							<MenuItem Style="{StaticResource MenuStyle}">
 								<MenuItem.Header>

@@ -41,6 +41,12 @@
 											<ItemsControl.ItemTemplate>
 												<DataTemplate>
 													<Border CornerRadius="2" BorderBrush="CornflowerBlue" Padding="10" Opacity="0.8" Background="LightBlue" Margin="3" BorderThickness="3" cal:Message.Attach="[Event MouseDown] = [Action BeginDrag($dataContext)]">
+														<FrameworkElement.ToolTip>
+															<TextBlock>
+																<Run Text="{Binding Type.FullName, Mode=OneTime}" FontWeight="Bold"/><LineBreak/>
+																<Run Text="{Binding Description, Mode=OneTime}"/>
+															</TextBlock>
+														</FrameworkElement.ToolTip>
 														<TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
 													</Border>
 												</DataTemplate>
