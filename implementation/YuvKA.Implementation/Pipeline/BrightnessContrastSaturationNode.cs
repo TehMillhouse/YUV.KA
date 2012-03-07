@@ -81,17 +81,6 @@ namespace YuvKA.Pipeline.Implementation
 					int green = pixel.G;
 					int blue = pixel.B;
 
-					if (Brightness != 0) {
-						// Apply Brightness
-						red += (int)(127 * Brightness);
-						green += (int)(127 * Brightness);
-						blue += (int)(127 * Brightness);
-
-						red = (red > 255 ? 255 : (red < 0 ? 0 : red));
-						green = (green > 255 ? 255 : (green < 0 ? 0 : green));
-						blue = (blue > 255 ? 255 : (blue < 0 ? 0 : blue));
-					}
-
 					if (Contrast != 0) {
 						// Apply Contrast
 						double contrast;
@@ -107,6 +96,18 @@ namespace YuvKA.Pipeline.Implementation
 						green = (int)(((((double)green) / 255.0 - 0.5) * contrast + 0.5) * 255.0);
 						blue = (int)(((((double)blue) / 255.0 - 0.5) * contrast + 0.5) * 255.0);
 					}
+
+					if (Brightness != 0) {
+						// Apply Brightness
+						red += (int)(127 * Brightness);
+						green += (int)(127 * Brightness);
+						blue += (int)(127 * Brightness);
+
+						red = (red > 255 ? 255 : (red < 0 ? 0 : red));
+						green = (green > 255 ? 255 : (green < 0 ? 0 : green));
+						blue = (blue > 255 ? 255 : (blue < 0 ? 0 : blue));
+					}
+
 					red = (red > 255 ? 255 : (red < 0 ? 0 : red));
 					green = (green > 255 ? 255 : (green < 0 ? 0 : green));
 					blue = (blue > 255 ? 255 : (blue < 0 ? 0 : blue));
