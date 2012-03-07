@@ -35,15 +35,15 @@
 				</LinearGradientBrush>
 			</DockPanel.Background>
 			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="5,11,0,11">
-				<Button x:Name="Clear" ToolTip="Ctrl+N" Margin="1,0,1,0" Content="{StaticResource ResourceKey=NewIcon}"/>
-				<Button x:Name="Open" ToolTip="Ctrl+O" Margin="1,0,1,0" Content="{StaticResource ResourceKey=OpenIcon}"/>
-				<Button x:Name="Save" ToolTip="Ctrl+S" Margin="1,0,1,0" Content="{StaticResource ResourceKey=SaveIcon}"/>
-				<Button x:Name="Undo" ToolTip="Ctrl+Z" Margin="1,0,1,0" Content="{StaticResource ResourceKey=RedoIcon}">
+				<Button x:Name="Clear" ToolTip="New    Ctrl+N" Margin="1,0,1,0" Content="{StaticResource ResourceKey=NewIcon}"/>
+				<Button x:Name="Open" ToolTip="Open    Ctrl+O" Margin="1,0,1,0" Content="{StaticResource ResourceKey=OpenIcon}"/>
+				<Button x:Name="Save" ToolTip="Save    Ctrl+S" Margin="1,0,1,0" Content="{StaticResource ResourceKey=SaveIcon}"/>
+				<Button x:Name="Undo" ToolTip="Undo    Ctrl+Z" Margin="1,0,1,0" Content="{StaticResource ResourceKey=RedoIcon}">
 					<Button.LayoutTransform>
 						<ScaleTransform ScaleX="-1"/>
 					</Button.LayoutTransform>
 				</Button>
-				<Button x:Name="Redo" ToolTip="Ctrl+Y" Margin="1,0,1,0" Content="{StaticResource ResourceKey=RedoIcon}"/>
+				<Button x:Name="Redo" ToolTip="Redo    Ctrl+Y" Margin="1,0,1,0" Content="{StaticResource ResourceKey=RedoIcon}"/>
 			</StackPanel>
 			<Rectangle Width="1" Stroke="Silver" Margin="8,4,8,4"/>
 			<ContentControl cal:View.Model="{Binding ReplayStateViewModel}"/>
