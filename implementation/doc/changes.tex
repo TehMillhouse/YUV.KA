@@ -101,6 +101,9 @@ Die Pipeline-Schicht repräsentiert den UI-unabhängigen Aufbau des Analyse-DAGs
 	Wurde entfernt, da es nicht mehr gebraucht wurde und Node.Input keinen Zugriff auf seinen Knoten hat und daher seinen Index auch nicht berechnen kann.	
 \end{itemize}
 
+\paragraph{\name{+ DisplayNode}}
+Diese Knotenart erlaubt es dem User, einen Videostream anzuzeigen. Dies ist zwar bereits jedem Knoten möglich, due Funktionalität wurde allerdings aus Benutzbarkeitsgründen dupliziert.
+
 \paragraph{\name{PipelineDriver}}
 \begin{itemize}
 	\change Die Klasse ist nicht mehr als statisch deklariert. Diese Änderung ermöglicht es, verschiedene Graphen parallel zu berechnen, indem jeweils ein Driver instanziiert wird, die einzelnen Berechnungen aber weiterhin den Parallelitätszusicherungen genügen.
