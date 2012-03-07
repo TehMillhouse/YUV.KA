@@ -95,9 +95,11 @@
 
 		protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
-			base.OnUnhandledException(sender, e);
-			e.Handled = true;
-			MessageBox.Show(e.Exception.Message + (e.Exception.InnerException != null ? ": " + e.Exception.InnerException.Message : null));
+			if (!Debugger.IsAttached) {
+				base.OnUnhandledException(sender, e);
+				e.Handled = true;
+				MessageBox.Show(e.Exception.Message + (e.Exception.InnerException != null ? ": " + e.Exception.InnerException.Message : null));
+			}
 		}
 
 		// Return exe and all dlls in Plugins folder.
