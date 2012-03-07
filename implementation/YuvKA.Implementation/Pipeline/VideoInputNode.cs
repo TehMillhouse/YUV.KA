@@ -6,6 +6,10 @@ using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
 {
+	/// <summary>
+	/// This class can stream videos from YUV-files and annotate the resultframes
+	/// with Data from logfiles and motionvectorfiles.
+	/// </summary>
 	[DataContract]
 	public class VideoInputNode : InputNode
 	{
@@ -24,6 +28,9 @@ namespace YuvKA.Pipeline.Implementation
 			Name = "Video";
 		}
 
+		/// <summary>
+		/// The path of the YUV-file which shall be streamed
+		/// </summary>
 		[DisplayName("Video File")]
 		[FilePath.ExtensionFilter("YUV-Video|*.yuv|All files (*.*)|*")]
 		[DataMember]
@@ -54,6 +61,9 @@ namespace YuvKA.Pipeline.Implementation
 			}
 		}
 
+		/// <summary>
+		/// The path of the Logfile
+		/// </summary>
 		[DisplayName("(Log File)")]
 		[FilePath.ExtensionFilter("Log File|*.dat|All files (*.*)|*")]
 		[DataMember]
@@ -73,6 +83,9 @@ namespace YuvKA.Pipeline.Implementation
 			get { return File.Exists(LogFileName.Path); }
 		}
 
+		/// <summary>
+		/// The path of the motionvectorfile
+		/// </summary>
 		[DisplayName("(Motion Vector File)")]
 		[FilePath.ExtensionFilter("Motion Vector File|*.csv|All files (*.*)|*")]
 		[DataMember]
