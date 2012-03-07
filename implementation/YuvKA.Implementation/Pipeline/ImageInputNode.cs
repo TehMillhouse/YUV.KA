@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.Serialization;
+using System.Windows.Media.Imaging;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
@@ -41,6 +43,12 @@ namespace YuvKA.Pipeline.Implementation
 			set
 			{
 				fileName = value;
+				// Use BitmapDecoder so you don't have to read the entire file into memory
+				var decoder = BitmapDecoder.Create(new Uri(value.Path), BitmapCreateOptions.None, BitmapCacheOption.None);
+				var frame = decoder.Frames[0];
+				// Read size from file
+				Size = new VideoModel.Size(frame.PixelWidth, frame.PixelHeight);
+				NotifyOfPropertyChange(() => Size);
 				// If the path was changed, the image will have to be loaded again
 				inputImage = null;
 				// and the resized image recreated
