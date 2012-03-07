@@ -13,6 +13,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// so other classes can fetch it.
 	/// </summary>
 	[DataContract]
+	[Description("This Node can overlay its input to provide visually more data about it")]
 	public class OverlayNode : OutputNode
 	{
 		/// <summary>

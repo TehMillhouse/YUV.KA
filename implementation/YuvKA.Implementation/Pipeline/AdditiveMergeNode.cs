@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using YuvKA.VideoModel;
+
 
 namespace YuvKA.Pipeline.Implementation
 {
@@ -8,6 +10,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// This class implements the possibility to overlay Frames additive.
 	/// </summary>
 	[DataContract]
+	[Description("This Node adds the colorvalues of the inputs")]
 	public class AdditiveMergeNode : Node
 	{
 		/// <summary>

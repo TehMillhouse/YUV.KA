@@ -10,6 +10,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// Provides an input stream containing noise. The noise can be Perlin or Coherent.
 	/// </summary>
 	[DataContract]
+	[Description("This Node provides an input stream containing noise")]
 	public class NoiseInputNode : InputNode
 	{
 		static int[] p = { 151, 160, 137, 91, 90, 15,

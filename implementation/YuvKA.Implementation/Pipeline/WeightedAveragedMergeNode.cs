@@ -11,7 +11,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// <summary>
 	/// This class implements the possibility to overlay frames while using weights for each of them. The resulting frame will also be weighted.
 	/// </summary>
-	[Description("Averages its inputs according to the given weight distribution")]
+	[Description("This Node averages its inputs according to the given weight distribution")]
 	[DataContract]
 	public class WeightedAveragedMergeNode : Node
 	{

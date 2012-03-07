@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
@@ -7,6 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// This class implements the possibility of inverting the colors of a Frame.
 	/// </summary>
 	[DataContract]
+	[Description("This Node inverts the colorvalues of its input")]
 	public class InverterNode : Node
 	{
 		/// <summary>

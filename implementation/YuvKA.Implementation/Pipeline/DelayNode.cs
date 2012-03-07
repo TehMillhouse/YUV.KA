@@ -11,6 +11,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// Implements the possibility to delay a Frame.
 	/// </summary>
 	[DataContract]
+	[Description("This Node delays the input for a variable amount of frames")]
 	public class DelayNode : Node
 	{
 		Queue<Frame> queue;

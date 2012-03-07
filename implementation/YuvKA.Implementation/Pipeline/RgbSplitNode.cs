@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
@@ -7,6 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// This class implements the possibility to split a Frame into its RGB components.
 	/// </summary>
 	[DataContract]
+	[Description("This Node splits an input into its colorchannels R, G and B")]
 	public class RgbSplitNode : Node
 	{
 		/// <summary>

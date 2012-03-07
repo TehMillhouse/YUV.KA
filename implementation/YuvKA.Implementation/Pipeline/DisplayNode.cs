@@ -12,6 +12,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// this is duplicated here for usability reasons
 	/// </summary>
 	[DataContract]
+	[Description("This Node can display its input")]
 	public class DisplayNode : OutputNode
 	{
 		/// <summary>

@@ -11,6 +11,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// It has a Type and a Radius to define how the Frame shall be blurred.
 	/// </summary>
 	[DataContract]
+	[Description("This Node can blur the input")]
 	public class BlurNode : Node
 	{
 		// cache the weights, so they must be only calculated once per video(best case)

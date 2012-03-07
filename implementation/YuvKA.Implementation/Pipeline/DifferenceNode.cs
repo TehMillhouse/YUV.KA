@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using YuvKA.VideoModel;
 
 namespace YuvKA.Pipeline.Implementation
@@ -7,6 +8,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// This class implements the possibility to subtract one Frame from another.
 	/// </summary>
 	[DataContract]
+	[Description("This Node subtracts the colorvalues from one input from another")]
 	public class DifferenceNode : Node
 	{
 		/// <summary>

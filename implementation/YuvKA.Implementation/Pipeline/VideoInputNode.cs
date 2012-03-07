@@ -11,6 +11,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// with Data from logfiles and motionvectorfiles.
 	/// </summary>
 	[DataContract]
+	[Description("This Node can stream videos from YUV-files and read out additional Data with Log- and Motionfiles.")]
 	public class VideoInputNode : InputNode
 	{
 		static readonly Size Cif = new Size(352, 288);

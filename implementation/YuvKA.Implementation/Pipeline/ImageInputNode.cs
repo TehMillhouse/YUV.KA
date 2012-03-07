@@ -10,6 +10,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// </summary>
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Rarely instantiated, long-living class")]
 	[DataContract]
+	[Description("This Node provides a video stream contaning a still image from a PNG file")]
 	public class ImageInputNode : InputNode
 	{
 		Bitmap inputImage;

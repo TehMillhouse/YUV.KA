@@ -10,6 +10,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// Provides a histogram representing information about the video graphically.
 	/// </summary>
 	[DataContract]
+	[Description("This Node provides a histogram representing information about the input graphically.")]
 	public class HistogramNode : OutputNode
 	{
 		/// <summary>

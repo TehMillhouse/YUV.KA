@@ -12,6 +12,7 @@ namespace YuvKA.Pipeline.Implementation
 	/// Provides a diagram representing information about the inputs graphically.
 	/// </summary>
 	[DataContract]
+	[Description("This Node provides a diagram representing information about the inputs graphically")]
 	public class DiagramNode : OutputNode
 	{
 		Input referenceVideo;
