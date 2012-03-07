@@ -91,8 +91,11 @@ namespace YuvKA.Pipeline
 		/// </summary>
 		public void Stop()
 		{
-			if (cts != null)
+			if (cts != null) {
 				cts.Cancel();
+				ActualSpeed = 0;
+				NotifyOfPropertyChange(() => ActualSpeed);
+			}
 		}
 
 		/// <summary>
@@ -132,8 +135,10 @@ namespace YuvKA.Pipeline
 						Thread.Sleep(nextTick - now);
 						now = DateTime.Now;
 					}
-					ActualSpeed = (int)(midDelta / (now - midTick).TotalSeconds);
-					NotifyOfPropertyChange(() => ActualSpeed);
+					if (!cts.IsCancellationRequested) {
+						ActualSpeed = (int)(midDelta / (now - midTick).TotalSeconds);
+						NotifyOfPropertyChange(() => ActualSpeed);
+					}
 					ticks.Dequeue();
 				}
 				ticks.Enqueue(now);
