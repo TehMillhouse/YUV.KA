@@ -46,6 +46,7 @@ namespace YuvKA.Pipeline.Implementation
 		double scale;
 		double speed;
 		NoiseType type;
+		Frame outputFrame;
 
 		/// <summary>
 		/// Creates a new NoiseInputNode with default values. 
@@ -57,6 +58,7 @@ namespace YuvKA.Pipeline.Implementation
 			Speed = 0.05;
 			Granularity = 0.05;
 			seed = (new Random()).Next();
+			outputFrame = new Frame(Size);
 		}
 
 		/// <summary>
@@ -119,83 +121,92 @@ namespace YuvKA.Pipeline.Implementation
 		/// <returns>A tick-dependent noise Frame.</returns>
 		public override Frame OutputFrame(int tick)
 		{
-			Frame outputFrame = new Frame(new Size(Size.Width, Size.Height));
 			if (Type == NoiseType.Coherent) {
-				outputFrame = ProcessCoherentNoise(outputFrame, tick);
+				outputFrame = ProcessCoherentNoise(tick);
 			}
 			else if (Type == NoiseType.ColoredCoherent) {
-				outputFrame = ProcessColoredCoherentNoise(outputFrame, tick);
+				outputFrame = ProcessColoredCoherentNoise(tick);
 			}
-			else if (Type == NoiseType.Perlin) {
-				outputFrame = ProcessPerlinNoise(outputFrame, tick);
+			else if (Type == NoiseType.Perlin && Granularity != null && Speed != null) {
+				outputFrame = ProcessPerlinNoise(tick);
 			}
-			else {
-				outputFrame = ProcessColoredPerlinNoise(outputFrame, tick);
+			else if (Granularity != null && Speed != null) {
+				outputFrame = ProcessColoredPerlinNoise(tick);
 			}
 
 			return outputFrame;
 		}
 
-		private Frame ProcessCoherentNoise(Frame frame, int tick)
+		private Frame ProcessCoherentNoise(int tick)
 		{
 			Random rnd = new Random(seed % (tick == 0 ? 1 : tick));
-			for (int y = 0; y < frame.Size.Height; ++y) {
-				for (int x = 0; x < frame.Size.Width; ++x) {
+			for (int y = 0; y < Size.Height; ++y) {
+				for (int x = 0; x < Size.Width; ++x) {
 					byte color = (byte)rnd.Next(256);
-					frame[x, y] = new Rgb(color, color, color);
+					outputFrame[x, y] = new Rgb(color, color, color);
 				}
 			}
-			return frame;
+			return outputFrame;
 		}
 
-		private Frame ProcessColoredCoherentNoise(Frame frame, int tick)
+		private Frame ProcessColoredCoherentNoise(int tick)
 		{
 			Random rnd = new Random(seed % (tick == 0 ? 1 : tick));
-			for (int y = 0; y < frame.Size.Height; ++y) {
-				for (int x = 0; x < frame.Size.Width; ++x) {
+			for (int y = 0; y < Size.Height; ++y) {
+				for (int x = 0; x < Size.Width; ++x) {
 					byte colorR = (byte)rnd.Next(256);
 					byte colorG = (byte)rnd.Next(256);
 					byte colorB = (byte)rnd.Next(256);
-					frame[x, y] = new Rgb(colorR, colorG, colorB);
+					outputFrame[x, y] = new Rgb(colorR, colorG, colorB);
 				}
 			}
-			return frame;
+			return outputFrame;
 		}
 
-		private Frame ProcessPerlinNoise(Frame frame, int tick)
+		private Frame ProcessPerlinNoise(int tick)
 		{
-			for (int y = 0; y < frame.Size.Height; ++y) {
-				for (int x = 0; x < frame.Size.Width; ++x) {
+			if (Granularity == null || Speed == null) {
+				return outputFrame;
+			}
+			double gran = (double)Granularity;
+			double speed = (double)Speed;
+			for (int y = 0; y < Size.Height; ++y) {
+				for (int x = 0; x < Size.Width; ++x) {
 					// Generate a noise function value, which is also tick-dependent
-					double randomNumber = (Noise(x * (double)Granularity, y * (double)Granularity, (double)Speed * tick) + 1) / 2;
+					double randomNumber = (Noise(x * (double)gran, y * (double)gran, (double)speed * tick) + 1) / 2;
 					byte randomColor = (byte)(randomNumber * 256);
-					frame[x, y] = new Rgb(randomColor, randomColor, randomColor);
+					outputFrame[x, y] = new Rgb(randomColor, randomColor, randomColor);
 				}
 			}
-			return frame;
+			return outputFrame;
 		}
 
-		private Frame ProcessColoredPerlinNoise(Frame frame, int tick)
+		private Frame ProcessColoredPerlinNoise(int tick)
 		{
-			for (int y = 0; y < frame.Size.Height; ++y) {
-				for (int x = 0; x < frame.Size.Width; ++x) {
+			if (Granularity == null || Speed == null) {
+				return outputFrame;
+			}
+			double gran = (double)Granularity;
+			double speed = (double)Speed;
+			for (int y = 0; y < Size.Height; ++y) {
+				for (int x = 0; x < Size.Width; ++x) {
 					// Generate noise function values, which is also tick-dependent
-					double randomNumberR = (Noise(x * (double)Granularity,
-						y * (double)Granularity,
-						(double)Speed * tick) + 1) / 2;
-					double randomNumberG = (Noise((x + 42) * (double)Granularity,
-											(y - 42) * (double)Granularity,
-											(double)Speed * (tick + 42)) + 1) / 2;
-					double randomNumberB = (Noise((x - 42) * (double)Granularity,
-											(y + 42) * (double)Granularity,
-											(double)Speed * (tick - 42)) + 1) / 2;
+					double randomNumberR = (Noise(x * (double)gran,
+						y * (double)gran,
+						(double)speed * tick) + 1) / 2;
+					double randomNumberG = (Noise((x + 42) * (double)gran,
+											(y - 42) * (double)gran,
+											(double)speed * (tick + 42)) + 1) / 2;
+					double randomNumberB = (Noise((x - 42) * (double)gran,
+											(y + 42) * (double)gran,
+											(double)speed * (tick - 42)) + 1) / 2;
 					byte randomRed = (byte)(randomNumberR * 255);
 					byte randomGreen = (byte)(randomNumberG * 255);
 					byte randomBlue = (byte)(randomNumberB * 255);
-					frame[x, y] = new Rgb(randomRed, randomGreen, randomBlue);
+					outputFrame[x, y] = new Rgb(randomRed, randomGreen, randomBlue);
 				}
 			}
-			return frame;
+			return outputFrame;
 		}
 
 		private double Grad(int hash, double x, double y, double z)
@@ -237,6 +248,11 @@ namespace YuvKA.Pipeline.Implementation
 			double g8 = Grad(p[bb + 1], x - 1, y - 1, z - 1);
 
 			return Lerp(w, Lerp(v, Lerp(u, g1, g2), Lerp(u, g3, g4)), Lerp(v, Lerp(u, g5, g6), Lerp(u, g7, g8)));
+		}
+
+		public override void OnSizeChanged()
+		{
+			outputFrame = new Frame(Size);
 		}
 	}
 }
