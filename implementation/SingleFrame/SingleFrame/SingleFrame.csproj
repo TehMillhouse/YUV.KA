@@ -107,6 +107,7 @@
     <ProjectReference Include="..\..\YuvKA\YuvKA.csproj">
       <Project>{305C80DD-B4A3-41C9-9840-2AE68E13CF96}</Project>
       <Name>YuvKA</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
