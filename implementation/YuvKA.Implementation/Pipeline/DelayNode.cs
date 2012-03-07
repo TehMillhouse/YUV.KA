@@ -15,6 +15,7 @@ namespace YuvKA.Pipeline.Implementation
 	public class DelayNode : Node
 	{
 		Queue<Frame> queue;
+		int lastTick;
 
 		/// <summary>
 		/// Constructs a delaynode with a delay of 0.
@@ -37,7 +38,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// <summary>
 		/// The value if the output Frames have vectordata attached.
 		/// </summary>
-		public new bool OutputHasMotionVectors
+		public override bool OutputHasMotionVectors
 		{
 			get { return Inputs.All(input => input.Source != null && input.Source.Node.OutputHasMotionVectors); }
 		}
@@ -45,7 +46,7 @@ namespace YuvKA.Pipeline.Implementation
 		/// <summary>
 		/// The value if the output Frames have logdata attached.
 		/// </summary>
-		public new bool OutputHasLogfile
+		public override bool OutputHasLogfile
 		{
 			get
 			{
@@ -58,39 +59,21 @@ namespace YuvKA.Pipeline.Implementation
 		/// </summary>
 		/// <param name="inputs">An array of Frames, with only the first entry regarded.</param>
 		/// <param name="tick">The index of the Frame which is processes now.</param>
-		/// <returns>An array of Frames, whose only entry is the input that was processes dealy functions calls ago.
+		/// <returns>An array of Frames, whose only entry is the input that was processed Delay functions calls ago.
 		/// If no such input is available that only entry is a black Frame.</returns>
 		public override Frame[] Process(Frame[] inputs, int tick)
 		{
-			if (queue == null) {
-				Frame blackFrame = new Frame(inputs[0].Size);
-				for (int x = 0; x < inputs[0].Size.Width; x++) {
-					for (int y = 0; y < inputs[0].Size.Height; y++) {
-						blackFrame[x, y] = new Rgb(0, 0, 0);
-					}
-				}
+			if (queue == null)
 				queue = new Queue<Frame>();
-				for (int i = 0; i < Delay; i++) {
-					queue.Enqueue(blackFrame);
-				}
-			}
-			else if (queue.Count == 0 && Delay != 0){
-				while (queue.Count != Delay)
-					queue.Enqueue(inputs[0]);
-			}
-			else if (queue.Count > Delay) {
-				while (queue.Count != Delay) {
-					queue.Dequeue();
-				}
-			}
-			else if (queue.Count < Delay) {
-				while (queue.Count != Delay) {
-					queue.Enqueue(inputs[0]);
-				}
-			}
+			if (tick != lastTick + 1)
+				queue.Clear();
+
 			queue.Enqueue(inputs[0]);
-			Frame[] returnFrame = { queue.Dequeue() };
-			return returnFrame;
+			while (queue.Count > Delay + 1)
+				queue.Dequeue();
+
+			lastTick = tick;
+			return new[] { queue.Count == Delay + 1 ? queue.Dequeue() : queue.First() };
 		}
 	}
 }
