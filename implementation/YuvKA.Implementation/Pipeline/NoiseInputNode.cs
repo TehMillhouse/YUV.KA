@@ -250,7 +250,7 @@ namespace YuvKA.Pipeline.Implementation
 			return Lerp(w, Lerp(v, Lerp(u, g1, g2), Lerp(u, g3, g4)), Lerp(v, Lerp(u, g5, g6), Lerp(u, g7, g8)));
 		}
 
-		public override void OnSizeChanged()
+		protected override void OnSizeChanged()
 		{
 			outputFrame = new Frame(Size);
 		}
