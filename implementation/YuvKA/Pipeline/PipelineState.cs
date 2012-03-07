@@ -169,7 +169,7 @@ namespace YuvKA.Pipeline
 				})
 				.ObserveOnDispatcher()
 				.Subscribe(_ => {
-					if (!isPreviewFrame) {
+					if (nodesRendering == this.nodesRendering && !isPreviewFrame) {
 						currentTick++;
 						NotifyOfPropertyChange(() => CurrentTick);
 					}
