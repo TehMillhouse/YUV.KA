@@ -74,6 +74,20 @@ namespace YuvKA.Pipeline.Implementation
 					queue.Enqueue(blackFrame);
 				}
 			}
+			else if (queue.Count == 0 && Delay != 0){
+				while (queue.Count != Delay)
+					queue.Enqueue(inputs[0]);
+			}
+			else if (queue.Count > Delay) {
+				while (queue.Count != Delay) {
+					queue.Dequeue();
+				}
+			}
+			else if (queue.Count < Delay) {
+				while (queue.Count != Delay) {
+					queue.Enqueue(inputs[0]);
+				}
+			}
 			queue.Enqueue(inputs[0]);
 			Frame[] returnFrame = { queue.Dequeue() };
 			return returnFrame;
