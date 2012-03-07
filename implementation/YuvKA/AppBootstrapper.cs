@@ -13,6 +13,7 @@
 	using System.Reflection;
 	using System.Windows;
 	using System.Windows.Input;
+	using System.Windows.Threading;
 	using Caliburn.Micro;
 	using YuvKA.ViewModel;
 
@@ -90,6 +91,13 @@
 		{
 			LogManager.GetLog = _ => new Logger();
 			base.StartRuntime();
+		}
+
+		protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+		{
+			base.OnUnhandledException(sender, e);
+			e.Handled = true;
+			MessageBox.Show(e.Exception.Message + (e.Exception.InnerException != null ? ": " + e.Exception.InnerException.Message : null));
 		}
 
 		// Return exe and all dlls in Plugins folder.
