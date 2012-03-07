@@ -11,10 +11,10 @@ Das VideoModel repräsentiert ein eingelesenes Video, ggf. mit zugehörigen Log-
 
 \paragraph{\name{Frame}}
 \begin{itemize}
-	\add \verb!public GetPixelOrBlack(int x, int y)! \\
-	Neue öffentliche Methode, die es erleichtern soll, auf die Farbwerte innerhalb eines Frames zuzugreifen, ohne beachten zu müssen, ob die gegebenen Koordinaten tatsächlich innerhalb des \name{Frame} liegen. Falls ja, so wird der entsprechende Pixel an Stelle (x, y) als \name{Rgb}-Objekt zurückgegeben. Falls nicht, so wird ein schwarzer Farbwert für den Pixel zurückgegeben.
+	\add \verb!public  GetPixelOrBlack(int x, int y)! \\
+	Neue öffentliche Methode, die es erleichtern soll, auf die Farbwerte eines Frames zuzugreifen. Es muss nicht mehr beachtet werden, ob die gegebenen Koordinaten tatsächlich innerhalb des \name{Frame} liegen. Falls dies der Fall ist, so wird der entsprechende Pixel an Stelle (x, y) als \name{Rgb}-Objekt zurückgegeben. Falls nicht, so wird ein schwarzer Farbwert für den Pixel zurückgegeben.
 	\add \verb!public MaxBoundaries(Frame[] frames)! \\
-	Neue öffentliche Methode, welche aus einem Array von Frames jeweils das Maximum der Breite und der Höhe findet und ein \name{Size}-Objekt zurückgibt mit \name{Height}- bzw. \name{Width}-Wert, welcher alle gegebenen Frames umfasst.
+	Neue öffentliche Methode, welche aus einem Array von Frames jeweils das Maximum der Breite und der Höhe findet und ein \name{Size}-Objekt mit ausreichend großen Werten zurückgibt.
 \end{itemize}
 
 \paragraph{\name{MacroblockDecision}}
@@ -37,9 +37,9 @@ Das VideoModel repräsentiert ein eingelesenes Video, ggf. mit zugehörigen Log-
 
 \paragraph{\name{YuvEncoder}}
 \begin{itemize}
-	\add \begin{verbatim}public static Video Decode(int width, int height, string filename,
-    string logFileName = null, string motionVectorFileName = null)\end{verbatim} \\
-	Neuer Parameter \verb!string motionVectorFileName = null!: Die an ein Video gebundenen Bewegungsvektoren sollen schon beim Lesen eines Videos vom Hintergrundspeicher gelesen werden, da \name{Video}-Objekte unveränderlich sind, und bei Neuauswahl der entsprechenden Datei ein neues Video-Objekt erstellt werden muss.
+	\add \verb!public static Video Decode(int width, int height, string filename, string logFileName = null, string motionVectorFileName = null)! \\
+	Neuer Parameter: \verb!string motionVectorFileName = null!\\
+	Die an ein Video gebundenen Bewegungsvektoren sollen schon beim Lesen eines Videos vom Hintergrundspeicher gelesen werden, da \name{Video}-Obekte unveränderlich sind, und bei Neuwahl der entsprechenden Datei ein neues Video-Objekt erstellt werden muss.
 	\add \verb!public static void Encode(Stream stream, IEnumerable<Frame> frames)! \\
 	Neue öffentliche statische Methode Encode, welche als Parameter einen Stream entgegennimmt. Dies ermöglicht es, zu Testzwecken auch in einen \name{MemoryStream} zu schreiben, was den Hintergrundspeicher nicht belastet und in der Regel schneller ist.
 \end{itemize}
@@ -47,7 +47,7 @@ Das VideoModel repräsentiert ein eingelesenes Video, ggf. mit zugehörigen Log-
 \paragraph{\name{YuvEncoder.Video}}
 \begin{itemize}
 	\remove \verb!public void Dispose()! \\
-	Da keine Streams länger als unbedingt nötig offen gehalten werden, ist die zuvor von der \name{Video}-Klasse implementierte Schnittstelle \name{IDisposable} hier nicht mehr benötigt. Dadurch entfällt diese Methode.
+	Da keine Streams länger als unbedingt nötig offen gehalten werden, wird die zuvor von der \name{Video}-Klasse implementierte Schnittstelle \name{IDisposable} hier nicht mehr benötigt. Dadurch entfällt diese Methode.
 \end{itemize}
 \newpage
 
@@ -64,7 +64,7 @@ Die Pipeline-Schicht repräsentiert den UI-unabhängigen Aufbau des Analyse-DAGs
 
 \paragraph{\name{InputNode}}
 \begin{itemize}
-	\change \verb!public int? TickCount! \\
+	\change \verb!public int? TickCount { get; }! \\
 	Die Property \verb!TickCount! ist nun nullable. Der Wert null steht hierbei für die Möglichkeit beliebig viele Frames zu erzeugen.
 \end{itemize}
 
@@ -98,9 +98,13 @@ Die Pipeline-Schicht repräsentiert den UI-unabhängigen Aufbau des Analyse-DAGs
 
 \paragraph{\name{PipelineDriver}}
 \begin{itemize}
-	\change Die Klasse ist nicht mehr als statisch deklariert. Diese Änderung ermöglicht, verschiedene Graphen parallel zu berechnen, indem jeweils ein Driver instanziert wird, die einzelnen Berechnungen aber weiterhin den Parallelitätszusicherungen genügen.
-	\add \verb!public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(IEnumerable<Node> startNodes, int startTick = 0, int? tickCount = null, CancellationToken? token = null)! \\
-	Neuer Parameter \verb!int? tickCount = null!: Wie sich herausstellte, sollte die Berechnung der Pipeline nicht nur durch ein \name{CancellationToken} jederzeit abbrechbar sein, sondern auch von sich aus nach einer gegebenen Anzahl Ticks, nämlich bis zum Ende des gegebenen Eingabevideos, enden können. Existiert kein Eingabevideo, kann dem Parameter \name{null} zugewiesen werden (der Standardwert), um weiterhin bis zu einem manuellen Abbruch zu berechnen.
+	\change Die Klasse ist nicht mehr als statisch deklariert. Diese Änderung ermöglicht es, verschiedene Graphen parallel zu berechnen, indem jeweils ein Driver instanziiert wird, die einzelnen Berechnungen aber weiterhin den Parallelitätszusicherungen genügen.
+	\add \begin{verbatim}public IObservable<IDictionary<Node.Output, Frame>> RenderTicks(
+	IEnumerable<Node> startNodes, int startTick = 0,
+	int? tickCount = null, CancellationToken? token = null)
+	\end{verbatim}
+	Neuer Parameter: \verb!int? tickCount = null! \\ 
+	Wie sich herausstellte, sollte die Berechnung der Pipeline nicht nur durch ein \name{CancellationToken} jederzeit abbrechbar sein, sondern auch von sich aus nach einer gegebenen Anzahl Ticks, nämlich bis zum Ende des gegebenen Eingabevideos, enden können. Existiert kein Eingabevideo, kann dem Parameter \name{null} zugewiesen werden (der Standardwert), um weiterhin bis zu einem manuellen Abbruch zu berechnen.
 \end{itemize}
 
 \paragraph{\name{PipelineGraph}}
@@ -120,7 +124,7 @@ Die Pipeline-Schicht repräsentiert den UI-unabhängigen Aufbau des Analyse-DAGs
 \paragraph{\name{PipelineState}}
 \begin{itemize}
 	\add \verb!public int ActualSpeed { get; }! \\
-	Besonders zu Debugzwecken und zur Demonstration wurde diese Property hinzugefügt, um die tatsächlich gemessene Abarbeitungsgeschwindigkeit in der UI anzeigen zu können.
+	Besonders zu Debugzwecken und zur Demonstration wurde diese Property hinzugefügt. Außerdem kann hiermit die tatsächlich gemessene Abarbeitungsgeschwindigkeit in der UI angezeigt werden.
 	\add \verb!public PipelineDriver Driver { get; }! \\
 	Nachdem in der \name{PipelineDriver}-Klasse der \name{static}-Modifier entfernt wurde, musste mit dieser neuen Property der Pipeline eine Driver-Instanz zugeordnet werden.
 \end{itemize}
@@ -149,7 +153,6 @@ Namespace der vordefinierten Knotentypen. Diese werden dynamisch bei Programmsta
 	\add \verb!public double? Speed { get; set; }! \\
 	Diese neu eingeführte Option erlaubt es, dem Benutzer die Geschwindigkeit des angezeigten Perlin Noise einzustellen.
 \end{itemize}
-
 Desweiteren wurden zwei neue Arten von Noise eingeführt, die Abwandlungen der schon existierenden sind (siehe \name{NoiseType}).
 
 \paragraph{\name{NoiseType}}
@@ -182,21 +185,21 @@ Desweiteren wurden zwei neue Arten von Noise eingeführt, die Abwandlungen der s
 \paragraph{\name{OverlayNode}}
 \begin{itemize}
 	\add \verb!public Frame Data { get; private set; }! \\
-	Eine Schnittstelle durch die andere Klassen das Resultat der Überlagerung abgreifen können. Dies ist notwendig, da die \name{View} die \name{Process} Methode nicht selbst aufruft.
+	Eine Schnittstelle, durch die andere Klassen das Resultat der Überlagerung abgreifen können. Dies ist notwendig, da die View die \name{Process}-Methode nicht selbst aufruft.
 	\add \verb!public OverlayViewModel Window { get; }! \\
-	Ruft das \name{OverlayViewModel}, welches zu diesem Knoten gehört, auf bzw. erstellt es. Dies ist notwendig, da die \name{View} wissen muss dass dieser Knotentyp, eine eigene Ausgabefensterart besitzt und sich dies mit einem entsprechenden \name{ProperyViewModel} ohne schwerwiegende Architektureingriffe sehr gut verwirklichen lässt.
+	Ruft das \name{OverlayViewModel}, welches zu diesem Knoten gehört, auf bzw. erstellt es. Dies ist notwendig, da die View wissen muss, dass dieser Knotentyp eine eigene Ausgabefensterart besitzt und sich dies mit einem entsprechenden \name{ProperyViewModel} ohne schwerwiegende Architektureingriffe sehr gut verwirklichen lässt.
 \end{itemize}
 
 \paragraph{\name{IOverlayType}}
 \begin{itemize}
 	\add \verb!bool DependsOnReference { get; }! \\
-	Eine Wahrheitsvariable die wiedergibt, ob die Überlagerungsart auf eine Referenz angewiesen ist.
+	Eine Wahrheitsvariable, die wiedergibt, ob die Überlagerungsart auf eine Referenz angewiesen ist.
 	\add \verb!bool DependsOnVectors { get; }! \\
-	Eine Wahrheitsvariable die wiedergibt, ob die Überlagerungsart auf Bewegungsvektordaten angewiesen ist.
+	Eine Wahrheitsvariable, die wiedergibt, ob die Überlagerungsart auf Bewegungsvektordaten angewiesen ist.
 \end{itemize}
 
 \paragraph{\name{+ NoOverlay}}~\\
-Diese Klasse ist ein Überlagerungstyp der nichts überlagert und somit stets verfügbar ist, unabhängig von den zusätzlichen Daten neben der obligatorischen ursprünglichen \name{Frame}.
+Diese Klasse ist ein Überlagerungstyp, der nichts überlagert und somit stets verfügbar ist. Dies gilt unabhängig von den zusätzlichen Daten neben dem obligatorischen ursprünglichen Frame.
 \newpage
 
 \subsection{\name{YuvKA.ViewModel}}
@@ -210,7 +213,7 @@ Diese Klasse ist ein Überlagerungstyp der nichts überlagert und somit stets ve
 Nach dem MVVM-Pattern ist es Aufgabe der ViewModel-Schicht, der View das Model in einer für sie verarbeitbaren Form zu präsentieren. Bezogen auf das Projekt bedeutet dies vor allem, die Model-Klassen um View-spezifische Daten und Methoden zu ergänzen.
 \newpage
 
-Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die zum Großteil aus dem Hinzufügen neuer Properties bestehen. Dies ist besonders der Tatsache geschuldet, dass das Viewmodel nicht wirklich Teil der grundlegenden Architektur sondern vielmehr Verknüpfungsschicht des Models und der View ist, wobei die Architektur letztgenannter Schicht, nämlich WPF, bereits gegeben war und wegen ihres unglaublichen Umfangs im Detail erst während der Implementierung Fall für Fall exakt erkundet werden konnte. Deshalb werden im Weiteren die Änderungen beschrieben, ohne einzeln auf die Gründe einzugehen, warum von der Entwurfsarchitektur abgewichen wurde.
+Wie erwartet, hat sich im View Model eine große Anzahl an Änderungen ergeben, die zum Großteil aus dem Hinzufügen neuer Properties bestehen. Dies ist besonders der Tatsache geschuldet, dass das View Model nicht wirklich Teil der grundlegenden Architektur, sondern vielmehr Verknüpfungsschicht des Models und der View ist. Hierbei war die Architektur letztgenannter Schicht, nämlich WPF, bereits gegeben und  wurde wegen ihres unglaublichen Umfangs erst während der Implementierung Fall für Fall exakt erkundet. Deshalb werden im Weiteren die Änderungen beschrieben, ohne einzeln auf die Gründe einzugehen, warum von der Entwurfsarchitektur abgewichen wurde.
 
 \paragraph{\name{EdgeViewModel}}
 \begin{itemize}
@@ -220,18 +223,18 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	\add \begin{verbatim}public EdgeStatus Status { get; set; }
 	enum EdgeStatus { Indeterminate, Invalid, Valid }
 	\end{verbatim}
-	Gibt während des Ziehens einer Kante ihren Zustand an, der in der View durch die Linienfarben schwarz/rot/grün visualisiert wird.
+	Gibt während des Ziehens einer Kante ihren Zustand an, der in der View durch die Linienfarben weiß/rot/grün visualisiert wird.
 	\add \verb!public void Dispose()! \\
 	Entfernt alle Abonnements von Positionsänderungen der verbundenen Knoten, um Speicherlecks zu verhindern.
 \end{itemize}
 
 \paragraph{\name{+ InOutputViewModel}}~\\
-\name{InOutputViewModel} ist eine gemeinsames View Model für Inputs und Outputs.
+Dies ist eine gemeinsames View Model für Inputs und Outputs.
 \begin{itemize}
 	\add \verb!public bool IsFake { get; }! \\
-	Fake-Eingänge sind solche ohne zugrundeliegendes Model. Sie werden für das dynamische Hinzufügen von Eingängen benötigt.
+	Fake-Eingänge sind solche, ohne zugrundeliegendes Model. Sie werden für das dynamische Hinzufügen von Eingängen benötigt.
 	\add \verb!public IObservable<Point> Midpoint { get; }! \\
-	Gibt den gerade jeweils aktuellen Mittelpunkt des Ein-/Ausgangs zurück.
+	Gibt den jeweils aktuellen Mittelpunkt des Ein-/Ausgangs zurück.
 	\add \verb!public object Model { get; }! \\
 	Der zugrundeliegende Input oder Output
 	\add \verb!public NodeViewModel Parent { get; }! \\
@@ -244,7 +247,7 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	Erzwingt das Schließen aller Ausgabefenster dieses Knotens
 	\add \verb!public void Handle(OutputWindowViewModel.ClosedMessage message)! \\
 	Reagiert auf das Schließen eines Fensters.
-	\verb!public void Handle(ChangeCommittedMessage message)! \\
+	\add \verb!public void Handle(ChangeCommittedMessage message)! \\
 	Reagiert auf in sich abgeschlossene Wertänderungen von Knoten-Properties.
 \end{itemize}
 
@@ -256,9 +259,9 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	\verb!public IEnumerable<InOutputViewModel> Outputs { get; }! \\
 	Wrappen die Ein-/Ausgänge des Knotens in enstprechende View Models.
 	\add \verb!public Thickness Margin { get; }! \\
-	Gibt die durch \name{Position} angegebene Verschiebung View-verträglich zurück.
+	Gibt die durch Position angegebene Verschiebung View-verträglich zurück.
 	\add \verb!public Point Position { get; set; }! \\
-	Zusammenfassung des \name{X}- und \name{Y}-Wertes des Knotens
+	Zusammenfassung des X- und Y-Wertes des Knotens
 	\add \verb!public IObservable<Unit> ViewPositionChanged { get; }! \\
 	Beobachtbare Sequenz von Events, in der jeder Eintrag für die Veränderung der tatsächlichen Position auf der View steht.
 	\add \verb!public int ZIndex { get; set; }! \\
@@ -291,7 +294,8 @@ Wie erwartet hat sich im Viewmodel eine große Zahl an Änderungen ergeben, die 
 	Der Parametertyp wurde von WPFs \verb!DragEventArgs! auf das eigens kreierte Interface \name{IDragEventInfo} geändert, da ersterer Typ nicht mockbar ist.
 	\add \begin{verbatim}
 public void InOutputMouseDown(InOutputViewModel inOut)
-public void InOutputMouseMove(InOutputViewModel inOut, RoutedEventArgs e)
+public void InOutputMouseMove(InOutputViewModel inOut,
+    RoutedEventArgs e)
 public void InOutputMouseUp(InOutputViewModel inOut)
 public void MouseMove(IMouseEventInfo e)
 public void MouseUp()
@@ -302,7 +306,7 @@ public void NodeMouseDown(NodeViewModel inOut, IMouseEventInfo e)
 
 \paragraph{\name{ReplayStateViewModel}}
 \begin{itemize}
-	\change \verb!public bool IsPlaying { get; set; }! \\
+	\remove \verb!public bool IsPlaying { get; set; }! \\
 	Der Setter wurde \verb!public! gemacht, damit das \name{MainViewModel} beim Laden einer Pipeline die Wiedergabe stoppen kann.
 \end{itemize}
 
@@ -430,7 +434,8 @@ Die Klassen des PropertyEditor-Namespaces erzeugen für ein beliebiges Objekt dy
 	\change \verb!public T TypedValue { get; set; }! \\
 	Der typisierte Wert der Property wurde umbenannt, um Namenskonflikte mit dem untypisierten Wert der Property der Oberklasse zu vermeiden.
 \end{itemize}
-\subsubsection{\name{YuvKA.ViewModel.PropertyEditor.Implementation}}
+
+\subsection{\name{YuvKA.ViewModel.PropertyEditor.Implementation}}
 
 \paragraph{\name{DoublePropertyViewModel}}
 \begin{itemize}
@@ -442,9 +447,9 @@ Die Klassen des PropertyEditor-Namespaces erzeugen für ein beliebiges Objekt dy
 \paragraph{\name{NumericalPropertyViewModel}}
 \begin{itemize}
 	\change \verb!public double Maximum { get; }! \\
-	Die \name{Minimum}-Property wurde auf read-only gesetzt.
-	\change \verb!public double Minimum! \\
 	Die \name{Maximum}-Property wurde auf read-only gesetzt.
+	\change \verb!public double Minimum { get; }! \\
+	Die \name{Minimum}-Property wurde auf read-only gesetzt.
 \end{itemize}
 
 \paragraph{\name{ObservableCollectionOfDoublePropertyViewModel}}
@@ -460,14 +465,15 @@ Erlaubt es Wiedergabeknoten, beliebige ViewModels selbst zu liefern, welche dann
 
 \paragraph{\name{RgbPropertyViewModel}}
 \begin{itemize}
+	\change Da \name{Rgb} nicht serialisierbar war, wurde es durch \name{Color} ersetzt und in logischer Konsequenz dieses View Model zu \name{ColorPropertyViewModel} umbenannt.
 	\remove \verb!public bool OpenDialog()! \\
 	Die \name{OpenDialog}-Methode wurde entfernt, da das Projekt jetzt den \name{ColorPicker2} aus dem \name{PropertyTools.Wpf}-Projekt benutzt
-	\add \verb!public Color ChrosenColor { get; set; }! \\
+	\add \verb!public Color ChosenColor { get; set; }! \\
 	Stellt eine Property für die vom Benutzer gewählte Farbe bereit.
 \end{itemize}
 \newpage
 
 \subsection*{Fazit}
 
-Die Implementation hat gezeigt, dass der ursprüngliche Architekturentwurf zum großen Teil eingehalten wurde. In den im Entwurf festgelegten Klassen gab es kaum Veränderungen, es wurden lediglich weitere Properties oder Methoden hinzugefügt, die sich erst in der Implementation als notwendig erwiesen. Eine Ausnahme hiervon ist das ViewModel, dessen Klassen teilweise 
-komplett geändert wurden. Dies lag auch teilweise daran, dass Frameworks verwendet wurden (z.B. im \name{DiagramViewModel} zum Zeichnen der Diagramme), die erst in der Implementierung ausgewählt wurden, sodass die Klassen entsprechend angepasst werden mussten.
+Die Implementation hat gezeigt, dass der ursprüngliche Architekturentwurf zum großen Teil eingehalten wurde. In den im Entwurf festgelegten Klassen gab es kaum Veränderungen, es wurden lediglich weitere Properties oder Methoden hinzugefügt, die sich erst in der Implementation als notwendig erwiesen. Eine Ausnahme hiervon ist das View Model, dessen Klassen teilweise 
+komplett geändert wurden. Dies lag auch unter anderem daran, dass Frameworks verwendet wurden (z.B. im \name{DiagramViewModel} zum Zeichnen der Diagramme), die erst in der Implementierung ausgewählt wurden, sodass die Klassen entsprechend angepasst werden mussten.

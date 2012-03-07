@@ -29,7 +29,7 @@ Wegen der fundamental verlustbehafteten Konvertierung zwischen den YCbCr- und RG
 
 \subsection{\name{YuvKA.Pipeline}}
 
-\paragraph{\name{CullInputTest}}
+\paragraph{\name{CullInput}}
 \begin{itemize}
 	\item \name{WAMNDeleteEdge} \\
 	Stellt sicher, dass die Eingänge eines Knotens entfernt werden, wenn die dazugehörige Kante entfernt wird. Im Test wird der WeightedAveragedMergeNode verwendet.
@@ -42,7 +42,7 @@ Wegen der fundamental verlustbehafteten Konvertierung zwischen den YCbCr- und RG
 	\item \name{DiagramNodeRelocateEdge} \\
 	Stellt sicher, dass die Eingänge eines DiagramNodes entfernt werden, wenn die dazugehörige Kante auf den Eingang eines anderen DiagramNodes gezogen wird. Es wird zusätzlich sicher gestellt, dass das Referenzvideo und Graphen entfernt werden, falls nötig.
 	\item \name{DiagramNodeDeleteNode} \\
-	Stellt sicher, dass die Eingänge eines DiagramNodes entfernt werden, wenn der Quellknoten des Eingangs entfernt wird. Es wird zusätzlich sicher gestellt, dass das Referenzvideo und Graphen entfernt werden, falls nötig.
+	Stellt sicher, dass die Eingänge eines DiagramNodes entfernt werden, wenn der Quellknoten des Eingangs entfernt wird. Es wird zusätzlich sicher gestellt, dass das Referenzvideo und Graphen, falls nötig, entfernt werden.
 \end{itemize}
 \paragraph{\name{PipelineGraph}}
 \begin{itemize}
@@ -72,7 +72,7 @@ Wegen der fundamental verlustbehafteten Konvertierung zwischen den YCbCr- und RG
     \item \name{RenderTicksEarlyCancellation} \\
     Stellt sicher, dass nach einem asynchronen Abbruch kein weiterer Tick zu rendern begonnen wird.
     \item \name{RenderTicksNonReentrant} \\
-    Stellt sicher, dass die Process-Methode für jeden Knoten nicht zweimal gleichzeitig betreten wird.
+    Stellt sicher, dass die Process-Methode für keinen Knoten zweimal gleichzeitig betreten wird.
     \item \name{RenderTicksProcessesDiamondGraph} \\
     Stellt sicher, dass ein Graph mit Verzweigung und folgender Zusammenführung korrekt gerendert wird.
     \item \name{RenderTicksProcessesLongGraph} \\
@@ -80,7 +80,7 @@ Wegen der fundamental verlustbehafteten Konvertierung zwischen den YCbCr- und RG
     \item \name{RenderTicksPropagatesExceptions} \\
     Stellt sicher, dass Exceptions während des Renderns nicht verschluckt werden.
     \item \name{RenderTicksStressTest} \\
-    Führt \name{RenderTicksLongGraph} 100-mal hintereinander aus.
+    Führt \name{RenderTicksProcessesLongGraph} 100-mal hintereinander aus.
 \end{itemize}
 
 \paragraph{\name{Manipulationsknoten}}
@@ -88,34 +88,34 @@ Wegen der fundamental verlustbehafteten Konvertierung zwischen den YCbCr- und RG
 \begin{itemize}
 
 \item{\name{TestAdditiveMerge}}~\\
-Dieser Test überprüft, ob der \name{AdditiveMergeNode} die Farben der Pixel der Eingabeframes korrekt addiert.
+Dieser Test überprüft, ob der AdditiveMergeNode die Farben der Pixel der Eingabeframes korrekt addiert.
 
 \item{\name{TestDelayNode}}~\\
-Dieser Test überprüft, ob der \name{DelayNode} die Eingabeframe korrekt verzögert.
+Dieser Test überprüft, ob der DelayNode die Eingabeframes korrekt verzögert.
 
 \item{\name{TestDifferenceNode}}~\\
-Dieser Test überprüft, ob der \name{DifferenceNode} die Farben der Pixel der Eingabeframes korrekt voneinander abzieht.
+Dieser Test überprüft, ob der DifferenceNode die Farben der Pixel der Eingabeframes korrekt voneinander abzieht.
 
 \item{\name{TestGaussianBlurMonocolor}}~\\
-Dieser Test überprüft, ob der \name{BlurNode} mit gaußschem Blur und einem einfarbigen Frame keinerlei Effekt besitzt.
+Dieser Test überprüft, ob der BlurNode mit gaußschem Blur und einem einfarbigen Frame keinerlei Effekt besitzt.
 
 \item{\name{TestGaussianZeroBlur}}~\\
-Dieser Test überprüft, ob der \name{BlurNode} mit gaußschem Blur und einem Radius von 0 keinerlei Effekt auf den Frame besitzt.
+Dieser Test überprüft, ob der BlurNode mit gaußschem Blur und einem Radius von 0 keinerlei Effekt auf die Frame besitzt.
 
 \item{\name{TestLinearBlurMonocolor}}~\\
-Dieser Test überprüft, ob der \name{BlurNode} mit linearem Blur und einem einfarbigen Frame keinerlei Effekt besitzt.
+Dieser Test überprüft, ob der BlurNode mit linearem Blur und einem einfarbigen Frame keinerlei Effekt besitzt.
 
 \item{\name{TestLinearZeroBlur}}~\\
-Dieser Test überprüft, ob der \name{BlurNode} mit linearem Blur und einem Radius von 0 keinerlei Effekt auf den Frame besitzt.
+Dieser Test überprüft, ob der BlurNode mit linearem Blur und einem Radius von 0 keinerlei Effekt auf den Frame besitzt.
 
 \item{\name{TestInverter}}~\\
-Dieser Test überprüft, ob der \name{InverterNode} die Farben der Pixel des Eingabeframes korrekt invertiert.
+Dieser Test überprüft, ob der InverterNode die Farben der Pixel des Eingabeframes korrekt invertiert.
 
 \item{\name{TestRgbSplit}}~\\
-Dieser Test überprüft, ob der \name{RgbSplitNode} die Farben der Pixel der Eingabeframe korrekt in die drei Farbkanäle aufspaltet.
+Dieser Test überprüft, ob der RgbSplitNode die Farben der Pixel des Eingabeframes korrekt in die drei Farbkanäle aufspaltet.
 
-\item{\name{TestWeightedAverageMerge}}~\\
-Dieser Test überprüft, ob der \name{WeightedAverageMerge} die Farben der Pixel der Eingabeframes korrekt bezüglich ihrer Gewichtung addiert.
+\item{\name{TestWeightedAveragedMerge}}~\\
+Dieser Test überprüft, ob der WeightedAveragedMergeNode die Farben der Pixel der Eingabeframes bezüglich ihrer Gewichtung korrekt addiert.
 
 \item{\name{TestBrightnessContrastSaturation}}~\\
 Der Test liest ein Bild aus einer Datei ein und wendet die Effekte des BCS-Nodes an. Da die Wirkung dieser Effekte nicht automatisch testbar ist, gehört ihre Prüfung zu den Aufgaben des Testers, der durch ``Hinsehen'' die Qualität der verarbeiteten Bilder bewertet.
@@ -128,31 +128,31 @@ Der Test liest ein Bild aus einer Datei ein und wendet die Effekte des BCS-Nodes
 	Dieser Test erstellt ein Bild von jedem der vier Noise-Typen. Da die erhaltenen Bilder bzw. der Nichtdeterminismus des Noises nicht automatisch getestet werden können, gehört ihre Prüfung zu den Aufgaben des Testers, der durch ``Hinsehen'' die Qualität der verarbeiteten Bilder bewertet. Dieser Test überprüft nur, ob für das Erstellen eines Noise-Frames höchstens 200ms gebraucht werden.
 	
 	\item{\name{ColorInputTest}}~\\
-	Testet die Reihenfolge von Größenänderung und Farbänderung des generierten Frames. Dafür wird jeweils ein Bild in eine PNG-Datei geschrieben. Es soll hier auch visuelles Testen erfolgen.
+	Testet die Reihenfolge von Größenänderung und Farbänderung des generierten Frames. Dafür wird jeweils ein Bild in eine PNG-Datei geschrieben. Es soll auch hier visuelles Testen erfolgen.
 	
 	\item{\name{ImageInputTest}}~\\
 	Liest ein Bild aus einer PNG-Datei ein, verändert seine Größe mehrere Male und speichert es jedes Mal als PNG-Datei. Wie bei den beiden Tests weiter oben soll auch hier visuelles Testen erfolgen.
 	
 \end{itemize}
 
-\paragraph{\name{AusgabeKnoten}}
+\paragraph{\name{Ausgabeknoten}}
 
 \begin{itemize}
 
 \item{\name{TestArtifactOverlay}}~\\
-Dieser Test überprüft die Überlagerung von Artefakten, indem zwei Beispielframes erstellt werden und das Ergebnis der Artefaktüberlagerung zu einer manuellen Betrachtung als Bilddatei gespeichert wird.
+Dieser Test überprüft die Überlagerung durch Artefakte, indem zwei Beispielframes erstellt werden und das Ergebnis der Artefaktüberlagerung zu einer manuellen Betrachtung als Bilddatei gespeichert wird.
 
 \item{\name{TestMacroBlockOverlay}}~\\
-Dieser Test überprüft die Überlagerung von Makroblockpartitionsentcheidungen, indem alle mögliche Entscheidungen auf eine Testframe gezeichnet werden und diese zur manuellen Betrachtung als Bilddatei gespeichert wird.
+Dieser Test überprüft die Überlagerung von Makroblockpartition-Entscheidungen, indem alle mögliche Entscheidungen auf einen Testframe gezeichnet werden und dieser zur manuellen Betrachtung als Bilddatei gespeichert wird.
 
 \item{\name{TestNoOverlay}}~\\
-Dieser Test überprüft ob die Überlagerung durch \name{NoOverlay} tatsächlich keinerlei Effekt auf die Eingabeframe besitzt.
+Dieser Test überprüft, ob die Überlagerung durch \name{NoOverlay} tatsächlich keinerlei Effekt auf den Eingabeframe besitzt.
 
 \item{\name{TestOverlayNode}}~\\
-Dieser Test überprüft ob der \name{OverlayNode}, im speziellen die Property \verb#InputIsValid#, korrekt funktioniert.
+Dieser Test überprüft, ob der OverlayNode, im speziellen die Property \verb#InputIsValid#, korrekt funktioniert.
 
-\item{\name{TestVecorOverlay}}~\\
-Dieser Test überprüft die Überlagerung von Bewegungsvektoren pro Makroblock, indem es verschiedenste Bewegungsvektoren auf eine Testframe zeichnet und diese zur manuellen Betrachtung als Bilddatei gespeichert wird.
+\item{\name{TestVectorOverlay}}~\\
+Dieser Test überprüft die Überlagerung durch Bewegungsvektoren pro Makroblock, indem es verschiedenste Bewegungsvektoren auf einen Testframe zeichnet und diese zur manuellen Betrachtung als Bilddatei gespeichert wird.
 
 \end{itemize}
 
@@ -182,9 +182,9 @@ Dieser Test überprüft die Überlagerung von Bewegungsvektoren pro Makroblock, 
 \paragraph{\name{DiagramViewModel}}
 \begin{itemize}
 	\item{\name{CanAddLine}} \\
-		Stellt sicher, dass das DiagramViewModel seinem Diagramm Kurven hinzufügen kann.
+		Stellt sicher, dass das DiagramViewModel seinem Diagramm Graphen hinzufügen kann.
 	\item{\name{CanDeleteLine}} \\
-		Stellt sicher, dass das DiagramViewModel Kurven von seinem Diagramm löschen kann.
+		Stellt sicher, dass das DiagramViewModel Graphen von seinem Diagramm löschen kann.
 	\item{\name{GetsData}} \\
 		Stellt sicher, dass die berechneten Daten dem DiagramViewModel korrekt übergeben werden.
 	\item{\name{ShowOnlyAvailableTypes}} \\
@@ -207,9 +207,9 @@ Dieser Test überprüft die Überlagerung von Bewegungsvektoren pro Makroblock, 
 \paragraph{\name{MainViewModel}}
 \begin{itemize}
 	\item \name{CanOpenCloseOutputWindow} \\
-	Stellt sicher, dass das View Model nach Öffnen und Schließen eines Ausgabefenster jeweils den korrekten Zustand annimmt.
+	Stellt sicher, dass das View Model nach Öffnen und Schließen eines Ausgabefensters jeweils den korrekten Zustand annimmt.
 	\item \name{OpenCreatesNodeViewModelsFromModel} \\
-	Stellt sicher, dass die Pipeline in Model und View Model nach Sichern und Laden korrekt wiederhergestellt wurde.
+	Stellt sicher, dass die Pipeline in Model und View Model nach Sichern und Laden korrekt wiederhergestellt werden.
 	\item \name{ToolboxCanHasBlurNode} \\
 	Stellt sicher, dass die Plugin-Knoten korrekt in die Toolbox geladen werden.
 	\item \name{UndoRedoWorks} \\
@@ -221,7 +221,7 @@ Dieser Test überprüft die Überlagerung von Bewegungsvektoren pro Makroblock, 
 \begin{itemize}
 
 \item{\name{TestGeneralFunctions}}~\\
-Dieser Test überprüft die Funktionalitäten von \name{OverlayViewModel}, im speziellen die Properties \verb#TypeTuples# und \verb#ChosenType# sowie die Methode \verb#Handle(TickRenderedMessage message)#, auf Korrektheit.
+Dieser Test überprüft die Korrektheit der Funktionalitäten des \name{OverlayViewModel}s. Im speziellen werden die Properties \verb#TypeTuples# und \verb#ChosenType#, sowie die Methode \verb#Handle(TickRenderedMessage message)# getestet.
 
 \end{itemize}
 
@@ -278,7 +278,7 @@ Dieser Test überprüft, ob das \name{PropertyEditorViewModel} die Properties de
 	\name{RgbPropertyViewModel} \\
 	\name{SizePropertyViewModel} \\
 	\name{ObservableCollectionOfDoublePropertyViewModel} \\
-	Dieser Tests überprüfen ob die Bindung der dem User zugänglichen Property an den jeweiligen Repräsentanten im ViewModel erfolgreich war.
+	Diese Tests überprüfen ob die Bindung der dem User zugänglichen Property an den jeweiligen Repräsentanten im View Model erfolgreich war.
 
 \end{itemize}
 
