@@ -141,7 +141,7 @@ namespace YuvKA.Pipeline.Implementation
 			Random rnd = new Random(seed % (tick == 0 ? 1 : tick));
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
-					byte color = (byte)rnd.Next(255);
+					byte color = (byte)rnd.Next(256);
 					frame[x, y] = new Rgb(color, color, color);
 				}
 			}
@@ -153,9 +153,9 @@ namespace YuvKA.Pipeline.Implementation
 			Random rnd = new Random(seed % (tick == 0 ? 1 : tick));
 			for (int y = 0; y < frame.Size.Height; ++y) {
 				for (int x = 0; x < frame.Size.Width; ++x) {
-					byte colorR = (byte)rnd.Next(255);
-					byte colorG = (byte)rnd.Next(255);
-					byte colorB = (byte)rnd.Next(255);
+					byte colorR = (byte)rnd.Next(256);
+					byte colorG = (byte)rnd.Next(256);
+					byte colorB = (byte)rnd.Next(256);
 					frame[x, y] = new Rgb(colorR, colorG, colorB);
 				}
 			}
@@ -168,7 +168,7 @@ namespace YuvKA.Pipeline.Implementation
 				for (int x = 0; x < frame.Size.Width; ++x) {
 					// Generate a noise function value, which is also tick-dependent
 					double randomNumber = (Noise(x * (double)Granularity, y * (double)Granularity, (double)Speed * tick) + 1) / 2;
-					byte randomColor = (byte)(randomNumber * 255);
+					byte randomColor = (byte)(randomNumber * 256);
 					frame[x, y] = new Rgb(randomColor, randomColor, randomColor);
 				}
 			}
