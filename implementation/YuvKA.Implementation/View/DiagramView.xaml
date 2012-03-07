@@ -18,8 +18,8 @@
 				</TextBlock>
 			</Expander.Header>
 			<DockPanel>
-				<StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
-					<ComboBox ItemsSource="{Binding Videos}" SelectedItem="{Binding ChosenVideo}" Width="150">
+				<StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+					<ComboBox ItemsSource="{Binding Videos}" SelectedItem="{Binding ChosenVideo}" Width="120">
 						<ComboBox.ItemTemplate>
 							<DataTemplate>
 								<TextBlock Text="{Binding Item1}" />
@@ -52,7 +52,7 @@
 		</Expander>
 		<StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
 			<Label Content="Reference:"/>
-			<ComboBox ItemsSource="{Binding Videos}" SelectedItem="{Binding Reference}" Width="150">
+			<ComboBox ItemsSource="{Binding Videos}" SelectedItem="{Binding Reference}" Width="120">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock Text="{Binding Item1}" />
