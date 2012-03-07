@@ -28,12 +28,30 @@
 				</conv:Mapping.To>
 			</conv:Mapping>
 		</conv:MapConverter>
+		<conv:MapConverter x:Key="VisibleConverter">
+			<conv:Mapping>
+				<conv:Mapping.From>
+					<sys:Boolean>False</sys:Boolean>
+				</conv:Mapping.From>
+				<conv:Mapping.To>
+					<sys:String>Collapsed</sys:String>
+				</conv:Mapping.To>
+			</conv:Mapping>
+			<conv:Mapping>
+				<conv:Mapping.From>
+					<sys:Boolean>True</sys:Boolean>
+				</conv:Mapping.From>
+				<conv:Mapping.To>
+					<sys:String>Visible</sys:String>
+				</conv:Mapping.To>
+			</conv:Mapping>
+		</conv:MapConverter>
 		<Style TargetType="ItemsControl" x:Key="MenuStyle" x:Shared="False">
 			<Setter Property="ItemsSource">
 				<Setter.Value>
 					<x:Array Type="MenuItem">
 						<MenuItem Header="Delete Node" cal:Message.Attach="[Event Click] = [Action RemoveNode()]" IsEnabled="{Binding Parent.Parent.ReplayStateViewModel.IsPlaying, Converter={StaticResource NotConverter}}"/>
-						<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" IsEnabled="{Binding HasOutputs}">
+						<MenuItem Header="Dump output..." ItemsSource="{Binding Model.Outputs}" Visibility="{Binding HasOutputs, Converter={StaticResource VisibleConverter}}">
 							<MenuItem.ItemContainerStyle>
 								<Style TargetType="MenuItem">
 									<Setter Property="cal:Action.TargetWithoutContext" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"/>
@@ -43,7 +61,7 @@
 								</Style>
 							</MenuItem.ItemContainerStyle>
 						</MenuItem>
-						<MenuItem Header="Display output..." ItemsSource="{Binding Model.Outputs}" IsEnabled="{Binding HasOutputs}">
+						<MenuItem Header="Display output..." ItemsSource="{Binding Model.Outputs}" Visibility="{Binding HasOutputs, Converter={StaticResource VisibleConverter}}">
 							<MenuItem.ItemContainerStyle>
 								<Style TargetType="MenuItem">
 									<Setter Property="cal:Action.TargetWithoutContext" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"/>
