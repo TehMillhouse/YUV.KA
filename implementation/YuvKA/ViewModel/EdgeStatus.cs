@@ -11,6 +11,11 @@
 		Indeterminate,
 
 		/// <summary>
+		/// Fabulous
+		/// </summary>
+		Fabulous,
+
+		/// <summary>
 		/// Connection not valid, edge will be removed when dropped
 		/// </summary>
 		Invalid,

@@ -20,13 +20,15 @@ namespace YuvKA.ViewModel
 
 		public EdgeStatus Status
 		{
-			get { return status; }
+			get { return status == EdgeStatus.Indeterminate && Parent.Fabulous ? EdgeStatus.Fabulous : status; }
 			set
 			{
 				status = value;
 				NotifyOfPropertyChange(() => Status);
 			}
 		}
+
+		public PipelineViewModel Parent { get; set; }
 
 		public Point StartPoint
 		{

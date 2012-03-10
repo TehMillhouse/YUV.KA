@@ -20,6 +20,7 @@ namespace YuvKA.ViewModel
 		Vector dragMouseOffset;
 		IEnumerable<EdgeViewModel> edges = Enumerable.Empty<EdgeViewModel>();
 		int maxZValue;
+		bool fabulous;
 
 		public PipelineViewModel(MainViewModel parent)
 		{
@@ -44,7 +45,7 @@ namespace YuvKA.ViewModel
 					let iModel = ((Node.Input)input.Model)
 					where iModel.Source != null
 					let output = GetOutputViewModel(iModel.Source)
-					select new EdgeViewModel { StartViewModel = input, EndViewModel = output };
+					select new EdgeViewModel { Parent = this, StartViewModel = input, EndViewModel = output };
 
 				return edges = newEdges.ToList();
 			}
@@ -62,6 +63,17 @@ namespace YuvKA.ViewModel
 			{
 				draggedEdge = value;
 				NotifyOfPropertyChange(() => DraggedEdge);
+			}
+		}
+
+		public bool Fabulous
+		{
+			get { return fabulous; }
+			set
+			{
+				fabulous = value;
+				foreach (var edge in edges)
+					edge.NotifyOfPropertyChange(() => edge.Status);
 			}
 		}
 
@@ -113,7 +125,7 @@ namespace YuvKA.ViewModel
 					// remember the end of the grabbed edge
 					draggedEdgeEndNodeVM = inOut.Parent;
 				}
-				DraggedEdge = new EdgeViewModel { StartViewModel = start, EndViewModel = inOut };
+				DraggedEdge = new EdgeViewModel { Parent = this, StartViewModel = start, EndViewModel = inOut };
 			}
 		}
 

@@ -33,7 +33,7 @@ namespace YuvKA.ViewModel
 		/// </summary>
 		public void PlayPause()
 		{
-			if (Parent.Model.CurrentTick == Parent.Model.Graph.TickCount)
+			if (Parent.Model.CurrentTick >= Parent.Model.Graph.TickCount)
 				Stop();
 
 			if (!Parent.Model.IsPlaying)

@@ -46,6 +46,10 @@
 				<Button x:Name="Redo" ToolTip="Redo    Ctrl+Y" Margin="1,0,1,0" Content="{StaticResource ResourceKey=RedoIcon}"/>
 			</StackPanel>
 			<Rectangle Width="1" Stroke="Silver" Margin="8,4,8,4"/>
+			<ToggleButton ToolTip="Fabulous" IsChecked="{Binding PipelineViewModel.Fabulous}" VerticalAlignment="Center">
+				<Image Source="fabulous.png" Stretch="None"/>
+			</ToggleButton>
+			<Rectangle Width="1" Stroke="Silver" Margin="8,4,8,4"/>
 			<ContentControl cal:View.Model="{Binding ReplayStateViewModel}"/>
 		</DockPanel>
 		<ContentControl cal:View.Model="{Binding ToolboxViewModel}" DockPanel.Dock="Bottom"/>

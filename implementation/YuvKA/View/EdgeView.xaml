@@ -7,13 +7,39 @@
 	<Grid>
 		<Path Data="{Binding Geometry}" StrokeThickness="4" Stroke="Black"/>
 		<Path Data="{Binding Geometry}" StrokeThickness="2">
-			<Path.Stroke>
+					<Path.Triggers>
+				<EventTrigger RoutedEvent="Loaded">
+					<BeginStoryboard>
+						<Storyboard RepeatBehavior="Forever">
+							<PointAnimation By="0,-2" Storyboard.TargetName="Rainbow" Storyboard.TargetProperty="StartPoint"/>
+							<PointAnimation By="0,-2" Storyboard.TargetName="Rainbow" Storyboard.TargetProperty="EndPoint"/>
+						</Storyboard>
+					</BeginStoryboard>
+				</EventTrigger>
+			</Path.Triggers>
+				<Path.Stroke>
 				<Binding Path="Status">
 					<Binding.Converter>
 						<conv:MapConverter>
 							<conv:Mapping From="{x:Static my:EdgeStatus.Indeterminate}">
 								<conv:Mapping.To>
 									<SolidColorBrush Color="White"/>
+								</conv:Mapping.To>
+							</conv:Mapping>
+							<conv:Mapping From="{x:Static my:EdgeStatus.Fabulous}">
+								<conv:Mapping.To>
+									<LinearGradientBrush StartPoint="0,0" EndPoint="0,2" x:Name="Rainbow" SpreadMethod="Repeat">
+										<LinearGradientBrush.GradientStops>
+											<GradientStop Color="Red" />
+											<GradientStop Color="Orange" Offset=".15" />
+											<GradientStop Color="Yellow" Offset=".3" />
+											<GradientStop Color="Green" Offset=".45" />
+											<GradientStop Color="Blue" Offset=".6"/>
+											<GradientStop Color="Indigo" Offset=".75"/>
+											<GradientStop Color="Violet" Offset=".9"/>
+											<GradientStop Color="Red" Offset="1"/>
+										</LinearGradientBrush.GradientStops>
+									</LinearGradientBrush>
 								</conv:Mapping.To>
 							</conv:Mapping>
 							<conv:Mapping From="{x:Static my:EdgeStatus.Invalid}">
