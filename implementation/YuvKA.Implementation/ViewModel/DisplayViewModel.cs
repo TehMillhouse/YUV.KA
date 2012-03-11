@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Caliburn.Micro;
 using YuvKA.Pipeline;
 using YuvKA.Pipeline.Implementation;
 
@@ -35,8 +31,14 @@ namespace YuvKA.ViewModel.Implementation
 		public override void Handle(TickRenderedMessage message)
 		{
 			base.Handle(message);
+			if (NodeModel.Data == null)
+				return;
+
 			int width = NodeModel.Data.Size.Width;
 			int height = NodeModel.Data.Size.Height;
+			if (width == 0 || height == 0)
+				return;
+
 			if (RenderedImage == null || width != widthOld || height != heightOld) {
 				RenderedImage = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgr32, null);
 				widthOld = width;
