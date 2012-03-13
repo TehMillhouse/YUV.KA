@@ -16,6 +16,7 @@ Technology
  * Dependency Injection using [MEF](http://msdn.microsoft.com/en-us/library/dd460648.aspx)
  * Model-View-ViewModel using [Caliburn.Micro 1.3.0](http://caliburnmicro.codeplex.com)
  * Full task-based parallelization using [Task Parallel Library](http://msdn.microsoft.com/en-us/library/dd460717.aspx)
+ * Unit testing using [xUnit](http://xunit.codeplex.com/), integrated into Visual Studio using [TestDriven.Net](http://www.testdriven.net/).
  * Extensible by plugins
 
 
