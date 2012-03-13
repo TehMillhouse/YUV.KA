@@ -6,6 +6,7 @@
 \KITfoot{YUV.KA - Praxis der Softwareentwicklung WS 11/12}
 \usepackage[utf8]{inputenc}
 \usepackage{ngerman}
+\usepackage{graphicx}
 \usenavigationsymbols
 
 \title{YUV.KA}
@@ -23,6 +24,59 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Was ist ein Videoencoder?}
+	
+	\begin{center}
+		\vspace*{\fill}
+		\includegraphics[scale=.43]{video-encoding-process.png}
+		\vspace*{\fill}
+		\onslide<2-> Warum das Ganze? ~\\
+		\onslide<3-> $ \Longrightarrow $ Speicherbedarf der Videos reduzieren
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Funktionsweise des Encoders}
+	\begin{minipage}{5.5cm}
+		\includegraphics[scale=.29]{overlay-medium.png}	
+	\end{minipage}
+	\begin{minipage}{5.5cm}
+		\begin{itemize}
+			\item<+-> Unterteilung in Makroblöcke
+			\item<+-> Wiederverwendung von Bildteilen aus dem aktuellen Frame
+			\item<+-> Wiederverwendung von Bildteilen aus vorherigen Frames
+		\end{itemize}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Der Referenzencoder}
+	~\\
+	% Referenz-Encoder
+	\begin{minipage}{5.3cm}
+		\includegraphics[scale=.5]{ref.png}
+		~\\
+		\begin{itemize}
+			\item<2-> Liefert optimale Lösung
+			\item<4-> Geht alle Möglichkeiten durch
+			\item<5-> Sehr langsam
+		\end{itemize}
+	\end{minipage}
+	\hfill	
+	% Beliebiger Encoder
+	\begin{minipage}{4.7cm}
+		\includegraphics[scale=.5]{beliebig.png}
+		~\\
+		\begin{itemize}
+			\item<3-> Liefert meist gute Lösung
+			\item<6-> Algorithmisches Vorgehen
+			\item<7-> Schnell
+			
+		\end{itemize}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Das Projekt}
 	
 	\begin{itemize}
@@ -36,7 +90,7 @@
 \begin{frame}
 	\frametitle{Die Lösung: YUV.KA}
 	\begin{center}
-		\includegraphics[height=0.7\textheight]{startup_screenshot.png}
+		\includegraphics[height=.9\textheight]{startup_screenshot.png}
 	\end{center}
 \end{frame}
 
