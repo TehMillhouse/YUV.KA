@@ -6,7 +6,6 @@
 \KITfoot{YUV.KA - Praxis der Softwareentwicklung WS 11/12}
 \usepackage[utf8]{inputenc}
 \usepackage{ngerman}
-\usepackage{graphicx}
 \usenavigationsymbols
 
 \title{YUV.KA}
@@ -24,8 +23,13 @@
 \end{frame}
 
 \begin{frame}
+	\addcontentsline{toc}{section}{Übersicht}
+	\tableofcontents
+\end{frame}
+
+\section{Vorwissen}
+\begin{frame}
 	\frametitle{Was ist ein Videoencoder?}
-	
 	\begin{center}
 		\vspace*{\fill}
 		\includegraphics[scale=.43]{video-encoding-process.png}
@@ -76,56 +80,98 @@
 	\end{minipage}
 \end{frame}
 
+\section{Das Projekt}
 \begin{frame}
 	\frametitle{Das Projekt}
-	
+	\begin{center}
+		Ein Multimedia-Framework zur Evaluierung von Videoencodern	
+	\end{center}
+	\onslide<2-> Was ist dazu nötig? \newline
 	\begin{itemize}
-		\item<+-> Ein Multimedia-Framework zur Evaluierung von Videoencodern
-		\item<+-> Videos im YUV-Format einlesen und mit Syntheseoptionen verändern
-		\item<+-> Videos mit Hife des Programms analysieren
+		\item<3-> Videos im YUV-Format einlesen und manipulieren
 	\end{itemize}
-	\onslide<4>{$ \Longrightarrow $ Programm soll Entwicklern beim Testen ihrer Encoder helfen}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Beispiel}
+
+	\begin{center}
+		Original ~\\
+		\includegraphics[scale=.45]{rafting-original.png}	
+	\end{center}
+	\begin{minipage}{5cm}
+		\begin{center}
+			Verschwommenes Bild ~\\
+			\includegraphics[scale=.45]{rafting-blur.png}		
+		\end{center}	
+	\end{minipage}
+	\hfill
+	\begin{minipage}{5cm}
+		\begin{center}
+			Bild mit Grünstich ~\\
+			\includegraphics[scale=.45]{rafting-green.png}
+		\end{center}	
+	\end{minipage}
+	\hfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Das Projekt}
+	\begin{center}
+		Ein Multimedia-Framework zur Evaluierung von Videoencodern	
+	\end{center}
+	\onslide<1-> Was ist dazu nötig? \newline
+	\begin{itemize}
+		\item<1-> Videos im YUV-Format einlesen und manipulieren
+		\item<2-> Videos mit einem externen Encoder encodieren
+		\item<3-> Ergebnisse mit Hife des Programms analysieren
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Beispiel}
+
+	\begin{center}
+		Original ~\\
+		\includegraphics[scale=.2]{football-original.png}	
+	\end{center}
+	\begin{minipage}{5cm}
+		\begin{center}
+			Bild mit Makroblock-Overlay ~\\
+			\includegraphics[scale=.2]{football-macroblock.png}		
+		\end{center}	
+	\end{minipage}
+	\hfill
+	\begin{minipage}{5cm}
+		\begin{center}
+			Bild mit Artefakt-Overlay ~\\
+			\includegraphics[scale=.455]{football-artifact.png}
+		\end{center}	
+	\end{minipage}
+	\hfill
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Das Projekt}
+	\begin{center}
+		Ein Multimedia-Framework zur Evaluierung von Videoencodern	
+	\end{center}
+	\onslide<1-> Was ist dazu nötig? \newline
+	\begin{itemize}
+		\item<1-> Videos im YUV-Format einlesen und manipulieren
+		\item<1-> Videos mit einem externen Encoder encodieren
+		\item<1-> Ergebnisse mit Hife des Programms analysieren
+	\end{itemize}
+	\onslide<2>{$ \Longrightarrow $ Programm soll Entwicklern beim Testen ihrer Encoder helfen}
+\end{frame}
+
+\section{Unsere Lösung}
 \begin{frame}
 	\frametitle{Die Lösung: YUV.KA}
 	\begin{center}
 		\includegraphics[height=.9\textheight]{startup_screenshot.png}
 	\end{center}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Planung I}
-	Videomanipulation ~\\
-	\begin{itemize}
-		\item<+-> Eingabe von Videos, Bildern, Farbe und Noise
-		\item<+-> Farbkanäle trennen und Videos mergen
-		\item<+-> Videos weichzeichnen
-		\item<+-> Differenzvideos bilden
-		\item<+-> Videoanalyse
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Planung II}
-	
-	Videoanalyse ~\\
-	\begin{itemize}
-		\item<+-> Histogramm
-		\item<+-> Anzahl der Differenzen der Pixelfarben
-		\item<+-> Anzahl der Artefakte und Artefaktoverlay
-		\item<+-> Differenz der Encoderentscheidungen
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Planung III}
-	
-	Sonstige Features ~\\
-	\begin{itemize}
-		\item<+-> Erweiterbarkeit der Knotenmenge durch Plug-ins
-		\item<+-> Parallelisiertes Rendering
-	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -170,40 +216,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Implementierung}
-    \noindent
-    \begin{minipage}{3.5cm}
-        \includegraphics[scale=0.37]{Layers.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{8cm}
-    \begin{itemize}
-        \item<+-> Architektur größtenteils beibehalten
-        \item<+-> Entwurf stellte sich als gut machbar heraus
-        \item<+-> Änderungen bestehen größtenteils aus Implementierungsdetails ~\\ ~\\
-        Darunter fallen:
-        \begin{itemize}
-            \item<+-> View-spezifische Klassen
-            \item<+-> Framework-spezifische Klassen
-            \item<+-> Schwer vorhersehbare Properties und Methoden, die sich erst bei der Implementierung als notwendig herausgestellt haben
-        \end{itemize}
-    \end{itemize}
-    \end{minipage}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Testphase I}
-    \begin{itemize}
-        \item<+-> Großteil des Projektcodes durch Tests abgedeckt
-        \item<+-> Aufbereitung der Daten für die View auf Korrektheit überprüft
-        \item<+-> Darstellung der View jedoch nicht abgedeckt, da die View keine Logik enthält
-        \item<+-> Korrektheit mancher Klassen nicht automatisch verifizierbar
-        \item<+-> Manuelle Überprüfung der Resultate solcher Klassen (bsp. YuvEncoder)
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Testphase II}
+    \frametitle{Das Testen}
     \vspace{1cm}
 	\begin{tabular}{@{\extracolsep{\fill}} |l|c|}
 		\hline
@@ -235,6 +248,7 @@
     \end{itemize}
 \end{frame}
 
+\section{Live-Demo}
 \begin{frame}
 	\begin{center}
 		\textbf{Live-Demo}
