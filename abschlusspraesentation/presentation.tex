@@ -16,6 +16,14 @@
 
 \TitleImage[trim = -20cm 0 0 0,height=\titleimageht]{logo.png}
 
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Übersicht}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
 \begin{document}
 
 \begin{frame}
@@ -23,7 +31,8 @@
 \end{frame}
 
 \begin{frame}
-	\addcontentsline{toc}{section}{Übersicht}
+	\frametitle{Übersicht}
+	\addcontentsline{toc}{section}{}
 	\tableofcontents
 \end{frame}
 
@@ -249,10 +258,10 @@
 \end{frame}
 
 \section{Live-Demo}
-\begin{frame}
-	\begin{center}
-		\textbf{Live-Demo}
-	\end{center}
-\end{frame}
+%\begin{frame}
+%	\begin{center}
+%		\textbf{Live-Demo}
+%	\end{center}
+%\end{frame}
 
 \end{document} 
