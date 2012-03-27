@@ -67,18 +67,20 @@ Max Wagner $\cdot$ Patrick Gemander $\cdot$ Sebastian Ullrich $\cdot$ Michael Vo
 	~\\
 	% Referenz-Encoder
 	\begin{minipage}{5.3cm}
-		\includegraphics[scale=.5]{ref.png}
+		Referenz-Encoder ~\\ ~\\
+		\includegraphics[scale=.5]{encoder.png}
 		~\\
 		\begin{itemize}
-			\item<2-> Liefert optimale Lösung \newline
+			\item<2-> Liefert optimale Lösung
 			\item<4-> Geht alle Möglichkeiten durch
 		\end{itemize}
 		\onslide<5->{ $ \Longrightarrow $ Extrem langsam}
 	\end{minipage}
 	\hfill	
 	% Beliebiger Encoder
-	\begin{minipage}{4.7cm}
-		\includegraphics[scale=.5]{beliebig.png}
+	\begin{minipage}{5.3cm}
+		Zu entwickelnder Encoder ~\\ ~\\
+		\includegraphics[scale=.5]{encoder-crystalized.png}
 		~\\
 		\begin{itemize}
 			\item<3-> Liefert möglichst gute Lösung
@@ -121,7 +123,7 @@ Max Wagner $\cdot$ Patrick Gemander $\cdot$ Sebastian Ullrich $\cdot$ Michael Vo
 	\begin{minipage}{5cm}
 		\begin{center}
 			Bild mit Rauschen ~\\
-			\includegraphics[scale=.45]{rafting-noise.png}
+			\includegraphics[scale=.43]{rafting-colored-perlin.png}
 		\end{center}	
 	\end{minipage}
 	\hfill
@@ -256,8 +258,10 @@ Max Wagner $\cdot$ Patrick Gemander $\cdot$ Sebastian Ullrich $\cdot$ Michael Vo
 \begin{frame}
     \frametitle{Erkenntnisse aus dem Projekt}
     \begin{itemize}
-        \item<+-> Entwurf vor Implementierung funktioniert...
-        \item<+-> ... kann jedoch Probleme mit sich bringen
+        \item<+-> Entwurf vor Implementierung funktioniert
+        	\begin{itemize}
+        		\item<+-> Kann jedoch Probleme mit sich bringen
+        	\end{itemize}
         \item<+-> Kommunikation und Koordination sind essentiell
         \item<+-> Softwareentwicklung ist sehr zeitintensiv
         \item<+-> (Graphische) Benutzeroberfläche benötigt (wesentlich) mehr Aufwand als Programmlogik
